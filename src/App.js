@@ -4,7 +4,9 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Login from './notMember/login/Login';
 import Signin from './notMember/signin/Signin';
 import Findpw from './notMember/findpw/Findpw';
+import Gnewpw from './notMember/findpw/Gnewpw';
 import MemberIndex from './member/MemberIndex';
+
 
 function App() {
   
@@ -18,6 +20,7 @@ function App() {
           <Route path='/*' element={<Login />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
+          <Route path='/gnewpw/*' element={<Gnewpw />} />
           <Route path='/member/*' element={<MemberIndex />} />
         </Routes>
       </BrowserRouter>

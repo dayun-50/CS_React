@@ -11,13 +11,6 @@ function App() {
   //최상위 컴포넌트
   // 나중에는 /member 없애고 path /*에 로그인 여부에 따라서 "로그인됨 ? <Member /> : <Login />" 식으로 변경 필요
   
-
-
-
-
-
-
-  
   return (
     <div className="container">
       <BrowserRouter>

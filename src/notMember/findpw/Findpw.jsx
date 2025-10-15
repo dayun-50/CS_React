@@ -43,7 +43,7 @@ function Findpw (){
 
                     <div className={styles.pwcheckbuttons}>
                         <button className={styles.backbt} onClick={() => navigate(-1)}>취소</button>
-                        <button className={styles.okbt} onClick={() => navigate("/Gnewpw")}>완료</button>
+                        <button className={styles.okbt} onClick={() => navigate("/gnewpw")}>완료</button>
                     </div>
 
                 </div>

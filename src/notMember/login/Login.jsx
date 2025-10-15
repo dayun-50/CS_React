@@ -39,10 +39,10 @@ function Login (){
                     <button className={styles.loginbutton}>로그인</button>
 
                     <p className={styles.signup}>
-                        회원이신가요? <Link to="/Signin">회원가입</Link>
+                        회원이신가요? <Link to="/signin">회원가입</Link>
                     </p>
 
-                    <Link to="/Findpw" className={styles.changepw}>비밀번호 찾기</Link>
+                    <Link to="/findpw" className={styles.changepw}>비밀번호 찾기</Link>
                     
                 </div>
             </div>

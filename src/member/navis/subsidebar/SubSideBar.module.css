@@ -1,0 +1,103 @@
+/*최상위 래퍼*/
+.submenuWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  background-color: white;
+  border-left: 1px solid #eee;
+  min-width: 220px;
+  height: 100%;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+
+/*추가하기버튼*/
+.btn {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 80%;
+  height: 48px;
+  background-color: #4498e4;
+  color: white;
+  border: none;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/*추가 버튼 제외 버튼들 묶는거*/
+/* 탭 (기본 세로 정렬) */
+.tabWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+.tab{
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #404040;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+.tab:hover {
+  background-color:#eef6ff;
+}
+
+.active {
+  border-left: 3px solid #0090ff;
+  background-color: #eef6ff;
+  font-weight: bold;
+}
+
+
+
+/* ✅ 반응형 (모바일: 가로 일렬 정렬) */
+@media (max-width: 768px) {
+  .submenuWrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    border-left: none;
+    border-bottom: 1px solid #eee;
+    padding: 40px 16px 30px;
+    gap: 10px;
+    min-width: 100%;
+    height: auto;
+  }
+
+  .addButton {
+    width: auto;
+    height: 36px;
+    font-size: 14px;
+    padding: 0 14px;
+    border-radius: 18px;
+  }
+
+  .tabWrapper {
+    flex-direction: row;
+    width: auto;
+    gap: 6px;
+  }
+
+  .tab {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    background-color: transparent;
+  }
+
+  .active {
+    border-bottom: 2px solid #0090ff;
+    background-color: transparent;
+    font-weight: bold;
+  }
+}

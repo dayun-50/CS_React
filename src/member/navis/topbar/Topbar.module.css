@@ -1,0 +1,93 @@
+.container {
+  width: 100%;
+  position: relative;
+  box-shadow: 0px 4px 7.9px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 32px;
+  color: #0090ff;
+  font-family: Pretendard;
+}
+.frameParent {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0px 16px;
+  gap: 50px;
+}
+
+/* 상단 로고 */
+.log {
+width: 95px;
+position: relative;
+height: 40px;
+}
+
+.logIcon {
+position: absolute;
+top: 0px;
+left: 0px;
+width: 43px;
+height: 40px;
+object-fit: cover;
+}
+
+.cs {
+position: absolute;
+top: 9px;
+left: 51px;
+line-height: 22px;
+text-transform: uppercase;
+font-weight: 800;
+}
+
+/* 상단 우측 아이콘 */
+.frameGroup {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 12px;
+}
+.user {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+}
+
+.notification {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+}
+
+/* 카테고리 */
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* 기본은 숨김 */
+  padding: 8px;
+}
+
+.hamburger img {
+  width: 24px;
+  height: 24px;
+}
+
+/* 768px 이하일 때만 보이게 */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}

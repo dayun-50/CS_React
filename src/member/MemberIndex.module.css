@@ -1,0 +1,88 @@
+.container {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 스크롤 방지 */
+  font-family: Pretendard, sans-serif;
+}
+
+/* 상단 바 */
+.header {
+  position: relative; /* 또는 fixed */
+  z-index: 1100; /* 사이드바보다 높게 */
+  height: 72px;
+  background-color: #fff;
+}
+
+/*상단바 제외 한 영역*/
+.body{
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* 메인 네비바 */
+.sidebar {
+  width: 220px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+
+  /* 기본은 숨긴 상태 (왼쪽 화면 밖으로 이동) */
+  position: fixed;
+  left: -220px;
+  transition: left 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* sidebarOpen 시 보여주기 */
+.sidebar.open {
+  left: 0;
+}
+
+/* 메인 네비인 sidebar제외한 우측영역 */
+.content{
+  flex: 1;
+}
+
+
+/*-----------------------------------------------------------------------------*/
+
+/* 반응형 */
+@media (min-width: 768px) {
+  .container {
+    overflow: visible; /* 또는 visible */
+  }
+
+  .body {
+    padding-left: 0; /* 사이드바 너비 만큼 */
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: relative;
+    left: 0 !important;
+    box-shadow: none;
+  }
+  .hamburger {
+    display: none;
+  }
+}
+
+/* 카테고리 반응시 옆에 블라인드 처리 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 검정 */
+  z-index: 999; /* 사이드바보다 뒤, 콘텐츠보다 위 */
+}

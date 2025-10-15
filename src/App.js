@@ -5,6 +5,8 @@ import Login from './notMember/login/Login';
 import Signin from './notMember/signin/Signin';
 import Findpw from './notMember/findpw/Findpw';
 import MemberIndex from './member/MemberIndex';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
   
@@ -12,14 +14,10 @@ function App() {
   // 나중에는 /member 없애고 path /*에 로그인 여부에 따라서 "로그인됨 ? <Member /> : <Login />" 식으로 변경 필요
   
 
-
-
-
-
-
   
   return (
     <div className="container">
+
       <BrowserRouter>
         <Routes>
           <Route path='/*' element={<Login />} />

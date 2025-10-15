@@ -15,7 +15,7 @@ function MemberIndex (){
 
 
     return(
-        <div className={styles.container}>
+      <div className={styles.container}>
 
       {/* 상단바 고정*/}
       <div className={styles.header}>
@@ -33,21 +33,20 @@ function MemberIndex (){
             {/* 바디영역 :우측*/}
             {/*가장 첫번째 뜨는 화면이 근태관리로 해서 /랑 매핑해놓음*/}
             <div className={styles.content}>
-                <Routes>
+
+
+
+                {/*<Routes> 이 라우팅은 지원용 신경 XX
                     <Route path='/' element={<WorkHourIndex />} />
                     <Route path='/approval/*' element={<ApprovalIndex />} />
-                </Routes>
+                </Routes>*/}
             </div>
 
         {/* 오버레이 - 불투명 설정 */}
         {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 
       </div>
-
-
-
-        </div>
-    )
+      </div>)
 }
 
 export default MemberIndex;

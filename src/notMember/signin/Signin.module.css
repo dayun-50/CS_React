@@ -59,15 +59,15 @@
     font-weight: 700;
     border: none;
     outline: none;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .emailauth:hover {
-    background-color: #b0afb0; /* 조금 더 진한 회색 */
-    cursor: pointer;
-    transform: translateY(-2px); /* 살짝 위로 이동 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 살짝 그림자 */
-    transition: all 0.3s ease;
+    /* background-color: #b0afb0; /* 조금 더 진한 회색 */
+    /* cursor: pointer; */
+    /* transform: translateY(-2px); 살짝 위로 이동 */ 
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 살짝 그림자 */
+    /* transition: all 0.3s ease; */
 }
 
 .newemail label {
@@ -281,10 +281,10 @@
     font-size: 16px;
     font-weight: 700;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
     color: white;
     background-color: #cac9c9;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .signinbutton {
@@ -295,22 +295,22 @@
     font-size: 16px;
     font-weight: 700;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
     background-color: #499ef8;
     color:white;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .backbutton:hover {
-    background-color: #b0b0b0; /* 조금 더 진한 회색 */
-    transform: translateY(-2px); /* 살짝 위로 올라오는 느낌 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 살짝 그림자 */
+    /* background-color: #b0b0b0; /* 조금 더 진한 회색 */
+    /* transform: translateY(-2px); 살짝 위로 올라오는 느낌 */ 
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 살짝 그림자 */
 }
 
 .signinbutton:hover {
-    background-color: #3a8ce0; /* 조금 더 진한 파랑 */
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* background-color: #3a8ce0; /* 조금 더 진한 파랑 */
+    /* transform: translateY(-2px);  */ 
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
 }
 
 /* 태블릿용 반응형 */

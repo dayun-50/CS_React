@@ -26,8 +26,6 @@ function useFindpw() {
     const hendleChangeById = (e) => {
         let value = e.target.value;
         setId(value);
-        console.log(check.idcheck); // 나중에 제거
-        console.log(serverCode);
         setCheck(prev => ({
             ...prev,
             id: idRegex.test(value),
@@ -61,7 +59,6 @@ function useFindpw() {
         caxios.post("/member/findpw", { email: id },
             { withCredentials: true }) // 사원 테이블에 있는지부터 체크
             .then(resp => {
-                console.log(resp);
                 if (resp) { // 사원테이블에 존재하지 않은 이메일일시
                     // 사원 존재하면 이메일 발송
                     caxios.post("/emailauth", { email: id },
@@ -86,8 +83,7 @@ function useFindpw() {
         const allvalid = Object.values(check).every(value => value === true);
         // 빈값이 아니라 값이 다 들어있고 모두 올바른 값이라면
         if (!allvalid) {
-            console.log(check); // 나중에 제거하셈
-            alert("인증 실패 : 인증 번호 재확인 필요"); // 나중에 제거하셈
+            alert("인증 실패 : 인증 번호 재확인 필요");
             return false;
         }
         navigate("../Gnewpw/Gnewpw", { state: { id: id } });

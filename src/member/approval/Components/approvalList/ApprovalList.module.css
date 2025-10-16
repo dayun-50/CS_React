@@ -1,17 +1,106 @@
 .container{
     width: 100%;
     height: 100%;
-    background-color: pink;
     display: flex;
 }
 
-.left {
-    float: left;
+.left {}
+
+/*오른쪽 파트*/
+.right{
+  flex: 1; /* 남은 공간 자동 확장 */
+  height: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.approvalListBox {
+    width: 96%;
+    height: 96%;
+    border: 1px solid darkgray;
+    border-radius: 12px;
+    padding: 15px;
 }
 
-.right{
-    float: left;
+.listFirst{
+  font-weight: 600;
+  font-size: 20px;
+  padding-top: 3px;
+  padding-bottom: 18px;
 }
+
+.listSecond{
+  font-weight: 300;
+  font-size: 15px;
+  color:  rgb(111, 111, 111);
+  border-bottom: 1px solid darkgray;
+}
+/*2째줄 + 리스트 열*/
+.listSecond,
+.listRow {
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+/*2째줄 + 리스트 열 :seq*/
+.listSecond div:nth-child(1),
+.listRow div:nth-child(1) {
+    width: 10%;
+    height: 100%;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*2째줄 + 리스트 열 :title*/
+.listSecond div:nth-child(2),
+.listRow div:nth-child(2) {
+    width: 70%;
+    height: 100%;
+    float: left;
+
+    display: flex;
+    align-items: center;
+}
+/*3째줄 + 리스트 열 :date*/
+.listSecond div:nth-child(3),
+.listRow div:nth-child(3) {
+    width: 15%;
+    height: 100%;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*4째줄 + 리스트 열 :처리상태*/
+.listSecond div:nth-child(4),
+.listRow div:nth-child(4) {
+    width: 10%;
+    height: 100%;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inProgress {
+    color: gray;
+}
+
+.approved {
+    color: blue;
+}
+
+.denied {
+    color: red;
+}
+
+
+
+
 
 /* ✅ 반응형 (모바일: 가로 일렬 정렬) */
 @media (max-width: 768px) {

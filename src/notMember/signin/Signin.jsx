@@ -9,7 +9,7 @@ function Signin() {
 
     // js 코드들 따로 모아두고 임포트시켜서 사용함
     const {
-        id, pw, name, phone1, phone2, code, checked,
+        id,emailauth, pw, name, phone1, phone2, code, checked,
         hendleChangeById, hendleChangeByPw, hendleChangeByName, hendleChangeByPhone1,
         hendleChangeByPhone2, hendleChangeByCode, hendleChangeByEmailauth,
         clickByChacBox, clickByComplete, clickByEmailauth
@@ -35,8 +35,10 @@ function Signin() {
 
                 <div className={styles.mbsinbox}>
 
-                    <h1 className={styles.newusertitle}>회원가입</h1>
 
+                    <div className={styles.h1h1}>
+                    <h1 className={styles.newusertitle}>회원가입</h1>
+                    </div>
                     <div className={styles.newemail}>
                         <label htmlFor="email">이메일</label>
                         <div className={styles.inputButtonWrapper}>
@@ -46,8 +48,14 @@ function Signin() {
                     </div>
 
                     <div className={styles.newpw}>
-                        <label htmlFor="password">비밀번호</label>
-                        <input id="password" type="password" placeholder="비밀번호" value={pw} onChange={hendleChangeByPw} /> <br />
+
+                    <label htmlFor="emailok">이메일 확인</label>
+                    <input id="emailok" type="password" placeholder="이메일 인증" value={emailauth} onChange={hendleChangeByEmailauth}/> <br/>
+                    </div>
+
+                    <div className={styles.newpw}>
+                    <label htmlFor="password">비밀번호</label>
+                    <input id="password" type="password" placeholder="비밀번호" value={pw} onChange={hendleChangeByPw}/> <br/>
                     </div>
 
                     <div className={styles.name}>
@@ -59,9 +67,9 @@ function Signin() {
                         <label htmlFor="phone">연락처</label>
                         <div className={styles.phoneWrapper}>
                             <span className={styles.prefix}>010 -</span>
-                            <input id="phone1" type="text" placeholder="1234" value={phone1} onChange={hendleChangeByPhone1} />
+                            <input id="phone1" type="text" placeholder="연락처" value={phone1} onChange={hendleChangeByPhone1}/>
                             <span className={styles.dash}>-</span>
-                            <input id="phone2" type="text" placeholder="1234" value={phone2} onChange={hendleChangeByPhone2} />
+                            <input id="phone2" type="text" placeholder="연락처" value={phone2} onChange={hendleChangeByPhone2}/>
                         </div>
                     </div>
 

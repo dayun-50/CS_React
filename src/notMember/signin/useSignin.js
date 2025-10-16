@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { caxios } from "../../config/config"
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,12 @@ function useSignin() {
     const [code, setCode] = useState(""); // 초대코드
     const [checked, setChecked] = useState(false); // 개인정보 동의
 
+    useEffect(() => {
+        if (serverCode !== "") {
+            console.log("업데이트된 serverCode:", serverCode);
+        }
+    }, [serverCode]);
+
     // 아이디(이메일) 입력창 핸들러
     const hendleChangeById = (e) => {
         let value = e.target.value;
@@ -35,7 +41,7 @@ function useSignin() {
             id: idRegex.test(value),
             idcheck: false
         }));
-        if(check.id === false){
+        if (check.id === false) {
             /*
                 보더 색깔창이요
             */
@@ -44,16 +50,14 @@ function useSignin() {
     // 이메일 인증 핸들러
     const hendleChangeByEmailauth = (e) => {
         let value = e.target.value;
-        check.idcheck = false;
         setEmailauth(value);
-        if (serverCode !== "") { // 빈값이 아닌 상황에서
-            if (value === serverCode) { // 서버에서 전달해준 값과 같다면
-                check.idcheck = true;
-            }else{
-                /*
-                    보더 색넣는거 해야함
-                */
-            }
+        if (value == serverCode) { // 서버에서 전달해준 값과 같다면
+            setCheck(prev => ({ ...prev, idcheck: true }));
+        } else {
+            setCheck(prev => ({ ...prev, idcheck: false }));
+            /*
+                보더 색넣는거 해야함
+            */
         }
     }
     // 비밀번호 입력창 핸들러
@@ -64,7 +68,7 @@ function useSignin() {
             ...prev,
             pw: pwRegex.test(value)
         }));
-        if(check.pw === false){
+        if (check.pw === false) {
             /*
                 보더 색깔창이요
             */
@@ -78,7 +82,7 @@ function useSignin() {
             ...prev,
             name: nameRegex.test(value)
         }));;
-        if(check.name === false){
+        if (check.name === false) {
             /*
                 보더 색깔창이요
             */
@@ -92,7 +96,7 @@ function useSignin() {
             ...prev,
             phone1: phoneRegex.test(value)
         }));
-        if(check.phone1 === false){
+        if (check.phone1 === false) {
             /*
                 보더 색깔창이요
             */
@@ -106,7 +110,7 @@ function useSignin() {
             ...prev,
             phone2: phoneRegex.test(value)
         }));
-        if(check.phone2 === false){
+        if (check.phone2 === false) {
             /*
                 보더 색깔창이요
             */
@@ -142,7 +146,7 @@ function useSignin() {
         caxios.post(`/emailauth`, { email: id },
             { withCredentials: true })
             .then(resp => {
-                if (resp.data) { // 이메일 전송 성공시
+                if (resp) { // 이메일 전송 성공시
                     alert("이메일 발송 성공");
                     setServerCode(resp.data);
                 }
@@ -155,13 +159,9 @@ function useSignin() {
     // 완료 버튼 클릭시
     const clickByComplete = () => {
         if (code === "") { //초대코드 비입력시
-            /*
-                이메일 인증 API 진행 후에 결정 사항이긴한데,
-                코드 입력창(input)에 보더 컬러 변경 코드 짜야함.
-            */
-            alert("d"); // 나중에 제거하셈
             return false;
         }
+        console.log(check);
 
         const allvalid = Object.values(check).every(value => value === true);
         // 유효성(정규식) 모두 통과시 true , 하나라도 false 라면 false
@@ -169,7 +169,6 @@ function useSignin() {
             /*
                 뭐 알림을 띄울건지 팀장님께 여쭤봐야할거 같습니다.
             */
-            console.log(check); // 나중에 제거하셈
             alert("a"); // 나중에 제거하셈
             return false;
         }
@@ -183,7 +182,7 @@ function useSignin() {
                 navigate("/"); // Login으로 이동
             })
             .catch(err => {
-                setId(""); setEmailauth(""); setServerCode(""); setPw(""); setName(""); 
+                setId(""); setEmailauth(""); setServerCode(""); setPw(""); setName("");
                 setPhone1(""); setChecked(false); setPhone2(""); setCode("");
                 alert("회원가입 실패 : 사용중인 이메일");
             });
@@ -191,8 +190,8 @@ function useSignin() {
 
     return {
         id, emailauth, pw, name, phone1, phone2, code, checked,
-        hendleChangeById, hendleChangeByPw, hendleChangeByName,
-        hendleChangeByPhone1, hendleChangeByPhone2, hendleChangeByCode, hendleChangeByEmailauth,
+        hendleChangeById, hendleChangeByPw, hendleChangeByName, hendleChangeByPhone1,
+        hendleChangeByPhone2, hendleChangeByCode, hendleChangeByEmailauth,
         clickByChacBox, clickByComplete, clickByEmailauth
     }
 }

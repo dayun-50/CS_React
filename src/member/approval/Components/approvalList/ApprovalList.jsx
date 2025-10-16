@@ -2,30 +2,33 @@ import { useEffect, useState } from "react";
 import SubSideBar from "../../../navis/subsidebar/SubSideBar";
 import styles from "./ApprovalList.module.css"
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
+import dayjs from 'dayjs';
 
 function ApprovalList(){
+
     // 1. 경로 추출
     const location = useLocation();
-    const target = location.pathname.split('/')[3]; // URL 경로에서 타입 추출
+    const queryParams = new URLSearchParams(location.search);
+    const target = queryParams.get("type"); // 'denied', 'approved' 등
     const navigate = useNavigate();
-    
+    console.log("타켓",target);
+
     // 2. 경로에 따라서 데이터 값 요청하도록
-    // useEffect(() => {
-    //     const serverPath = target ? `http://10.5.0.0/approval/${target}` : `http://10.5.0.0/getAll`;
-    //     axios.get(serverPath)
-    //         .then(response => {
-    //             setDatas(response.data);
-    //         })
-    // })
-    //휴가 리스트 더미 객체 (이후에는 버튼마다 onClick 걸어놓고 aixios 통신해서 데이터 받아오고 props로 넘겨주기)
-    //휴가 리스트 더미 객체 (이후에는 버튼마다 onClick 걸어놓고 aixios 통신해서 데이터 받아오고 props로 넘겨주기)
-    const [datas, setDatas] = useState([
-        { seq: 1, title: "휴가신청", writedate: "2024-06-01", status: "결재 처리중" },
-        { seq: 2, title: "출장신청", writedate: "2024-06-02", status: "결재 완료" },
-        { seq: 3, title: "휴가신청", writedate: "2024-06-03", status: "결재 반려" },
-        { seq: 4, title: "휴가신청", writedate: "2024-06-04", status: "결재 완료" }
-    ]);
-    
+    useEffect(() => {
+        const serverPath = target ? `http://10.5.5.3/approval?type=${target}` : `http://10.5.5.3/approval`;
+        axios.get(serverPath)
+            .then(response => {
+                    const formattedData = response.data.map(item => ({
+                    ...item,
+                    approval_at: dayjs(item.approval_at).format('YYYY-MM-DD') //날짜변환
+                    }));
+                setDatas(formattedData);//data props로 넘겨주기
+                console.log(response.data)
+            })
+    },[target])
+    const [datas, setDatas] = useState([]);
+
     
     //3. 경로에 따라서 상단 문구 변경
     const statusMap = {
@@ -46,23 +49,11 @@ function ApprovalList(){
 
 
     //4. 넘겨줄 파라미터 :버튼, 작성하기 클릭했을뗴의 함수, 버튼명, 선택한 버튼(스타일링 다르게)
-    // const [btns, setBtns] = useState([
-    //     { name: "전체", path: "/member/approval" },
-    //     { name: "결재 처리중", path: "/member/approval/inprogress" },
-    //     { name: "결재 반려", path: "/member/approval/denied" },
-    //     { name: "결재 완료", path: "/member/approval/approved" }
-    // ]);
-    // const navigateFunc = () => {
-    //     navaigate("/approval/write");
-    // }
-    // const text = "서류 작성";
-    // const [selectedBtn, setSelectedBtn] = useState(target);
-
     const [subSidebarData, setSubSidebarData] = useState({
             btns: [{ name: "전체", path: "/member/approval" },
-                   { name: "결재 처리중", path: "/member/approval/inprogress" },
-                   { name: "결재 반려", path: "/member/approval/denied" },
-                   { name: "결재 완료", path: "/member/approval/approved" }
+                   { name: "결재 처리중", path: "/member/approval?type=inprogress" },
+                   { name: "결재 반려", path: "/member/approval?type=denied" },
+                   { name: "결재 완료", path: "/member/approval?type=approved" }
             ],
             text: "서류 작성", //추가하기 버튼 문구
             selectedBtn: target, // 어떤 버튼 선택했는지 넘겨주는 상태변수
@@ -74,7 +65,7 @@ function ApprovalList(){
 
     //5. 디테일 페이지로 이동
     const handleToDetail = (seq) => {
-        navigate(`/approval/detail/${seq}`, { state: { path: target || "" } });
+        navigate(`/member/approval/detail/${seq}`, { state: { path: target || "" } });
     };
 
 
@@ -92,7 +83,38 @@ function ApprovalList(){
 
             {/* 서브 네비바 제외 우측 영역 */}
             <div className={styles.right}>
-                approval list 컨테이너 영역
+                <div className={styles.approvalListBox}>
+                    <div className={styles.listFirst}>{type}</div>
+                    <div className={styles.listSecond}>
+                        <div>번호</div>
+                        <div>제목</div>
+                        <div>작성일</div>
+                        <div>결재상태</div>
+                    </div>
+                    <div className={styles.listThird}>
+                        {datas.map((data) => {
+                            const className = {
+                                '결재 처리중': styles.inProgress,
+                                '결재 완료': styles.approved,
+                            }[data.approval_status] || styles.denied;
+
+                            return (
+                                <div key={data.approval_seq} className={styles.listRow}>
+                                    <div>{data.approval_seq}</div>
+                                    <div className={styles.hoverPointer} onClick={() => handleToDetail(data.approval_seq)}>
+                                        {data.approval_title}
+                                    </div>
+                                    <div>{data.approval_at}</div>
+                                    <div className={className}>
+                                        {data.approval_status}
+                                    </div>
+                                </div>
+                            );
+                        }
+                        )}
+                    </div>
+
+                </div>
             </div>
             
         </div>

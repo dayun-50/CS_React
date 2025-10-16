@@ -19,7 +19,7 @@ function SubSideBar({ data }) {
             <div className={styles.tabWrapper}>
                 {btns.map((btn) =>
 
-                        <div key={btn} className={`${styles.tab} ${selectedBtn ===  btn.name ? styles.active : ""}`} onClick={() => handleToPath(btn.path)}>
+                        <div key={btn.name} className={`${styles.tab} ${selectedBtn ===  btn.name ? styles.active : ""}`} onClick={() => handleToPath(btn.path)}>
                             {btn.name}
                         </div>
                         

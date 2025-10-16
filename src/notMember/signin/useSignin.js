@@ -35,6 +35,11 @@ function useSignin() {
             id: idRegex.test(value),
             idcheck: false
         }));
+        if(check.id === false){
+            /*
+                보더 색깔창이요
+            */
+        }
     }
     // 이메일 인증 핸들러
     const hendleChangeByEmailauth = (e) => {
@@ -44,6 +49,10 @@ function useSignin() {
         if (serverCode !== "") { // 빈값이 아닌 상황에서
             if (value === serverCode) { // 서버에서 전달해준 값과 같다면
                 check.idcheck = true;
+            }else{
+                /*
+                    보더 색넣는거 해야함
+                */
             }
         }
     }
@@ -55,6 +64,11 @@ function useSignin() {
             ...prev,
             pw: pwRegex.test(value)
         }));
+        if(check.pw === false){
+            /*
+                보더 색깔창이요
+            */
+        }
     }
     // 이름 입력창 핸들러
     const hendleChangeByName = (e) => {
@@ -64,6 +78,11 @@ function useSignin() {
             ...prev,
             name: nameRegex.test(value)
         }));;
+        if(check.name === false){
+            /*
+                보더 색깔창이요
+            */
+        }
     }
     // 우측 전화번호 입력창 핸들러
     const hendleChangeByPhone1 = (e) => {
@@ -73,6 +92,11 @@ function useSignin() {
             ...prev,
             phone1: phoneRegex.test(value)
         }));
+        if(check.phone1 === false){
+            /*
+                보더 색깔창이요
+            */
+        }
     }
     // 좌측 전화번호 입력창 핸들러
     const hendleChangeByPhone2 = (e) => {
@@ -82,6 +106,11 @@ function useSignin() {
             ...prev,
             phone2: phoneRegex.test(value)
         }));
+        if(check.phone2 === false){
+            /*
+                보더 색깔창이요
+            */
+        }
     }
     // 초대코드 입력창 핸들러
     const hendleChangeByCode = (e) => {
@@ -120,9 +149,6 @@ function useSignin() {
             })
             .catch(err => {
                 console.log(err);
-                /*
-                    보더에 색넣는거 해야함
-                */
             })
     }
 

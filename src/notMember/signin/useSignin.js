@@ -6,7 +6,7 @@ function useSignin() {
     const navigate = useNavigate();
 
     // 유효성 검사 확인용
-    const [check, setCheck] = useState({ id: false, pw: false, name: false, phone1: false, phone2: false, code: false, checkBox: false });
+    const [check, setCheck] = useState({ id: false, idcheck: false, pw: false, name: false, phone1: false, phone2: false, code: false, checkBox: false });
 
     // 정규식
     const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // e-mail 정규식(영서띠가보내줌)
@@ -27,6 +27,7 @@ function useSignin() {
     const hendleChangeById = (e) => {
         let value = e.target.value;
         setId(value);
+        console.log(check.idcheck);
         setCheck(prev => ({
             ...prev,
             id: idRegex.test(value)
@@ -89,6 +90,30 @@ function useSignin() {
         }));
     }
 
+    // 이메일 인증 클릭시
+    const clickByEmailauth = () => {
+        if (id === "") { // 아무것도 입력안할시
+            return false;
+        }
+
+        caxios.post(`/emailauth`, { email: id },
+            { withCredentials: true })
+            .then(resp => {
+                if (resp.data) { // 이메일 전송 성공시
+                    alert("이메일 발송 성공");
+                    check.idcheck = true;
+                    console.log(check.idcheck);
+                }
+            })
+            .catch(err => {
+                check.idcheck = false;
+                console.log(err);
+                /*
+                    보더에 색넣는거 해야함
+                */
+            })
+    }
+
     // 완료 버튼 클릭시
     const clickByComplete = () => {
         if (code === "") { //초대코드 비입력시
@@ -119,8 +144,8 @@ function useSignin() {
                 navigate("/"); // Login으로 이동
             })
             .catch(err => {
-                setId("");setPw("");setName("");setPhone1("");
-                setChecked(false);setPhone2("");setCode("");
+                setId(""); setPw(""); setName(""); setPhone1("");
+                setChecked(false); setPhone2(""); setCode("");
                 alert("회원가입 실패 : 사용중인 이메일");
             });
     }
@@ -129,7 +154,7 @@ function useSignin() {
         id, pw, name, phone1, phone2, code, checked,
         hendleChangeById, hendleChangeByPw, hendleChangeByName,
         hendleChangeByPhone1, hendleChangeByPhone2, hendleChangeByCode,
-        clickByChacBox, clickByComplete
+        clickByChacBox, clickByComplete, clickByEmailauth
     }
 }
 export default useSignin;

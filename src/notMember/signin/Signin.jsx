@@ -11,7 +11,7 @@ function Signin() {
     const {
         id, pw, name, phone1, phone2, code, checked,
         hendleChangeById, hendleChangeByPw, hendleChangeByName, hendleChangeByPhone1,
-        hendleChangeByPhone2, hendleChangeByCode, clickByChacBox, clickByComplete
+        hendleChangeByPhone2, hendleChangeByCode, clickByChacBox, clickByComplete, clickByEmailauth
     } = useSignin();
 
     return (
@@ -40,7 +40,7 @@ function Signin() {
                         <label htmlFor="email">이메일</label>
                         <div className={styles.inputButtonWrapper}>
                             <input id="email" type="email" placeholder="이메일" value={id} onChange={hendleChangeById} />
-                            <button className={styles.emailauth}>이메일 인증</button>
+                            <button className={styles.emailauth} onClick={clickByEmailauth}>이메일 인증</button>
                         </div>
                     </div>
 

@@ -11,7 +11,8 @@ function Signin() {
     const {
         id, pw, name, phone1, phone2, code, checked,
         hendleChangeById, hendleChangeByPw, hendleChangeByName, hendleChangeByPhone1,
-        hendleChangeByPhone2, hendleChangeByCode, clickByChacBox, clickByComplete, clickByEmailauth
+        hendleChangeByPhone2, hendleChangeByCode, hendleChangeByEmailauth,
+        clickByChacBox, clickByComplete, clickByEmailauth
     } = useSignin();
 
     return (

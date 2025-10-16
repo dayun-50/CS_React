@@ -16,6 +16,8 @@ function useSignin() {
 
     // 상태변수 준비
     const [id, setId] = useState(""); // 이메일
+    const [emailauth, setEmailauth] = useState(""); // 이메일 인증
+    const [serverCode, setServerCode] = useState(""); // 서버에서 보낸 인증번호 받을 준비
     const [pw, setPw] = useState(""); // 비밀번호
     const [name, setName] = useState(""); // 이름
     const [phone1, setPhone1] = useState(""); // 핸드폰번호입력 우측
@@ -27,11 +29,23 @@ function useSignin() {
     const hendleChangeById = (e) => {
         let value = e.target.value;
         setId(value);
-        console.log(check.idcheck);
+        console.log(check.idcheck); // 나중에 제거
         setCheck(prev => ({
             ...prev,
-            id: idRegex.test(value)
+            id: idRegex.test(value),
+            idcheck: false
         }));
+    }
+    // 이메일 인증 핸들러
+    const hendleChangeByEmailauth = (e) => {
+        let value = e.target.value;
+        check.idcheck = false;
+        setEmailauth(value);
+        if (serverCode !== "") { // 빈값이 아닌 상황에서
+            if (value === serverCode) { // 서버에서 전달해준 값과 같다면
+                check.idcheck = true;
+            }
+        }
     }
     // 비밀번호 입력창 핸들러
     const hendleChangeByPw = (e) => {
@@ -92,7 +106,7 @@ function useSignin() {
 
     // 이메일 인증 클릭시
     const clickByEmailauth = () => {
-        if (id === "") { // 아무것도 입력안할시
+        if (id === "") { // 이메일란에 아무것도 입력안할시 중지
             return false;
         }
 
@@ -101,12 +115,10 @@ function useSignin() {
             .then(resp => {
                 if (resp.data) { // 이메일 전송 성공시
                     alert("이메일 발송 성공");
-                    check.idcheck = true;
-                    console.log(check.idcheck);
+                    setServerCode(resp.data);
                 }
             })
             .catch(err => {
-                check.idcheck = false;
                 console.log(err);
                 /*
                     보더에 색넣는거 해야함
@@ -124,6 +136,7 @@ function useSignin() {
             alert("d"); // 나중에 제거하셈
             return false;
         }
+
         const allvalid = Object.values(check).every(value => value === true);
         // 유효성(정규식) 모두 통과시 true , 하나라도 false 라면 false
         if (!allvalid) { // 하나라도 유효성(정규식) 검사에 false 라면
@@ -144,16 +157,16 @@ function useSignin() {
                 navigate("/"); // Login으로 이동
             })
             .catch(err => {
-                setId(""); setPw(""); setName(""); setPhone1("");
-                setChecked(false); setPhone2(""); setCode("");
+                setId(""); setEmailauth(""); setServerCode(""); setPw(""); setName(""); 
+                setPhone1(""); setChecked(false); setPhone2(""); setCode("");
                 alert("회원가입 실패 : 사용중인 이메일");
             });
     }
 
     return {
-        id, pw, name, phone1, phone2, code, checked,
+        id, emailauth, pw, name, phone1, phone2, code, checked,
         hendleChangeById, hendleChangeByPw, hendleChangeByName,
-        hendleChangeByPhone1, hendleChangeByPhone2, hendleChangeByCode,
+        hendleChangeByPhone1, hendleChangeByPhone2, hendleChangeByCode, hendleChangeByEmailauth,
         clickByChacBox, clickByComplete, clickByEmailauth
     }
 }

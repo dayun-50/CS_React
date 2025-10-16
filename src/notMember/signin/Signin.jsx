@@ -23,8 +23,10 @@ function Signin (){
             <div className={styles.membershipbox}>
 
                 <div className={styles.mbsinbox}>
-                    
+
+                    <div className={styles.h1h1}>
                     <h1 className={styles.newusertitle}>회원가입</h1>
+                    </div>
                     
                     <div className={styles.newemail}>
                         <label htmlFor="email">이메일</label>
@@ -32,6 +34,11 @@ function Signin (){
                             <input id="email" type="email" placeholder="이메일" />
                             <button className={styles.emailauth}>이메일 인증</button>
                         </div>
+                    </div>
+
+                    <div className={styles.newpw}>
+                    <label htmlFor="emailok">이메일 확인</label>
+                    <input id="emailok" type="password" placeholder="이메일 인증"/> <br/>
                     </div>
 
                     <div className={styles.newpw}>
@@ -48,9 +55,9 @@ function Signin (){
                         <label htmlFor="phone">연락처</label>
                         <div className={styles.phoneWrapper}>
                             <span className={styles.prefix}>010 -</span>
-                            <input id="phone1" type="text" placeholder="1234" />
+                            <input id="phone1" type="text" placeholder="연락처" />
                             <span className={styles.dash}>-</span>
-                            <input id="phone2" type="text" placeholder="1234" />
+                            <input id="phone2" type="text" placeholder="연락처" />
                         </div>
                     </div>
 

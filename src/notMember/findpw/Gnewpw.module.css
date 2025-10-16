@@ -86,16 +86,16 @@
     font-size: 16px;
     font-weight: 700;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
     color: white;
     background-color: #cac9c9;
     transition: all 0.3s ease;
 }
 
 .backbt:hover {
-    background-color: #b0b0b0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* background-color: #b0b0b0;
+    transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
 }
 
 .okbt {
@@ -107,16 +107,16 @@
     font-size: 16px;
     font-weight: 700;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
     background-color: #499ef8;
     color: white;
     transition: all 0.3s ease;
 }
 
 .okbt:hover {
-    background-color: #3a8ce0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* background-color: #3a8ce0;
+    transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
 }
 
 /* 태블릿용 반응형 */

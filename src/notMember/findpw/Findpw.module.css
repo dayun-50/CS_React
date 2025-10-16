@@ -80,15 +80,15 @@
     font-weight: 700;
     border: none;
     outline: none;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .emailrequest:hover {
-    background-color: #b0afb0; /* 조금 더 진한 회색 */
-    transform: translateY(-2px); /* 살짝 위로 이동 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 그림자 */
-    cursor: pointer;
-    transition: all 0.3s ease;
+    /* background-color: #b0afb0; 조금 더 진한 회색 */
+    /* transform: translateY(-2px); 살짝 위로 이동 */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 그림자 */
+    /* cursor: pointer; */
+    /* transition: all 0.3s ease; */
 }
 
 .findemail {
@@ -139,16 +139,16 @@
     font-size: 16px;
     font-weight: 700;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
     color: white;
     background-color: #cac9c9;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .backbt:hover {
-    background-color: #b0b0b0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* background-color: #b0b0b0; */
+    /* transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
 }
 
 .okbt {
@@ -158,16 +158,16 @@
     font-size: 16px;
     font-weight: 700;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
     background-color: #499ef8;
     color: white;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .okbt:hover {
-    background-color: #3a8ce0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* background-color: #3a8ce0; */
+    /* transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
 }
 
 @media (max-width: 425px) {

@@ -8,16 +8,25 @@
 
 .container {
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px 20px;
+}
+
+.h1h1{
+    /* border: 1px solid black; */
+    text-align: center;
+    margin-bottom: 16px;
+    /* text-shadow: 0.5px 0 #000, 0 0.5px #000, -0.5px 0 #000, 0 -0.5px #000; */
 }
 
 .membershipbox {
     width:600px;
-    height:850px;
+    min-height: 780px;
+    height: auto;
     border-radius: 20px;
     background-color: white;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -25,28 +34,33 @@
     justify-content: center; 
     align-items: center;
     background-color: white;
+    border:1px solid black;
+    padding: 0; /* 필요 시 조정 */
 }
 
 .mbsinbox {
-    /* border: 1px solid black; */
-    width:530px;
-    height:740px;
+    width: 530px;
+    height: auto;            /* 내용물 높이에 맞춤 */
+    min-height: calc(100% + -70px); /* 기존 부모 높이에 70px 추가 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .mbsinbox h1{
-    text-align: center;
-    height:40px;
+    /* text-align: center;
+    height:50px; */
     font-weight:700;
-    margin-bottom: 50px;
-    text-shadow: 0.5px 0 #000, 0 0.5px #000, -0.5px 0 #000, 0 -0.5px #000;
+    /* margin-bottom: 10px;
+    text-shadow: 0.5px 0 #000, 0 0.5px #000, -0.5px 0 #000, 0 -0.5px #000; */
 }
 
 .newemail {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .newpw {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .emailauth{
@@ -62,26 +76,26 @@
     /* cursor: pointer; */
 }
 
-.emailauth:hover {
-    /* background-color: #b0afb0; /* 조금 더 진한 회색 */
-    /* cursor: pointer; */
-    /* transform: translateY(-2px); 살짝 위로 이동 */ 
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 살짝 그림자 */
-    /* transition: all 0.3s ease; */
-}
+/* .emailauth:hover {
+    background-color: #b0afb0; /* 조금 더 진한 회색 
+    cursor: pointer;
+    transform: translateY(-2px); /* 살짝 위로 이동 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 살짝 그림자 
+    transition: all 0.3s ease;
+} */
 
 .newemail label {
     color: #afafaf;
     font-size: 16px;
     font-weight: 700;
-    margin-left: 12px;
+    
     display: block;       /* label을 block으로 만들어 세로 배치 */
     margin-bottom: 10px;
 }
 
 .newemail input {
     width:300px;
-    height:48px;
+    height:44px;
     border-radius: 20px;
     border: 1px solid #b1b1b1;
     padding: 0 12px;
@@ -106,12 +120,12 @@
     color: #afafaf;
     font-size: 16px;
     font-weight: 700;
-    margin-left: 12px;
+    
 }
 
  .newpw input{
     width:100%;
-    height:48px;
+    height:44px;
     border-radius: 20px;
     border: 1px solid #b1b1b1;
     padding: 0 12px;
@@ -125,7 +139,7 @@
 }
 
 .name {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .name label {
@@ -134,11 +148,11 @@
     color: #afafaf;
     font-size: 16px;
     font-weight: 700;
-    margin-left: 12px;
+    
 }
  .name input{
     width:100%;
-    height:48px;
+    height:44px;
     border-radius: 20px;
     border: 1px solid #b1b1b1;
     padding: 0 12px;
@@ -153,7 +167,6 @@
 
 .phone {
     margin-bottom: 24px;
-    height: 80px;
 }
 
 .phone label {
@@ -162,7 +175,7 @@
     color: #afafaf;
     font-size: 16px;
     font-weight: 700;
-    margin-left: 12px;
+   
 }
 
 .phoneWrapper {
@@ -192,7 +205,7 @@
 .phoneWrapper input {
     flex: 1 1 0;                /* 두 input이 동일 비율로 한 줄에 */
     min-width: 0;
-    height: 48px;
+    height: 44px;
     border-radius: 20px;
     border: 1px solid #b1b1b1;  /* 조금 두껍게 */
     padding: 0 12px;
@@ -207,7 +220,6 @@
 
 .invitecode {
     margin-bottom: 24px;
-    height:80px;
 }
 
 .invitecode label {
@@ -216,12 +228,12 @@
     color: #afafaf;
     font-size: 16px;
     font-weight: 700;
-    margin-left: 12px;
+    
 }
 
  .invitecode input{
     width:100%;
-    height:48px;
+    height:44px;
     border-radius: 20px;
     border: 1px solid #b1b1b1;
     padding: 0 12px;
@@ -299,22 +311,28 @@
     background-color: #499ef8;
     color:white;
     /* transition: all 0.3s ease; */
-}
+} 
 
-.backbutton:hover {
-    /* background-color: #b0b0b0; /* 조금 더 진한 회색 */
-    /* transform: translateY(-2px); 살짝 위로 올라오는 느낌 */ 
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 살짝 그림자 */
-}
+/* .backbutton:hover {
+    background-color: #b0b0b0; /* 조금 더 진한 회색 
+    transform: translateY(-2px); /* 살짝 위로 올라오는 느낌 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 살짝 그림자 
+} */
 
-.signinbutton:hover {
-    /* background-color: #3a8ce0; /* 조금 더 진한 파랑 */
-    /* transform: translateY(-2px);  */ 
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
-}
+/*.signinbutton:hover {
+    background-color: #3a8ce0; /* 조금 더 진한 파랑 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+} */
 
 /* 태블릿용 반응형 */
 @media (max-width: 768px) {
+    .h1h1{
+        font-size: 28px;
+        margin-bottom: 40px;
+        width: 100%;
+        height: auto;
+    }
     .membershipbox {
         width: 80%;
         height: auto;
@@ -326,9 +344,55 @@
         height: auto;
     }
 
-    .mbsinbox h1 {
+    /* .mbsinbox h1 {
         font-size: 28px;
         margin-bottom: 40px;
+    } */
+
+    .newemail input,
+    .newpw input,
+    .name input,
+    .phoneWrapper input,
+    .invitecode input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .emailauth,
+    .backbutton,
+    .signinbutton {
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .prefix,
+    .dash {
+        font-size: 15px;
+    }
+
+    .checkboxLabel {
+        font-size: 15px;
+    }
+}
+
+/* 태블릿용 반응형 */
+@media (max-width: 768px) {
+    .h1h1 {
+        font-size: 28px;
+        margin-bottom: 40px;
+        width: 100%;
+        height: auto;
+    }
+
+    .membershipbox {
+        width: 80%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .mbsinbox {
+        width: 90%;
+        height: auto;
     }
 
     .newemail input,
@@ -367,7 +431,8 @@
 
     .mbsinbox {
         width: 100%;
-        height: auto;
+        height: auto;        /* 모바일에서만 auto */
+        min-height: unset;   /* 모바일에서는 부모 기준 min-height 해제 */
     }
 
     .mbsinbox h1 {

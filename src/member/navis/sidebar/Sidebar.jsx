@@ -24,6 +24,8 @@ import logout from "./icon/Logout.svg";
 import logoutActive from "./icon/Logout-active.svg"; // 로그아웃
 import { useState } from "react";
 import styles from "./Sidebar.module.css"
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../../store/useAuthStore";
 
 
 
@@ -60,6 +62,17 @@ const Sidebar = () => {
   //   navigate(menu.path); // 다른 애들은 해당 경로로 이동
   // };
 
+  const navigate = useNavigate();
+  const { logout } = useAuthStore(state => state);
+
+  // 로그아웃 기능 구현
+  const handleClick = (menu) => {
+    console.log("클릭된 메뉴:", menu.name);
+    if (menu.name === "로그아웃") {
+      logout();
+      navigate("/");
+    }
+  }
 
 
   const renderIcon = (menu) => {
@@ -74,9 +87,8 @@ const Sidebar = () => {
         {menus.map((menu) => (
           <div
             key={menu.name}
-            className={`${styles.menuItem} ${
-              activeMenu === menu.name ? styles.active : ""
-            }`}
+            className={`${styles.menuItem} ${activeMenu === menu.name ? styles.active : ""
+              }`}
             onClick={() => setActiveMenu(menu.name)} // onClick={() => handleClick(menu) : 로 변경해서 이동 경로 넣어주기
             onMouseEnter={() => setHoveredMenu(menu.name)}
             onMouseLeave={() => setHoveredMenu(null)}
@@ -95,10 +107,9 @@ const Sidebar = () => {
         {bottomMenus.map((menu) => (
           <div
             key={menu.name}
-            className={`${styles.menuItem} ${
-              activeMenu === menu.name ? styles.active : ""
-            }`}
-            onClick={() => setActiveMenu(menu.name)}
+            className={`${styles.menuItem} ${activeMenu === menu.name ? styles.active : ""
+              }`}
+            onClick={() => handleClick(menu)}
             onMouseEnter={() => setHoveredMenu(menu.name)}
             onMouseLeave={() => setHoveredMenu(null)}
           >

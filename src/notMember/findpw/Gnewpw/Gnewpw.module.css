@@ -1,0 +1,184 @@
+* { 
+    font-weight: 400;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.newpwcontainer {
+    width: 100%;
+    max-width: 600px;   /* 최대 크기 제한 */
+    height:500px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.newpwin {
+    max-width: 400px;
+    height:320px;
+}
+
+.newpwhigh {
+    text-align: center; 
+    margin-bottom: 50px;
+}
+
+.newpwhigh h1 {
+    font-weight:700;
+    text-shadow: 1px 0 #000, 0 1px #000;
+    margin-bottom: 20px;
+}
+
+.newpwhigh span {
+    color:rgb(153, 152, 152);
+    font-weight: 700;
+}
+
+.newpw label {
+    display: block;       /* label을 block으로 만들어 input 위에 위치 */
+    margin-bottom: 10px;
+    color: #afafaf;
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 12px;
+}
+
+ .newpw input{
+    width:100%;
+    height:48px;
+    border-radius: 20px;
+    border: 1px solid #b1b1b1;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.newpw input::placeholder {
+    color: #b9b9b9;
+    font-size: 14px;
+}
+
+.newpw {
+    margin-bottom: 40px;
+}
+
+.pwcheckbuttons {
+    display: flex;              /* 가로 정렬 */
+    flex-direction: row;        /* 명시적으로 가로 설정 */
+    justify-content: center;    /* 가운데 정렬 */
+    align-items: center;        /* 세로 중앙 */
+    gap: 25px;                  /* 버튼 사이 간격 */
+    margin-top: 24px;
+    flex-wrap: wrap; /* 작은 화면에서는 버튼이 내려가도록 */
+}
+
+.backbt {
+    flex: 1 1 45%; /* 화면 크기에 따라 자동 확장 */
+    min-width: 120px; /* 최소 너비 */
+    width: 190px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    /* cursor: pointer; */
+    color: white;
+    background-color: #cac9c9;
+    transition: all 0.3s ease;
+}
+
+.backbt:hover {
+    /* background-color: #b0b0b0;
+    transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
+}
+
+.okbt {
+    flex: 1 1 45%; /* 화면 크기에 따라 자동 확장 */
+    min-width: 120px; /* 최소 너비 */
+    width: 190px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    /* cursor: pointer; */
+    background-color: #499ef8;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.okbt:hover {
+    /* background-color: #3a8ce0;
+    transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
+}
+
+/* 태블릿용 반응형 */
+@media (max-width: 768px) {
+    .loginbox {
+        width: 80%;      /* 화면 폭에 맞춰 유동적 */
+        height: auto;    /* 높이는 내용에 맞춰 조정 */
+        padding: 20px;
+    }
+
+    .loginbox h1 {
+        font-size: 26px;
+        margin-bottom: 50px;
+    }
+
+    .emailbox input, .pwbox input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .loginbutton {
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .signup, .changepw {
+        font-size: 14px;
+    }
+}
+
+/* 모바일용 반응형 */
+@media (max-width: 480px) {
+    .loginbox {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .loginbox h1 {
+        font-size: 22px;
+        margin-bottom: 40px;
+    }
+
+    .emailbox input, .pwbox input {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .loginbutton {
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .signup, .changepw {
+        font-size: 12px;
+    }
+}
+
+/* 초대형 화면용 반응형 */
+@media (min-width: 1200px) {
+    .loginbox {
+        width: 500px;   /* 기존 px 유지 */
+        height: 700px;
+    }
+}

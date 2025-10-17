@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Gnewpw.module.css";
+import useGewpw from "./useGewpw";
 
-function Gnewpw (){
+function Gnewpw() {
 
     const navigate = useNavigate();
 
-    return(
+    const {
+        pw, hendleChangeByPw, clickByComplete
+    } = useGewpw();
+
+    return (
         <div className={styles.container}
             style={{
                 width: '100vw',
@@ -29,14 +34,14 @@ function Gnewpw (){
 
                     <div className={styles.newpw}>
                         <label htmlFor="newpw">새 비밀번호</label>
-                        <input id="newpw" type="text" placeholder="비밀번호"/>
+                        <input id="newpw" type="password" placeholder="비밀번호" value={pw} onChange={hendleChangeByPw}/>
                     </div>
 
                     <div className={styles.pwcheckbuttons}>
                         <button className={styles.backbt} onClick={() => navigate(-1)}>취소</button>
-                        <button className={styles.okbt}>완료</button>
+                        <button className={styles.okbt} onClick={clickByComplete}>완료</button>
                     </div>
-                                        
+
                 </div>
             </div>
         </div>

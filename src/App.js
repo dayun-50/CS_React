@@ -20,7 +20,7 @@ function App() {
   
   useEffect(()=>{ // 토큰 유지
     const token = sessionStorage.getItem("token");
-    const token = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("id");
     if(token){
       login(token,id);
     }

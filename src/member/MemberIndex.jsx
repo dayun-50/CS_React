@@ -5,8 +5,7 @@ import Topbar from './navis/topbar/Topbar';
 import Sidebar from './navis/sidebar/Sidebar';
 import WorkHourIndex from './workhour/WorkHourIndex';
 import ApprovalIndex from './approval/ApprovalIndex';
-
-
+import Mypage from './mypage/Mypage';
 
 function MemberIndex (){
 
@@ -36,10 +35,13 @@ function MemberIndex (){
 
 
 
-                {/*<Routes> 이 라우팅은 지원용 신경 XX
+              <Routes> 
                     <Route path='/' element={<WorkHourIndex />} />
                     <Route path='/approval/*' element={<ApprovalIndex />} />
-                </Routes>*/}
+                    <Route path='/mypage' element={<Mypage />} />
+                </Routes>
+
+
             </div>
 
         {/* 오버레이 - 불투명 설정 */}

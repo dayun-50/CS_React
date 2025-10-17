@@ -1,28 +1,34 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import styles from './MemberIndex.module.css';
-import { useState } from 'react';
-import Topbar from './navis/topbar/Topbar';
-import Sidebar from './navis/sidebar/Sidebar';
-import WorkHourIndex from './workhour/WorkHourIndex';
-import ApprovalIndex from './approval/ApprovalIndex';
-import Mypage from './mypage/Mypage';
 
-function MemberIndex (){
+import styles from "./MemberIndex.module.css";
+import { useEffect, useState } from "react";
+import Topbar from "./navis/topbar/Topbar";
+import Sidebar from "./navis/sidebar/Sidebar";
+import Board from "./board/Board";
+import BoardDetail from "./board/Components/boardDetail/BoardDetail";
+import { Route, Routes } from "react-router-dom";
+import WorkHourIndex from "./workhour/WorkHourIndex";
+import ApprovalIndex from "./approval/ApprovalIndex";
+import Mypage from "./mypage/Mypage";
 
-    //사이드바 열림 여부 상태변수
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+function MemberIndex() {
+  //사이드바 열림 여부 상태변수
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-
-    return(
-      <div className={styles.container}>
+  return (
+    <div className={styles.container}>
 
       {/* 상단바 고정*/}
       <div className={styles.header}>
         <Topbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       </div>
 
-        {/* 상단바 제외 영역 */}
-        <div className={styles.body}>
+      {/* 상단바 제외 영역 */}
+      <div className={styles.body}>
+        {/* 메인네비바 영역 :좌측 */}
+        <nav className={`${styles.sidebar} ${sidebarOpen ? styles.open : ""}`}>
+          <Sidebar />
+        </nav>
+
 
             {/* 메인네비바 영역 :좌측 */}
             <nav className={`${styles.sidebar} ${sidebarOpen ? styles.open : ""}`}>
@@ -37,6 +43,8 @@ function MemberIndex (){
 
               <Routes> 
                     <Route path='/' element={<WorkHourIndex />} />
+                    <Route path="board" element={<Board />} />
+                    <Route path="board/detail/:id" element={<BoardDetail />} />
                     <Route path='/approval/*' element={<ApprovalIndex />} />
                     <Route path='/mypage' element={<Mypage />} />
                 </Routes>
@@ -44,11 +52,17 @@ function MemberIndex (){
 
             </div>
 
-        {/* 오버레이 - 불투명 설정 */}
-        {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 
+        {/* 오버레이 - 불투명 설정 */}
+        {sidebarOpen && (
+          <div
+            className={styles.overlay}
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
       </div>
-      </div>)
+    </div>
+  );
 }
 
 export default MemberIndex;

@@ -10,6 +10,7 @@ import useAuthStore from './store/useAuthStore';
 import axios from 'axios';
 import { useEffect } from 'react';
 
+
 function App() {
   
   //최상위 컴포넌트
@@ -35,7 +36,6 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />
-          {/* <Route path='/member/*' element={<MemberIndex />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

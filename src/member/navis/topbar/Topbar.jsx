@@ -7,14 +7,14 @@ import meun from "./icon/Menu.svg";
 const Topbar = ({ onMenuClick }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.frameParent}>
+      <div className={styles.topbar}>
         {/* 로고 아이콘 */}
         <div className={styles.log}>
           <img src={logo} alt="logo" className={styles.logIcon} />
           <div className={styles.cs}>cs</div>
         </div>
 
-        <div className={styles.frameGroup}>
+        <div className={styles.iconGroup}>
           {/* 알림 아이콘 */}
           <img src={userIcon} alt="User" className={styles.user} />
           {/* 사람 아이콘 */}

@@ -54,14 +54,6 @@ const bottomMenus = [
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState("근태관리");
   const [hoveredMenu, setHoveredMenu] = useState(null); // hover일때도 아이콘 변경 효과용
-  // const navigate = useNavigate(); // 페이지 이동용
-
-  // const handleClick = (menu) => {
-  //   setActiveMenu(menu.name);
-  //   if(menu.path=="/logout"){로그아웃은 어스스토어에서 로그아웃 메소드 꺼내서 logout(); 후 로그인 페이지로 나가도록 navigate("/") return;}
-  //   navigate(menu.path); // 다른 애들은 해당 경로로 이동
-  // };
-
   const navigate = useNavigate();
   const { logout } = useAuthStore(state => state);
 
@@ -71,7 +63,10 @@ const Sidebar = () => {
     if (menu.name === "로그아웃") {
       logout();
       navigate("/");
+      return;
     }
+    setActiveMenu(menu.name);
+    navigate(menu.path);
   }
 
 
@@ -89,7 +84,7 @@ const Sidebar = () => {
             key={menu.name}
             className={`${styles.menuItem} ${activeMenu === menu.name ? styles.active : ""
               }`}
-            onClick={() => setActiveMenu(menu.name)} // onClick={() => handleClick(menu) : 로 변경해서 이동 경로 넣어주기
+            onClick={() => handleClick(menu)} // onClick={() => handleClick(menu) : 로 변경해서 이동 경로 넣어주기
             onMouseEnter={() => setHoveredMenu(menu.name)}
             onMouseLeave={() => setHoveredMenu(null)}
           >

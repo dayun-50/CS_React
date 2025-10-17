@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './ApprovalWrite.module.css';
 import { useRef, useState } from 'react';
-import rectangle from "./icon/Rectangle.svg"; 
 import axios from 'axios';
+import { caxios } from '../../../../config/config';
 function ApprovalWrite(){
 
     const navigate = useNavigate();
@@ -43,10 +43,10 @@ function ApprovalWrite(){
             }
 
         //axios 로직 추가
-        axios.post(`http://10.5.5.3/approval`, form)
+        caxios.post(`/approval`, form)
         .then(()=>{
             alert("작성이 완료되었습니다");
-            navigate("/member/approval");
+            navigate("/approval");
         })
         .catch(()=>{
             alert("오류가 발생했습니다");

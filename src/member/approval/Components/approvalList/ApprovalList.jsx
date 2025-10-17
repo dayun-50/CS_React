@@ -4,6 +4,7 @@ import styles from "./ApprovalList.module.css"
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { caxios } from "../../../../config/config";
 
 function ApprovalList(){
 
@@ -16,8 +17,8 @@ function ApprovalList(){
 
     // 2. 경로에 따라서 데이터 값 요청하도록
     useEffect(() => {
-        const serverPath = target ? `http://10.5.5.3/approval?type=${target}` : `http://10.5.5.3/approval`;
-        axios.get(serverPath)
+        const serverPath = target ? `/approval?type=${target}` : `http://10.5.5.3/approval`;
+        caxios.get(serverPath)
             .then(response => {
                     const formattedData = response.data.map(item => ({
                     ...item,
@@ -53,14 +54,14 @@ function ApprovalList(){
 
     //4. 넘겨줄 파라미터 :버튼, 작성하기 클릭했을뗴의 함수, 버튼명, 선택한 버튼(스타일링 다르게)
     const [subSidebarData, setSubSidebarData] = useState({
-            btns: [{ name: "전체", path: "/member/approval" },
-                   { name: "처리중", path: "/member/approval?type=inprogress" },
-                   { name: "반려", path: "/member/approval?type=denied" },
-                   { name: "완료", path: "/member/approval?type=approved" }
+            btns: [{ name: "전체", path: "/approval" },
+                   { name: "처리중", path: "/approval?type=inprogress" },
+                   { name: "반려", path: "/approval?type=denied" },
+                   { name: "완료", path: "/approval?type=approved" }
             ],
             text: "서류 작성", //추가하기 버튼 문구
             selectedBtn: target, // 어떤 버튼 선택했는지 넘겨주는 상태변수
-            navigateFunc: () => navigate("/member/approval/write") //추가하기 버튼에 줄 페이지 이동 함수
+            navigateFunc: () => navigate("/approval/write") //추가하기 버튼에 줄 페이지 이동 함수
             });
 
 
@@ -68,7 +69,7 @@ function ApprovalList(){
 
     //5. 디테일 페이지로 이동
     const handleToDetail = (seq) => {
-        navigate(`/member/approval/detail/${seq}`, { state: { path: target || "" } });
+        navigate(`/approval/detail/${seq}`, { state: { path: target || "" } });
     };
 
 

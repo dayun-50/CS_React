@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from './ApprovalDetail.module.css'
 import axios from "axios";
 import dayjs from "dayjs";
+import { caxios } from "../../../../config/config";
 
 
 function ApprovalDetail (){
@@ -13,7 +14,7 @@ function ApprovalDetail (){
     //1. 오리지날 객체 저장후, 화면에 뿌리기
     const [oriApproval, setOriApproval] = useState({}); //객체로받음
 useEffect(() => {
-  axios.get(`http://10.5.5.3/approval/${seq}`)
+  caxios.get(`/approval/${seq}`)
   
   .then((resp) => {
     const data = resp.data;
@@ -37,10 +38,10 @@ useEffect(() => {
     //2. 삭제하기
     const handleDel = () => {
         console.log("삭제하기 버튼",seq);
-        axios.delete(`http://10.5.5.3/approval/${seq}`)
+        caxios.delete(`/approval/${seq}`)
         .then(() => {
             alert("삭제되었습니다!");
-            navigate("/member/approval");
+            navigate("/approval");
          })
         .catch((resp)=>{
             alert("올바르지 않은 접근입니다!");
@@ -79,13 +80,13 @@ useEffect(() => {
             return;
         }
 
-        axios.put(`http://10.5.5.3/approval/${oriApproval.approval_seq}`, {approval_seq:oriApproval.approval_seq, approval_title, approval_content})
+        caxios.put(`/approval/${oriApproval.approval_seq}`, {approval_seq:oriApproval.approval_seq, approval_title, approval_content})
         .then(() => {
         
         setOriApproval(prev => ({...prev, approval_title, approval_content}));
         setUpdating(false);
         alert("수정이 완료되었습니다!");
-        navigate(`/member/approval/detail/${oriApproval.approval_seq}`);
+        navigate(`/approval/detail/${oriApproval.approval_seq}`);
         })
         .catch(()=>{
         alert("올바르지 않은 접근입니다!");    

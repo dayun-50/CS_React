@@ -20,7 +20,7 @@ function App() {
   
   useEffect(()=>{ // 토큰 유지
     const token = sessionStorage.getItem("token");
-    const token = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("id");
     if(token){
       login(token,id);
     }
@@ -31,11 +31,10 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />
+          <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />{/* 로그인 되어잇으면 ? 멤버인덱스 :아니면 로그인페이지 */}
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />
-          {/* <Route path='/member/*' element={<MemberIndex />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

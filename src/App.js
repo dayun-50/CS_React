@@ -9,7 +9,7 @@ import MemberIndex from './member/MemberIndex';
 import useAuthStore from './store/useAuthStore';
 import axios from 'axios';
 import { useEffect } from 'react';
-import Test from './member/Test';
+
 
 function App() {
   

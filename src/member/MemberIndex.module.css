@@ -12,7 +12,7 @@
 .header {
   position: relative; /* 또는 fixed */
   z-index: 1100; /* 사이드바보다 높게 */
-  height: 72px;
+  height: 60px;
   background-color: #fff;
 }
 
@@ -25,7 +25,6 @@
 
   overflow: hidden;
 }
-
 
 /* 메인 네비바 */
 .sidebar {
@@ -61,24 +60,30 @@
 
 /*-----------------------------------------------------------------------------*/
 
-/* 반응형 */
+/* 데스크탑/태블릿 반응형 */
 @media (min-width: 768px) {
   .container {
     overflow: visible; /* 또는 visible */
   }
 
   .body {
-    padding-left: 0; /* 사이드바 너비 만큼 */
+     padding-left: 0; 
   }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .sidebar {
     position: relative;
     left: 0 !important;
     box-shadow: none;
+    height: auto;
   }
-  .hamburger {
+
+  .content {
+    margin-left: 0; /* 사이드바 공간 확보 */
+  }
+
+  .overlay {
     display: none;
   }
 }

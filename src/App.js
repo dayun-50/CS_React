@@ -26,7 +26,7 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />
-          <Route path='/member/*' element={<MemberIndex />} />
+          <Route path='/member/*' element={<MemberIndex />} />          
         </Routes>
       </BrowserRouter>
     </div>

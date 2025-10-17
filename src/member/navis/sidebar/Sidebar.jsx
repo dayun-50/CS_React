@@ -71,6 +71,8 @@ const Sidebar = () => {
     if (menu.name === "로그아웃") {
       logout();
       navigate("/");
+    }else if(menu.name === "회원 정보"){
+      navigate(menu.path);
     }
   }
 

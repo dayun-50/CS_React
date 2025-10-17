@@ -26,15 +26,18 @@ function ApprovalList(){
                 setDatas(formattedData);//data props로 넘겨주기
                 console.log(response.data)
             })
+            .catch(()=>{
+                setDatas([]); // 오류 나도 빈 배열
+            })
     },[target])
     const [datas, setDatas] = useState([]);
 
     
     //3. 경로에 따라서 상단 문구 변경
     const statusMap = {
-        inprogress: '결재 처리중',
-        denied: '결재 반려',
-        approved: '결재 완료',
+        inprogress: '처리중',
+        denied: '반려',
+        approved: '완료',
     };
     const [type, setType] = useState('');
     useEffect(() => {
@@ -51,13 +54,13 @@ function ApprovalList(){
     //4. 넘겨줄 파라미터 :버튼, 작성하기 클릭했을뗴의 함수, 버튼명, 선택한 버튼(스타일링 다르게)
     const [subSidebarData, setSubSidebarData] = useState({
             btns: [{ name: "전체", path: "/member/approval" },
-                   { name: "결재 처리중", path: "/member/approval?type=inprogress" },
-                   { name: "결재 반려", path: "/member/approval?type=denied" },
-                   { name: "결재 완료", path: "/member/approval?type=approved" }
+                   { name: "처리중", path: "/member/approval?type=inprogress" },
+                   { name: "반려", path: "/member/approval?type=denied" },
+                   { name: "완료", path: "/member/approval?type=approved" }
             ],
             text: "서류 작성", //추가하기 버튼 문구
             selectedBtn: target, // 어떤 버튼 선택했는지 넘겨주는 상태변수
-            navigateFunc: () => navigate("/approval/write") //추가하기 버튼에 줄 페이지 이동 함수
+            navigateFunc: () => navigate("/member/approval/write") //추가하기 버튼에 줄 페이지 이동 함수
             });
 
 
@@ -94,8 +97,8 @@ function ApprovalList(){
                     <div className={styles.listThird}>
                         {datas.map((data) => {
                             const className = {
-                                '결재 처리중': styles.inProgress,
-                                '결재 완료': styles.approved,
+                                '처리중': styles.inProgress,
+                                '완료': styles.approved,
                             }[data.approval_status] || styles.denied;
 
                             return (

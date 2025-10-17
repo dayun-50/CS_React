@@ -36,10 +36,10 @@ function MemberIndex (){
 
 
 
-                {/*<Routes> 이 라우팅은 지원용 신경 XX
+                <Routes> 
                     <Route path='/' element={<WorkHourIndex />} />
                     <Route path='/approval/*' element={<ApprovalIndex />} />
-                </Routes>*/}
+                </Routes>
             </div>
 
         {/* 오버레이 - 불투명 설정 */}

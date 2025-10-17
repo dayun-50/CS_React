@@ -5,9 +5,9 @@ import Topbar from './navis/topbar/Topbar';
 import Sidebar from './navis/sidebar/Sidebar';
 import WorkHourIndex from './workhour/WorkHourIndex';
 import ApprovalIndex from './approval/ApprovalIndex';
-
-
-
+import Mypage from './mypage/Mypage';
+import MyInform from './mypage/Components/myInform/MyInform'
+import MySchedule from './mypage/Components/mySchedule/MySchedule'
 function MemberIndex (){
 
     //사이드바 열림 여부 상태변수
@@ -36,6 +36,9 @@ function MemberIndex (){
                 <Routes>
                     <Route path='/' element={<WorkHourIndex />} />
                     <Route path='/approval/*' element={<ApprovalIndex />} />
+                    <Route path='/mypage' element={<Mypage />} />
+                    <Route path='/myinform' element={<MyInform />} />
+                    <Route path='/myschedule' element={<MySchedule />} />
                 </Routes>
             </div>
 

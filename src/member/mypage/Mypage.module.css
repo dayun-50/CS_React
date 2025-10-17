@@ -1,0 +1,24 @@
+.fullbox {
+    width: 100%;
+    height: 100%;
+    /* 화면 전체 높이 */
+    background-color: rgb(231, 244, 252);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 30px;
+    overflow: hidden;
+}
+
+/* 회원 정보 */
+.myInform {
+    width: 40%;
+    height: 100%;
+}
+
+/* 다가오는 일정 */
+.mySchedule {
+    width: 60%;
+    height: 100%;
+}

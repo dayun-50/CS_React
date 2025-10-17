@@ -9,6 +9,7 @@
   font-family: Pretendard, sans-serif;
 }
 
+/* 반응형 */
 /* 모바일: 480px 이하 */
 @media (max-width: 480px) {
   .container {

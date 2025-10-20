@@ -29,11 +29,6 @@ function MemberIndex() {
           <Sidebar />
         </nav>
 
-
-            {/* 메인네비바 영역 :좌측 */}
-            <nav className={`${styles.sidebar} ${sidebarOpen ? styles.open : ""}`}>
-                <Sidebar />
-            </nav>
         
             {/* 바디영역 :우측*/}
             {/*가장 첫번째 뜨는 화면이 근태관리로 해서 /랑 매핑해놓음*/}

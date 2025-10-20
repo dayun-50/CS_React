@@ -26,6 +26,7 @@ import { useState } from "react";
 import styles from "./Sidebar.module.css"
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../../store/useAuthStore";
+import { caxios } from "../../../config/config";
 
 
 
@@ -71,6 +72,8 @@ const Sidebar = () => {
     if (menu.name === "로그아웃") {
       logout();
       navigate("/");
+    }else if(menu.name === "회원 정보"){
+      navigate(menu.path);
     }
   }
 

@@ -46,7 +46,7 @@ function Login() {
                     <button className={styles.loginbutton} onClick={clickLogin}>로그인</button>
 
                     <p className={styles.signup}>
-                        회원이 아니신가요?? <Link to="/signin">회원가입</Link>
+                        회원이 아니신가요? <Link to="/signin">회원가입</Link>
                     </p>
 
                     <Link to="/findpw" className={styles.changepw}>비밀번호 찾기</Link>

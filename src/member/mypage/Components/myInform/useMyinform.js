@@ -4,66 +4,72 @@ import { useNavigate } from "react-router-dom";
 
 function useMyinform() {
     const navigate = useNavigate();
+    const id = sessionStorage.getItem("id");
 
+     // 수정 모드 상태
+    const [isEditing, setIsEditing] = useState(false);
+    // 유저 데이터 받을 준비
     const [memberData, setMemberData] = useState({
-        email: "", name: "",
-        dept_code: "", level_code: "",
-        phone: ""
+        email: "", dept_code: "", level_code: ""
     });
 
     useEffect(() => {
-        const id = sessionStorage.getItem("id");
         caxios.post("/member/mypage", { email: id },
             { withCredentials: true })
             .then(resp => {
                 if (resp.data) {
-                    setMemberData({
-                        email: resp.data.email,
-                        name: resp.data.name,
-                        dept_code: resp.data.dept_code,
-                        level_code: resp.data.level_code,
-                        phone: resp.data.phone
-                    });
-                    setName(resp.data.name);
-                    setPhone(resp.data.phone);
-                      console.log("전달받은값",memberData);
+                    setMemberData(prev => ({
+                        ...prev,
+                        email: resp.data[0].email,
+                        dept_code: resp.data[0].dept_code,
+                        level_code: resp.data[0].level_code
+                    }));
+                    setName(resp.data[0].name);
+                    setPhone(resp.data[0].phone.replace(/-/g, " - "));
+                    setPhone1(resp.data[0].phone.substring(4, 8));
+                    setPhone2(resp.data[0].phone.substring(9));
                 }
-                console.log(resp.data);
             })
             .catch(err => {
                 console.log(err);
                 navigate("/"); alert("토큰 확인 실패 또는 오류 발생");
             })
-    }, [])
-
-    // 인풋 입력 가능, 불가능용
-    const isDisabledByName = () => {
-
-    }
-
-    // 수정 모드 상태
-    const [isEditing, setIsEditing] = useState(false);
+    }, [isEditing, id]);
 
     // 입력값 상태
     const [name, setName] = useState(memberData.name);
     const [phone, setPhone] = useState(memberData.phone);
+    const [phone1, setPhone1] = useState(""); // 핸드폰번호입력 우측
+    const [phone2, setPhone2] = useState(""); // 핸드폰번호입력 좌측
 
-    const handleEditClick = () => setIsEditing(true);
+    // 수정버튼 클릭시
+    const handleEditClick = () => {setIsEditing(true);}
+
+    // 수정 취소 클릭시
     const handleCancelClick = () => setIsEditing(false);
-
+    // 수정 완료 클릭시
     const handleSaveClick = () => {
-        if (!name.trim() || !phone.trim()) {
+        if (!name.trim() || !phone1.trim() || !phone2.trim() || !phone.trim()) {
             alert("이름과 연락처를 모두 입력해주세요.");
             return;
         }
         // TODO: 서버 전송 로직 가능
-        alert("수정이 완료되었습니다.");
-        setIsEditing(false);
+        caxios.post("/member/updateMypage", { email: id, name: name, phone: `010${phone1}${phone2}` },
+            { withCredentials: true })
+            .then(resp => {
+                alert("수정이 완료되었습니다.");
+                setIsEditing(false);
+            })
+            .catch(err => {
+                console.log(err);
+                alert("수정실패");
+            })
+
     };
 
     return {
-        memberData, isEditing, name, phone,
-        setName, setPhone,
+        id, memberData, isEditing, name, phone, phone1, phone2,
+        setName, setPhone1, setPhone2,
         handleSaveClick, handleEditClick, handleCancelClick
     }
 }

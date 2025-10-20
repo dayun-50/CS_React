@@ -26,6 +26,7 @@ import { useState } from "react";
 import styles from "./Sidebar.module.css"
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../../store/useAuthStore";
+import { caxios } from "../../../config/config";
 
 
 

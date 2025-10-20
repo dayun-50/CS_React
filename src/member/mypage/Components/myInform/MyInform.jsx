@@ -3,14 +3,12 @@ import styles from "./MyInform.module.css";
 import useMyinform from "./useMyinform";
 
 function MyInform() {
-
   const {
-    memberData, isEditing, name, phone,
-    setName, setPhone,
+    id, memberData, isEditing, name, phone, phone1, phone2,
+    setName, setPhone1, setPhone2,
     handleSaveClick, handleEditClick, handleCancelClick
   } = useMyinform();
 
-  console.log("전달받은값",memberData);
   return (
     <div className={styles.container}>
       {/* 왼쪽 박스 */}
@@ -21,12 +19,12 @@ function MyInform() {
         <div className={`${styles.infoBox} ${styles.emailBox}`}>
           <label className={styles.label}>이메일</label>
           <div className={styles.rectangleParent}>
-            <div className={styles.groupChild} /> {/* 평상시 border 없음 */}
-            <input type="text" className={styles.input} value={memberData.email} disabled />
+            <div className={styles.groupChild} />
+            <input type="text" className={styles.input} value={id} disabled />
           </div>
         </div>
 
-        {/* 이름 (수정 가능) */}
+        {/* 이름 */}
         <div className={`${styles.infoBox} ${styles.nameBox}`}>
           <label className={styles.label}>이름</label>
           <div className={styles.rectangleParent}>
@@ -49,7 +47,12 @@ function MyInform() {
           <label className={styles.label}>부서</label>
           <div className={styles.rectangleParent}>
             <div className={styles.groupChild} />
-            <input type="text" className={styles.input} disabled />
+            <input
+              type="text"
+              className={styles.input}
+              value={memberData.dept_code}
+              disabled
+            />
           </div>
         </div>
 
@@ -58,25 +61,47 @@ function MyInform() {
           <label className={styles.label}>직급</label>
           <div className={styles.rectangleParent}>
             <div className={styles.groupChild} />
-            <input type="text" className={styles.input} disabled />
-          </div>
-        </div>
-
-        {/* 연락처 (수정 가능) */}
-        <div className={`${styles.infoBox} ${styles.phoneBox}`}>
-          <label className={styles.label}>연락처</label>
-          <div className={styles.rectangleParent}>
-            <div
-              className={`${styles.groupChild} ${isEditing ? styles.editable : ""
-                }`}
-            />
             <input
               type="text"
               className={styles.input}
-              disabled={!isEditing}
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={memberData.level_code}
+              disabled
             />
+          </div>
+        </div>
+
+        {/* 연락처 */}
+        <div className={`${styles.infoBox} ${styles.phoneBox}`}>
+          <label className={styles.label}>연락처</label>
+          <div className={styles.rectangleParent}>
+            {/* 수정 모드일 때: 분할 입력창 */}
+            <div className={!isEditing ? styles.hidden : styles.phoneWrapper}>
+              <span className={styles.dash}>010</span>
+              <span className={styles.dash}>-</span>
+              <input
+                id="phone1"
+                type="text"
+                value={phone1}
+                onChange={(e)=>setPhone1(e.target.value)}
+                disabled={!isEditing}
+              />
+              <span className={styles.dash}>-</span>
+              <input
+                id="phone2"
+                type="text"
+                value={phone2}
+                onChange={(e)=>setPhone2(e.target.value)}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className={!isEditing ? styles.groupChild : styles.hidden}>
+            <input
+              type="text"
+              className={styles.input}
+              disabled
+              value={phone}
+            />
+            </div>
           </div>
         </div>
       </div>

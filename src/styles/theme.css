@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap');
+
+:root {
+  --font-family: 'Pretendard', sans-serif;
+
+  --color-primary: #0090FF;
+  --color-sud-color1: #BDE2FF;
+  --color-sud-color2: #EFF3FF;
+  --color-font-color1: #404040;
+  --color-font-color2: #8C8C8C;
+  --color-font-color3: #D9D9D9;
+  --color-white: #FFFFFF;
+
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+  --border-radius-main: 22px;
+  --border-radius-body: 16px;
+}
+
+
+/* => 스타일 예시 이렇게 작성
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--color-gray-100);
+} */

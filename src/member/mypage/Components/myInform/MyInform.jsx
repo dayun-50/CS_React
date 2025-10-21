@@ -3,6 +3,7 @@ import styles from "./MyInform.module.css";
 import useMyinform from "./useMyinform";
 
 function MyInform() {
+  // 혜빈 언니꺼 나중에 최종적인거 받으면 
   const {
     id, memberData, isEditing, name, phone, phone1, phone2,
     setName, setPhone1, setPhone2,

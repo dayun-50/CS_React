@@ -33,30 +33,31 @@ function MemberIndex() {
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<WorkHourIndex />} />
-
             {/* 채널 중첩 라우트 */}
             <Route path="/channellndex" element={<Channellndex />}>
               <Route index element={<MessagesIndex />} /> {/* 메신저 */}
               <Route path="schedule" element={<Schedule />} /> {/* 먼슬리 */}
             </Route>
-
             <Route path="/board" element={<Board />} /> {/* 공지사항 */}
-            <Route path="/board/detail/:id" element={<BoardDetail />} /> {/* 공지사항 디테일 */}
-            <Route path="/approval/*" element={<ApprovalIndex />} /> {/* 전자결재 */}
+            <Route path="/board/detail/:id" element={<BoardDetail />} />{" "}{/* 공지사항 디테일 */}
+            <Route path="/approval/*" element={<ApprovalIndex />} />{" "}{/* 전자결재 */}
 
             {/* 주소록 중첩 라우트 */}
-            <Route path="/contact" element={<Contact />}> {/* 주소록 */}
-              <Route index element={<ContactList />} /> {/* 주소록 리스트 */}
-              <Route path="individual" element={<Individual />} /> {/* 개인용 */}
-              <Route path="teamContact" element={<TeamContact />} /> {/* 팀용 */}
+            <Route path="/contacts" element={<Contact />}>
+              <Route index element={<ContactList />} />
+              <Route path="individual" element={<Individual />} />
+              <Route path="teamContact" element={<TeamContact />} />
             </Route>
-
+            
             <Route path="/mypage" element={<Mypage />} /> {/* 마이페이지 */}
-          </Routes> 
+          </Routes>
         </div>
 
         {sidebarOpen && (
-          <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
+          <div
+            className={styles.overlay}
+            onClick={() => setSidebarOpen(false)}
+          />
         )}
       </div>
     </div>

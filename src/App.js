@@ -37,7 +37,7 @@ function App() {
       </BrowserRouter>
 
 
-
+      {/* 푸시할때 이거 다시 작성해서 보내기 */}
       {/* <BrowserRouter>
         <Routes>
           <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />

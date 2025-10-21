@@ -29,7 +29,7 @@ function MemberIndex() {
         <nav className={`${styles.sidebar} ${sidebarOpen ? styles.open : ""}`}>
           <Sidebar />
         </nav>
-//         수정한 네비 연결 확인 바람
+
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<WorkHourIndex />} />
@@ -39,22 +39,6 @@ function MemberIndex() {
               <Route index element={<MessagesIndex />} /> {/* 메신저 */}
               <Route path="schedule" element={<Schedule />} /> {/* 먼슬리 */}
             </Route>
-
-        
-            {/* 바디영역 :우측*/}
-            {/*가장 첫번째 뜨는 화면이 근태관리로 해서 /랑 매핑해놓음*/}
-            <div className={styles.content}>
-
-
-
-              <Routes> 
-                    <Route path='/' element={<WorkHourIndex />} />
-                    <Route path="board" element={<Board />} />
-                    <Route path="board/detail/:id" element={<BoardDetail />} />
-                    <Route path='/approval/*' element={<ApprovalIndex />} />
-                    <Route path='/mypage' element={<Mypage />} />
-                </Routes>
-
 
             <Route path="/board" element={<Board />} /> {/* 공지사항 */}
             <Route path="/board/detail/:id" element={<BoardDetail />} /> {/* 공지사항 디테일 */}

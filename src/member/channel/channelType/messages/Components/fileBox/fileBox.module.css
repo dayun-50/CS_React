@@ -1,0 +1,135 @@
+.fileBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #8c8c8c; 
+  font-family: 'Pretendard', sans-serif;
+  background-color: white;
+  border-radius: 12px;
+  gap: 30px;
+}
+
+/* 헤더 영역 */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 18px;
+  color: #404040;
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.arrowIcon:hover {
+  transform: rotate(90deg);
+}
+
+/* 검색창 */
+.searchBar {
+  height: 44px; /* 조금 더 높게 */
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #b0b0b0;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.searchInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+}
+
+.searchInputField {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #404040;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  padding: 0;
+}
+
+.searchInputField::placeholder {
+  color: #a0a0a0;
+  font-size: 14px;
+  opacity: 1;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.searchIcon:hover {
+  opacity: 0.7;
+}
+
+/* 파일 리스트 */
+.fileList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #303030;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 8px; /* 스크롤 여유 공간 */
+}
+
+/* 파일 항목 */
+.fileItem {
+  background-color: #fff;
+  border: 1px solid #c0c0c0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.fileItem:hover {
+  background-color: #e6f0ff;
+  border:2px solid #0090ff;
+}
+
+.fileName {
+  font-size: 17px;
+  font-weight: 600;
+  color: #202020;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileDate {
+  font-size: 11px;
+  color: #909090;
+  text-transform: uppercase;
+}

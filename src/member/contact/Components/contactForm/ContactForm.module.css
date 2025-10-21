@@ -1,0 +1,264 @@
+.frameParent {
+  width: 100%;
+  height: 1080px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 30px 50px;
+  box-sizing: border-box;
+  gap: 10px;
+  text-align: left;
+  font-size: 16px;
+  color: #8c8c8c;
+  font-family: Pretendard;
+}
+.wrapper {
+  height: 1080px;
+  width: 1920px;
+  margin: 0 !important;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 0;
+}
+.div {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  background-color: rgba(140, 140, 140, 0.5);
+}
+.parent {
+  height: 949px;
+  width: 622px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 123px 30px;
+  box-sizing: border-box;
+  position: relative;
+  gap: 10px;
+  z-index: 1;
+}
+.div2 {
+  width: 622px;
+  height: 949px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0px;
+  left: 0px;
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+  z-index: 0;
+}
+.div3 {
+  position: absolute;
+  top: 872px;
+  left: 31px;
+  width: 561px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+}
+.container {
+  height: 48px;
+  flex: 1;
+  border-radius: 22px;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.div4 {
+  position: relative;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.frame {
+  height: 48px;
+  flex: 1;
+  border-radius: 22px;
+  background-color: #0090ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.div5 {
+  position: relative;
+  text-transform: capitalize;
+  font-weight: 800;
+}
+.div6 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 622px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+  font-size: 22px;
+  color: #404040;
+}
+.div7 {
+  position: relative;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.div8 {
+  position: absolute;
+  top: 201px;
+  left: 31px;
+  width: 561px;
+  height: 85px;
+}
+.rectangleParent {
+  position: absolute;
+  top: 37px;
+  left: 0px;
+  width: 561px;
+  height: 48px;
+}
+.groupChild {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 35px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+  width: 561px;
+  height: 48px;
+}
+.div9 {
+  position: absolute;
+  top: 15px;
+  left: 16.46px;
+  text-transform: capitalize;
+}
+.div10 {
+  position: absolute;
+  top: 0px;
+  left: 7px;
+  font-size: 18px;
+  text-transform: capitalize;
+  color: #404040;
+}
+.div11 {
+  position: absolute;
+  top: 431px;
+  left: 31px;
+  width: 561px;
+  height: 85px;
+}
+.div14 {
+  position: absolute;
+  top: 546px;
+  left: 31px;
+  width: 561px;
+  height: 85px;
+}
+.div17 {
+  position: absolute;
+  top: 661px;
+  left: 31px;
+  width: 561px;
+  height: 177px;
+}
+.groupDiv {
+  position: absolute;
+  top: 37px;
+  left: 0px;
+  width: 561px;
+  height: 140px;
+}
+.rectangleDiv {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+  width: 561px;
+  height: 140px;
+}
+.div18 {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  text-transform: capitalize;
+}
+.div20 {
+  position: absolute;
+  top: 316px;
+  left: 31px;
+  width: 561px;
+  height: 85px;
+}
+.wrapper2 {
+  position: absolute;
+  top: 86px;
+  left: 39px;
+  width: 67px;
+  height: 21px;
+  font-size: 18px;
+  color: #404040;
+}
+.div23 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-transform: capitalize;
+}
+.frameGroup {
+  width: 561px;
+  height: 48px;
+  border-radius: 22px;
+  background-color: #eff3ff;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+}
+.frameDiv {
+  align-self: stretch;
+  flex: 1;
+  border-radius: 39px;
+  background-color: #0090ff;
+  border: 1px solid #eff3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 16px;
+}
+.b {
+  position: relative;
+  text-transform: capitalize;
+}
+.wrapper3 {
+  align-self: stretch;
+  flex: 1;
+  border-radius: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 16px;
+  color: #d9d9d9;
+}

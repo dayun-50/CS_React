@@ -12,23 +12,35 @@
   padding-bottom: 30px;
 }
 
-
 /*추가하기버튼*/
-.btn {
-  margin-left: 20px;
-  margin-right: 20px;
+.addParent {
   width: 80%;
   height: 48px;
-  background-color: #4498e4;
-  color: white;
-  border: none;
   border-radius: 22px;
+  background-color: #0090ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-weight: bold;
+  padding: 16px;
+  gap: 12px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  font-family: Pretendard;
   cursor: pointer;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.addIcon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.div {
+  font-weight: 800;
+  text-transform: capitalize;
 }
 
 /*추가 버튼 제외 버튼들 묶는거*/
@@ -39,25 +51,25 @@
   width: 100%;
   gap: 8px;
 }
-.tab{
+.tab {
   padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
   color: #404040;
-  border-left: 3px solid transparent;
+  border-left: 2px solid transparent;
   cursor: pointer;
 }
 .tab:hover {
-  background-color:#eef6ff;
-}
-
-.active {
-  border-left: 3px solid #0090ff;
   background-color: #eef6ff;
+  border-left: 2px solid #0090ff;
   font-weight: bold;
 }
 
-
+.active {
+  border-left: 2px solid #0090ff;
+  background-color: #eef6ff;
+  font-weight: bold;
+}
 
 /* ✅ 반응형 (모바일: 가로 일렬 정렬) */
 @media (max-width: 768px) {
@@ -68,36 +80,48 @@
     border-left: none;
     border-bottom: 1px solid #eee;
     padding: 40px 16px 30px;
+    padding-bottom: 0;
     gap: 10px;
     min-width: 100%;
     height: auto;
   }
 
-  .addButton {
-    width: auto;
+  /* 추가 버튼은 위치 그대로, 크기 조정만 */
+  .addParent {
+    width: 90%;
     height: 36px;
     font-size: 14px;
     padding: 0 14px;
     border-radius: 18px;
+    margin-bottom: 10px; /* 탭들과 간격 */
   }
 
+  /* 탭은 가로 정렬 */
   .tabWrapper {
     flex-direction: row;
-    width: auto;
+    width: 100%;
     gap: 6px;
   }
 
   .tab {
+    width: 100%;
     padding: 8px 12px;
     font-size: 14px;
     border-left: none;
     border-bottom: 2px solid transparent;
     background-color: transparent;
+    text-align: center;
+  }
+  .tab:hover {
+    background-color: #eef6ff;
+    border-bottom: 2px solid #0090ff;
+      border-left: none;
+    font-weight: bold;
   }
 
   .active {
     border-bottom: 2px solid #0090ff;
-    background-color: transparent;
     font-weight: bold;
+    background-color: #eef6ff;
   }
 }

@@ -1,0 +1,88 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  gap: 12px;
+}
+
+/* 헤더 */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.title {
+  font-size: 16px;
+  color: #8c8c8c;
+  text-transform: capitalize;
+}
+
+.icon {
+  width: 24px;
+  object-fit: contain;
+}
+
+/* 채널 인원 */
+.members {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  color: #404040;
+
+  max-height: calc(5 * 48px); /* 멤버 한 개당 높이를 48px로 가정, 필요시 조정 */
+  overflow-y: auto;
+
+  /* 스크롤바 스타일 (크롬, 사파리, 엣지) */
+  scrollbar-width: thin; /* 파이어폭스 */
+  scrollbar-color: rgba(0, 144, 255, 0.3) transparent; /* 파이어폭스 */
+}
+
+.members::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+.members::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 144, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* 기존 멤버 스타일에 버튼 속성 추가 */
+.member {
+  text-transform: capitalize;
+  background: none;
+  border: none;
+  border-radius: 0;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 선택된 멤버 */
+.selected {
+  width: 100%;
+  border-left: 2px solid #0090ff;
+  background-color: #e6f3ff;
+  font-weight: bold;
+  color: #0090ff;
+}
+
+/* 호버 효과 */
+.member:hover {
+  width: 100%;
+  background-color: #f0f8ff;
+  border-left: 2px solid #0090ff;
+  font-weight: bold;
+  color: #0090ff;
+}

@@ -59,12 +59,8 @@
   align-content: center;
   gap: 12px;
 }
-.user {
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
-}
 
+.user,
 .notification {
   width: 24px;
   height: 24px;
@@ -80,9 +76,24 @@
   padding: 8px;
 }
 
+.iconGroup button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* 기본은 숨김 */
+}
+
 .hamburger img {
-  width: 24px;
+  width: 24px; /* 아이콘 크기 유지 */
   height: 24px;
+  display: block; /* inline 이미지 정렬 문제 방지 */
+  margin: 0; /* 불필요한 마진 제거 */
 }
 
 /* 768px 이하일 때만 보이게 */
@@ -91,7 +102,7 @@
     flex-direction: column;
     padding: 0 20px;
   }
-
+  .iconGroup button,
   .hamburger {
     /* 모바일 메뉴 버튼 보이게 */
     display: block;

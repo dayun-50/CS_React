@@ -1,0 +1,45 @@
+.channelIndex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.tabWrapper {
+  display: flex; /* 추가: 탭 버튼들 가로 정렬 */
+  gap: 20px; /* 버튼 간격 조절 (필요하면 조절 가능) */
+}
+
+.tabButton {
+  height: 47px;
+  width: 110px;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #8c8c8c;
+  font-weight: 500;
+}
+
+.activeTab {
+  border-bottom: 3px solid #0090ff;
+  color: #0090ff;
+  font-weight: 700;
+}
+
+.contentArea {
+  width: 100%;
+  height: 90%;
+  flex: 1;
+}
+.messagesIcon {
+  width: 24px;
+  height: 24px;
+}
+.calendarIcon {
+  width: 24px;
+  height: 24px;
+}

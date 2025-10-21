@@ -1,0 +1,243 @@
+/* 전체 박스 */
+.chatBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Pretendard, sans-serif;
+  font-size: 12px;
+  color: #8c8c8c;
+  background-color: #eff3ff;
+  border-radius: 22px;
+  box-sizing: border-box;
+}
+
+/* 내부 컨테이너 */
+.chatBox__container {
+  width: 100%;
+  max-width: 985px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #404040;
+}
+
+/* 상단 헤더 */
+.chatBox__headerWrapper {
+  height: 64px;
+  padding: 16px 20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  gap: 30px;
+}
+
+.chatBox__header {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #404040;
+}
+
+/* 상단 검색/접기 그룹 */
+.chatBox__topControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 70%;
+}
+
+.chatBox__searchBar {
+  width: 80%;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #8c8c8c;
+  border-radius: 144px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* 검색용 */
+.chatBox__searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  color: #8c8c8c;
+  background: transparent;
+}
+
+.chatBox__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.chatBox__searchIcon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* 필터 쪽 */
+.chatBox__collapseBtn {
+  width: 20%;
+  height: 40px;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid #8c8c8c;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap; /* 메시지 줄바꿈 방지 */
+}
+
+.chatBox__collapseIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* 메시지 리스트 */
+.chatBox__messageList {
+  flex-grow: 1;
+  min-height: 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  border-radius: 22px;
+}
+
+/* 메시지 아이템 */
+.chatBox__message {
+  background-color: #bde2ff;
+  border-radius: 16px 0 16px 16px;
+  padding: 10px 20px;
+  max-width: 70%;
+  font-weight: 500;
+  color: #404040;
+  text-transform: uppercase;
+  word-break: break-word;
+}
+
+.chatBox__message--left {
+  align-self: flex-start;
+}
+
+.chatBox__message--right {
+  align-self: flex-end;
+}
+
+/* 입력 영역 */
+.chatBox__inputArea {
+  height: 48px;
+  margin: 0 20px 20px;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #fff;
+  border-radius: 22px;
+  box-sizing: border-box;
+  color: #8c8c8c;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.chatBox__attachButton {
+  background-color: #d9d9d9;
+  border-radius: 36px;
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatBox__attachButton button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 36px;
+  padding: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.chatBox__inputIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.chatBox__inputText {
+  width: 85%;
+  height: 100%;
+  flex-grow: 1;
+  font-size: 16px;
+  color: #404040;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-transform: none;
+}
+
+.chatBox__sendButton {
+  width: 15%;
+  height: 100%;
+  background-color: #0090ff;
+  border-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.chatBox__sendButton:hover {
+  background-color: #0077cc;
+  transition: background-color 0.2s ease;
+}
+
+.chatBox__sendIcon {
+  width: 30px;
+  height: 30px;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .chatBox__headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .chatBox__topControls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .chatBox__searchBar,
+  .chatBox__collapseBtn {
+    width: 100%;
+  }
+}

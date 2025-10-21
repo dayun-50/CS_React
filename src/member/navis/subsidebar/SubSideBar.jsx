@@ -1,5 +1,6 @@
 import styles from "./SubSideBar.module.css"
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import addicon from "./icon/Add.svg";
 
 function SubSideBar({ data }) {
       // 구조분해할당으로 꺼내기
@@ -13,8 +14,11 @@ function SubSideBar({ data }) {
 
     return (
         <div className={styles.submenuWrapper}>
-            <button className={styles.btn} onClick={navigateFunc}>{text}</button>
-            
+            {/* 추가 아이콘 버튼 */}
+            <div className={styles.addParent} onClick={navigateFunc}>
+                <img src={addicon} className={styles.addIcon} alt="작성 추가아이콘" />
+                <div className={styles.div}>{text}</div>
+            </div>
             
             <div className={styles.tabWrapper}>
                 {btns.map((btn) =>

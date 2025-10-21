@@ -1,0 +1,113 @@
+/* 전체 레이아웃 */
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.title {
+  font-size: 16px;
+  color: #8c8c8c;
+  text-transform: capitalize;
+}
+
+.icon {
+  width: 24px;
+  object-fit: contain;
+}
+
+/* 채널 버튼 스타일 */
+.rooms {
+  width: 100%;
+  max-height: calc(5 * 52px);
+  overflow-y: auto;
+
+  /* 스크롤바 얇게, 투명하게 */
+  scrollbar-width: thin; /* 파이어폭스 */
+  scrollbar-color: transparent transparent; /* 스크롤바 색 투명 */
+
+  /* 크롬, 엣지, 사파리 */
+}
+
+.rooms::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+.rooms::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 144, 255, 0.3);
+  border-radius: 3px;
+}
+
+.rooms button {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  font-size: 16px;
+  color: #404040;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* # 기호 스타일 */
+.hash {
+  width: 30px;
+  height: 30px;
+  border-radius: 79px;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 선택된 채널 스타일 */
+.selected {
+  background-color: #e6f3ff;
+  border-left: 2px solid #0090ff;
+  font-weight: bold;
+  color: #0090ff;
+}
+
+button.selected {
+  border-radius: 0;
+  border-left: 2px solid #0090ff;
+}
+
+.selected .hash {
+  background-color: white;
+  color: #0090ff;
+}
+
+/* 호버 효과 */
+.room:hover {
+  border-radius: 0;
+  background-color: #f0f8ff;
+  border-left: 2px solid #0090ff;
+  color: #0090ff;
+  font-weight: bold;
+}
+
+.room:hover .hash {
+  background-color: white;
+  color: #0090ff;
+}

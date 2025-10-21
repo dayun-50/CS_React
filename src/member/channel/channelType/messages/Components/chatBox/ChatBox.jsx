@@ -42,7 +42,9 @@ const ChatBox = () => {
           <div
             className={`${styles.chatBox__message} ${styles["chatBox__message--left"]}`}
           >
+            <div className={styles.chatBox__messageInner}>
             000 / 팀장
+            </div>
           </div>
           <div
             className={`${styles.chatBox__message} ${styles["chatBox__message--right"]}`}

@@ -129,7 +129,6 @@
   border-radius: 16px 0 16px 16px;
   padding: 10px 20px;
   max-width: 70%;
-  font-weight: 500;
   color: #404040;
   text-transform: uppercase;
   word-break: break-word;
@@ -137,6 +136,12 @@
 
 .chatBox__message--left {
   align-self: flex-start;
+  transform: scaleX(-1);
+}
+
+.chatBox__messageInner {
+  align-self: flex-start;
+  transform: scaleX(-1);
 }
 
 .chatBox__message--right {

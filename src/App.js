@@ -29,23 +29,14 @@ function App() {
 
   return (
     <div className="container">
-
       <BrowserRouter>
-        <Routes>
-          <Route path="/*" element={<MemberIndex />} />
-        </Routes>
-      </BrowserRouter>
-
-
-
-      {/* <BrowserRouter>
         <Routes>
           <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }

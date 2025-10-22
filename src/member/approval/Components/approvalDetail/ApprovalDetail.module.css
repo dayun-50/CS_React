@@ -139,7 +139,7 @@ flex-shrink: 0;
 }
 /*내용영역*/
 .div10 {
-    height: 500px;
+    height: 380px;
      align-self: stretch;
      display: flex;
      align-items: center;

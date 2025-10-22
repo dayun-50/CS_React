@@ -12,24 +12,23 @@ import { useEffect } from 'react';
 
 
 function App() {
-  
+
   //최상위 컴포넌트
-  
 
-  const {login, isLogin} = useAuthStore(state=>state);
 
-  
-  useEffect(()=>{ // 토큰 유지
+  const { login, isLogin } = useAuthStore(state => state);
+
+
+  useEffect(() => { // 토큰 유지
     const token = sessionStorage.getItem("token");
     const id = sessionStorage.getItem("id");
-    if(token){
-      login(token,id);
+    if (token) {
+      login(token, id);
     }
-  },[]);
+  }, []);
 
   return (
     <div className="container">
-
       <BrowserRouter>
         <Routes>
           <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />{/* 로그인 되어잇으면 ? 멤버인덱스 :아니면 로그인페이지 */}

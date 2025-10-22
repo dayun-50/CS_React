@@ -1,97 +1,102 @@
 /* 전체 컨테이너 */
+/* 이것도 혜빈언니꺼 받으면 바꿔야 합니다 */
 .container {
-     width: 100%;
-     height: 100%;
-     border-radius: 22px;
-     background-color: #fff;
-     border: 1px solid #8c8c8c;
-     box-sizing: border-box;
-     display: flex;
-     flex-direction: column;
-     font-family: Pretendard, sans-serif;
-     font-size: 22px;
-     color: #404040;
-     overflow: hidden;
-     padding: 30px;
-
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: Pretendard, sans-serif;
+  font-size: 22px;
+  color: #404040;
+  overflow: hidden;
+  padding: 30px;
 }
 
 /* 왼쪽 박스 (전체 회원 정보 영역) */
 .leftBox {
-     width: 100%;
-     height: 90%;
-     border-radius: 22px;
-     background-color: #fff;
-     box-sizing: border-box;
-     display: flex;
-     flex-direction: column;
+  width: 100%;
+  height: 90%;
+  border-radius: 22px;
+  background-color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 회원 정보 제목 */
 .header {
-     padding-bottom: 30px;
-     font-weight: 600;
-     font-size: 22px;
-     text-transform: capitalize;
+  padding-bottom: 30px;
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: capitalize;
 }
 
 /* 공통 정보 박스 */
 .infoBox {
-     display: flex;
-     flex-direction: column;
-     gap: 12px;
-     margin-bottom: 30px;
-     /* label과 input 간 간격 */
-     /* border: 1px solid #000; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  /* label과 input 간 간격 */
+  /* border: 1px solid #000; */
 }
 
 /* label (항목명) */
 .label {
-     font-size: 18px;
-     font-weight: 500;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 /* 입력 영역 wrapper */
 .rectangleParent {
-     position: relative;
-     /* input absolute 배치용 */
+  position: relative;
+  /* input absolute 배치용 */
 }
 
 /* 입력창 배경 */
 .groupChild {
-     width: 100%;
-     height: 48px;
-     border-radius: 35px;
-     border: 1px solid #8c8c8c;
-     background-color: #fff;
-     box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  border-radius: 35px;
+  border: none; /* 기존 1px solid #8c8c8c -> none */
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
+/* 수정 모드일 때 border 표시 */
+.editable {
+  border: 1px solid #8c8c8c;
+}
 /* input (공통 입력 스타일) */
 .input {
-     position: absolute;
-     top: 50%;
-     left: 16px;
-     transform: translateY(-50%);
-     width: calc(100% - 32px);
-     height: 30px;
-     border: none;
-     background: transparent;
-     font-size: 16px;
-     color: #404040;
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  width: calc(100% - 32px);
+  height: 30px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #404040;
 }
 
 .input:focus {
-     outline: none;
+  outline: none;
 }
 
 /* 수정 버튼 */
 .buttonContainer {
-     height: 10%;
-     display: flex;
-     justify-content: flex-end;
-     /* 오른쪽 정렬 */
-     /* border: 1px solid black; */
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  /* 오른쪽 정렬 */
+  /* border: 1px solid black; */
 }
 
 /* .button {
@@ -110,20 +115,66 @@
 
 /* 뒤로가기 버튼 */
 .button {
-     width: 200px;
-     height: 48px;
-     border-radius: 22px;
-     background-color: #0090ff;
-     color: #fff;
-     font-size: 18px;
-     font-weight: 700;
-     border: none;
-     cursor: pointer;
-     transition: background-color 0.2s;
-     position: sticky;
-     align-self: flex-end;
+  width: 200px;
+  height: 48px;
+  border-radius: 22px;
+  background-color: #0090ff;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  transition: background-color 0.2s;
+  position: sticky;
+  align-self: flex-end;
+}
+.cancelButton {
+  background-color: #ccc;
+  color: #333;
+  margin-left: 10px;
 }
 
-.backButton:hover {
-     background-color: #0077e6;
+/* 연락처 */
+.hidden {
+  display: none;
+}
+
+.phoneWrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #404040;
+  font-family: Pretendard;
+  gap: 6px;
+  width: 100%;
+  height: 48px;
+}
+
+.phoneWrapper input {
+  height: 48px;
+  width: 40%;
+  border-radius: 22px;
+  border: 1px solid #8c8c8c;
+  padding: 0 12px;
+  background-color: #fff;
+  color: #404040;
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.phoneWrapper input:disabled {
+  border: none;
+  background-color: #fff;
+  color: #404040;
+  cursor: default;
+}
+
+.dash {
+  font-size: 16px;
+  color: #8c8c8c;
+  width: 10%;
+  text-align: center
 }

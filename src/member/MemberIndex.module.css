@@ -81,6 +81,7 @@
 
   .content {
     margin-left: 0; /* 사이드바 공간 확보 */
+    padding: 30px;
   }
   .hamburger {
     display: none;

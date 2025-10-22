@@ -1,5 +1,5 @@
 .container {
-  padding: 30px;
+
   height: 100%;
   width: 100%;
   background-color: #fff;
@@ -13,7 +13,6 @@
 /* 모바일: 480px 이하 */
 @media (max-width: 480px) {
   .container {
-    padding: 30px;
     font-size: 14px; /* 폰트 작게 */
   }
 }
@@ -21,7 +20,7 @@
 /* 태블릿: 481px ~ 767px */
 @media (min-width: 481px) and (max-width: 767px) {
   .container {
-    padding: 30px;
+
     font-size: 16px;
     /* 필요하면 flex-direction 변경 가능 */
   }
@@ -31,7 +30,6 @@
 @media (min-width: 768px) {
   .container {
     flex-direction: row; /* 넓은 화면에서는 가로 정렬 */
-    padding: 30px;
     font-size: 18px;
   }
 }

@@ -26,7 +26,6 @@
   overflow: hidden;
 }
 
-
 /* 메인 네비바 */
 .sidebar {
   width: 220px;
@@ -60,6 +59,7 @@
 
 
 /*-----------------------------------------------------------------------------*/
+
 /* 데스크탑/태블릿 반응형 */
 @media (min-width: 768px) {
   .container {
@@ -67,7 +67,7 @@
   }
 
   .body {
-    padding-left: 0; 
+     padding-left: 0; 
   }
 }
 
@@ -82,9 +82,7 @@
   .content {
     margin-left: 0; /* 사이드바 공간 확보 */
   }
-
-
-  .overlay {
+  .hamburger {
     display: none;
   }
 }

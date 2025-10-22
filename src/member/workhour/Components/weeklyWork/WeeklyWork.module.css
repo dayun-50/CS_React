@@ -1,0 +1,79 @@
+.container {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+
+  padding: 30px; 
+  font-family: Pretendard, sans-serif;
+  font-size: 1.7rem; 
+  color: #404040;
+  gap: 1rem;
+}
+
+.content {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title {
+  text-transform: capitalize;
+}
+
+.time {
+  font-weight: 600;
+  color: #0090ff;
+  text-transform: capitalize;
+}
+
+.overtimeSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+}
+
+.overtimeLabelWrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  gap: 8px;
+}
+
+.overtimeIndicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #ed7833;
+}
+
+.overtimeLabel {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.overtimeTime {
+  font-weight: 500;
+  color: #8c8c8c;
+  text-transform: capitalize;
+}

@@ -14,7 +14,7 @@
   color: #0090ff;
   font-family: Pretendard;
 }
-.frameParent {
+.topbar {
   align-self: stretch;
   flex: 1;
   display: flex;
@@ -25,31 +25,31 @@
 
 /* 상단 로고 */
 .log {
-width: 95px;
-position: relative;
-height: 40px;
+  width: 95px;
+  position: relative;
+  height: 40px;
 }
 
 .logIcon {
-position: absolute;
-top: 0px;
-left: 0px;
-width: 43px;
-height: 40px;
-object-fit: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 43px;
+  height: 40px;
+  object-fit: cover;
 }
 
 .cs {
-position: absolute;
-top: 9px;
-left: 51px;
-line-height: 22px;
-text-transform: uppercase;
-font-weight: 800;
+  position: absolute;
+  top: 9px;
+  left: 51px;
+  line-height: 22px;
+  text-transform: uppercase;
+  font-weight: 800;
 }
 
 /* 상단 우측 아이콘 */
-.frameGroup {
+.iconGroup {
   align-self: stretch;
   flex: 1;
   display: flex;
@@ -87,7 +87,27 @@ font-weight: 800;
 
 /* 768px 이하일 때만 보이게 */
 @media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
   .hamburger {
+    /* 모바일 메뉴 버튼 보이게 */
     display: block;
+  }
+}
+
+/* 모바일: 480px 이하 */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* 태블릿: 481px ~ 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    padding: 0 16px;
   }
 }

@@ -60,7 +60,7 @@ function useChatBox(seq) {
         ws.current.send(JSON.stringify(input));
         setMessages(prev => [
             ...prev,
-            { ...input, message: input.message.trim() }
+            { ...input,member_email: id, message: input.message.trim() }
         ]);
         setInput(prev => ({ ...prev, message: "" }));
     };

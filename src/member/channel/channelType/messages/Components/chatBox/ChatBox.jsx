@@ -50,7 +50,7 @@ const ChatBox = ({ seq }) => {
         <div className={styles.chatBox__messageList} ref={messageListRef}>
           {messages.map((msg) => (
             <div
-              key={msg.message_seq  }
+              key={msg.message_seq}
               className={`${styles.chatBox__message} ${msg.member_email == id
                 ? styles["chatBox__message--right"]
                 : styles["chatBox__message--left"]

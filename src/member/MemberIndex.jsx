@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Topbar from "./navis/topbar/Topbar";
 import Sidebar from "./navis/sidebar/Sidebar";
 import Board from "./board/Board";
+import Mail from "./mail/Mail";
+import MailWrite from "./mail/Components/mailWrite/MailWrite";
 import BoardDetail from "./board/Components/boardDetail/BoardDetail";
 import { Route, Routes } from "react-router-dom";
 import WorkHourIndex from "./workhour/WorkHourIndex";
@@ -15,6 +17,7 @@ import Individual from "./contact/Components/contactList/Individual";
 import Channellndex from "./channel/ChannelIndex"; // 여기도 이름 오타 확인
 import MessagesIndex from "./channel/channelType/messages/MessagesIndex";
 import Schedule from "./channel/channelType/schedule/Schedule";
+
 
 function MemberIndex() {
   //사이드바 열림 여부 상태변수
@@ -56,6 +59,10 @@ function MemberIndex() {
             <Route path="/board/detail/:id" element={<BoardDetail />} /> {/* 공지사항 디테일 */}
             <Route path="/approval/*" element={<ApprovalIndex />} /> {/* 전자결재 */}
 
+            {/* 메일 라우트 -- 휘경 승진*/}
+            <Route path="/mail/*" element={<Mail />} /> {/* 메일 */}
+
+            
             {/* 주소록 중첩 라우트 -- 영서*/}
             <Route path="/contact" element={<Contact />}> {/* 주소록 */}
               <Route index element={<ContactList />} /> {/* 주소록 리스트 */}

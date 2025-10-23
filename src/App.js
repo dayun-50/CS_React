@@ -1,13 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Login from './notMember/login/Login';
-import Signin from './notMember/signin/Signin';
-import Findpw from './notMember/findpw/Findpw/Findpw';
-import Gnewpw from './notMember/findpw/Gnewpw/Gnewpw';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MemberIndex from './member/MemberIndex';
 import useAuthStore from './store/useAuthStore';
-import axios from 'axios';
 import { useEffect } from 'react';
 
 
@@ -29,7 +23,6 @@ function App() {
 
   return (
     <div className="container">
-
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<MemberIndex />} />
@@ -45,8 +38,10 @@ function App() {
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
+      */}
     </div>
+
   );
 }
 

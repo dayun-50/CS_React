@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import SubSideBar from "../navis/subsidebar/SubSideBar";
-import ContactForm from "./Components/contactForm/ContactForm";
-import ContactList from "./Components/contactList/ContactList";
 import styles from "./Contact.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 

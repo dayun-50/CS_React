@@ -139,9 +139,13 @@
   transform: scaleX(-1);
 }
 
-.chatBox__messageInner {
+.chatBox__message--left .chatBox__messageInner {
   align-self: flex-start;
   transform: scaleX(-1);
+}
+
+.chatBox__message--right .chatBox__messageInner{
+  align-self: flex-start;
 }
 
 .chatBox__message--right {

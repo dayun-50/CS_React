@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useAttendance() {
+function useAttendance(onChannelClick) {
 
     // 출력 맴버 받을 준비
     const [members, setMembers] = useState([]);
@@ -21,9 +21,15 @@ function useAttendance() {
             });
     }, []);
 
+    // 클릭이벤트
+    const handleClickChat = (chat_seq)=>{
+        onChannelClick(chat_seq);
+        if (onChannelClick) onChannelClick(chat_seq);
+    }
+
     return {
         members, chatSeq,
-        setChatSeq
+        handleClickChat
     }
 }
 export default useAttendance;

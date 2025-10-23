@@ -3,17 +3,17 @@ import styles from "./Attendance.module.css";
 import collapse from "./icon/Collapse Arrow.svg";
 import useAttendance from "./useAttendance";
 
-const Attendance = () => {
+const Attendance = ({ onChannelClick }) => {
 
   const {
     members, chatSeq,
-    setChatSeq
-  } = useAttendance();
+    handleClickChat
+  } = useAttendance(onChannelClick);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>채널 참여 원</div>
+        <div className={styles.title}>부서 개인 채널</div>
         <img src={collapse} className={styles.icon} alt="화살표" />
       </div>
 
@@ -23,7 +23,7 @@ const Attendance = () => {
             key={member.chat_seq}
             className={`${styles.member} ${chatSeq === member.chat_seq ? styles.selected : ""
               }`}
-            onClick={() => setChatSeq(member.chat_seq)}
+            onClick={()=>handleClickChat(member.chat_seq)}
           >
             {member.name}
           </button>

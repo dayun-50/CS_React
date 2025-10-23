@@ -5,11 +5,11 @@ import useChannelName from "./useChannelName";
 
 
 
-const ChannelName = () => {
+const ChannelName = ({ onChannelClick }) => {
   const {
     rooms, chatSeq,
-    setChatSeq
-  } = useChannelName();
+    handleClickChat
+  } = useChannelName(onChannelClick);
 
   return (
     <div className={styles.container}>
@@ -23,7 +23,7 @@ const ChannelName = () => {
             key={room.chat_seq}
             className={`${styles.room} ${chatSeq === room.chat_seq ? styles.selected : ""
               }`}
-            onClick={() => setChatSeq(room.chat_seq)}
+            onClick={() => handleClickChat(room.chat_seq)}
           >
             <span className={styles.hash}>#</span> {room.chat_name}
           </button>

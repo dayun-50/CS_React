@@ -3,14 +3,23 @@ import attach from "./icon/Attach.svg";
 import message from "./icon/message.svg";
 import collapse from "./icon/Collapse Arrow.svg";
 import search from "./icon/Search.svg";
+import { useLocation } from "react-router-dom";
+import useChatBox from "./useChatBox";
 
-const ChatBox = () => {
+const ChatBox = ({ seq }) => {
+
+  const {
+    id, room, messages, input,
+    setInput, sendMessage, handleKeyDown,
+    messageListRef
+  } = useChatBox(seq);
+
   return (
     <div className={styles.chatBox}>
       <div className={styles.chatBox__container}>
         <div className={styles.chatBox__headerWrapper}>
-          {/* 상단 고정 헤더 */}
-          <b className={styles.chatBox__header}>여름 프로젝트</b>
+          {/* 상단 고정 헤더에 제목이랑 인원수 나와야함 */}
+          <b className={styles.chatBox__header}>{room.title} / {room.memberCount} 명</b>
 
           <div className={styles.chatBox__topControls}>
             <div className={styles.chatBox__searchBar}>
@@ -38,17 +47,18 @@ const ChatBox = () => {
         </div>
 
         {/* 메시지 영역 */}
-        <div className={styles.chatBox__messageList}>
-          <div
-            className={`${styles.chatBox__message} ${styles["chatBox__message--left"]}`}
-          >
-            000 / 팀장
-          </div>
-          <div
-            className={`${styles.chatBox__message} ${styles["chatBox__message--right"]}`}
-          >
-            000 / 대리
-          </div>
+        <div className={styles.chatBox__messageList} ref={messageListRef}>
+          {messages.map((msg) => (
+            <div
+              key={msg.message_seq}
+              className={`${styles.chatBox__message} ${msg.member_email == id
+                ? styles["chatBox__message--right"]
+                : styles["chatBox__message--left"]
+                }`}
+            >
+              <div className={styles.chatBox__messageInner}>{msg.message}</div>
+            </div>
+          ))}
         </div>
 
         {/* 메시지 입력창 */}
@@ -67,9 +77,15 @@ const ChatBox = () => {
             type="text"
             className={styles.chatBox__inputText}
             placeholder="메시지를 입력하세요"
+            value={input.message}
+            onChange={(e) => setInput(prev => ({ ...prev, message: e.target.value }))}
+            onKeyDown={handleKeyDown}
           />
 
-          <button className={styles.chatBox__sendButton}>
+          <button
+            className={styles.chatBox__sendButton}
+            onClick={sendMessage}
+          >
             <img
               src={message}
               className={styles.chatBox__sendIcon}

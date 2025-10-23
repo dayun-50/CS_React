@@ -5,6 +5,7 @@ import { caxios } from "../../../../config/config";
 import Individual from "./Individual";
 import TeamContact from "./TeamContact";
 import ContactDetail from "../contactDetail/ContactDetail";
+import addressBook from "./icon/Address Book.svg";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -28,19 +29,15 @@ const ContactList = () => {
 
   // '개인용' 설정 핸들러 (UI 즉시 업데이트 + DB 반영)
   const handleIndividual = (contact_seq) => {
-    console.log("개인용 주소록 버튼 클릭됨:", contact_seq);
-
-    // DB에 '개인용'(share: n)으로 설정 요청
+    // ... API 호출 DB 반영
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "n" })
-      .then((res) => {
-        console.log("개인용 설정 성공:", res.data);
-
-        // contacts 상태 업데이트 (해당 항목의 contact_group을 "개인"으로 변경)
+      .post(`/contact/share/${contact_seq}`, { share: "n", contact_seq })
+      .then(() => {
+        // contacts 상태 업데이트: share만 "n"으로 변경 (contact_group은 건드리지 않음)
         setContacts((prev) =>
           prev.map((contact) =>
             contact.contact_seq === contact_seq
-              ? { ...contact, share: "n" } // contact_group을 "개인"으로 변경
+              ? { ...contact, contact_seq: "n" }
               : contact
           )
         );
@@ -56,15 +53,15 @@ const ContactList = () => {
 
     // DB에 '팀용'(share: y)으로 설정 요청
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "y" })
-      .then((res) => {
-        console.log("팀용 설정 성공:", res.data);
+      .post(`/contact/share/${contact_seq}`, { share: "y", contact_seq })
+      .then(() => {
+        console.log("팀용 설정 성공");
 
-        // contacts 상태 업데이트 (해당 항목의 contact_group을 "팀"으로 변경)
+        // contacts 상태 업데이트: share만 "y"로 변경 (contact_group은 그대로 유지)
         setContacts((prev) =>
           prev.map((contact) =>
             contact.contact_seq === contact_seq
-              ? { ...contact, share: "y" } // contact_group을 "팀"으로 변경
+              ? { ...contact, share: "y" } // share 값만 업데이트
               : contact
           )
         );
@@ -72,6 +69,27 @@ const ContactList = () => {
       .catch((err) => {
         console.error("팀용 설정 실패:", err);
       });
+  };
+
+  // 수정 후 연락처 데이터를 업데이트하는 함수
+  const handleUpdated = (updatedContact) => {
+    console.log("handleUpdated 호출됨", updatedContact);
+    setContacts((prev) =>
+      prev.map((contact) =>
+        contact.contact_seq === updatedContact.contact_seq
+          ? updatedContact
+          : contact
+      )
+    );
+    setSelectedContact(updatedContact);
+  };
+
+  // 삭제 후 연락처 데이터 업데이트
+  const handleDeleted = (deletedContactSeq) => {
+    setContacts((prev) =>
+      prev.filter((contact) => contact.contact_seq !== deletedContactSeq)
+    );
+    setSelectedContact(null);
   };
 
   // 검색 필터링 로직 (회사 이름 기준)
@@ -87,7 +105,12 @@ const ContactList = () => {
       {selectedContact ? (
         <ContactDetail
           contact={selectedContact}
-          onClose={() => setSelectedContact(null)} // 뒤로가기
+          onClose={() => {
+            console.log("부모 컴포넌트 onClose 호출");
+            setSelectedContact(null);
+          }}
+          onUpdated={handleUpdated} // 수정 후 리스트 갱신 함수
+          onDeleted={handleDeleted} // 삭제 후 리스트 갱신 함수
         />
       ) : (
         <>
@@ -184,8 +207,15 @@ const ContactList = () => {
 
               {/* 주소록이 없을 경우 */}
               {filteredContacts?.length === 0 && (
-                <div className={styles.noContacts}>
-                  검색 결과 또는 주소록이 없습니다.
+                <div className={styles.contactEmptyContainer}>
+                  <img
+                    src={addressBook}
+                    className={styles.contactEmptyIcon}
+                    alt="File"
+                  />
+                  <div className={styles.contactEmptyText}>
+                    주소록이 없습니다
+                  </div>
                 </div>
               )}
             </>

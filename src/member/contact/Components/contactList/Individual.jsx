@@ -3,6 +3,7 @@ import styles from "./ContactList.module.css";
 import { caxios } from "../../../../config/config";
 import { IoSearch } from "react-icons/io5";
 import ContactDetail from "../contactDetail/ContactDetail";
+import addressBook from "./icon/Address Book.svg";
 
 const Individual = () => {
   const [contacts, setContacts] = useState([]);
@@ -14,9 +15,9 @@ const Individual = () => {
     caxios
       .get("/contact/list")
       .then((res) => {
-        // 전체 주소록을 받아와 개인용만 필터링
+        // 전체 주소록을 받아와 개인용만 필터링 (share: 'n' 기준)
         const individualContacts = res.data.filter(
-          (item) => item.contact_group === "개인"
+          (item) => item.share === "n"
         );
         setContacts(individualContacts);
       })
@@ -32,33 +33,22 @@ const Individual = () => {
   // '개인용' 설정 핸들러 (API 호출 + UI 업데이트)
   const handleIndividual = (contact_seq) => {
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "n" })
+      .post(`/contact/share/${contact_seq}`, { share: "n", contact_seq })
       .then(() => {
-        console.log("개인용 설정 성공: 그룹 유지");
-        // 개인용 페이지이므로 UI 변경 사항은 없으나, 상태 업데이트를 통해 리렌더링 (contact_group이 "개인"으로 유지됨)
-        setContacts((prev) =>
-          prev.map((contact) =>
-            contact.contact_seq === contact_seq
-              ? { ...contact, share: "n" }
-              : contact
-          )
-        );
+        console.log("개인용 설정 성공: 리스트 갱신");
+        fetchContacts(); // 상태 초기화 대신 데이터 다시 불러오기
       })
       .catch((err) => {
         console.error("개인용 설정 실패:", err);
       });
   };
 
-  // '팀용' 설정 핸들러 (API 호출 + UI 업데이트: 리스트에서 항목 제거)
   const handleTeamContact = (contact_seq) => {
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "y" })
+      .post(`/contact/share/${contact_seq}`, { share: "y", contact_seq })
       .then(() => {
-        console.log("팀용 설정 성공: 리스트에서 항목 제거");
-        // 🚨 핵심 로직: contacts 상태에서 해당 contact_seq를 가진 항목을 필터링하여 제거
-        setContacts((prev) =>
-          prev.filter((contact) => contact.contact_seq !== contact_seq)
-        );
+        console.log("팀용 설정 성공: 리스트 갱신");
+        fetchContacts(); // 다시 불러오기`
       })
       .catch((err) => {
         console.error("팀용 설정 실패:", err);
@@ -66,10 +56,10 @@ const Individual = () => {
   };
 
   // 검색 필터링 로직 (회사 이름 기준)
-  const filteredContacts = contacts?.filter(
+  const filteredContacts = contacts.filter(
     (contact) =>
-      contact.company_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.name?.toLowerCase().includes(searchTerm.toLowerCase()) // 이름으로도 검색되도록 추가
+      contact.contact_group?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -83,7 +73,7 @@ const Individual = () => {
         <>
           {/* 상단 영역 */}
           <div className={styles.header}>
-            <div className={styles.title}>개인용 주소록</div>
+            <div className={styles.title}>개인용</div>
             <div className={styles.searchBox}>
               <input
                 type="text"
@@ -110,11 +100,18 @@ const Individual = () => {
 
           {/* 리스트 데이터 */}
           {filteredContacts.length === 0 && (
-            <div className={styles.noContacts}>개인용 주소록이 없습니다.</div>
+            <div className={styles.contactEmptyContainer}>
+              <img
+                src={addressBook}
+                className={styles.contactEmptyIcon}
+                alt="File"
+              />
+              <div className={styles.contactEmptyText}>공지사항이 없습니다</div>
+            </div>
           )}
 
           {filteredContacts.map((item, index) => (
-            <div key={item.contact_seq} className={styles.tableRow}>
+            <div key={item.contact_seq} className={styles.tableRow} onClick={() => setSelectedContact(item)}>
               <div className={`${styles.cell} ${styles.number}`}>
                 {index + 1}
               </div>
@@ -136,19 +133,21 @@ const Individual = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleIndividual(item.share);
+                      handleIndividual(item.contact_seq);
                     }}
                     className={`${styles.button} ${styles.active}`}
+                    type="button"
                   >
                     개인용
                   </button>
-                  {/* 팀용 버튼: inactive, 클릭 시 리스트에서 사라짐 */}
+
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleTeamContact(item.share);
+                      handleTeamContact(item.contact_seq);
                     }}
                     className={`${styles.button} ${styles.inactive}`}
+                    type="button"
                   >
                     팀용
                   </button>

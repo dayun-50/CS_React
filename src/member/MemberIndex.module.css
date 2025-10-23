@@ -80,12 +80,13 @@
 
   .content {
     margin-left: 0; /* 사이드바 공간 확보 */
+    padding: 30px;
   }
-
-  .overlay {
+  .hamburger {
     display: none;
   }
 }
+
 
 /* 카테고리 반응시 옆에 블라인드 처리 */
 .overlay {

@@ -153,6 +153,33 @@
   opacity: 0.9;
 }
 
+/* 공지사항이 없을 경우 */
+.contactEmptyContainer {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Pretendard;
+  color: #d9d9d9;
+}
+
+.contactEmptyText {
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: capitalize;
+  margin-top: 12px; /* 아이콘과 텍스트 간격 */
+}
+
+.contactEmptyIcon {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
 /* 테블릿 대응 */
 @media (max-width: 768px) {
   .header {

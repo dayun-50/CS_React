@@ -1,17 +1,13 @@
 import { useState } from "react";
 import styles from "./CompletedChannel.module.css";
+import useCompletedChannel from "./useCompletedChannel";
 
-const CompletedChannel = () => {
-  const completedList = [
-    "여름 프로젝트",
-    "신제품 개발",
-    "가을 이벤트 기획",
-    "추가 채널 1",
-    "추가 채널 2",
-    "추가 채널 3",
-  ];
+const CompletedChannel = ({ onChannelClick }) => {
 
-  const [selected, setSelected] = useState(null);
+  const {
+    completedList, chatSeq,
+    handleClickChat
+  } = useCompletedChannel(onChannelClick);
 
   return (
     <div className={styles.container}>
@@ -20,15 +16,14 @@ const CompletedChannel = () => {
       </div>
 
       <ul className={styles.list}>
-        {completedList.map((item, index) => (
+        {completedList.map((item) => (
           <li
-            key={index}
-            className={`${styles.item} ${
-              selected === item ? styles.selected : ""
-            }`}
-            onClick={() => setSelected(item)}
+            key={item.chat_seq}
+            className={`${styles.item} ${chatSeq === item.chat_seq ? styles.selected : ""
+              }`}
+            onClick={() => handleClickChat(item.chat_seq)}
           >
-            {item}
+            {item.chat_name}
           </li>
         ))}
       </ul>

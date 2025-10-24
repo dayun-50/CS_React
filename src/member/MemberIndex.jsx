@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Topbar from "./navis/topbar/Topbar";
 import Sidebar from "./navis/sidebar/Sidebar";
 import Board from "./board/Board";
+import Mail from "./mail/Mail";
+import MailWrite from "./mail/Components/mailWrite/MailWrite";
 import BoardDetail from "./board/Components/boardDetail/BoardDetail";
 import { Route, Routes } from "react-router-dom";
 import WorkHourIndex from "./workhour/WorkHourIndex";
@@ -54,23 +56,25 @@ function MemberIndex() {
             </Route>
 
             {/* 보드 라우트 --영서 */}
-                        <Route path="/board" element={<Board />} /> {/* 공지사항 */}
-                        <Route path="/board/detail/:id" element={<BoardDetail />} />
+            <Route path="/board" element={<Board />} /> {/* 공지사항 */}
+            <Route path="/board/detail/:id" element={<BoardDetail />} /> {/* 공지사항 디테일 */}
+            <Route path="/approval/*" element={<ApprovalIndex />} /> {/* 전자결재 */}
 
-            {/* 보드 라우트 --주소록 */}
-                    <Route path="/contacts" element={<Contact />}>
-                        <Route index element={<ContactList />} />
-                        <Route path="individual" element={<Individual />} />
-                        <Route path="teamContact" element={<TeamContact />} />
-                        <Route path="contactForm" element={<ContactForm />} />
-                    </Route>
+            {/* 주소록 중첩 라우트 -- 영서*/}
+            <Route path="/contact" element={<Contact />}> {/* 주소록 */}
+              <Route index element={<ContactList />} /> {/* 주소록 리스트 */}
+              <Route path="individual" element={<Individual />} /> {/* 개인용 */}
+              <Route path="teamContact" element={<TeamContact />} /> {/* 팀용 */}
+            </Route>
 
+            {/* 메일 라우트 -- 휘경 승진*/}
+            <Route path="/mail/*" element={<Mail />} /> {/* 메일 */}
 
             {/* 마이페이지 라우트 -- 혜빈 승진 */}
             <Route path='/mypage' element={<Mypage />} />
           </Routes>
-
-
+            
+            
         </div>
 
 

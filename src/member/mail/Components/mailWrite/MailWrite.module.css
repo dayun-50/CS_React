@@ -1,0 +1,190 @@
+/* ---------------- Maillist 전체 박스 ---------------- */
+.maillistbox {
+  width: 100%;                /* 화면 가로 전체 사용 */
+  height: 100%;               /* 화면 세로 전체 사용 */
+  margin-top: 10px;           /* 위쪽 여백 10px */
+  display: flex;              /* 내부 요소를 flex로 배치 */
+  justify-content: center;    /* 가로 중앙 정렬 */
+  align-items: center;        /* 세로 중앙 정렬 */
+  background-color: #eff3ff; /* 옅은 파란 배경 */
+  box-sizing: border-box;     /* padding, border 포함 크기 계산 */
+}
+
+/* ---------------- 실제 메일 리스트 컨테이너 ---------------- */
+.maillistin {
+  width: 98%;                 /* 부모 폭의 98% */
+  height: 98%;                /* 부모 높이의 98% */
+  background-color: white;    /* 배경 흰색 */
+  border: 1px solid #ccc;     /* 연한 회색 테두리 */
+  border-radius: 20px;        /* 모서리 둥글게 */
+
+  display: flex;              /* 내부 요소 flex 배치 */
+  flex-direction: column;     /* 세로 방향으로 쌓기 */
+  box-sizing: border-box;     /* padding 포함 크기 계산 */
+}
+
+/* ---------------- 메일 리스트 상단 제목 및 검색 ---------------- */
+.maillisttitle {
+  width: 100%;                /* 부모 가로 전체 */
+  height: 13%;                /* 상단 영역 높이 비율 */
+  display: flex;              /* 내부 요소 flex 배치 */
+  align-items: center;        /* 세로 중앙 정렬 */
+  justify-content: space-between; /* 좌우 끝 배치 */
+  padding: 0 30px;            /* 좌우 여백 30px */
+  box-sizing: border-box;     /* 패딩 포함 크기 계산 */
+  /* border:1px solid black; */
+}
+
+/* ---------------- 제목 텍스트 ---------------- */
+.titleText {
+  font-size: 22px;            /* 글씨 크기 */
+  font-weight: bold;           /* 글씨 굵게 */
+}
+
+/* 받는 사람 */
+.Recipient {
+  display: flex;
+  align-items: center;
+  gap: 30px;           /* input ↔ 아이콘 간격 */
+  padding: 0 30px;     /* 좌우 여백 */
+}
+
+.Recipient input {
+  flex: 1;             /* 남은 공간 전부 차지 */
+  height: 50px;        /* 필요 시 높이 지정 */
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  padding-left: 10px;  /* 입력 글씨 안쪽 여백 */
+  box-sizing: border-box;
+}
+
+.plusicon {
+  width: 47px;
+  height: 47px;
+}
+
+.people {
+    font-size: 18px;
+}
+/*---------------------------------------------------------------------*/
+
+/* 제목 */
+.writetitle {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;      /* 좌우 여백은 동일하게 */
+  margin-top: 24px;
+  font-size: 18px;
+}
+
+/* 제목 input 왼쪽 시작 위치를 맞춤 */
+.writetitle input {
+  flex: 1;
+  height: 50px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  padding-left: 20px;
+  box-sizing: border-box;
+
+  /* 왼쪽 시작점 조정 */
+  margin-left: calc(20px + 50px); /* people 텍스트 + gap 만큼 밀림 */
+}
+/*---------------------------------------------------------------------*/
+
+/*제목 첨부*/
+
+.grayplusicon {
+  width: 24px;
+  height: 24px;
+}
+
+.writ {
+  position: relative;       /* 아이콘 배치 기준 */
+  padding: 0 30px;
+  margin-top: 24px;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 60px;
+  border-radius: 15px;
+  padding-left: 60px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  border: 1px dashed #ccc; /* 점선 굵기 늘림 */
+}
+
+.fileLabel img.grayplusicon {
+  width: 24px;
+  height: 24px;
+}
+
+.fileLabel span {
+  color: #8C8C8C;
+  font-size: 16px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.writ input {
+  width: 100%;
+  height: 60px;
+  border-radius: 15px;
+  border: 1px dashed #ccc; /* 1px 점선, 색상 연한 회색 */
+  padding-left: 60px;       /* 아이콘 자리 확보 */
+  box-sizing: border-box;
+}
+
+.grayplusicon {
+  position: absolute;        /* input 안에 겹치도록 */
+  left: 60px;                /* padding-left보다 조금 안쪽 */
+  top: 50%;                  /* 수직 중앙 */
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none;      /* 아이콘 클릭 막고 input만 클릭 가능 */
+}
+
+.pen {
+    border: 1px solid #ccc;
+    height: 48%;
+    margin-top: 24px;
+    padding: 20px 30px;       /* 좌우 여백 */
+    width: 95%;               /* 부모 대비 90% 폭 */
+    margin-left: auto;         /* 좌우 중앙 정렬 */
+    margin-right: auto;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+.pent {
+    color: #8C8C8C;
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none; /* 크기 조절 막기 */
+    outline: none; /* 클릭 시 테두리 제거 */
+    font-size: 16px;
+    font-family: inherit;
+}
+.penbutton {
+    /* border: 1px solid black; */
+    flex-grow: 1;        /* 남은 공간 모두 차지 */
+    box-sizing: border-box;
+     display: flex;               /* flex로 배치 */
+     align-items: center;
+    justify-content: flex-end;   /* 오른쪽 끝 정렬 */
+    padding-right: 30px;
+}
+.sendb {
+    background-color:#0090FF;
+    border:none;
+    color:white;
+    font-size: 18px;
+    font-weight: bold;
+}
+

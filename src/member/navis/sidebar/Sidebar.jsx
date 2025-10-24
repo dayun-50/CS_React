@@ -34,7 +34,7 @@ const menus = [
   { name: "게시판", icon: board, activeIcon: boardActive, path: "/board" },
   { name: "전자결재", icon: pay, activeIcon: payActive, path: "/approval" },
   { name: "메일", icon: mail, activeIcon: mailActive, path: "/mail" },
-  { name: "주소록", icon: contact, activeIcon: contactActive, path: "/contacts" },
+  { name: "주소록", icon: contact, activeIcon: contactActive, path: "/contact" },
 ];
 
 const bottomMenus = [

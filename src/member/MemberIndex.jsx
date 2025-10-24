@@ -61,10 +61,11 @@ function MemberIndex() {
             <Route path="/approval/*" element={<ApprovalIndex />} /> {/* 전자결재 */}
 
             {/* 주소록 중첩 라우트 -- 영서*/}
-            <Route path="/contact" element={<Contact />}> {/* 주소록 */}
+            <Route path="/contact/*" element={<Contact />}> {/* 주소록 */}
               <Route index element={<ContactList />} /> {/* 주소록 리스트 */}
               <Route path="individual" element={<Individual />} /> {/* 개인용 */}
               <Route path="teamContact" element={<TeamContact />} /> {/* 팀용 */}
+              <Route path="contactForm" element={<ContactForm />} /> {/* 주소록 작성 */}
             </Route>
 
             {/* 메일 라우트 -- 휘경 승진*/}

@@ -7,59 +7,68 @@ import addressBook from "./icon/Address Book.svg";
 
 const Individual = () => {
   const [contacts, setContacts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
-  const [selectedContact, setSelectedContact] = useState(null); //디테일 페이지용
+  const [searchTerm, setSearchTerm] = useState(""); // 검색용
+  const [selectedContact, setSelectedContact] = useState(null); // 디테일 정보
 
-  // 데이터 로딩 함수 (개인용만 필터링)
-  const fetchContacts = () => {
+  // 초기 데이터 로딩 (개인용만)
+  useEffect(() => {
     caxios
       .get("/contact/list")
       .then((res) => {
-        // 전체 주소록을 받아와 개인용만 필터링 (share: 'n' 기준)
-        const individualContacts = res.data.filter(
-          (item) => item.share === "n"
-        );
-        setContacts(individualContacts);
+        setContacts(res.data.filter((item) => item.share === "n"));
       })
-      .catch((err) => {
-        console.error("개인용 주소록 로딩 실패:", err);
-      });
-  };
-
-  useEffect(() => {
-    fetchContacts();
+      .catch((err) => console.error("개인용 주소록 로딩 실패:", err));
   }, []);
 
-  // '개인용' 설정 핸들러 (API 호출 + UI 업데이트)
-  const handleIndividual = (contact_seq) => {
+  // share 버튼 클릭 시 상태 업데이트 + 서버 요청
+  const updateShare = (contact_seq, newShare) => {
+    // 상태 먼저 업데이트 (즉시 UI 반영)
+    setContacts((prev) =>
+      prev.map((c) =>
+        c.contact_seq === contact_seq ? { ...c, share: newShare } : c
+      )
+    );
+
+    // 서버 요청
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "n", contact_seq })
-      .then(() => {
-        console.log("개인용 설정 성공: 리스트 갱신");
-        fetchContacts(); // 상태 초기화 대신 데이터 다시 불러오기
-      })
+      .put("/contact/update", { contact_seq, share: newShare })
+      .then(() =>
+        console.log(`${newShare === "n" ? "개인용" : "팀용"} 설정 성공`)
+      )
       .catch((err) => {
-        console.error("개인용 설정 실패:", err);
+        console.error(`${newShare === "n" ? "개인용" : "팀용"} 설정 실패`, err);
+        // 실패 시 롤백
+        setContacts((prev) =>
+          prev.map((c) =>
+            c.contact_seq === contact_seq
+              ? { ...c, share: newShare === "n" ? "y" : "n" }
+              : c
+          )
+        );
       });
   };
 
-  const handleTeamContact = (contact_seq) => {
-    caxios
-      .post(`/contact/share/${contact_seq}`, { share: "y", contact_seq })
-      .then(() => {
-        console.log("팀용 설정 성공: 리스트 갱신");
-        fetchContacts(); // 다시 불러오기`
-      })
-      .catch((err) => {
-        console.error("팀용 설정 실패:", err);
-      });
+  // 연락처 수정 후 리스트 갱신
+  const handleUpdated = (updatedContact) => {
+    setContacts((prev) =>
+      prev.map((c) =>
+        c.contact_seq === updatedContact.contact_seq ? updatedContact : c
+      )
+    );
+    setSelectedContact(updatedContact);
   };
 
-  // 검색 필터링 로직 (회사 이름 기준)
+  // 연락처 삭제 후 리스트 갱신
+  const handleDeleted = (contact_seq) => {
+    setContacts((prev) => prev.filter((c) => c.contact_seq !== contact_seq));
+    setSelectedContact(null);
+  };
+
+  // 검색 필터
   const filteredContacts = contacts.filter(
-    (contact) =>
-      contact.contact_group?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    (c) =>
+      c.contact_group?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -67,11 +76,12 @@ const Individual = () => {
       {selectedContact ? (
         <ContactDetail
           contact={selectedContact}
-          onClick={() => setSelectedContact(null)}
+          onClose={() => setSelectedContact(null)}
+          onUpdated={handleUpdated}
+          onDeleted={handleDeleted}
         />
       ) : (
         <>
-          {/* 상단 영역 */}
           <div className={styles.header}>
             <div className={styles.title}>개인용</div>
             <div className={styles.searchBox}>
@@ -86,75 +96,73 @@ const Individual = () => {
             </div>
           </div>
 
-          {/* 리스트 헤더 */}
-          {/* ContactList의 헤더 구조를 그대로 사용 */}
           <div className={styles.tableHeader}>
             <div className={`${styles.cell} ${styles.number}`}>번호</div>
             <div className={`${styles.cell} ${styles.name}`}>이름</div>
             <div className={`${styles.cell} ${styles.company}`}>회사 이름</div>
             <div className={`${styles.cell} ${styles.email}`}>이메일</div>
             <div className={`${styles.cell} ${styles.phone}`}>연락처</div>
-            <div className={`${styles.cell} ${styles.group}`}>분류</div>{" "}
-            {/* 버튼 셀 추가 */}
+            <div className={`${styles.cell} ${styles.group}`}>분류</div>
           </div>
 
-          {/* 리스트 데이터 */}
-          {filteredContacts.length === 0 && (
+          {filteredContacts.length === 0 ? (
             <div className={styles.contactEmptyContainer}>
               <img
                 src={addressBook}
                 className={styles.contactEmptyIcon}
                 alt="File"
               />
-              <div className={styles.contactEmptyText}>공지사항이 없습니다</div>
+              <div className={styles.contactEmptyText}>주소록이 없습니다</div>
             </div>
-          )}
-
-          {filteredContacts.map((item, index) => (
-            <div key={item.contact_seq} className={styles.tableRow} onClick={() => setSelectedContact(item)}>
-              <div className={`${styles.cell} ${styles.number}`}>
-                {index + 1}
-              </div>
-              <div className={`${styles.cell} ${styles.name}`}>{item.name}</div>
-              <div className={`${styles.cell} ${styles.company}`}>
-                {item.contact_group || "N/A"}
-              </div>
-              <div className={`${styles.cell} ${styles.email}`}>
-                {item.email}
-              </div>
-              <div className={`${styles.cell} ${styles.phone}`}>
-                {item.phone}
-              </div>
-
-              {/* 분류 버튼 그룹 추가 */}
-              <div className={`${styles.cell} ${styles.group}`}>
-                <div className={styles.buttonGroup}>
-                  {/* 개인용 버튼: 이 페이지에 있으므로 항상 active */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleIndividual(item.contact_seq);
-                    }}
-                    className={`${styles.button} ${styles.active}`}
-                    type="button"
-                  >
-                    개인용
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleTeamContact(item.contact_seq);
-                    }}
-                    className={`${styles.button} ${styles.inactive}`}
-                    type="button"
-                  >
-                    팀용
-                  </button>
+          ) : (
+            filteredContacts.map((item, index) => (
+              <div
+                key={item.contact_seq}
+                className={styles.tableRow}
+                onClick={() => setSelectedContact(item)}
+              >
+                <div className={`${styles.cell} ${styles.number}`}>
+                  {index + 1}
+                </div>
+                <div className={`${styles.cell} ${styles.name}`}>
+                  {item.name}
+                </div>
+                <div className={`${styles.cell} ${styles.company}`}>
+                  {item.contact_group || "N/A"}
+                </div>
+                <div className={`${styles.cell} ${styles.email}`}>
+                  {item.email}
+                </div>
+                <div className={`${styles.cell} ${styles.phone}`}>
+                  {item.phone}
+                </div>
+                <div className={`${styles.cell} ${styles.group}`}>
+                  <div className={styles.buttonGroup}>
+                    <button
+                      type="button"
+                      className={`${styles.button} ${styles.active}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateShare(item.contact_seq, "n");
+                      }}
+                    >
+                      개인용
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.button} ${styles.inactive}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateShare(item.contact_seq, "y");
+                      }}
+                    >
+                      팀용
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </>
       )}
     </div>

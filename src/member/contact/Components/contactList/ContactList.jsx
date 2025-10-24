@@ -31,13 +31,13 @@ const ContactList = () => {
   const handleIndividual = (contact_seq) => {
     // ... API 호출 DB 반영
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "n", contact_seq })
+      .put(`/contact/update`, { share: "n", contact_seq })
       .then(() => {
         // contacts 상태 업데이트: share만 "n"으로 변경 (contact_group은 건드리지 않음)
         setContacts((prev) =>
           prev.map((contact) =>
             contact.contact_seq === contact_seq
-              ? { ...contact, contact_seq: "n" }
+              ? { ...contact, share: "n" }
               : contact
           )
         );
@@ -53,7 +53,7 @@ const ContactList = () => {
 
     // DB에 '팀용'(share: y)으로 설정 요청
     caxios
-      .post(`/contact/share/${contact_seq}`, { share: "y", contact_seq })
+      .put(`/contact/update`, { share: "y", contact_seq })
       .then(() => {
         console.log("팀용 설정 성공");
 
@@ -95,7 +95,7 @@ const ContactList = () => {
   // 검색 필터링 로직 (회사 이름 기준)
   const filteredContacts = contacts?.filter(
     (contact) =>
-      contact.company_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.company_group?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       contact.name?.toLowerCase().includes(searchTerm.toLowerCase()) // 이름으로도 검색되도록 추가
   );
 

@@ -1,5 +1,5 @@
 import styles from "./MemberIndex.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Topbar from "./navis/topbar/Topbar";
 import Sidebar from "./navis/sidebar/Sidebar";
 import Board from "./board/Board";
@@ -24,6 +24,7 @@ function MemberIndex() {
 
   return (
     <div className={styles.container}>
+
       {/* 상단바 고정*/}
       <div className={styles.header}>
         <Topbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
@@ -39,36 +40,39 @@ function MemberIndex() {
         {/* 바디영역 :우측*/}
         {/*가장 첫번째 뜨는 화면이 근태관리로 해서 /랑 매핑해놓음*/}
         <div className={styles.content}>
+
           <Routes>
             {/* 지원 --건들 ㄴㄴ */}
-            <Route path="/" element={<WorkHourIndex />} />
-            <Route path="/approval/*" element={<ApprovalIndex />} />
+            <Route path='/' element={<WorkHourIndex />} />
+            <Route path='/approval/*' element={<ApprovalIndex />} />
+
+
             {/* 채널 중첩 라우트 -- 혜빈승진*/}
-<<<<<<< HEAD
-            <Route path="/channel" element={<Channellndex />}>
-=======
             <Route path="/channel/*" element={<Channellndex />}>
->>>>>>> 9c9f6dbcb2dacb765fd4ed89565296f91255e10b
               <Route index element={<MessagesIndex />} /> {/* 메신저 */}
               <Route path="schedule" element={<Schedule />} />  {/* 먼슬리*/}
             </Route>
+
             {/* 보드 라우트 --영서 */}
-            <Route path="/board" element={<Board />} /> {/* 공지사항 */}
-            <Route path="/board/detail/:id" element={<BoardDetail />} />{" "}
-            {/* 공지사항 디테일 */}
-            <Route path="/approval/*" element={<ApprovalIndex />} />{" "}
-            {/* 전자결재 */}
-            
-            {/* 주소록 중첩 라우트 */}
-            <Route path="/contacts" element={<Contact />}>
-              <Route index element={<ContactList />} />
-              <Route path="individual" element={<Individual />} />
-              <Route path="teamContact" element={<TeamContact />} />
-              <Route path="contactForm" element={<ContactForm />} />
-            </Route>
-            <Route path="/mypage" element={<Mypage />} /> {/* 마이페이지 */}
+                        <Route path="/board" element={<Board />} /> {/* 공지사항 */}
+                        <Route path="/board/detail/:id" element={<BoardDetail />} />
+
+            {/* 보드 라우트 --주소록 */}
+                    <Route path="/contacts" element={<Contact />}>
+                        <Route index element={<ContactList />} />
+                        <Route path="individual" element={<Individual />} />
+                        <Route path="teamContact" element={<TeamContact />} />
+                        <Route path="contactForm" element={<ContactForm />} />
+                    </Route>
+
+
+            {/* 마이페이지 라우트 -- 혜빈 승진 */}
+            <Route path='/mypage' element={<Mypage />} />
           </Routes>
+
+
         </div>
+
 
         {/* 오버레이 - 불투명 설정 */}
         {sidebarOpen && (

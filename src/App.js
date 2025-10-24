@@ -1,7 +1,13 @@
+import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Login from './notMember/login/Login';
+import Signin from './notMember/signin/Signin';
+import Findpw from './notMember/findpw/Findpw/Findpw';
+import Gnewpw from './notMember/findpw/Gnewpw/Gnewpw';
 import MemberIndex from './member/MemberIndex';
 import useAuthStore from './store/useAuthStore';
+import axios from 'axios';
 import { useEffect } from 'react';
 
 
@@ -25,13 +31,14 @@ function App() {
     <div className="container">
       <BrowserRouter>
         <Routes>
+          <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />{/* 로그인 되어잇으면 ? 멤버인덱스 :아니면 로그인페이지 */}
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />
         </Routes>
       </BrowserRouter>
     </div>
-
   );
 }
+
 export default App;

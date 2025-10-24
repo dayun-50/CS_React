@@ -37,7 +37,7 @@ const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
         memo,
       };
 
-      const response = await caxios.put(`/contact/update`, payload);
+      await caxios.put(`/contact/update`, payload);
       alert("수정이 완료되었습니다.");
       setIsEditMode(false);
 

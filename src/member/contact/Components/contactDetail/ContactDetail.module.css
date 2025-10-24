@@ -1,0 +1,184 @@
+.modalWrapper {
+  position: fixed;
+  height: 100vh;
+  inset: 0;
+  background: rgba(140, 140, 140, 0.5);
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  padding: 30px 30px 30px 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.modalContainer {
+  width: 600px;
+  height: 760px;
+  max-height: 760px;
+  background-color: #fff;
+  top: 70px;
+  border-radius: 22px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: Pretendard, "Noto Sans KR", sans-serif;
+  color: #404040;
+  font-size: 16px;
+
+  overflow: hidden; /* 내부 넘침 방지 */
+}
+
+.textarea {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #8c8c8c;
+  border-radius: 8px;
+  resize: none;
+  min-height: 100px;
+  max-height: 100px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  position: relative;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 24px;
+  color: #404040;
+  user-select: none;
+}
+
+/* 개인용 / 팀용 */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #707070;
+}
+
+.value {
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: #404040;
+  user-select: none;
+  white-space: pre-wrap;
+}
+
+.input {
+  padding: 10px 16px;
+  font-size: 16px;
+  border: 1px solid #8c8c8c;
+  border-radius: 30px;
+  box-sizing: border-box;
+}
+
+/* 개인용 / 팀용 */
+.categoryToggleGroup {
+  display: flex;
+  gap: 10px;
+  background-color: #eff3ff;
+  border-radius: 22px;
+}
+
+.toggleBtn {
+  flex: 1; /* 균등 분배 */
+  padding: 10px 0;
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #404040;
+  background-color: #eff3ff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  text-align: center;
+}
+
+.toggleBtn.active {
+  background-color: #0090ff;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #eff3ff;
+}
+
+/* 버튼 행 */
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin-top: auto; /* 항상 아래 붙이기 */
+}
+
+/* 버튼들 모두 flex:1 로 가로 폭 균등하게 */
+.deleteBtn,
+.editBtn,
+.saveBtn,
+.cancelBtn {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  font-size: 16px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.deleteBtn {
+  background-color: #ff6f61;
+}
+
+.cancelBtn {
+  background-color: #d9d9d9;
+  color: #404040;
+}
+
+.saveBtn {
+  background-color: #0090ff;
+}
+
+.editBtn {
+  background-color: #0090ff;
+}
+
+.titleRow button {
+  width: 48px;
+  height: 48px;
+  border: none;
+}
+.closeBtn {
+  background: transparent;
+  color: #888;
+  font-weight: normal;
+  padding: 4px;
+}
+
+.closeBtn:hover {
+  color: #000;
+}

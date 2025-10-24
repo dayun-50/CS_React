@@ -44,9 +44,13 @@ function MemberIndex() {
             <Route path="/" element={<WorkHourIndex />} />
             <Route path="/approval/*" element={<ApprovalIndex />} />
             {/* 채널 중첩 라우트 -- 혜빈승진*/}
+<<<<<<< HEAD
             <Route path="/channel" element={<Channellndex />}>
+=======
+            <Route path="/channel/*" element={<Channellndex />}>
+>>>>>>> 9c9f6dbcb2dacb765fd4ed89565296f91255e10b
               <Route index element={<MessagesIndex />} /> {/* 메신저 */}
-              <Route path="schedule" element={<Schedule />} /> {/* 먼슬리 */}
+              <Route path="schedule" element={<Schedule />} />  {/* 먼슬리*/}
             </Route>
             {/* 보드 라우트 --영서 */}
             <Route path="/board" element={<Board />} /> {/* 공지사항 */}

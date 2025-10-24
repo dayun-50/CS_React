@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import SubSideBar from "../navis/subsidebar/SubSideBar";
-import ContactForm from "./Components/contactForm/ContactForm";
-import ContactList from "./Components/contactList/ContactList";
 import styles from "./Contact.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const btnsType = [
-    { key: "", name: "전체", path: "/contact", label: "전체 리스트" },
+    { key: "", name: "전체", path: "/contacts", label: "전체 리스트" },
     {
       key: "individual",
       name: "개인",
-      path: "/contact/individual",
+      path: "/contacts/individual",
       label: "개인",
     },
     {
       key: "teamContact",
       name: "팀원",
-      path: "/contact/teamContact",
+      path: "/contacts/teamContact",
       label: "팀원",
     },
   ];
@@ -28,7 +26,7 @@ const Contact = () => {
     btns: btnsType.map(({ name, path }) => ({ name, path })), // 작성하기 제외 버튼들
     selectedBtn: "",
     text: "주소록 추가", // 작성하기 버튼의 문구
-    navigateFunc: () => navigate("/contact/contactForm"), //작성하기 버튼 경로 이동용 함수
+    navigateFunc: () => navigate("/contacts/contactForm"), //작성하기 버튼 경로 이동용 함수
   });
 
   const location = useLocation();
@@ -54,8 +52,8 @@ const Contact = () => {
       {/* 서브 네비바 제외 우측 영역 */}
       <div className={styles.right}>
         {/* 여기에 라우트에 따라 ContactList, IndividualList, TeamContactList가 바뀜 */}
+        {/* 중첩 라우트 내용은 <Outlet />으로 받아야 합니다 */}
         <Outlet />
-        {/* <ContactForm /> */}
       </div>
     </div>
   );

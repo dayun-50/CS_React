@@ -1,7 +1,55 @@
-.container {
+/* .container {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
+} */
+
+.schedulebox {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+/* 달력 영역 */
+.calender {
+    width: 80%;
+    height: 100%;
+    min-height: 400px;
+    padding: 10px;
+}
+
+/* 팀원 영역 */
+.teammember {
+    width: 20%;
+    height: 100%;
+    padding: 10px;
+}
+
+/* 반응형 */
+@media screen and (max-width: 1024px) {
+    .schedulebox {
+        flex-direction: column; /* 세로 배치로 변경 */
+    }
+    .calender {
+        width: 100%;
+        height: 70%;
+    }
+    .teammember {
+        width: 100%;
+        height: 40%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .calender {
+        min-height: 300px; /* 작은 화면에서 높이 줄이기 */
+        padding: 5px;
+    }
+    .teammember {
+        padding: 5px;
+    }
 }

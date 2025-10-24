@@ -1,16 +1,15 @@
 import { useState } from "react";
 import styles from "./ChannelName.module.css";
 import collapse from "./icon/Collapse Arrow.svg";
+import useChannelName from "./useChannelName";
 
-const rooms = [
-  "여름 프로젝트",
-  "신제품 개발",
-  "가을 이벤트 기획",
-  "000 / 팀장(다른팀 팀장)"
-];
 
-const ChannelName = () => {
-  const [selected, setSelected] = useState("여름 프로젝트");
+
+const ChannelName = ({ onChannelClick }) => {
+  const {
+    rooms, chatSeq,
+    handleClickChat
+  } = useChannelName(onChannelClick);
 
   return (
     <div className={styles.container}>
@@ -21,13 +20,12 @@ const ChannelName = () => {
       <div className={styles.rooms}>
         {rooms.map((room) => (
           <button
-            key={room}
-            className={`${styles.room} ${
-              selected === room ? styles.selected : ""
-            }`}
-            onClick={() => setSelected(room)}
+            key={room.chat_seq}
+            className={`${styles.room} ${chatSeq === room.chat_seq ? styles.selected : ""
+              }`}
+            onClick={() => handleClickChat(room.chat_seq)}
           >
-            <span className={styles.hash}>#</span> {room}
+            <span className={styles.hash}>#</span> {room.chat_name}
           </button>
         ))}
       </div>

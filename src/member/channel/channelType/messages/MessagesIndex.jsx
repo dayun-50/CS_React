@@ -11,6 +11,12 @@ import addIconActive from "./icon/Add-active.svg";
 
 const MessagesIndex = () => {
   const [isActive, setIsActive] = useState(false);
+  // 채널 seq값 반환받을 준비
+  const [selectedSeq, setSelectedSeq] = useState(null);
+
+  const handleChannelClick = (seq) => {
+    setSelectedSeq(seq); // 클릭된 채널 seq 저장
+  };
 
   const handleClick = () => {
     setIsActive(true);
@@ -21,9 +27,9 @@ const MessagesIndex = () => {
     <div className={styles.container}>
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
-          <Attendance />
-          <ChannelName />
-          <CompletedChannel />
+          <Attendance onChannelClick={handleChannelClick}/>
+          <ChannelName onChannelClick={handleChannelClick}/>
+          <CompletedChannel onChannelClick={handleChannelClick}/>
         </div>
 
         {/* 아래 고정된 추가 버튼 */}
@@ -49,7 +55,8 @@ const MessagesIndex = () => {
       </div>
 
       <div className={styles.centerColumn}>
-        <ChatBox />
+       {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
+        {<ChatBox seq={selectedSeq} />}
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>

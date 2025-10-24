@@ -49,9 +49,9 @@ function MemberIndex() {
 
 
             {/* 채널 중첩 라우트 -- 혜빈승진*/}
-            <Route path="/channellndex" element={<Channellndex />}>
+            <Route path="/channel/*" element={<Channellndex />}>
               <Route index element={<MessagesIndex />} /> {/* 메신저 */}
-              <Route path="schedule" element={<Schedule />} /> {/* 먼슬리 */}
+              <Route path="schedule" element={<Schedule />} />  {/* 먼슬리*/}
             </Route>
 
             {/* 보드 라우트 --영서 */}
@@ -73,8 +73,8 @@ function MemberIndex() {
             {/* 마이페이지 라우트 -- 혜빈 승진 */}
             <Route path='/mypage' element={<Mypage />} />
           </Routes>
-
-
+            
+            
         </div>
 
 

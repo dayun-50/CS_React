@@ -12,7 +12,7 @@ const Channellndex = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    navigate(tab === "messages" ? "" : "schedule");
+    navigate(tab === "messages" ? "/channel" : "/channel/schedule");
   };
 
   return (
@@ -45,7 +45,7 @@ const Channellndex = () => {
             >
               <img
                 className={styles.calendarIcon}
-                src={activeTab === "calendar" ? calendarActive : calendar}
+                src={activeTab === "schedule" ? calendarActive : calendar}
                 alt="먼슬리"
               />
               <span className={styles.tabLabel}>먼슬리</span>
@@ -57,6 +57,10 @@ const Channellndex = () => {
       {/* 중첩 라우트 렌더링 위치 */}
       <div className={styles.contentArea}>
         <Outlet />
+
+
+              {/* <Route path="/" element={<MessagesIndex />} />  메신저
+              <Route path="/schedule" element={<Schedule />} />  먼슬리 */}
       </div>
     </div>
   );

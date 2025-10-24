@@ -36,7 +36,6 @@ function useChatBox(seq) {
     useEffect(() => {
         setMessages([]);
         if (!room.title) return;
-        console.log(seq);
         setInput(prev=>({...prev, chat_seq: seq}));
         ws.current = new WebSocket(`ws://10.5.5.9:80/chatting?token=${token}&chat_seq=${seq}`);
 
@@ -47,7 +46,6 @@ function useChatBox(seq) {
             } else if (data.type === "history") {
                 setMessages(data.messages);
             }
-            console.log(data);
         };
 
         return () => ws.current?.close();

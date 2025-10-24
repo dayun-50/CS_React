@@ -40,8 +40,10 @@ function useChatBox(seq) {
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
             if (data.type === "chat") {
-                setMessages((prev) => [...prev, data]);
+                console.log(data);
+                setMessages((prev) => [...prev,data.data]);
             } else if (data.type === "history") {
+                console.log(data);
                 setMessages(data.messages);
             }
         };
@@ -54,10 +56,6 @@ function useChatBox(seq) {
         if (input.message.trim() === "") return;
 
         ws.current.send(JSON.stringify(input));
-        setMessages(prev => [
-            ...prev,
-            { ...input,member_email: id, message: input.message.trim() }
-        ]);
         setInput(prev => ({ ...prev, message: "" }));
     };
 

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Topbar from "./navis/topbar/Topbar";
 import Sidebar from "./navis/sidebar/Sidebar";
 import Board from "./board/Board";
+import Mail from "./mail/Mail";
+import MailWrite from "./mail/Components/mailWrite/MailWrite";
 import BoardDetail from "./board/Components/boardDetail/BoardDetail";
 import { Route, Routes } from "react-router-dom";
 import WorkHourIndex from "./workhour/WorkHourIndex";
@@ -12,9 +14,11 @@ import Contact from "./contact/Contact";
 import ContactList from "./contact/Components/contactList/ContactList";
 import TeamContact from "./contact/Components/contactList/TeamContact";
 import Individual from "./contact/Components/contactList/Individual";
-import Channellndex from "./channel/ChannelIndex"; // 여기도 이름 오타 확인
 import MessagesIndex from "./channel/channelType/messages/MessagesIndex";
 import Schedule from "./channel/channelType/schedule/Schedule";
+import Channellndex from "./channel/ChannelIndex";
+import ContactForm from "./contact/Components/contactForm/ContactForm";
+import ContactDetail from "./contact/Components/contactDetail/ContactDetail";
 
 function MemberIndex() {
   //사이드바 열림 여부 상태변수
@@ -63,11 +67,14 @@ function MemberIndex() {
               <Route path="teamContact" element={<TeamContact />} /> {/* 팀용 */}
             </Route>
 
+            {/* 메일 라우트 -- 휘경 승진*/}
+            <Route path="/mail/*" element={<Mail />} /> {/* 메일 */}
+
             {/* 마이페이지 라우트 -- 혜빈 승진 */}
             <Route path='/mypage' element={<Mypage />} />
           </Routes>
-
-
+            
+            
         </div>
 
 

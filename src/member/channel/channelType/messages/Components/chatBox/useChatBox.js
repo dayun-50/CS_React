@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
-import styles from "./ChatBox.module.css";
-import $ from "jquery";
 
 function useChatBox(seq) {
 

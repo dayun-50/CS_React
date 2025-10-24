@@ -1,0 +1,63 @@
+.container {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+
+  padding: 30px;
+  font-family: Pretendard, sans-serif;
+  font-size: 22px;
+  color: #404040;
+  gap: 1rem;
+
+  overflow: hidden;
+}
+.title {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+  gap: 8px;
+  min-height: 60px;
+
+  flex: 0 1 auto; /* 핵심 변경 */
+}
+
+.countBox {
+  height: 100%;
+  border-radius: 22px;
+  background-color: #eff3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 22px;
+  color: #8c8c8c;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  flex-wrap: nowrap; /* 또는 제거 */
+  flex-shrink: 1;
+}
+
+.count {
+  font-weight: normal;
+  text-transform: capitalize;
+}
+
+.unit {
+  font-weight: 500;
+  color: #404040;
+  text-transform: capitalize;
+}

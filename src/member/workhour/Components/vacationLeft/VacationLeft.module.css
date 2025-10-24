@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+  height: 100%; /* 부모 flex 비율 기반으로 자동 조절 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
+  padding: 30px;
+  font-family: Pretendard, sans-serif;
+  color: #404040;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 16px;
+}
+
+.statusBox {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eff3ff;
+  border-radius: 22px;
+  padding: 24px;
+  gap: 16px;
+}
+
+.statusItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  border-right: 1px solid #8c8c8c;
+}
+
+.statusItem:last-child {
+  border-right: none;
+}
+
+.label {
+  font-size: 16px;
+  color: #8c8c8c;
+  text-transform: capitalize;
+}
+
+.value {
+  font-size: 26px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.smallText{
+  font-size: 15px;
+  color: #8c8c8c;  
+}

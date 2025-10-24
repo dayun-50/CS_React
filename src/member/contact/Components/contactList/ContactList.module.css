@@ -6,14 +6,13 @@
   border: 1px solid var(--color-font-color2);
   display: flex;
   flex-direction: column;
-  font-size: 22px;
+  font-size: 1.375rem;
   color: var(--color-font-color1);
   font-family: Pretendard;
   box-sizing: border-box;
   overflow: auto;
 }
 
-/* 상단 영역 */
 .header {
   width: 100%;
   display: flex;
@@ -24,12 +23,11 @@
 
 .title {
   width: 40%;
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 600;
   text-transform: capitalize;
 }
 
-/* 검색용 */
 .searchBox {
   display: flex;
   align-items: center;
@@ -38,44 +36,42 @@
   border: 1px solid var(--color-font-color2);
   border-radius: 144px;
   padding: 0 16px;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--color-font-color2);
   background-color: var(--color-white);
   justify-content: space-between;
 }
 
-.searchInput{
+.searchInput {
   border: none;
   outline: none;
   width: 80%;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--color-font-color1);
 }
 
-/* 리스트 헤더 */
 .tableHeader,
 .tableRow {
   display: flex;
   margin: 0 30px;
   align-items: center;
   text-align: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .tableHeader {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 500;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-font-color2);
 }
 
 .tableRow {
-  font-size: 18px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  font-size: 1.125rem;
+  padding: 16px 0;
 }
 
-/* 리스트 데이터 */
-/* 번호 */
 .cell {
   display: flex;
   align-items: center;
@@ -83,38 +79,32 @@
   padding: 12px 8px;
   box-sizing: border-box;
   word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
-/* 번호 */
 .cell.number {
   flex: 0.08;
 }
-
-/* 이름 */
 .cell.name {
   flex: 0.12;
 }
-
-/* 회사 이름 */
 .cell.company {
   flex: 0.2;
 }
-
-/* 이메일 */
 .cell.email {
   flex: 0.2;
 }
-
-/* 연락처 */
 .cell.phone {
   flex: 0.15;
 }
-
-/* 분류 */
 .cell.group {
   flex: 0.25;
 }
 
+/* 버튼 그룹 */
 .buttonGroup {
   display: flex;
   border-radius: var(--border-radius-main);
@@ -122,28 +112,195 @@
   background-color: var(--color-sud-color2);
   height: 40px;
   width: 100%;
-  max-width: 240px; /* 필요 시 제한 */
+  max-width: 240px;
 }
 
+/* 버튼 */
 .button {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 1rem;
   height: 100%;
+  width: 100%;
   cursor: pointer;
   text-transform: capitalize;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* 활성 상태 */
 .button.active {
   background-color: var(--color-primary);
   color: var(--color-white);
-  font-weight: 700;
   border: 1px solid var(--color-sud-color2);
+  font-weight: 700;
+  opacity: 0.9;
 }
 
+/* 비활성 상태 */
 .button.inactive {
   color: var(--color-font-color3);
-  border: 1px solid var(--color-sud-color2);
+  background-color: var(--color-sud-color2);
+}
+
+.button.inactive:hover {
+  background-color: var(--color-sud-color1);
+  color: var(--color-white);
+  opacity: 0.9;
+}
+
+/* 공지사항이 없을 경우 */
+.contactEmptyContainer {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Pretendard;
+  color: #d9d9d9;
+}
+
+.contactEmptyText {
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: capitalize;
+  margin-top: 12px; /* 아이콘과 텍스트 간격 */
+}
+
+.contactEmptyIcon {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+/* 테블릿 대응 */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .title {
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+  }
+
+  .searchBox {
+    width: 100%;
+    height: 40px;
+    font-size: 0.875rem;
+  }
+
+  .searchInput {
+    font-size: 0.875rem;
+  }
+
+  .tableHeader,
+  .tableRow {
+    margin: 0 20px;
+    font-size: 1rem;
+  }
+
+  .tableHeader .cell.number,
+  .tableRow .cell.number {
+    display: none;
+  }
+
+  .cell.name {
+    flex: 0.2;
+  }
+  .cell.company {
+    flex: 0.2;
+  }
+  .cell.email {
+    flex: 0.2;
+  }
+  .cell.phone {
+    flex: 0.15;
+  }
+  .cell.group {
+    flex: 0.25;
+  }
+
+  .buttonGroup {
+    max-width: none;
+    height: 36px;
+  }
+
+  .button {
+    font-size: 0.875rem;
+    height: 36px;
+  }
+}
+
+/* 모바일 대응 */
+@media (max-width: 480px) {
+  .contactList {
+    padding: 14px;
+  }
+
+  .header {
+    padding: 0;
+  }
+
+  .searchBox {
+    width: 100%;
+    height: 32px;
+    font-size: 12px;
+    padding: 0 12px;
+  }
+
+  .tableHeader,
+  .tableRow {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  .tableHeader .cell.number,
+  .tableRow .cell.number,
+  .tableHeader .cell.company,
+  .tableRow .cell.company,
+  .tableHeader .cell.email,
+  .tableRow .cell.email {
+    display: none;
+  }
+
+  .cell.name {
+    flex: 1;
+    font-size: 12px;
+  }
+
+  .cell.phone {
+    flex: 1.5;
+    font-size: 12px;
+  }
+
+  .cell.group {
+    flex: 2;
+  }
+
+  .buttonGroup {
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .button {
+    font-size: 12px;
+    height: 32px;
+  }
+
+  .noContacts {
+    font-size: 0.875rem;
+  }
 }

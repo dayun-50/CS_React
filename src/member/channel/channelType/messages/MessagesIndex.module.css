@@ -44,7 +44,7 @@
   flex: 1;
   gap: 10px;
   padding-top: 20px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   /* 아래 필수 */
   position: relative;
 }

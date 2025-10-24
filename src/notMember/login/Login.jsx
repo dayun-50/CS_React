@@ -28,7 +28,7 @@ function Login() {
                 <div className={styles.logininbox}>
 
                     <div className={styles.img}>
-                        <img src="/Logo.png" alt="Logo" />
+                        <img className={styles.logo} src="/Logo.png" alt="Logo" />
                     </div>
 
                     <h1>CS에 오신 걸 환영합니다!</h1>

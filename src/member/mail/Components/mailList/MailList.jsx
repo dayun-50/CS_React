@@ -4,6 +4,7 @@ import styles from "./MailList.module.css";
 import Search from "./icon/Search.svg";
 import basket from "./icon/basket.svg";
 import CollapseArrow from "./icon/CollapseArrow.svg";
+import PageNaviBar from "../../../navis/pagenavibar/PageNaviBar";
 
 // 한글 초성 배열
 const CHO = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
@@ -57,10 +58,10 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
 
   const [dummyMails, setDummyMails] = useState(dummyMailsInitial);
 
-  let mails = tabName === "전체" || tabName === "받은 메일"
-    ? (data.mails && data.mails.length > 0 ? data.mails : dummyMails)
-    : [];
+  // 서버 데이터가 없으면 더미 사용
+  let mails = (data.mails && data.mails.length > 0) ? data.mails : dummyMails;
 
+  // 검색 필터링
   const filteredMails = mails.filter(mail => {
     const titleLower = mail.title.toLowerCase();
     const searchLower = searchText.toLowerCase();
@@ -69,6 +70,7 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
     return normalMatch || initialsMatch;
   });
 
+  // 정렬
   const sortedMails = [...filteredMails].sort((a, b) => {
     if (sortBy === "date") {
       const dateA = new Date(a.date);
@@ -85,8 +87,8 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
   const indexOfFirstMail = indexOfLastMail - mailsPerPage;
   const currentMails = sortedMails.slice(indexOfFirstMail, indexOfLastMail);
 
+  // 클릭 이벤트
   const handleMailClick = (mail) => navigate("/mail/detail", { state: { mail } });
-
   const handleHeaderCircleClick = () => {
     if (headerSelected) {
       setHeaderSelected(false);
@@ -96,7 +98,6 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
       setSelectedMails(currentMails.map(mail => mail.id));
     }
   };
-
   const handleCircleClick = (id, e) => {
     e.stopPropagation();
     setSelectedMails(prev => {
@@ -107,7 +108,6 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
       return newSelected;
     });
   };
-
   const handleDeleteClick = (e) => {
     e.stopPropagation();
     if (selectedMails.length === 0) {
@@ -120,9 +120,7 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
       setHeaderSelected(false);
     }
   };
-
   const handleSortClick = () => setShowSortDropdown(prev => !prev);
-
   const handleSortOptionClick = (option) => {
     setShowSortDropdown(false);
     setSortButtonText(option);
@@ -219,15 +217,17 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
         {/* 페이지네비게이션 */}
         {filteredMails.length > mailsPerPage && (
           <div className={styles.pagination}>
-            <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-            >이전</button>
-            <span>{currentPage} / {totalPages}</span>
-            <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
-            >다음</button>
+            <PageNaviBar
+              key={tabName || "all"}
+              path={tabName ? `/approval?type=${tabName}` : `/approval`}
+              onData={(newMails) => {
+                if (!newMails || newMails.length === 0) {
+                  setDummyMails(dummyMailsInitial);
+                } else {
+                  setDummyMails(newMails);
+                }
+              }}
+            />
           </div>
         )}
 

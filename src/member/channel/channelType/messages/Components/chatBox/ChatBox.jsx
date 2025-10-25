@@ -108,10 +108,10 @@ const ChatBox = ({ seq }) => {
 
         {/* 메시지 리스트 */}
         <div className={styles.chatBox__messageList} ref={messageListRef}>
-          {messages.map((msg) => (
+          {messages.map((msg, i) => (
             <div
-              key={msg.message_seq}
-              className={`${styles.chatBox__message} ${msg.member_email === id
+              key={i}
+              className={`${styles.chatBox__message} ${msg.member_email == id
                 ? styles["chatBox__message--right"]
                 : styles["chatBox__message--left"]
                 }`}

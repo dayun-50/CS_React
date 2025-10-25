@@ -18,7 +18,7 @@ const ContactForm = () => {
 
   // 뒤로 가기 버튼 클릭 시
   const handleBack = () => {
-    navigate("/contacts");
+    navigate("/contact");
   };
 
   // 추가 버튼 클릭 시

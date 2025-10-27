@@ -30,7 +30,7 @@ const ContactForm = () => {
       return;
     }
 
-    const ownerEmail = "test@test.com"; // 실제 사용자 이메일로 대체
+    const ownerEmail = "test@test.com"; // 실제 사용자 이메일로 대체 - 이메일
 
     const payload = {
       name,

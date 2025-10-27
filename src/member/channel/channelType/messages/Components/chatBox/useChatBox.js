@@ -34,18 +34,18 @@ function useChatBox(seq) {
     useEffect(() => {
         setMessages([]);
         if (!room.title) return;
-        console.log(seq);
         setInput(prev=>({...prev, chat_seq: seq}));
         ws.current = new WebSocket(`ws://10.5.5.9:80/chatting?token=${token}&chat_seq=${seq}`);
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
             if (data.type === "chat") {
-                setMessages((prev) => [...prev, data]);
+                console.log(data);
+                setMessages((prev) => [...prev,data.data]);
             } else if (data.type === "history") {
+                console.log(data);
                 setMessages(data.messages);
             }
-            console.log(data);
         };
 
         return () => ws.current?.close();
@@ -56,10 +56,6 @@ function useChatBox(seq) {
         if (input.message.trim() === "") return;
 
         ws.current.send(JSON.stringify(input));
-        setMessages(prev => [
-            ...prev,
-            { ...input,member_email: id, message: input.message.trim() }
-        ]);
         setInput(prev => ({ ...prev, message: "" }));
     };
 

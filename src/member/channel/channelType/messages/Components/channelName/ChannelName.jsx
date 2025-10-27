@@ -18,9 +18,9 @@ const ChannelName = ({ onChannelClick }) => {
         <img src={collapse} className={styles.icon} alt="화살표" />
       </div>
       <div className={styles.rooms}>
-        {rooms.map((room) => (
+        {rooms.map((room, i) => (
           <button
-            key={room.chat_seq}
+            key={i}
             className={`${styles.room} ${chatSeq === room.chat_seq ? styles.selected : ""
               }`}
             onClick={() => handleClickChat(room.chat_seq)}

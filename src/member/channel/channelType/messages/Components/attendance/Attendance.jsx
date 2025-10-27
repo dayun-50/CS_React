@@ -18,9 +18,9 @@ const Attendance = ({ onChannelClick }) => {
       </div>
 
       <div className={styles.members}>
-        {members.map((member) => (
+        {members.map((member, i) => (
           <button
-            key={member.chat_seq}
+            key={i}
             className={`${styles.member} ${chatSeq === member.chat_seq ? styles.selected : ""
               }`}
             onClick={()=>handleClickChat(member.chat_seq)}

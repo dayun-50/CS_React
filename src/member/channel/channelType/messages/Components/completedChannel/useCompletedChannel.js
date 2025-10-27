@@ -14,7 +14,6 @@ function useCompletedChannel(onChannelClick) {
             .then(resp => {
                 setCompletedList(resp.data);
                 setChatSeq(resp.data.chat_seq);
-                console.log(resp.data);
             })
             .catch(err => {
                 console.log(err);

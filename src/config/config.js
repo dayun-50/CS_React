@@ -1,15 +1,16 @@
 import axios from "axios";
 
 export const caxios = axios.create({
-    baseURL : `http://192.168.45.201`
+    baseURL : `http://10.5.5.9`
+
 });
 
-caxios.interceptors.request.use(
-    (config)=>{
-        const token = sessionStorage.getItem("token");
-        if(token){
-            config.headers["Authorization"] = `Bearer ${token}`
-        }
-        return config;
-    }
-);
+// caxios.interceptors.request.use(
+//     (config)=>{
+//         const token = sessionStorage.getItem("token");
+//         if(token){
+//             config.headers["Authorization"] = `Bearer ${token}`
+//         }
+//         return config;
+//     }
+// );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const caxios = axios.create({
-    baseURL : `http://192.168.50.128`
+    baseURL : `http://192.168.45.201`
 });
 
 caxios.interceptors.request.use(

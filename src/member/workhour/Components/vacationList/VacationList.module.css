@@ -1,196 +1,256 @@
-.container{
+.container {
   width: 100%;
-  height: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
-  font-family: Pretendard;
-  color: #404040;
+  font-family: var(--font-family);
+  color: var(--color-font-color1);
 
-  border: 1px solid #8c8c8c;
-  border-radius: 22px;
-  padding: 30px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-font-color2);
+  border-radius: var(--border-radius-main);
+  padding: 20px;
   box-sizing: border-box;
+
+  gap: 20px;
 }
 
-.listFirst{ /* 종류  */
-  width: 100%;
-  height: 15%;
-  font-weight: 600;
-  font-size: 20px;
-  /* padding-top: 3px; */
-  /* padding-bottom: 18px; */
-
+/* ---------------------------- */
+/* 상단: 제목 + 버튼 */
+.listFirst {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
-.listFirstLeft{
-  float: left;
-  flex: 8;
-  height: 100%;
+
+.listFirstLeft {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: left;
 }
-.listFirstRight{
-  float: left;
-  flex: 2;
-  height: 100%;
-}
-.listFirstRight button{
-  width: 100%;
-  height: 80%;
-  background-color: #0090ff;
-  color: white;
-  border-radius: 18px;
-  padding: 12px 20px;
-  cursor: pointer;
+
+.listFirstRight button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--font-size-base);
+  font-weight: bold;
   border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
+.listFirstRight button:hover {
+  background-color: var(--color-hover);
+}
 
-
-
-.listSecond{ /* 타입  */
+/* ---------------------------- */
+/* 헤더 (번호, 사유, 일정, 상태) */
+.listSecond {
   width: 100%;
-  height: 10%;
-  font-weight: 300;
-  font-size: 15px;
-  color:  rgb(111, 111, 111);
-  border-bottom: 1px solid darkgray;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-font-back);
+  padding-bottom: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-font-color2);
 }
-.listThird{/* 리스트 로우 박스  */
-  height:60%;
-  overflow: hidden;
 
+/* ---------------------------- */
+/* 리스트 영역 */
+.listThird {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
 
-}
-.listThirdCenter{
-    display: flex;
-  align-items: center;
+/* ---------------------------- */
+/* 리스트가 없을 때 */
+.noticeEmptyContainer {
+  width: 100%;
+  flex: 1;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #bfbfbf;
 }
-.listThird .noticeEmptyIcon{
+
+.noticeEmptyIcon {
   width: 56px;
   height: 56px;
   object-fit: cover;
 }
-.listThird .noticeEmptyText{
-  font-size: 22px;
-  font-weight: 800;
-  text-transform: capitalize;
-  margin-top: 12px; /* 아이콘과 텍스트 간격 */
-  font-family: Pretendard;
-  color: #d9d9d9;
+
+.noticeEmptyText {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 12px;
 }
 
-
-.listFourth{/* 리스트 로우 박스  */
-  width: 100%;
-  height: 10%;
-}
-
-
-/*2째줄 + 리스트 열*/
-.listSecond,
+/* ---------------------------- */
+/* 리스트 행 */
 .listRow {
-    width: 100%;
-    height: 45px;
-    display: flex;
-
+  display: flex;
+  align-items: center;
+  height: 48px;
+  border-bottom: 1px solid var(--color-font-color2);
+  font-size: var(--font-size-base);
 }
-/*2째줄 + 리스트 열 :seq*/
+
+.listRow:hover {
+  background-color: var(--color-sud-color2);
+}
+
+/* ---------------------------- */
+/* 컬럼 비율 */
 .listSecond div:nth-child(1),
 .listRow div:nth-child(1) {
-    width: 10%;
-    height: 100%;
-    float: left;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 10%;
+  text-align: center;
 }
-/*2째줄 + 리스트 열 :title*/
+
 .listSecond div:nth-child(2),
 .listRow div:nth-child(2) {
-    width: 50%;
-    height: 100%;
-    float: left;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-
-    display: block;
-    line-height: 47px;
+  width: 45%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
 }
-/*3째줄 + 리스트 열 :date*/
+
 .listSecond div:nth-child(3),
 .listRow div:nth-child(3) {
-    width: 35%;
-    height: 100%;
-    float: left;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 35%;
+  text-align: center;
 }
-/*4째줄 + 리스트 열 :처리상태*/
+
 .listSecond div:nth-child(4),
 .listRow div:nth-child(4) {
-    width: 10%;
-    height: 100%;
-    float: left;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 10%;
+  text-align: center;
 }
+
+/* ---------------------------- */
+/* 상태 컬러 */
 .inProgress {
-    color: gray;
+  color: var(--color-font-color2);
+  font-weight: 500;
 }
 
 .approved {
-    color: blue;
-}
-
-.denied {
-    color: red;
-}
-
-.hoverPointer:hover{
-  cursor: pointer;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
-
-
- @media (max-width: 1090px) {
-.listSecond div:nth-child(3),
-.listRow div:nth-child(3) {
-  display: none;
-}
-.listSecond div:nth-child(4),
-.listRow div:nth-child(4) {
-  width: 25%;
-}
+.denied {
+  color: var(--color-delete-hover);
+  font-weight: 600;
 }
 
+/* ---------------------------- */
+/* 페이지네이션 */
+.listFourth {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
 
+/* ---------------------------- */
+/* 반응형 (1024px 이하) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
 
+  .listFirstLeft {
+    font-size: 20px;
+  }
 
+  .listFirstRight button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 
-/* ✅ 반응형 (모바일: 가로 일렬 정렬) */
+  .listSecond {
+    font-size: 14px;
+  }
+
+  .listRow {
+    font-size: 14px;
+  }
+
+  .listSecond div:nth-child(3),
+  .listRow div:nth-child(3) {
+    display: none;
+  }
+
+  .listSecond div:nth-child(4),
+  .listRow div:nth-child(4) {
+    width: 20%;
+  }
+}
+
+/* ---------------------------- */
+/* 모바일 (768px 이하) */
 @media (max-width: 768px) {
-   .container {
-    flex-direction: column; /* 위아래 정렬로 변경 */
-  }
-  .left {
-    float :none
-  }
-    .right {
-    float :none
+  .container {
+    padding: 16px;
+    gap: 16px;
   }
 
+  .listFirst {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .listFirstRight button {
+    height: 40px;
+  }
+
+  .listSecond .date {
+    display: none;
+  }
+
+  .listRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background-color: #fafbff;
+    height: auto;
+  }
+
+  .listRow div {
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .listRow div:nth-child(1)::before {
+    content: "번호: ";
+    font-weight: 600;
+  }
+
+  .listRow div:nth-child(2)::before {
+    content: "사유: ";
+    font-weight: 600;
+  }
+
+  .listRow div:nth-child(3)::before {
+    content: "일정: ";
+    font-weight: 600;
+  }
+
+  .listRow div:nth-child(4)::before {
+    content: "상태: ";
+    font-weight: 600;
+  }
 }

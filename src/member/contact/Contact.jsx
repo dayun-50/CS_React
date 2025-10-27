@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import SubSideBar from "../navis/subsidebar/SubSideBar";
-import ContactForm from "./Components/contactForm/ContactForm";
-import ContactList from "./Components/contactList/ContactList";
 import styles from "./Contact.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
@@ -54,8 +52,8 @@ const Contact = () => {
       {/* 서브 네비바 제외 우측 영역 */}
       <div className={styles.right}>
         {/* 여기에 라우트에 따라 ContactList, IndividualList, TeamContactList가 바뀜 */}
+        {/* 중첩 라우트 내용은 <Outlet />으로 받아야 합니다 */}
         <Outlet />
-        {/* <ContactForm /> */}
       </div>
     </div>
   );

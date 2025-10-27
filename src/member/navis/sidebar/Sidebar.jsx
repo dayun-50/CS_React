@@ -27,14 +27,6 @@ import styles from "./Sidebar.module.css"
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../../store/useAuthStore";
 
-
-
-
-
-
-
-
-
 // 로그인되면 path="/"인 상태로 고정됨, 즉 근태관리가 첫페이지면 path가 "/"이상태일것
 const menus = [
   { name: "근태관리", icon: clock, activeIcon: clockActive, path: "/" },
@@ -42,7 +34,7 @@ const menus = [
   { name: "게시판", icon: board, activeIcon: boardActive, path: "/board" },
   { name: "전자결재", icon: pay, activeIcon: payActive, path: "/approval" },
   { name: "메일", icon: mail, activeIcon: mailActive, path: "/mail" },
-  { name: "주소록", icon: contact, activeIcon: contactActive, path: "/contacts" },
+  { name: "주소록", icon: contact, activeIcon: contactActive, path: "/contact" },
 ];
 
 const bottomMenus = [

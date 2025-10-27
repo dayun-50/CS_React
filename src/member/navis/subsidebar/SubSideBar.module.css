@@ -1,4 +1,4 @@
-/*최상위 래퍼*/
+/* 최상위 래퍼 */
 .submenuWrapper {
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
   padding-bottom: 30px;
 }
 
-/*추가하기버튼*/
+/* 작성하기 버튼 */
 .addParent {
   width: 80%;
   height: 48px;
@@ -43,22 +43,22 @@
   text-transform: capitalize;
 }
 
-/*추가 버튼 제외 버튼들 묶는거*/
-/* 탭 (기본 세로 정렬) */
+/* 버튼 탭 묶음 */
 .tabWrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 8px;
 }
+
 .tab {
   padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
   color: #404040;
   border-left: 2px solid transparent;
-  cursor: pointer;
 }
+
 .tab:hover {
   background-color: #eef6ff;
   border-left: 2px solid #0090ff;
@@ -71,7 +71,7 @@
   font-weight: bold;
 }
 
-/* ✅ 반응형 (모바일: 가로 일렬 정렬) */
+/* 반응형 (모바일) */
 @media (max-width: 768px) {
   .submenuWrapper {
     flex-direction: column;
@@ -80,23 +80,20 @@
     border-left: none;
     border-bottom: 1px solid #eee;
     padding: 40px 16px 30px;
-    padding-bottom: 0;
     gap: 10px;
     min-width: 100%;
     height: auto;
   }
 
-  /* 추가 버튼은 위치 그대로, 크기 조정만 */
   .addParent {
     width: 90%;
     height: 36px;
     font-size: 14px;
     padding: 0 14px;
     border-radius: 18px;
-    margin-bottom: 10px; /* 탭들과 간격 */
+    margin-bottom: 10px;
   }
 
-  /* 탭은 가로 정렬 */
   .tabWrapper {
     flex-direction: row;
     width: 100%;
@@ -112,10 +109,10 @@
     background-color: transparent;
     text-align: center;
   }
+
   .tab:hover {
     background-color: #eef6ff;
     border-bottom: 2px solid #0090ff;
-      border-left: none;
     font-weight: bold;
   }
 

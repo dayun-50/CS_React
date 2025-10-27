@@ -16,6 +16,7 @@ function useChatBox(seq) {
     const messageListRef = useRef(null);
 
     useEffect(() => {
+        console.log(seq);
         caxios.post("/chat/chatRoom", { chat_seq: seq, member_email: id },
             { withCredentials: true })
             .then(resp => {
@@ -35,7 +36,7 @@ function useChatBox(seq) {
         setMessages([]);
         if (!room.title) return;
         setInput(prev=>({...prev, chat_seq: seq}));
-        ws.current = new WebSocket(`ws://10.5.5.9:80/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current = new WebSocket(`ws://192.168.45.127:80/chatting?token=${token}&chat_seq=${seq}`);
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
@@ -45,6 +46,12 @@ function useChatBox(seq) {
             } else if (data.type === "history") {
                 console.log(data);
                 setMessages(data.messages);
+            } else if(data.type === "alert"){ // 채팅 알람기능
+                const chat_seq = data.chat_seq;
+                console.log(data.type); // 나중에 제거하셈
+                /*
+                    여기에 채팅방 제목에 색상 css 클래스 줘야함
+                */
             }
         };
 

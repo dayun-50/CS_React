@@ -1,29 +1,30 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import styles from "./ToggleBox.module.css";
+import useToggleBox from "./useToggleBox";
 
-const ToggleBox = () => {
-  const members = [
-    { name: "OOO", role: "팀장" },
-    { name: "OOO", role: "부장" },
-    { name: "OOO", role: "대리" },
-    { name: "OOO", role: "사원" },
-  ];
+const ToggleBox = ({ seq , selectMemberEvent, setSelectMemberEvent}) => {
+  console.log("ToggleBox seq:", seq);
 
+  const {
+    members
+  } = useToggleBox(seq, selectMemberEvent, setSelectMemberEvent);
   // 각 멤버 클릭 상태(on/off)를 배열로 관리
   const [selected, setSelected] = useState(Array(members.length).fill(false));
 
-  const handleClick = (index) => {
+  const handleClick = (index, member) => {
     const newSelected = [...selected];
     newSelected[index] = !newSelected[index]; // 클릭하면 토글
     setSelected(newSelected);
+    console.log(member.email);
+    setSelectMemberEvent(prev=>[...prev,member.email]);
   };
 
   return (
     <div className={styles.calenderright}>
       <div className={styles.tgtitle}>
         <div className={styles.toggletitle}>
-          부서원 <IoIosArrowDown size={24} />
+          채팅 멤버 <IoIosArrowDown size={24} />
         </div>
       </div>
 
@@ -32,12 +33,12 @@ const ToggleBox = () => {
           <div
             className={styles.tgmb}
             key={index}
-            onClick={() => handleClick(index)}
+            onClick={() => handleClick(index, member)}
           >
             <div
               className={selected[index] ? styles.circle2 : styles.circle1}
             ></div>
-            {member.name}/{member.role}
+            {member.name} / {member.level_code}
           </div>
         ))}
       </div>

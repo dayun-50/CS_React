@@ -8,16 +8,20 @@ import FileBox from "./Components/fileBox/FileBox";
 import OutBox from "./Components/outBox/OutBox";
 import addIcon from "./icon/Add.svg";
 import addIconActive from "./icon/Add-active.svg";
+import { useOutletContext } from "react-router-dom";
 
-const MessagesIndex = () => {
+const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
+  console.log("메세지인덱스",selectedSeq);
   const [isActive, setIsActive] = useState(false);
-  // 채널 seq값 반환받을 준비
-  const [selectedSeq, setSelectedSeq] = useState(null);
+  // // 채널 seq값 반환받을 준비
+  // const [selectedSeq, setSelectedSeq] = useState(null);
 
   const handleChannelClick = (seq) => {
+    console.log("메세지인덱스",selectedSeq);
     setSelectedSeq(seq); // 클릭된 채널 seq 저장
   };
 
+  // 채널 추가 버튼
   const handleClick = () => {
     setIsActive(true);
     alert("채널 추가 클릭");

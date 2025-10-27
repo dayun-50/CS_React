@@ -23,6 +23,8 @@ import ContactDetail from "./contact/Components/contactDetail/ContactDetail";
 function MemberIndex() {
   //사이드바 열림 여부 상태변수
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // 채널 seq값 반환받을 준비
+  const [selectedSeq, setSelectedSeq] = useState(null);
 
   return (
     <div className={styles.container}>
@@ -50,9 +52,12 @@ function MemberIndex() {
 
 
             {/* 채널 중첩 라우트 -- 혜빈승진*/}
-            <Route path="/channel/*" element={<Channellndex />}>
-              <Route index element={<MessagesIndex />} /> {/* 메신저 */}
-              <Route path="schedule" element={<Schedule />} />  {/* 먼슬리*/}
+            <Route path="/channel/*" element={<Channellndex selectedSeq={selectedSeq} 
+                setSelectedSeq={setSelectedSeq} />}>
+              <Route index element={<MessagesIndex selectedSeq={selectedSeq} 
+                setSelectedSeq={setSelectedSeq}/>} /> {/* 메신저 */}
+              <Route path="schedule" element={<Schedule selectedSeq={selectedSeq} 
+                setSelectedSeq={setSelectedSeq}/>} />  {/* 먼슬리*/}
             </Route>
 
             {/* 보드 라우트 --영서 */}
@@ -74,8 +79,8 @@ function MemberIndex() {
             {/* 마이페이지 라우트 -- 혜빈 승진 */}
             <Route path='/mypage' element={<Mypage />} />
           </Routes>
-            
-            
+
+
         </div>
 
 

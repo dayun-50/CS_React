@@ -35,7 +35,7 @@ function useChatBox(seq) {
         setMessages([]);
         if (!room.title) return;
         setInput(prev=>({...prev, chat_seq: seq}));
-        ws.current = new WebSocket(`ws://10.5.5.9:80/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current = new WebSocket(`ws://10.10.55.89/chatting?token=${token}&chat_seq=${seq}`);
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);

@@ -14,6 +14,7 @@ function useMyinform() {
     });
 
     useEffect(() => {
+        console.log("ID 확인:", id); // id 값이 정상적으로 들어오는지 확인
         caxios.post("/member/mypage", { email: id },
             { withCredentials: true })
             .then(resp => {

@@ -9,85 +9,67 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 moment.locale("ko");
 const localizer = momentLocalizer(moment);
 
-// 커스텀 툴바
+// ─── 커스텀 툴바
 const CustomToolbar = ({ label, onNavigate }) => {
     const [prevHover, setPrevHover] = useState(false);
     const [nextHover, setNextHover] = useState(false);
 
     return (
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-            {/* 오늘 버튼 */}
+        <div className={styles.toolbar}>
             <button
-                style={{
-                    width: "150px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                    color: "white",
-                    backgroundColor: "#0090FF",
-                    fontSize: "18px",
-                    border: "1px solid #ccc",
-                    fontWeight: "bold",
-                    cursor: "pointer"
-                }}
+                className={`${styles.toolbarBtn} ${styles.todayBtn}`}
                 onClick={() => onNavigate("TODAY")}
             >
                 오늘
             </button>
 
-            {/* 이전, 현재, 다음 */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                {/* 이전 버튼 */}
+            <div className={styles.navButtons}>
                 <button
-                    className="backnext"
+                    className={styles.backnext}
                     onClick={() => onNavigate("PREV")}
                     onMouseEnter={() => setPrevHover(true)}
                     onMouseLeave={() => setPrevHover(false)}
                     style={{
-                        width: "150px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                        color: "white",
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                        border: "1px solid #ccc",
                         backgroundColor: prevHover ? "#0090FF" : "#D9D9D9",
-                        cursor: "pointer",
-                        transition: "background-color 0.3s ease",
-                        marginRight: "20px"
                     }}
                 >
                     <IoIosArrowBack /> 이전
                 </button>
 
-                {/* 현재 월/연도 */}
-                <span style={{ fontSize: "20px", fontWeight: "bold" }}>{label}</span>
+                <span className={styles.currentLabel}>{label}</span>
 
-                {/* 다음 버튼 */}
                 <button
-                    className="backnext"
+                    className={styles.backnext}
                     onClick={() => onNavigate("NEXT")}
                     onMouseEnter={() => setNextHover(true)}
                     onMouseLeave={() => setNextHover(false)}
                     style={{
-                        width: "150px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                        color: "white",
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                        border: "1px solid #ccc",
                         backgroundColor: nextHover ? "#0090FF" : "#D9D9D9",
-                        cursor: "pointer",
-                        transition: "background-color 0.3s ease",
-                        marginLeft: "20px"
                     }}
                 >
                     다음 <IoIosArrowForward />
                 </button>
             </div>
+        </div>
+    );
+};
+
+// ─── 커스텀 이벤트 (팝업 / 달력 공통)
+const CustomEvent = ({ event }) => {
+    // 종일 이벤트인지 확인
+    const isAllDay =
+        moment(event.start).format("HH:mm") === "00:00" &&
+        moment(event.end).format("HH:mm") === "00:00";
+
+    return (
+        <div className={styles.eventCard}>
+            <div className={styles.eventTitle}>{event.title}</div>
+            {!isAllDay && (
+                <div className={styles.eventTime}>
+                    {moment(event.start).format("HH:mm")} -{" "}
+                    {moment(event.end).format("HH:mm")}
+                </div>
+            )}
         </div>
     );
 };
@@ -117,21 +99,22 @@ const ScheduleBox = () => {
         }
     };
 
-    // 이벤트 스타일 지정
+    // 이벤트 색상 스타일
     const eventStyleGetter = (event) => {
         let backgroundColor = "#00C7BE"; // 기본 민트
-        if (event.title.includes("휴가")) backgroundColor = "#007AFF"; // 파랑
-        else if (event.title.includes("회의")) backgroundColor = "#FF9500"; // 오렌지
-        else if (event.title.includes("긴급")) backgroundColor = "#FF3B30"; // 빨강
-        else if (event.title.includes("서류")) backgroundColor = "#AF52DE"; // 보라
+        if (event.title.includes("휴가")) backgroundColor = "#007AFF";
+        else if (event.title.includes("회의")) backgroundColor = "#FF9500";
+        else if (event.title.includes("긴급")) backgroundColor = "#FF3B30";
+        else if (event.title.includes("서류")) backgroundColor = "#AF52DE";
 
         return {
             style: {
                 backgroundColor,
-                borderRadius: "5px",
+                borderRadius: "6px",
                 color: "white",
                 border: "none",
-                padding: "2px",
+                padding: "3px 6px",
+                fontWeight: "500",
             },
         };
     };
@@ -145,6 +128,7 @@ const ScheduleBox = () => {
                 endAccessor="end"
                 defaultView="month"
                 views={["month"]}
+                popup={true}
                 style={{ width: "100%", height: "100%" }}
                 eventPropGetter={eventStyleGetter}
                 selectable={true}
@@ -165,6 +149,7 @@ const ScheduleBox = () => {
                 }}
                 components={{
                     toolbar: CustomToolbar,
+                    event: CustomEvent,
                 }}
             />
         </div>

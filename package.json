@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:8080",
   "name": "groupware",
   "version": "0.1.0",
   "private": true,
@@ -9,7 +10,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.12.2",
     "dayjs": "^1.11.18",
-    "moment": "^2.30.1",
     "jquery": "^3.7.1",
     "moment": "^2.30.1",
     "react": "^19.2.0",

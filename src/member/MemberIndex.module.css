@@ -53,8 +53,8 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-
   overflow: hidden;
+  /* border:1px solid black; */
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -79,8 +79,9 @@
   }
 
   .content {
+    
     margin-left: 0; /* 사이드바 공간 확보 */
-    padding: 30px;
+
   }
   .hamburger {
     display: none;

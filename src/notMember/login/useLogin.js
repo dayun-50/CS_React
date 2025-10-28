@@ -79,9 +79,9 @@ function useLogin() {
 
         console.log("일반 토큰 (A):", generalToken);
         console.log("메일 토큰 (B):", jamesAccessToken);
-        return true;
+        return generalToken;
       }
-      return false;
+      return null;
     };
 
     // if문 통과시 데이터 전송
@@ -90,10 +90,10 @@ function useLogin() {
       .then((resp) => {
         if (resp.data) {
           // 로그인 성공시 토큰 및 id값 저장
-          const success = processLoginResponse(resp.data);
+          const generalToken = processLoginResponse(resp.data);
 
-          if (success) {
-            login(resp.data, id);
+          if (generalToken) {
+            login(generalToken, id);
             navigate("/");
           } else {
             alert("토큰 구조 오류로 로그인 실패");
@@ -101,7 +101,7 @@ function useLogin() {
         }
       })
       .catch((err) => {
-        alert("로그인 실패 : 이메일 또는 비밀번호 확인 필요"); // 나중에 제거하셈
+        alert("로그인 실패 : 이메일 또는 비밀번호 확인 필요1"); // 나중에 제거하셈
         setId("");
         setPw("");
       });

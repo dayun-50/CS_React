@@ -28,13 +28,22 @@ const MailWrite = () => {
 
   const handleSend = async () => {
     // james 전용 토큰 가져오기
-    const jamesToken = sessionStorage.getItem("jamesAccessToken");
-    if (!jamesToken || !recipient || !subject || !content) {
+    const generalToken = sessionStorage.getItem("token"); // Token A
+    const jamesAccessToken = sessionStorage.getItem("jamesAccessToken"); // Token B
+    if (
+      !generalToken ||
+      !jamesAccessToken ||
+      !recipient ||
+      !subject ||
+      !content
+    ) {
       alert("모든 필드를 입력하고 다시 로그인해 주세요");
       return;
     }
 
     setIsSending(true);
+
+    const combinedToken = `${generalToken}` + "|||" + `${jamesAccessToken}`;
 
     const sendData = {
       receiverEmails: recipient, // 쉼표로 구분된 String으로 전송
@@ -47,7 +56,7 @@ const MailWrite = () => {
       const response = await caxios.post("/emails/send", sendData, {
         headers: {
           // 이 부분이 caxios의 기본 Authorization 헤더를 덮어씁니다.
-          Authorization: `Bearer ${jamesToken}`,
+          Authorization: `Bearer ${combinedToken}`,
           "Content-Type": "application/json",
         },
       });

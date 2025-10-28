@@ -311,6 +311,8 @@
   word-break: break-word;
 }
 
+
+
 /* 시간 표시 */
 .chatBox__timestamp {
   font-size: 10px;

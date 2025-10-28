@@ -56,7 +56,7 @@ const MessagesIndex = () => {
 
       <div className={styles.centerColumn}>
        {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        {selectedSeq && <ChatBox seq={selectedSeq} />}
+        <ChatBox seq={selectedSeq}/>
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>

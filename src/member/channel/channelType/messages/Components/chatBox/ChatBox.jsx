@@ -157,7 +157,7 @@ const ChatBox = ({ seq }) => {
 
         {/* ================== 메시지 리스트 ================== */}
         <div className={styles.chatBox__messageList} ref={messageListRef}>
-          {messages.map((msg) => (
+          {messages.map((msg, i) => (
             <div
               key={`${msg.chat_seq}-${msg.message_seq}`} // 고유 키
               className={`${styles.chatBox__messageWrapper} ${
@@ -165,6 +165,7 @@ const ChatBox = ({ seq }) => {
                   ? styles["chatBox__messageWrapper--right"] // 본인 메시지 오른쪽
                   : styles["chatBox__messageWrapper--left"] // 타인 메시지 왼쪽
               }`}
+
             >
               <div className={styles.chatBox__message}>{msg.message}</div>
               <div className={styles.chatBox__timestamp}>

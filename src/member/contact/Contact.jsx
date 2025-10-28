@@ -5,17 +5,17 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const btnsType = [
-    { key: "", name: "전체", path: "/contacts", label: "전체 리스트" },
+    { key: "", name: "전체", path: "/contact", label: "전체 리스트" },
     {
       key: "individual",
       name: "개인",
-      path: "/contacts/individual",
+      path: "/contact/individual",
       label: "개인",
     },
     {
       key: "teamContact",
       name: "팀원",
-      path: "/contacts/teamContact",
+      path: "/contact/teamContact",
       label: "팀원",
     },
   ];
@@ -26,7 +26,7 @@ const Contact = () => {
     btns: btnsType.map(({ name, path }) => ({ name, path })), // 작성하기 제외 버튼들
     selectedBtn: "",
     text: "주소록 추가", // 작성하기 버튼의 문구
-    navigateFunc: () => navigate("/contacts/contactForm"), //작성하기 버튼 경로 이동용 함수
+    navigateFunc: () => navigate("/contact/contactForm"), //작성하기 버튼 경로 이동용 함수
   });
 
   const location = useLocation();

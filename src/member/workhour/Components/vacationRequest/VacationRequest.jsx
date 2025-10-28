@@ -192,8 +192,8 @@ function VacationRequest({ setClickedWriteBtn }) {
             </div>
 
             <div className={styles.btns}>
-                <button className={styles.btn1} onClick={() => { navigate("/"); setClickedWriteBtn(false); }}>뒤로가기</button>
-                <button className={styles.btn2} onClick={handleSave}>작성완료</button>
+                <button className={styles.back} onClick={() => { navigate("/"); setClickedWriteBtn(false); }}>뒤로가기</button>
+                <button className={styles.check} onClick={handleSave}>작성완료</button>
             </div>
         </div>
     )

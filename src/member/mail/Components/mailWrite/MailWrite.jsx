@@ -5,11 +5,73 @@ import plus from "./icon/plus.svg";
 import grayplus from "./icon/grayplus.svg";
 import { caxios } from "../../../../config/config";
 
+// 받는 사람 선택 모달 컴포넌트
+const RecipientModal = ({ onClose, onSelect }) => {
+  const recipients = [
+    "김OO <email1@gmail.com>",
+    "이OO <email2@gmail.com>",
+    "박OO <email3@gmail.com>",
+  ];
+
+  const [selected, setSelected] = useState([]); // 여러개 저장
+
+  const handleAdd = () => {
+    if (!selected) {
+      alert("선택된 사람이 없습니다.");
+      return;
+    }
+    onSelect(selected);
+    onClose();
+  };
+
+  return (
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <h1>주소록</h1>
+
+        <div className={styles.peoplemail}>
+          <label className={styles.labelpeople}>받는 사람</label>
+          <input type="text" placeholder="받는 사람"></input>
+        </div>
+
+        <label className={styles.addlist}>주소록 리스트</label>
+
+        <div className={styles.list}>
+          {recipients.map((r, idx) => (
+            <label key={idx} className={styles.checkItem}>
+              <input
+                type="checkbox"
+                value={r}
+                checked={selected.includes(r)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (e.target.checked) {
+                    setSelected([...selected, value]);
+                  } else {
+                    setSelected(selected.filter((item) => item !== value));
+                  }
+                }}
+              />
+              <span className={styles.customCheck}></span>
+              <span className={styles.text}>{r}</span>
+            </label>
+          ))}
+        </div>
+        <div className={styles.modalButtons}>
+          <button onClick={onClose}>취소</button>
+          <button onClick={handleAdd}>추가</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const MailWrite = () => {
   const navigate = useNavigate();
   const [fileNames, setFileNames] = useState([]);
+  const [recipient, setRecipient] = useState(""); // 선택한 받는 사람
+  const [showModal, setShowModal] = useState(false); // 모달 열림 상태
 
-  const [recipient, setRecipient] = useState("");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
 
@@ -73,6 +135,10 @@ const MailWrite = () => {
     }
   };
 
+  const handlePlusClick = () => {
+    setShowModal(true); // 모달 열기
+  };
+
   return (
     <div className={styles.maillistbox}>
       <div className={styles.maillistin}>
@@ -85,10 +151,26 @@ const MailWrite = () => {
           <input
             type="text"
             value={recipient}
-            onChange={(e) => setRecipient(e.target.value)}
+            onChange={(e) => setRecipient(e.target.value)} // ← 직접 타이핑 가능
           />
-          <img src={plus} className={styles.plusicon} />
+          <img
+            src={plus}
+            onClick={handlePlusClick}
+            className={styles.plusicon}
+          />
         </div>
+
+        {/* 모달 렌더링 */}
+        {showModal && (
+          <RecipientModal
+            onClose={() => setShowModal(false)}
+            onSelect={(selected) =>
+              setRecipient((prev) =>
+                prev ? `${prev}, ${selected.join(", ")}` : selected.join(", ")
+              )
+            }
+          />
+        )}
 
         <div className={styles.writetitle}>
           <span className={styles.wrtt}>제목</span>
@@ -132,6 +214,14 @@ const MailWrite = () => {
           </button>
         </div>
       </div>
+
+      {/* 모달 렌더링 */}
+      {showModal && (
+        <RecipientModal
+          onClose={() => setShowModal(false)}
+          onSelect={(value) => setRecipient(value)}
+        />
+      )}
     </div>
   );
 };

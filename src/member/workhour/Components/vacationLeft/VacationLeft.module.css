@@ -1,32 +1,33 @@
 .container {
   width: 100%;
-  height: 100%; /* 부모 flex 비율 기반으로 자동 조절 */
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 22px;
-  background-color: #fff;
-  border: 1px solid #8c8c8c;
+  border-radius: var(--border-radius-main);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-font-color2);
   box-sizing: border-box;
-  padding: 30px;
-  font-family: Pretendard, sans-serif;
-  color: #404040;
+  padding: 20px;
+  font-family: var(--font-family);
+  color: var(--color-font-color1);
 }
 
 .title {
-  font-size: 22px;
+  font-size: 1.4rem;
   font-weight: 600;
   text-transform: capitalize;
   margin-bottom: 16px;
 }
 
+/* 상태 박스 */
 .statusBox {
   flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #eff3ff;
-  border-radius: 22px;
+  background-color: var(--color-sud-color2);
+  border-radius: var(--border-radius-main);
   padding: 24px;
   gap: 16px;
 }
@@ -39,7 +40,7 @@
   justify-content: center;
   text-align: center;
   gap: 8px;
-  border-right: 1px solid #8c8c8c;
+  border-right: 1px solid var(--color-font-color2);
 }
 
 .statusItem:last-child {
@@ -47,18 +48,78 @@
 }
 
 .label {
-  font-size: 16px;
-  color: #8c8c8c;
+  font-size: 1rem;
+  color: var(--color-font-color2);
   text-transform: capitalize;
 }
 
 .value {
-  font-size: 26px;
+  font-size: 1.6rem;
   font-weight: 500;
   text-transform: capitalize;
 }
 
-.smallText{
-  font-size: 15px;
-  color: #8c8c8c;  
+.smallText {
+  font-size: 0.9rem;
+  color: var(--color-font-color2);
+}
+
+/* -------------------------------------------------- */
+/* 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .statusBox {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .label {
+    font-size: 0.9rem;
+  }
+
+  .value {
+    font-size: 1.3rem;
+  }
+}
+
+/* -------------------------------------------------- */
+/* 모바일 (768px 이하) */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .statusBox {
+    gap: 12px;
+    padding: 16px 12px;
+  }
+
+  .statusItem {
+    border-right: 1px solid #d0d0d0;
+    padding-bottom: 8px;
+  }
+
+  .statusItem:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-size: 0.85rem;
+  }
+
+  .value {
+    font-size: 1.2rem;
+  }
+
+  .smallText {
+    font-size: 0.8rem;
+  }
 }

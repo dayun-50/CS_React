@@ -1,20 +1,19 @@
 .container {
   width: 100%;
-  height: 100%; /* 부모 높이 꽉 채움 */
+  height: auto;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-
-  border-radius: 22px;
-  background-color: #fff;
-  border: 1px solid #8c8c8c;
+  border-radius: var(--border-radius-main);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-font-color2);
   box-sizing: border-box;
-
-  padding: 30px; /* px 대신 % 사용해보기 */
-  font-family: Pretendard, sans-serif;
-  font-size: 1.1rem; /* px 대신 rem으로 폰트 크기 지정 */
-  color: #404040;
-  gap: 1rem;
+  padding: 20px;
+  font-family: var(--font-family);
+  font-size: 1.1rem;
+  color: var(--color-font-color1);
+  gap: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .title {
@@ -26,11 +25,12 @@
   margin: 0;
 }
 
+/* 출퇴근 시간 표시 영역 */
 .timeSection {
   width: 100%;
   min-height: 100px;
-  border-radius: 16px;
-  background-color: #eff3ff;
+  border-radius: var(--border-radius-body);
+  background-color: var(--color-sud-color2);
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
@@ -47,15 +47,13 @@
 
 .label {
   font-size: 16px;
-  color: #8c8c8c;
-  text-transform: capitalize;
+  color: var(--color-font-color2);
 }
 
 .timeText {
   font-size: 18px;
   font-weight: 500;
-  color: #404040;
-  text-transform: capitalize;
+  color: var(--color-font-color1);
 }
 
 .separator {
@@ -63,45 +61,123 @@
   height: auto;
 }
 
+/* 버튼 그룹 */
 .buttonGroup {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-
 }
 
 .checkInBtn,
-.checkOutBtn {
+.checkOutBtn,
+.button {
   flex: 1;
   padding: 12px 0;
   border: none;
-  border-radius: 22px;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: bold;
   text-transform: capitalize;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: scale(1.02);
 }
 
 .active {
-  background-color: #0090ff;
-  color: #fff;
-  border: 0;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .disabled {
-  background-color: #d9d9d9;
-  color: #fff;
-  border: 0;
+  background-color: var(--color-font-back);
+  color: var(--color-white);
+  cursor: not-allowed;
 }
 
-
-/* 반응형: 작은 화면에서 일부 숨기기 */
+/* ------------------------------------------------------- */
+/* 반응형 */
+/* 태블릿 (768px~1249px) */
 @media (max-width: 1250px) {
+  .container {
+    padding: 20px;
+    font-size: 1rem;
+  }
+
+  .title {
+    font-size: 20px;
+    padding-left: 8px;
+  }
+
+  .timeSection {
+    min-height: 80px;
+    gap: 10px;
+  }
+
   .timeText {
-  font-size: 12px;
-  font-weight: 500;
-  color: #404040;
-  text-transform: capitalize;
+    font-size: 14px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .buttonGroup {
+    gap: 10px;
+  }
+
+  .buttonGroup button {
+    border-radius: 30px;
+    height: 40px;
+  }
+
+  .button {
+    font-size: var(--font-size-base);
+    padding: 10px 0;
+  }
 }
+
+/* 모바일 (≤767px) */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    gap: 1rem;
+  }
+
+  .title {
+    font-size: 18px;
+    padding: 0;
+  }
+
+  .timeSection {
+    align-items: stretch;
+    justify-content: center;
+    gap: 24px;
+    padding: 12px;
+  }
+
+  .separator {
+    width: 30px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .timeText {
+    font-size: 16px;
+  }
+
+  .buttonGroup {
+    gap: 12px;
+  }
+
+  .button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0;
+    border-radius: 16px;
+  }
 }

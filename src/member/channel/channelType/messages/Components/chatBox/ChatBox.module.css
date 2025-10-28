@@ -280,6 +280,45 @@
 .chatBox__collapseWrapper {
   margin-left: 95px;
 }
+
+
+
+/* 말풍선 + 시간 wrapper */
+.chatBox__messageWrapper {
+  display: flex;
+  align-items: flex-end; /* 말풍선과 시간 아래쪽 맞춤 */
+  gap: 6px; /* 말풍선과 시간 간격 */
+  margin-bottom: 8px;
+}
+
+.chatBox__messageWrapper--left {
+  flex-direction: row; /* 말풍선 왼쪽, 시간 오른쪽 */
+  align-self: flex-start;
+}
+
+.chatBox__messageWrapper--right {
+  flex-direction: row-reverse; /* 말풍선 오른쪽, 시간 왼쪽 */
+  align-self: flex-end;
+}
+
+/* 말풍선 */
+.chatBox__message {
+  background-color: #bde2ff;
+  border-radius: 16px 0 16px 16px;
+  padding: 10px 20px;
+  max-width: 70%;
+  color: #404040;
+  word-break: break-word;
+}
+
+
+
+/* 시간 표시 */
+.chatBox__timestamp {
+  font-size: 10px;
+  color: #999;
+  white-space: nowrap;
+}
 /* 반응형 */
 @media (max-width: 600px) {
   .chatBox__headerWrapper {

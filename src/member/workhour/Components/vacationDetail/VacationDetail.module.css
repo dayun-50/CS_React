@@ -1,225 +1,208 @@
 .container {
   width: 100%;
-  height: 100%;
+  height: auto;
   position: relative;
   display: flex;
   flex-direction: column;
-  font-family: Pretendard;
-  color: #404040;
-
-  border: 1px solid #8c8c8c;
-  border-radius: 22px;
+  font-family: var(--font-family);
+  color: var(--color-font-color1);
+  border: 1px solid var(--color-font-color2);
+  border-radius: var(--border-radius-main);
   padding: 20px;
   box-sizing: border-box;
 }
 
-/*버튼제외 글불러오는 박스*/
+/* 버튼 제외 글 불러오는 박스 */
 .parent {
-    width: 100%;
-    height: 80%;
-    border-radius: 22px;
-
-    border: 1px solid #8c8c8c;
-
-     align-self: stretch;
-     height: 90%;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     padding : 20px;
-}
-/*헤더*/
-.parentHeader{
-     width: 100%;
-     height: 20%;
-     display: flex;
-     border-bottom: #8c8c8c 1px solid;
-}
-/*헤더-이메일*/
-.headerEmail{
-     padding-top: 2px;
-     float: left;
-     height: 100%;
-     width: 20%;
-
+  width: 100%;
+  height: 90%;
+  border-radius: var(--border-radius-main);
+  border: 1px solid var(--color-font-color2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-/*헤더-시작*/
-.header_start_at{
-     width: 35%;
-     height: 100%;
-     float: left;
-}
-.startBoxRight{
-    width: 100%;
-    height: 70%;
-    display: flex; /* 추가 */
-    align-items: center; /* 수직 중앙 정렬 */
-    gap: 10px; /* 요소 간 간격 */
-    font-size: 14px;
-    font-family: Pretendard;
-}
-/*헤더-끝*/
-.header_end_at{
-     width: 35%;
-     height: 100%;
-     float: left;
-}
-.endBoxRight{
-
-    width: 100%;
-    height: 70%;
-    display: flex; /* 추가 */
-    align-items: center; /* 수직 중앙 정렬 */
-    gap: 10px; /* 요소 간 간격 */
-    font-size: 14px;
-    font-family: Pretendard;
+/* 헤더 */
+.parentHeader {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  border-bottom: 1px solid var(--color-font-color2);
 }
 
-/*시작 끝 공용 사용*/
+/* 헤더 - 이메일 */
+.headerEmail {
+  padding-top: 2px;
+  float: left;
+  height: 100%;
+  width: 20%;
+}
+
+/* 헤더 - 시작 */
+.header_start_at {
+  width: 35%;
+  height: 100%;
+  float: left;
+}
+
+.startBoxRight {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-size-small);
+  font-family: var(--font-family);
+}
+
+/* 헤더 - 끝 */
+.header_end_at {
+  width: 35%;
+  height: 100%;
+  float: left;
+}
+
+.endBoxRight {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-size-small);
+  font-family: var(--font-family);
+}
+
+/* 시작/끝 공용 */
 .selectGroup {
   display: flex;
   align-items: center;
   height: 90%;
 }
+
 select {
   height: 100%;
-  /* padding: 8px; */
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #0090ff;
-  color: #0090ff;
-  font-family: Pretendard;
-  border-radius: 20px;
-
-  text-align: center;       /* 일부 브라우저에서 필요 */
-  text-align-last: center;  /* 옵션 텍스트 가운데 정렬 */
+  font-size: var(--font-size-small);
+  border-radius: var(--border-radius-main);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  text-align: center;
+  text-align-last: center;
 }
-.dateInputBox{
-    /* width: 50%; */
-    height: 100%;
 
-    display: flex;
-    align-items: center;
-    /* justify-content: center; */
+.dateInputBox {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
+
 input[type="date"] {
-    margin-right: 10px;
-    width: 120px;
-    height: 90%;
-    padding: 8px;
-    font-size: 16px;
-    color: #333;
-    background-color: #ffffff;
-    border: 1px solid #0090ff;;
-    font-size: 14px;
-    font-family: Pretendard;
-    border-radius: 20px;
-    text-align: center;
-    color: #0090ff;
+  margin-right: 10px;
+  width: 120px;
+  height: 90%;
+  padding: 8px;
+  font-size: var(--font-size-small);
+  color: var(--color-primary);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-primary);
+  font-family: var(--font-family);
+  border-radius: var(--border-radius-main);
+  text-align: center;
 }
+
 .disabled {
   color: #999999;
   background-color: #f0f0f0;
 }
 
-
-/*헤더-상태*/
-.header_status{
+/* 헤더 - 상태 */
+.header_status {
   float: left;
-  display: flex;              /* Flexbox 활성화 */
-  justify-content: flex-end;  /* 수평 오른쪽 정렬 */
+  display: flex;
+  justify-content: flex-end;
   height: 100%;
   width: 10%;
-
-     padding-top: 2px;
-
+  padding-top: 2px;
 }
 
-
-/*바디*/
-.parentBody{
-     width: 100%;
-     height: 250px;
-     background-color: rgb(255, 156, 255);
-     padding: 10px;
-     overflow: hidden;
+/* 바디 */
+.parentBody {
+  width: 100%;
+  height: 250px;
+  background-color: rgb(255, 156, 255);
+  padding: 10px;
+  overflow: hidden;
 }
+
 .txtActive {
-  border: 2px solid #0090ff;
-  /* background-color: #f0f8ff; */
+  border: 2px solid var(--color-primary);
   border-radius: 6px;
 }
+
 .txt {
-    overflow-y: auto;
-     width: 100%;
-     height: 100%;
-     padding: 5px;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
 }
 
-/*버튼*/
-.btns{
-     width: 100%;
-     height: 20%;
-     display: flex;
-     align-items: center;
-     justify-content: flex-end; 
-     padding-top: 10px;
-
-     font-size: 18px;
-     color: #fff;
-     font-family: Pretendard;
-    
-     gap: 25px;
-}
-button{
-     height: 48px;
-     width: 200px;
-     border-radius: 22px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     padding: 16px;
-     box-sizing: border-box;
-}
-.btn1{ /*파랑*/
-    background-color: #0090ff;
-}
-.btn2{/*주황*/
-    color: #ed7833;
-    background-color: #ffceb1;
-}
-.btn3{/*회색*/
-    background-color: #d9d9d9;
+/* 버튼 */
+.btns {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 10px;
+  font-size: var(--font-size-large);
+  color: var(--color-white);
+  font-family: var(--font-family);
+  gap: 25px;
 }
 
+button {
+  height: 48px;
+  width: 200px;
+  border-radius: var(--border-radius-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
 
+.btn1 {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
 
+.btn2 {
+  color: var(--color-delete-hover);
+  background-color: var(--color-delete);
+}
 
+.btn3 {
+  background-color: var(--color-font-back);
+}
 
-
-
-
-
-
-
-/* 반응형: 작은 화면에서 일부 숨기기 */
+/* --------------------------------------------------------- */
+/* 반응형: 작은 화면 */
 @media (max-width: 1110px) {
-  /* 번호, 조회수 숨김 */
-  .div6_left{
+  .div6_left {
     display: none;
   }
 
-  /* 제목, 작성일 조정 */
   .div6_center {
-  flex: 8.5;
-  display: flex;
-  justify-content: flex-end; /* 내부 요소를 오른쪽으로 정렬 */
-  align-items: center;
-  padding-right: 15px;
-}
+    flex: 8.5;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+  }
 
-.div6_right {
-  flex: 1.5;
-}
+  .div6_right {
+    flex: 1.5;
+  }
 }

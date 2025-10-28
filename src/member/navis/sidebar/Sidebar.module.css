@@ -37,6 +37,7 @@
   border: 1px solid transparent;
 }
 
+/* 클릭 효과 */
 .menuItem:hover {
   background-color: #0090ff;
   color: white;

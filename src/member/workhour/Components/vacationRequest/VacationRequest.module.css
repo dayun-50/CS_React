@@ -1,186 +1,235 @@
-.container{
+.container {
   width: 100%;
-  height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  font-family: Pretendard;
-  color: #404040;
+  font-family: var(--font-family);
+  color: var(--color-font-color1);
 
-  border: 1px solid #8c8c8c;
-  border-radius: 22px;
-  padding: 30px;
+  border: 1px solid var(--color-font-color2);
+  border-radius: var(--border-radius-main);
+  padding: 20px;
   box-sizing: border-box;
-}
-/*1층*/
-.headerBox{
-    width: 100%;
-    height: 20%;
-    background-color: antiquewhite;
-    border-bottom: 1px solid #8c8c8c;
-}
-.headerBig{
-    height: 65%;
-    font-size: 22px;
-    font-weight: 600;
-}
-.headerSmall{
-    height: 25%;
-    font-size: 12px;
-    font-weight: 300;
-    color: #404040;        
+  gap: 20px;
+
+  overflow: hidden;
 }
 
+/*1층*/
+.headerBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-font-color2);
+  background-color: var(--color-sud-color1);
+}
+.headerBig {
+  font-size: 22px;
+  font-weight: 600;
+}
+.headerSmall {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-font-color1);
+}
 
 /*2층*/
-.startBox{
-    width: 100%;
-    height: 10%;
-    background-color: rgb(255, 221, 177);
-
-    display: flex;
+.startBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-sud-color2);
 }
-.startBoxLeft{
-    background-color: purple;
-    width: 10%;
-    height: 100%;
-    float: left;
-
-    display: flex;
-    align-items:  center;
-    font-size: 14px;
-    font-family: Pretendard;
+.startBoxLeft {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
-.startBoxRight{
-    background-color: skyblue;
-    width: 90%;
-    height: 100%;
-    display: flex; /* 추가 */
-    align-items: center; /* 수직 중앙 정렬 */
-    gap: 10px; /* 요소 간 간격 */
-    font-size: 14px;
-    font-family: Pretendard;
+.startBoxRight {
+  background-color: var(--color-sud-color1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
 }
-
-
 
 /*3층*/
-.endBox{
-    width: 100%;
-    height: 10%;
-    background-color: azure
+.endBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-white);
 }
-.endBoxLeft{
-    background-color: purple;
-    width: 10%;
-    height: 100%;
-    float: left;
-
-    display: flex;
-    align-items:  center;
-    font-size: 14px;
-    font-family: Pretendard;
+.endBoxLeft {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--color-delete-hover);
 }
-.endBoxRight{
-    background-color: skyblue;
-    width: 90%;
-    height: 100%;
-    display: flex; /* 추가 */
-    align-items: center; /* 수직 중앙 정렬 */
-    gap: 10px; /* 요소 간 간격 */
-    font-size: 14px;
-    font-family: Pretendard;
+.endBoxRight {
+  background-color: var(--color-sud-color1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
 }
-
-
 
 /*2, 3층 공용*/
 .selectGroup {
   display: flex;
   align-items: center;
-  height: 90%;
+  width: 10%;
+  height: 40px;
 }
-
-select {
+.selectGroup select {
   height: 100%;
-  /* padding: 8px; */
+  width: 100%;
   font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #0090ff;
-  color: #0090ff;
-  font-family: Pretendard;
-  border-radius: 20px;
-
-  text-align: center;       /* 일부 브라우저에서 필요 */
-  text-align-last: center;  /* 옵션 텍스트 가운데 정렬 */
+  border-radius: var(--border-radius-main);
+  border: 1px solid var(--color-font-color2);
+  color: var(--color-font-color1);
+  text-align: center;
+  text-align-last: center;
 }
-
-.dateInputBox{
-    /* width: 50%; */
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-    /* justify-content: center; */
+.dateInputBox {
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 input[type="date"] {
-    margin-right: 10px;
-    width: 150px;
-    height: 90%;
-    padding: 8px;
-    font-size: 16px;
-    color: #333;
-    background-color: #ffffff;
-    border: 1px solid #0090ff;;
-    font-size: 14px;
-    font-family: Pretendard;
-    border-radius: 20px;
-    text-align: center;
-    color: #0090ff;
+  width: 150px;
+  height: 100%;
+  font-size: 14px;
+  border: 1px solid var(--color-font-color2);
+  border-radius: var(--border-radius-main);
+  text-align: center;
+  color: var(--color-font-color1);
 }
 .disabled {
-  color: #999999;
-  background-color: #f0f0f0;
+  color: var(--color-font-color2);
+  background-color: var(--color-font-back);
 }
-
 
 /*4층*/
-.contentBox{
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-    background-color: aquamarine;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.contentBox {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--color-sud-color2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.content{
-    padding: 10px;
-    width: 100%;
-    height: 90%;
-    border: 1px solid #8c8c8c;
-    border-radius: 22px;
-    overflow-y: auto;
+.content {
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-font-color2);
+  border-radius: var(--border-radius-main);
+  overflow-y: auto;
 }
-
 
 /*5층*/
-.btns{
-    width: 100%;
-    height: 15%;
-    background-color: rgb(166, 166, 166);
-    display:flex;
-    flex-direction: row;
-    justify-content: end;
-    gap: 10px;
+.btns {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
-.btn1{/*회색*/
-    background-color: #d9d9d9;
-    width: 25%;
-}
-.btn2{ /*파랑*/
-    background-color: #0090ff;
-    width: 25%;
+.btns button {
+  border: none;
 }
 
+.back {
+  background-color: var(--color-font-back);
+  padding: 10px;
+  flex: 1;
+  max-width: 150px;
+}
+.back:hover {
+  background-color: var(--color-back-hover);
+}
+
+.check {
+  background-color: var(--color-primary);
+  padding: 10px;
+  flex: 1;
+  max-width: 150px;
+  font-weight: bold;
+  color: var(--color-white);
+}
+.check:hover {
+  background-color: var(--color-hover);
+}
+
+/* ---------------------------- */
+/* 반응형 */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
+  .headerBig {
+    font-size: 20px;
+  }
+  .headerSmall {
+    font-size: 11px;
+  }
+  .startBoxLeft,
+  .endBoxLeft {
+    width: 70px;
+    font-size: 13px;
+  }
+  select,
+  input[type="date"] {
+    font-size: 13px;
+    height: 35px;
+  }
+  .back,
+  .check {
+    max-width: 120px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    gap: 12px;
+  }
+  .headerBox {
+    gap: 2px;
+  }
+  .startBox,
+  .endBox {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .startBoxRight,
+  .endBoxRight {
+    width: 100%;
+    gap: 8px;
+  }
+  select,
+  input[type="date"] {
+    width: 100%;
+  }
+  .btns {
+    flex-direction: column;
+  }
+
+  .back,
+  .check {
+    width: 100%;
+    max-width: unset;
+  }
+}

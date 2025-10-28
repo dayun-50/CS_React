@@ -62,10 +62,10 @@ function useLogin() {
       return false;
     }
 
-    // 💡 1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
+    //  1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
     const processLoginResponse = (combinedToken) => {
       const cleanToken = combinedToken.trim();
-      // 💡 토큰을 "|||" 구분자로 분리
+      //  토큰을 "|||" 구분자로 분리
       const tokenParts = cleanToken.split("|||");
 
       if (tokenParts.length === 2) {

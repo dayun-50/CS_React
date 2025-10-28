@@ -1,23 +1,24 @@
 .container {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
-  background-color: #fff;
-  border: 1px solid #8c8c8c;
+  border-radius: var(--border-radius-main);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-font-back);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: Pretendard, sans-serif;
-  font-size: 22px;
-  color: #404040;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-font-color1);
   overflow: hidden;
 }
 
 /* 공지사항 제목 */
 .header {
-  padding: 30px;
+  padding: 1.875rem;
   font-weight: 600;
   font-size: 22px;
+  font-weight: bold;
   text-transform: capitalize;
 }
 
@@ -27,7 +28,7 @@
   padding: 0 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   font-size: 18px;
   overflow-y: hidden;
   width: 100%;
@@ -40,23 +41,23 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 1.25rem;
   box-sizing: border-box;
 }
 
 /* 헤더 전용 스타일 */
 .listHeader {
-  border-bottom: 1px solid #8c8c8c;
-  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-font-back);
   font-weight: 500;
   text-transform: capitalize;
-  color: #404040;
+  color: var(--color-font-color1);
+  padding-bottom: 16px;
 }
 
 /* 번호 */
 .numbertitle,
 .number {
-  flex: 0 0 50px;
+  flex: 0 0 3.125rem;
   text-align: center;
   white-space: nowrap;
 }
@@ -66,7 +67,7 @@
 .title {
   flex: 1;
   text-align: left;
-  padding-left: 10px;
+  padding-left: 0.625rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -79,7 +80,7 @@
 /* 작성일 */
 .datetitle,
 .date {
-  flex: 0 0 100px;
+  flex: 0 0 6.25rem;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -89,46 +90,46 @@
 /* 조회수 */
 .viewstitle,
 .views {
-  flex: 0 0 60px;
+  flex: 0 0 3.75rem;
   text-align: right;
-  color: #8c8c8c;
+  color: var(--color-font-color2);
   white-space: nowrap;
 }
 
 /* 공지사항이 없을 경우 */
 .noticeEmptyContainer {
   width: 100%;
-  height: 100%; /* 높이를 100%로 */
-  flex: 1; /* 공간을 꽉 채우도록 */
+  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: Pretendard;
-  color: #d9d9d9;
+  font-family: var(--font-family);
+  color: var(--color-font-back);
 }
 
 .noticeEmptyText {
-  font-size: 22px;
+  font-size: var(--font-size-base);
   font-weight: 800;
   text-transform: capitalize;
-  margin-top: 12px; /* 아이콘과 텍스트 간격 */
+  margin-top: 0.75rem;
 }
 
 .noticeEmptyIcon {
-  width: 56px;
-  height: 56px;
+  width: 3.5rem;
+  height: 3.5rem;
   object-fit: cover;
 }
 
-/* 페이징네비바 */
+/* 페이징 네비게이션 */
 .paginationParent {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 20px 0;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
   flex-wrap: wrap;
 }
 
@@ -139,7 +140,7 @@
 
 .paginationList {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .paginationPage,
@@ -147,10 +148,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   font-weight: 500;
   cursor: pointer;
   user-select: none;
@@ -158,27 +159,27 @@
 }
 
 .paginationPage {
-  background-color: #0090ff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .paginationPage:hover {
-  background-color: #bde2ff;
+  background-color: var(--color-sud-color1);
 }
 
 .paginationPageActive {
-  background-color: #0090ff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   font-weight: bold;
 }
 
 .pageNumber {
-  pointer-events: none; /* 내부 숫자 클릭 시 이벤트 막기 */
+  pointer-events: none;
 }
 
 img {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem; /* 24px */
+  height: 1.5rem;
   cursor: pointer;
 }
 
@@ -192,18 +193,9 @@ img {
 
 /* 모바일: 최대 480px */
 @media (max-width: 480px) {
-  .container {
-    font-size: 14px;
-  }
-
-  .header {
-    padding: 30px;
-    font-size: 16px;
-  }
-
   .listBody {
-    padding: 20px;
-    gap: 12px;
+    padding: 1.25rem; /* 20px */
+    gap: 0.75rem;
   }
 
   .number,
@@ -215,45 +207,49 @@ img {
 
   .Toptitle,
   .title {
-    flex: 1;
-    padding-left: 5px;
+    padding-left: 0.3125rem;
   }
 
   .datetitle,
   .date {
-    flex: 0 0 100px;
     text-align: right;
   }
 
-  /* 공지사항 없을때 */
   .noticeEmptyText {
-    font-size: 18px;
-    font-weight: 800;
-    text-transform: capitalize;
-    margin-top: 12px;
+    font-size: var(--font-size-base);
   }
 
   .noticeEmptyIcon {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+
+  .paginationParent {
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+  .paginationPage,
+  .paginationPageActive {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: var(--font-size-base);
+  }
+
+  .paginationList {
+    gap: 0.375rem;
+  }
+
+  .pagination img {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }
 
 /* 태블릿: 481px ~ 767px */
 @media (min-width: 481px) and (max-width: 767px) {
-  .container {
-    font-size: 16px;
-  }
-
-  .header {
-    padding: 30px;
-    font-size: 18px;
-  }
-
   .listBody {
-    padding: 0 20px;
-    gap: 14px;
+    gap: 0.875rem;
   }
 
   .number,
@@ -263,51 +259,49 @@ img {
 
   .Toptitle,
   .title {
-    flex: 1;
-    padding-left: 8px;
+    padding-left: 0.5rem;
   }
 
   .datetitle,
   .date {
-    flex: 0 0 100px;
     text-align: center;
   }
 
-  .viewstitle,
-  .views {
-    flex: 0 0 60px;
-    text-align: right;
-  }
-
-  /* 공지사항 없을때 */
   .noticeEmptyText {
-    font-size: 20px;
-    font-weight: 800;
-    text-transform: capitalize;
-    margin-top: 12px;
+    font-size: var(--font-size-base);
   }
 
   .noticeEmptyIcon {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .paginationParent {
+    gap: 0.625rem;
+    padding: 1.125rem 0;
+  }
+
+  .paginationPage,
+  .paginationPageActive {
+    width: 2rem;
+    height: 2rem;
+    font-size: var(--font-size-base);
+  }
+
+  .paginationList {
+    gap: 0.4375rem;
+  }
+
+  .pagination img {
+    width: 1.375rem;
+    height: 1.375rem;
   }
 }
 
 /* 데스크탑: 768px 이상 */
 @media (min-width: 768px) {
-  .container {
-    font-size: 22px;
-  }
-
-  .header {
-    padding: 30px;
-    font-size: 22px;
-  }
-
   .listBody {
-    padding: 0 20px;
-    gap: 16px;
+    gap: 1rem;
   }
 
   .number,
@@ -317,81 +311,27 @@ img {
 
   .Toptitle,
   .title {
-    padding-left: 10px;
+    padding-left: 0.625rem;
   }
-}
 
-/* ----------------------------------------------------------- */
-
-/* 페이징네비바 반응형 */
-/* 데스크탑 */
-@media (min-width: 768px) {
   .paginationParent {
-    gap: 12px;
-    padding: 20px 0;
+    gap: 0.75rem;
+    padding: 1.25rem 0;
   }
 
   .paginationPage,
   .paginationPageActive {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: var(--font-size-base);
   }
 
   .paginationList {
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .pagination img {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* 테블릿 */
-@media (min-width: 481px) and (max-width: 767px) {
-  .paginationParent {
-    gap: 10px;
-    padding: 18px 0;
-  }
-
-  .paginationPage,
-  .paginationPageActive {
-    width: 32px;
-    height: 32px;
-    font-size: 15px;
-  }
-
-  .paginationList {
-    gap: 7px;
-  }
-
-  .pagination img {
-    width: 22px;
-    height: 22px;
-  }
-}
-
-/* 모바일 */
-@media (max-width: 480px) {
-  .paginationParent {
-    gap: 8px;
-    padding: 16px 0;
-  }
-
-  .paginationPage,
-  .paginationPageActive {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-
-  .paginationList {
-    gap: 6px;
-  }
-
-  .pagination img {
-    width: 20px;
-    height: 20px;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }

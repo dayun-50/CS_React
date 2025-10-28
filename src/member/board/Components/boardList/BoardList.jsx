@@ -1,26 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./BoardList.module.css";
-import { caxios } from "../../../../config/config";
-import { useEffect, useState } from "react";
-import file from "./icon/File.svg"; // 공지사항 리스트 목록 없음 아이콘
+import { useState } from "react";
+import file from "./icon/File.svg";
+import dayjs from "dayjs";
+import PageNaviBar from "../../../navis/pagenavibar/PageNaviBar";
 
 const BoardList = () => {
-  const [noticeList, setNoticeList] = useState([]); // 목록
+  const [noticeList, setNoticeList] = useState([]); // 페이지별 공지사항
   const navigate = useNavigate();
-
-  // 전체 공지사항 불러오기 (페이징 없이)
-  const fetchNotices = () => {
-    caxios
-      .get(`/board/notices`) // 전체 공지사항 반환하는 API라고 가정
-      .then((res) => {
-        setNoticeList(res.data);
-      })
-      .catch((err) => console.error("공지사항 불러오기 실패", err));
-  };
-
-  useEffect(() => {
-    fetchNotices();
-  }, []);
+  const target = null; // 필요 시 필터용
 
   const handleTitleClick = (id) => {
     navigate(`/board/detail/${id}`);
@@ -40,17 +28,21 @@ const BoardList = () => {
         </div>
 
         {/* 리스트 데이터 */}
-        {noticeList?.length > 0 ? (
+        {noticeList.length > 0 ? (
           noticeList.map((item) => (
             <div className={styles.listItem} key={item.notice_seq}>
-              <div className={styles.number}>{item.notice_seq}</div>
+              <div className={styles.number}>{item.notice_seq ?? "-"}</div>
               <div
                 className={styles.title}
                 onClick={() => handleTitleClick(item.notice_seq)}
               >
                 {item.title}
               </div>
-              <div className={styles.date}>{item.created_at?.slice(0, 10)}</div>
+              <div className={styles.date}>
+                {item.created_at
+                  ? dayjs(item.created_at).format("YYYY-MM-DD")
+                  : "-"}
+              </div>
               <div className={styles.views}>{item.view_count}회</div>
             </div>
           ))
@@ -62,68 +54,23 @@ const BoardList = () => {
         )}
       </section>
 
-      {/* 
-      페이징 네비게이션 
-      <nav className={styles.paginationParent}>
-        << 
-        <img
-          src={doubleLeftArrow}
-          alt="처음"
-          onClick={() => handlePageClick(1)}
-          className={currentPage === 1 ? styles.disabled : ""}
+      {/* 페이지네비게이션 */}
+      <div className={styles.paginationParent}>
+        <PageNaviBar
+          key={target || "all"}
+          path={target ? `/board/notices?type=${target}` : `/board/notices`}
+          onData={(data) => {
+            // PageNaviBar에서 받아온 데이터를 날짜 포맷 적용 후 세팅
+            const formatted = data.map((item) => ({
+              ...item,
+              created_at: item.created_at
+                ? dayjs(item.created_at).format("YYYY-MM-DD")
+                : null,
+            }));
+            setNoticeList(formatted);
+          }}
         />
-        < 
-        <img
-          src={leftArrow}
-          alt="이전"
-          onClick={() =>
-            handlePageClick(Math.max(1, pageRange[0] - 1))
-          }
-          className={pageRange[0] === 1 ? styles.disabled : ""}
-        />
-        페이지 리스트 
-        <div className={styles.pagination}>
-          <div className={styles.paginationList}>
-            {pageRange.map((page) => (
-              <div
-                key={page}
-                className={
-                  page === currentPage
-                    ? styles.paginationPageActive
-                    : styles.paginationPage
-                }
-                onClick={() => handlePageClick(page)}
-              >
-                <div className={styles.pageNumber}>{page}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        >
-        <img
-          src={rightArrow}
-          alt="다음"
-          onClick={() =>
-            handlePageClick(
-              Math.min(totalPages, pageRange[pageRange.length - 1] + 1)
-            )
-          }
-          className={
-            pageRange[pageRange.length - 1] === totalPages
-              ? styles.disabled
-              : ""
-          }
-        />
-        >> 
-        <img
-          src={doubleRightArrow}
-          alt="끝"
-          onClick={() => handlePageClick(totalPages)}
-          className={currentPage === totalPages ? styles.disabled : ""}
-        />
-      </nav>
-      */}
-
+      </div>
     </div>
   );
 };

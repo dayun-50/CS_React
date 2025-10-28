@@ -10,7 +10,10 @@
 
 /* 상단 바 */
 .header {
-  position: relative; /* 또는 fixed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1100; /* 사이드바보다 높게 */
   height: 60px;
   background-color: #fff;
@@ -20,9 +23,9 @@
 .body {
   display: flex;
   flex: 1;
+  margin-top: 60px;
   width: 100%;
-  height: 100%;
-
+  height: calc(100vh - 60px);
   overflow: hidden;
 }
 
@@ -49,12 +52,8 @@
 
 /* 메인 네비인 sidebar제외한 우측영역 */
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex: 1;
-
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -70,7 +69,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1400px) {
   .sidebar {
     position: relative;
     left: 0 !important;
@@ -80,13 +79,12 @@
 
   .content {
     margin-left: 0; /* 사이드바 공간 확보 */
-    padding: 30px;
   }
+
   .hamburger {
     display: none;
   }
 }
-
 
 /* 카테고리 반응시 옆에 블라인드 처리 */
 .overlay {

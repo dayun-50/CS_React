@@ -97,7 +97,7 @@
 }
 
 /* 768px 이하일 때만 보이게 */
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .container {
     flex-direction: column;
     padding: 0 20px;

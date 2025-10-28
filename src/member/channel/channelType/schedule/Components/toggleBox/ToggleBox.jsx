@@ -3,21 +3,24 @@ import { useState } from "react";
 import styles from "./ToggleBox.module.css";
 import useToggleBox from "./useToggleBox";
 
-const ToggleBox = ({ seq , selectMemberEvent, setSelectMemberEvent}) => {
-  console.log("ToggleBox seq:", seq);
+const ToggleBox = ({ seq, selectedEmails, setSelectedEmails }) => {
+  // 각 멤버 클릭 상태(on/off)를 배열로 관리
+  const [selected, setSelected] = useState([]);
 
   const {
     members
-  } = useToggleBox(seq, selectMemberEvent, setSelectMemberEvent);
-  // 각 멤버 클릭 상태(on/off)를 배열로 관리
-  const [selected, setSelected] = useState(Array(members.length).fill(false));
+  } = useToggleBox(seq, selected, setSelected);
 
   const handleClick = (index, member) => {
     const newSelected = [...selected];
     newSelected[index] = !newSelected[index]; // 클릭하면 토글
     setSelected(newSelected);
-    console.log(member.email);
-    setSelectMemberEvent(prev=>[...prev,member.email]);
+
+    const emails = members
+      .filter((_, i) => newSelected[i])
+      .map((m) => m.email);
+    setSelectedEmails(emails)
+    console.log(emails);
   };
 
   return (
@@ -36,7 +39,7 @@ const ToggleBox = ({ seq , selectMemberEvent, setSelectMemberEvent}) => {
             onClick={() => handleClick(index, member)}
           >
             <div
-              className={selected[index] ? styles.circle2 : styles.circle1}
+              className={selected[index] ? styles.circle1 : styles.circle2}
             ></div>
             {member.name} / {member.level_code}
           </div>

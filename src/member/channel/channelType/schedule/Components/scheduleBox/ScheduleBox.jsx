@@ -94,12 +94,12 @@ const CustomToolbar = ({ label, onNavigate }) => {
     );
 };
 
-const ScheduleBox = ({seq, selectMemberEvent}) => {
+const ScheduleBox = ({seq, selectedEmails, setSelectedEmails }) => {
     const [events, setEvents] = useState([]);
     
     const {
-        sevaEvent
-    } = useScheduleBox(events, setEvents, seq, selectMemberEvent);
+        sevaEvent, handleSelectEvent
+    } = useScheduleBox(events, setEvents, seq, selectedEmails);
 
     // 이벤트 추가
     const handleSelectSlot = ({ start, end }) => {
@@ -120,13 +120,6 @@ const ScheduleBox = ({seq, selectMemberEvent}) => {
                 };
             setEvents([...events, newEvent]);
             sevaEvent(newEvent);
-        }
-    };
-
-    // 이벤트 삭제
-    const handleSelectEvent = (event) => {
-        if (window.confirm(`"${event.title}" 이벤트를 삭제하시겠습니까?`)) {
-            setEvents(events.filter((e) => e !== event));
         }
     };
 

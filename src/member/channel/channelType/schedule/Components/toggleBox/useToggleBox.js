@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
+import { use } from "react";
 
-function useToggleBox(seq, selectMemberEvent, setSelectMemberEvent) {
+function useToggleBox(seq, selected, setSelected) {
 
     const id = sessionStorage.getItem("id");
 
@@ -14,14 +15,16 @@ function useToggleBox(seq, selectMemberEvent, setSelectMemberEvent) {
             { withCredentials: true })
             .then(resp => {
                 setMembers(resp.data);
-                console.log(resp.data);
             })
             .catch(err => {
                 console.log(err);
             })
     }, [seq])
 
-    
+    useEffect(() => {
+        setSelected(Array(members.length).fill(false));
+    }, [members])
+
 
     return {
         members

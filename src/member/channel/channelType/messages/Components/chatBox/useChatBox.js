@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox(seq) {
+function useChatBox(seq, setAlertRooms) {
 
     // 채팅방 제목 받을 준비
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -35,23 +35,22 @@ function useChatBox(seq) {
     useEffect(() => {
         setMessages([]);
         if (!room.title) return;
-        setInput(prev=>({...prev, chat_seq: seq}));
+        setInput(prev => ({ ...prev, chat_seq: seq }));
         ws.current = new WebSocket(`ws://192.168.45.127:80/chatting?token=${token}&chat_seq=${seq}`);
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
             if (data.type === "chat") {
                 console.log(data);
-                setMessages((prev) => [...prev,data.data]);
+                setMessages((prev) => [...prev, data.data]);
             } else if (data.type === "history") {
                 console.log(data);
                 setMessages(data.messages);
-            } else if(data.type === "alert"){ // 채팅 알람기능
-                const chat_seq = data.chat_seq;
-                console.log(data.type); // 나중에 제거하셈
-                /*
-                    여기에 채팅방 제목에 색상 css 클래스 줘야함
-                */
+            } else if (data.type === "alert") { // 채팅 알람기능
+                setAlertRooms(prev => ({
+                    ...prev,
+                    chat_seq: data.chat_seq
+                }));
             }
         };
 

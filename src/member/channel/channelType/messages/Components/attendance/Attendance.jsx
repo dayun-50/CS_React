@@ -3,12 +3,12 @@ import styles from "./Attendance.module.css";
 import collapse from "./icon/Collapse Arrow.svg";
 import useAttendance from "./useAttendance";
 
-const Attendance = ({ onChannelClick }) => {
-
+const Attendance = ({ onChannelClick, alertRooms , setAlertRooms}) => {
+  console.log(alertRooms);
   const {
     members, chatSeq,
     handleClickChat
-  } = useAttendance(onChannelClick);
+  } = useAttendance(onChannelClick, alertRooms, setAlertRooms);
 
   return (
     <div className={styles.container}>
@@ -22,7 +22,7 @@ const Attendance = ({ onChannelClick }) => {
           <button
             key={i}
             className={`${styles.member} ${chatSeq === member.chat_seq ? styles.selected : ""
-              }`}
+              } ${alertRooms.chat_seq == member.chat_seq ? styles.alert : ""}`}
             onClick={()=>handleClickChat(member.chat_seq)}
           >
             {member.name}

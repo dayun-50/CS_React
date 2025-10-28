@@ -86,3 +86,9 @@
   font-weight: bold;
   color: #0090ff;
 }
+
+
+/* Attendance.module.css */
+.alert {
+  background-color: #50b3ff56;
+}

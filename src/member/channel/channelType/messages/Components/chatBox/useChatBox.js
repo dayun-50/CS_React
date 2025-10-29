@@ -34,14 +34,14 @@ function useChatBox(seq) {
     useEffect(() => {
         setMessages([]);
         if (!room.title) return;
-        setInput(prev=>({...prev, chat_seq: seq}));
+        setInput(prev => ({ ...prev, chat_seq: seq }));
         ws.current = new WebSocket(`ws://10.10.55.89/chatting?token=${token}&chat_seq=${seq}`);
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
             if (data.type === "chat") {
                 console.log(data);
-                setMessages((prev) => [...prev,data.data]);
+                setMessages((prev) => [...prev, data.data]);
             } else if (data.type === "history") {
                 console.log(data);
                 setMessages(data.messages);
@@ -52,12 +52,39 @@ function useChatBox(seq) {
     }, [room.title, seq]);
 
     // 메세지 전송
-    const sendMessage = () => {
-        if (input.message.trim() === "") return;
+    const sendMessage = async (data) => {
+        if (input.message.trim() === "" && (!data || data.length === 0)) return;//메세지나 파일리스트 비어잇음 반송
 
-        ws.current.send(JSON.stringify(input));
-        setInput(prev => ({ ...prev, message: "" }));
+        // 1️.텍스트 메시지 전송
+        if (input.message.trim() !== "") {
+            ws.current.send(JSON.stringify(input));
+            setInput(prev => ({ ...prev, message: "" }));
+        }
+
+        // 2️. 파일(Blob 또는 FileList) 전송
+        if (data) {
+            const files = data instanceof FileList ? Array.from(data) : [data];// FileList나 단일 Blob 구분 없이 배열로 변환
+
+            // 순차적으로 전송 (await로 메타 → 데이터 순서 보장)
+            for (const file of files) {
+                const fileName = file.name || `chatFile_${Date.now()}.bin`;
+
+                // 1. 파일 메타정보 먼저 전송
+                const fileMeta = {
+                    type: "file",
+                    chat_seq: input.chat_seq,
+                    file_name: fileName,
+                };
+                ws.current.send(JSON.stringify(fileMeta)); // 채팅방 시퀀스, 파일 이름 보냄
+
+                await new Promise((resolve) => setTimeout(resolve, 80));// 2. 잠시 대기 — 순차적으로 들어가도록
+                ws.current.send(file);// 3.실제 파일 Blob 전송
+            }
+        }
     };
+
+
+
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && !e.shiftKey) {

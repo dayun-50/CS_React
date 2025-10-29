@@ -177,16 +177,24 @@ const ChatBox = ({ seq }) => {
     if (!input.message.trim() && fileList.length === 0) return;
 
     // 2) FormData 준비 (서버 전송을 위한 포맷)
-    const formData = new FormData();
+    //const formData = new FormData();
     // 텍스트 메시지 포함
-    formData.append("message", input.message);
+    //formData.append("message", input.message);
     // 파일들을 files 필드에 append (백엔드에서 동일한 필드명으로 받도록 구현되어 있어야 함)
-    fileList.forEach((f) => formData.append("files", f));
+    //for (const file of fileList) {
+    //  form.append("fileList", file)
+    //}
 
     // 실제 네트워크 전송은 useChatBox 훅의 sendMessage가 담당.
     // sendMessage(formData)는 보통 fetch/axios 또는 WebSocket을 통해 서버로 보냄.
     // (sendMessage 내부에서 성공/실패 콜백, 에러 처리 등이 있을 수 있음)
-    sendMessage(formData);
+
+    // 파일 먼저 전송 (바이너리)
+    for (const blob of fileList) {
+      sendMessage(blob);
+    }
+
+
 
     // 3) UI 즉시 반영을 위한 임시 메시지 객체 생성
     //    - chat_seq, message_seq는 임시로 Date.now()나 messages.length로 만듦
@@ -315,11 +323,10 @@ const ChatBox = ({ seq }) => {
             <div
               key={`${msg.chat_seq}-${msg.message_seq}`}
               id={`msg-${msg.chat_seq}-${msg.message_seq}`}
-              className={`${styles.chatBox__messageWrapper} ${
-                msg.member_email === id
-                  ? styles["chatBox__messageWrapper--right"]
-                  : styles["chatBox__messageWrapper--left"]
-              }`}
+              className={`${styles.chatBox__messageWrapper} ${msg.member_email === id
+                ? styles["chatBox__messageWrapper--right"]
+                : styles["chatBox__messageWrapper--left"]
+                }`}
             >
               {/* 상대방 메시지면 이름/직급 표시 (예: 홍길동 / 과장) */}
               {msg.member_email !== id && (

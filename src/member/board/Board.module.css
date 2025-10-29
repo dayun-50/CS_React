@@ -1,35 +1,32 @@
 .container {
-
   height: 100%;
   width: 100%;
-  background-color: #fff;
+  padding: 30px;
+  background-color: var(--color-white);
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* 스크롤 방지 */
-  font-family: Pretendard, sans-serif;
+  overflow-y: auto;
+  font-family: var(--font-family);
 }
 
 /* 반응형 */
-/* 모바일: 480px 이하 */
 @media (max-width: 480px) {
   .container {
     font-size: 14px; /* 폰트 작게 */
   }
 }
 
-/* 태블릿: 481px ~ 767px */
+/* 태블릿 */
 @media (min-width: 481px) and (max-width: 767px) {
   .container {
-
     font-size: 16px;
-    /* 필요하면 flex-direction 변경 가능 */
   }
 }
 
 /* 데스크탑: 768px 이상 */
 @media (min-width: 768px) {
   .container {
-    flex-direction: row; /* 넓은 화면에서는 가로 정렬 */
+    flex-direction: row;
     font-size: 18px;
   }
 }

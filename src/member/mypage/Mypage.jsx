@@ -6,10 +6,10 @@ function Mypage() {
   return (
     <div className={styles.fullbox}>
       <div className={styles.myInform}>
-      <MyInform />
+        <MyInform />
       </div>
       <div className={styles.mySchedule}>
-      <MySchedule />
+        <MySchedule />
       </div>
     </div>
   );

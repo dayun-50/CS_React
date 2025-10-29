@@ -15,14 +15,14 @@ const Topbar = ({ onMenuClick }) => {
         </div>
 
         <div className={styles.iconGroup}>
-          {/* 알림 아이콘 */}
-          <img src={userIcon} alt="User" className={styles.user} />
           {/* 사람 아이콘 */}
           <img
             src={notificationIcon}
             alt="Notification"
             className={styles.notification}
           />
+          {/* 알림 아이콘 */}
+          <img src={userIcon} alt="User" className={styles.user} />
           {/* 햄버거 아이콘 - 모바일 전용 */}
           <button
             className={styles.hamburger}

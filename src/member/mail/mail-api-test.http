@@ -1,0 +1,8 @@
+POST http://localhost:8080/api/send-mail
+Content-Type: application/json
+
+{
+    "to": "testuser@localhost",
+    "subject": "안녕하세요",
+    "content": "REST Client로 보낸 첫 번째 메일입니다."
+}

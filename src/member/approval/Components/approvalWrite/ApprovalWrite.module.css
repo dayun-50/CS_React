@@ -1,172 +1,194 @@
 /*최상위박스*/
 .writeBox {
-    padding: 10px 30px 0 30px;
-    width: 100%;
-    height: 100%;
+  padding: 10px 30px 0 30px;
+  width: 100%;
+  height: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 /*윗부분 보더라인박스영역*/
 .parent {
-    border-radius: 22px;
-    background-color: #fff;
-    border: 1px solid #8c8c8c;
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
 
-    align-self: stretch;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  align-self: stretch;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    padding: 10px;
+  padding: 10px;
 }
 
 /*설명*/
 .description {
-    height: 7%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5px;
+  height: 7%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 .type {
-    width: 96%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+  width: 96%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 
-    font-size: 20px;
-    font-weight: 600;
-    /* justify-content: center; */
+  font-size: 20px;
+  font-weight: 600;
+  /* justify-content: center; */
 
 }
 
 /*제목*/
 .titlebox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    height: 12%;
-    width: 100%;
-
-    border-bottom: 1px solid #8c8c8c;
+  height: 12%;
+  width: 100%;
+  border-bottom: 1px solid #8c8c8c;
 }
 
 .title {
-    width: 96%;
-    height: 55%;
-    padding: 12px;
-    border: 1px solid black;
-    border-radius: 30px;
+  width: 96%;
+  height: 55%;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 30px;
 }
 
 /*파일*/
 .fileWrapper {
-    padding-top: 10px;
-    width: 100%;
-    height: 13%;
+  padding-top: 10px;
+  width: 100%;
+  height: 13%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .filebox {
-    height: 70%;
-    width: 96%;
+  height: 70%;
+  width: 96%;
 
 
-    display: block;
-    border: 1px solid gray;
+  display: block;
+  border: 1px solid gray;
 
-    border-radius: 10px;
-    cursor: pointer;
-    padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
 }
 
 .hiddenFileInput {
-    display: none;
+  display: none;
 }
 
 .customFileBtn {
-    display: block;
-    color: darkgray;
-    font-weight: bold;
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    cursor: pointer;
-
-    overflow-y: auto;
+  display: flex;
+  /* 가로 배치 */
+  align-items: center;
+  /* 수직 중앙 정렬 */
+  gap: 8px;
+  /* 아이콘과 텍스트 간격 */
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  color: darkgray;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .chooseFileText {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  /* 수직 중앙 정렬 */
+  justify-content: flex-start;
+  /* 왼쪽 정렬 */
+  flex: 1;
+  /* 남은 공간 차지 */
+}
+
+/* 파일 이름 표시 */
+.fileRow {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #333;
 }
 
 /*글*/
 .contentbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    height: 68%;
-    width: 100%;
+  height: 68%;
+  width: 100%;
 }
 
 .content {
-    width: 96%;
-    height: 98%;
-    padding: 12px;
-    border: 1px solid black;
-    border-radius: 15px;
+  width: 96%;
+  height: 98%;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 15px;
 
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
+.content[contenteditable]:empty::before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  /* 회색 placeholder 색상 */
+  pointer-events: none;
+  /* 클릭 시 텍스트 입력 가능 */
+}
 
 /*버튼영역*/
 .btns {
-    width: 100%;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 
-    font-size: 18px;
-    font-family: Pretendard;
-    gap: 25px;
+  font-size: 18px;
+  font-family: Pretendard;
+  gap: 25px;
 }
 
 button {
-    height: 48px;
-    width: 200px;
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
+  height: 48px;
+  width: 200px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .btn1 {
-    /*회색*/
-    background-color: #d9d9d9;
+  /*회색*/
+  background-color: #d9d9d9;
 }
 
 .btn2 {
-    /*파랑*/
-    background-color: #0090ff;
+  /*파랑*/
+  background-color: #0090ff;
 }

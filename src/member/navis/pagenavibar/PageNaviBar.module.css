@@ -31,7 +31,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   font-weight: 500;
   cursor: pointer;
   user-select: none;
@@ -39,16 +39,16 @@
 }
 
 .paginationPage {
-  color: black;
+  color: var(--color-font-color2);
 }
 
 .paginationPage:hover {
-  background-color: #bde2ff;
+  background-color: var(--color-sud-color1);
 }
 
 .paginationPageActive {
-  background-color: #0090ff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   font-weight: bold;
 }
 
@@ -99,7 +99,7 @@ img {
 @media (min-width: 481px) and (max-width: 767px) {
   .paginationParent {
     gap: 10px;
-    padding: 18px 0;
+    padding: 16px 0 0;
   }
 
   .paginationPage,
@@ -123,7 +123,6 @@ img {
 @media (max-width: 480px) {
   .paginationParent {
     gap: 8px;
-    padding: 16px 0;
   }
 
   .paginationPage,

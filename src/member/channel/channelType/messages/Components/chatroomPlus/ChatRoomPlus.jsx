@@ -1,14 +1,11 @@
 import { useState } from "react";
 import styles from "./ChatRoomPlus.module.css";
+import useChatRoomPlus from "./useChatRoomPlus";
+import { caxios } from "../../../../../../config/config";
 
 const ChatRoomPlus = ({ onClose, onSelect }) => {
-  const recipients = [
-    "김철수 (개발팀)",
-    "이영희 (디자인팀)",
-    "박민수 (기획팀)",
-  ];
-
   const [selected, setSelected] = useState([]);
+  const { recipients, list } = useChatRoomPlus(selected);
 
   const handleAdd = () => {
     if (selected.length === 0) {
@@ -26,7 +23,7 @@ const ChatRoomPlus = ({ onClose, onSelect }) => {
 
         <div className={styles.peoplemail}>
           <label className={styles.labelpeople}>대화상대 선택</label>
-          <input type="text" placeholder="이름 또는 이메일을 입력하세요" />
+          <input type="text" value={list} placeholder="추가된 친구" disabled />
         </div>
 
         <label className={styles.addlist}>주소록 리스트</label>
@@ -36,19 +33,19 @@ const ChatRoomPlus = ({ onClose, onSelect }) => {
             <label key={idx} className={styles.checkItem}>
               <input
                 type="checkbox"
-                value={r}
-                checked={selected.includes(r)}
+                value={r.contact_seq}
+                checked={selected.includes(r.contact_seq)}
                 onChange={(e) => {
-                  const value = e.target.value;
+                  const value = Number(e.target.value);
                   if (e.target.checked) {
                     setSelected([...selected, value]);
                   } else {
-                    setSelected(selected.filter((item) => item !== value));
+                    setSelected(selected.filter((item) => item != value));
                   }
                 }}
               />
               <span className={styles.customCheck}></span>
-              <span className={styles.text}>{r}</span>
+              <span className={styles.text}>{r.name} ({r.contact_group})</span>
             </label>
           ))}
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChannelName(onChannelClick, alertRooms, setAlertRooms) {
+function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms) {
 
     // 출력 채팅방 받을 준비
     const [rooms, setRooms] = useState([]);
@@ -20,7 +20,7 @@ function useChannelName(onChannelClick, alertRooms, setAlertRooms) {
             .catch(err => {
                 console.log(err);
             });
-    }, []);
+    }, [newRooms]);
 
     // 클릭이벤트
     const handleClickChat = (chat_seq)=>{

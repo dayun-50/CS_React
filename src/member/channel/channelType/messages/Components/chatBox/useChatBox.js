@@ -48,13 +48,13 @@ function useChatBox(seq, setAlertRooms) {
                 console.log(data);
                 setMessages(data.messages);
             } else if (data.type === "alert") { // 채팅 알람기능
-setAlertRooms(prev => {
-    // 중복 방지: chat_seq가 이미 있으면 추가하지 않음
-    if (!prev.some(room => room.chat_seq === data.chat_seq)) {
-        return [...prev, { chat_seq: data.chat_seq, title: data.title }];
-    }
-    return prev;
-});
+                setAlertRooms(prev => {
+                    // 중복 방지: chat_seq가 이미 있으면 추가하지 않음
+                    if (!prev.some(room => room.chat_seq === data.chat_seq)) {
+                        return [...prev, { chat_seq: data.chat_seq, title: data.title }];
+                    }
+                    return prev;
+                });
             }
         };
 

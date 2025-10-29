@@ -10,14 +10,17 @@ import ChatRoomPlus from "./Components/chatroomPlus/ChatRoomPlus";
 import addIcon from "./icon/Add.svg";
 import addIconActive from "./icon/Add-active.svg";
 import { useOutletContext } from "react-router-dom";
+import { caxios } from "../../../../config/config";
 
-const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
+const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   const [isActive, setIsActive] = useState(false);
   // 알람 상태변수
-  const [alertRooms, setAlertRooms] = useState([]); 
+  const [alertRooms, setAlertRooms] = useState([]);
+  const [rooms, setRooms] = useState(false);
+  const id = sessionStorage.getItem("id");
 
   const handleChannelClick = (seq) => {
-    console.log("메세지인덱스",selectedSeq);
+    console.log("메세지인덱스", selectedSeq);
     setSelectedSeq(seq); // 클릭된 채널 seq 저장
   };
 
@@ -35,15 +38,20 @@ const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
   const handleSelect = (selectedPeople) => {
     console.log("선택된 참여자:", selectedPeople);
     // 여기서 채널 생성 API 호출하거나 상태 업데이트 로직 작성 가능
+    caxios.post("/chat/newCaht", { owner_email: id, contact_seq: selectedPeople }, { withCredentials: true })
+      .then(resp => {
+        setRooms(prev => !prev);
+      })
+      .catch(err => console.log(err))
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
-          <Attendance selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
-          <ChannelName selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
-          <CompletedChannel selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
+          <Attendance selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
+          <ChannelName newRooms={rooms} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
+          <CompletedChannel selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} />
 
         </div>
 
@@ -70,8 +78,8 @@ const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
       </div>
 
       <div className={styles.centerColumn}>
-       {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms}/>}
+        {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
+        {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms} />}
 
       </div>
       <div className={styles.rightColumn}>

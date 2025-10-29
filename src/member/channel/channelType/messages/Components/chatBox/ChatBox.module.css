@@ -172,7 +172,7 @@
 
 /* 오른쪽 메시지 (내쪽) */
 .chatBox__messageWrapper--right .chatBox__messageInner {
-  flex-direction: row-reverse; /* 말풍선 오른쪽, 시간 왼쪽 */
+  flex-direction: row; /* 말풍선 오른쪽, 시간 왼쪽 */
   align-self: flex-end;
 }
 
@@ -186,17 +186,35 @@
 
 /* 말풍선 */
 .chatBox__message {
-  background-color: #bde2ff;
-  border-radius: 16px 0 16px 16px;
+  background-color: #bde2ff; /* 내/상대 동일 */
+  border-radius: 16px 0 16px 16px; /* 기본 왼쪽 모양 */
   padding: 10px 20px;
   max-width: 70%;
   color: #404040;
   word-break: break-word;
+  display: inline-block;
+  transform-origin: center;
 }
+
+/* 오른쪽 말풍선 모양 */
 .chatBox__messageWrapper--right .chatBox__message {
-  background-color: #bde2ff;
   border-radius: 0 16px 16px 16px;
 }
+
+/* 말풍선 상하 + 좌우 뒤집기 */
+.chatBox__messageWrapper--left .chatBox__message {
+  transform: scaleX(-1) scaleY(-1);
+}
+
+.chatBox__messageWrapper--right .chatBox__message {
+  transform: scaleX(-1) scaleY(-1);
+}
+
+/* 글자는 다시 뒤집어서 정상 표시 */
+.chatBox__message > * {
+  transform: scaleX(-1) scaleY(-1);
+}
+
 /* 시간 */
 .chatBox__timestamp {
   font-size: 12px;

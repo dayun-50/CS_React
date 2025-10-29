@@ -5,12 +5,12 @@ import useChannelName from "./useChannelName";
 
 
 
-const ChannelName = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq }) => {
+const ChannelName = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq, newRooms }) => {
 
   const {
     rooms, chatSeq,
     handleClickChat
-  } = useChannelName(onChannelClick, alertRooms , setAlertRooms);
+  } = useChannelName(onChannelClick, alertRooms , setAlertRooms, newRooms);
 
   return (
     <div className={styles.container}>

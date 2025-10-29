@@ -1,7 +1,13 @@
 import { IoIosArrowForward } from "react-icons/io";
 import styles from "./MySchedule.module.css";
+import useMySchedule from "./useMySchedule";
 
-function MySchedule() {
+function MySchedule({selectedSeq, setSelectedSeq}) {
+  const {
+    scheduleData, schedulePage
+  } = useMySchedule(selectedSeq, setSelectedSeq);
+
+
   return (
     <div className={styles.container}>
       {/* 오른쪽 박스 */}
@@ -13,22 +19,24 @@ function MySchedule() {
 
         {/* 일정 리스트 */}
         <div className={styles.scheduleList}>
-          {/* 1번째 일정 */}
-          <div className={styles.scheduleItem}>
-            <div className={styles.info}>
-              <div className={styles.child} />
-              <div className={styles.text}>
-                <div className={styles.eventTitle}>ㅇㅇㅇ님 휴가</div>
-                <div className={styles.eventDate}>10월 14 - 27</div>
+          {scheduleData.map((sch, idx) => (
+            <div className={styles.scheduleItem} key={idx}>
+              <div className={styles.info}>
+                <div className={styles.child} style={{ backgroundColor: sch.color }}/>
+                <div className={styles.text}>
+                  <div className={styles.eventTitle}>{sch.title}</div>
+                  <div className={styles.eventDate}>{sch.start_at} - {sch.end_at}</div>
+                </div>
+              </div>
+              <div className={styles.extra}>
+                <button className={styles.daysLeft} style={{ backgroundColor: sch.color }}>{sch.diffDays}일 남음</button>
+                <IoIosArrowForward
+                  style={{ width: "30px", height: "30px", color: "gray" }}
+                  onClick={()=>schedulePage(sch.chat_seq)}
+                />
               </div>
             </div>
-            <div className={styles.extra}>
-              <button className={styles.daysLeft}>2일 뒤</button>
-              <IoIosArrowForward
-                style={{ width: "30px", height: "30px", color: "gray" }}
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

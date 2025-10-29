@@ -62,43 +62,46 @@ function useLogin() {
       return false;
     }
 
-    //  1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
-    const processLoginResponse = (combinedToken) => {
-      const cleanToken = combinedToken.trim();
-      //  토큰을 "|||" 구분자로 분리
-      const tokenParts = cleanToken.split("|||");
+    // //  1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
+    // const processLoginResponse = (combinedToken) => {
+    //   const cleanToken = combinedToken.trim();
+    //   //  토큰을 "|||" 구분자로 분리
+    //   const tokenParts = cleanToken.split("|||");
 
-      if (tokenParts.length === 2) {
-        const generalToken = tokenParts[0].trim(); // (Token A: 일반 API용)
-        const jamesAccessToken = tokenParts[1].trim(); // (Token B: 메일 발송용)
+    //   if (tokenParts.length === 2) {
+    //     const generalToken = tokenParts[0].trim(); // (Token A: 일반 API용)
+    //     const jamesAccessToken = tokenParts[1].trim(); // (Token B: 메일 발송용)
 
-        // 2. 각각의 sessionStorage 키에 저장
-        sessionStorage.setItem("token", generalToken);
+    //     // 2. 각각의 sessionStorage 키에 저장
+    //     sessionStorage.setItem("token", generalToken);
 
-        sessionStorage.setItem("jamesAccessToken", jamesAccessToken);
+    //     sessionStorage.setItem("jamesAccessToken", jamesAccessToken);
 
-        console.log("일반 토큰 (A):", generalToken);
-        console.log("메일 토큰 (B):", jamesAccessToken);
-        return generalToken;
-      }
-      return null;
-    };
+    //     console.log("일반 토큰 (A):", generalToken);
+    //     console.log("메일 토큰 (B):", jamesAccessToken);
+    //     return generalToken;
+    //   }
+    //   return null;
+    // };
 
     // if문 통과시 데이터 전송
     caxios
       .post("/member/login", { email: id, pw: pw }, { withCredentials: true })
       .then((resp) => {
-        if (resp.data) {
+        // if (resp.data) {
           // 로그인 성공시 토큰 및 id값 저장
-          const generalToken = processLoginResponse(resp.data);
+          // const generalToken = processLoginResponse(resp.data);
 
-          if (generalToken) {
-            login(generalToken, id);
+          // if (generalToken) {
+            // login(generalToken, id);
+            console.log(resp.data);
+            const token = resp.data;
+            login(token,id);
             navigate("/");
-          } else {
-            alert("토큰 구조 오류로 로그인 실패");
-          }
-        }
+          // } else {
+          //   alert("토큰 구조 오류로 로그인 실패");
+          // }
+        // }
       })
       .catch((err) => {
         alert("로그인 실패 : 이메일 또는 비밀번호 확인 필요1"); // 나중에 제거하셈

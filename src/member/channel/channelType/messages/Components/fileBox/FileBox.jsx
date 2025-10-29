@@ -1,4 +1,4 @@
-import styles from "./fileBox.module.css";
+import styles from "./FileBox.module.css";
 import arrow from "./icon/Collapse Arrow.svg";
 import search from "./icon/Search.svg";
 

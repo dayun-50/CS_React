@@ -22,7 +22,8 @@ const Attendance = ({ onChannelClick, alertRooms , setAlertRooms}) => {
           <button
             key={i}
             className={`${styles.member} ${chatSeq === member.chat_seq ? styles.selected : ""
-              } ${alertRooms.chat_seq == member.chat_seq ? styles.alert : ""}`}
+              } ${alertRooms.find(ar => ar.chat_seq === member.chat_seq)? styles.alert : ""}
+              ${member.alert == "y"? styles.alert : ""}`}
             onClick={()=>handleClickChat(member.chat_seq)}
           >
             {member.name}

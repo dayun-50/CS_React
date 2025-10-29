@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
 function useScheduleBox(events, setEvents, seq, selectedEmails) {
     const id = sessionStorage.getItem("id");
+    const [changed, setChanged] = useState(false);// 스케줄입력시 확인용  토글상태변수
+
 
     // 이벤트 추가 및 삭제마다 다시 랜더링
     useEffect(() => {
@@ -26,7 +28,9 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
             .catch(err => {
                 console.log(err);
             })
-    }, [selectedEmails])
+    }, [changed])
+
+
 
     // 이벤트 서버에 전달
     const sevaEvent = ((events) => {
@@ -39,6 +43,7 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
             chat_seq: seq
         },
             { withCredentials: true })
+            .then(resp=>setChanged(prev => !prev))
             .catch(err => {
                 console.log(err);
             })

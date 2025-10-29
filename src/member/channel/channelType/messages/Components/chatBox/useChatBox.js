@@ -36,7 +36,7 @@ function useChatBox(seq, setAlertRooms) {
         setMessages([]);
         if (!room.title) return;
         setInput(prev => ({ ...prev, chat_seq: seq }));
-        ws.current = new WebSocket(`ws://192.168.45.127:80/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current = new WebSocket(`ws://10.5.5.9/chatting?token=${token}&chat_seq=${seq}`);
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
@@ -47,10 +47,13 @@ function useChatBox(seq, setAlertRooms) {
                 console.log(data);
                 setMessages(data.messages);
             } else if (data.type === "alert") { // 채팅 알람기능
-                setAlertRooms(prev => ({
-                    ...prev,
-                    chat_seq: data.chat_seq
-                }));
+setAlertRooms(prev => {
+    // 중복 방지: chat_seq가 이미 있으면 추가하지 않음
+    if (!prev.some(room => room.chat_seq === data.chat_seq)) {
+        return [...prev, { chat_seq: data.chat_seq, title: data.title }];
+    }
+    return prev;
+});
             }
         };
 

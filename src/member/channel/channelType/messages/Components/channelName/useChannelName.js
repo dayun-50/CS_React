@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChannelName(onChannelClick) {
+function useChannelName(onChannelClick, alertRooms, setAlertRooms) {
 
     // 출력 채팅방 받을 준비
     const [rooms, setRooms] = useState([]);
@@ -14,6 +14,7 @@ function useChannelName(onChannelClick) {
             { withCredentials: true })
             .then(resp => {
                 setRooms(resp.data);
+                console.log("헤이",resp.data);
                 setChatSeq(resp.data.chat_seq);
             })
             .catch(err => {
@@ -25,6 +26,12 @@ function useChannelName(onChannelClick) {
     const handleClickChat = (chat_seq)=>{
         onChannelClick(chat_seq);
         if (onChannelClick) onChannelClick(chat_seq);
+        setAlertRooms(prev => prev.filter(room => room.chat_seq !== chat_seq));
+        setRooms(prev => prev.map(room =>
+            room.chat_seq === chat_seq
+                ? { ...room, alert: "" }  // 클릭한 채팅방 멤버만 alert 초기화
+                : room                      // 나머지는 그대로
+        ));
     }
 
     return{

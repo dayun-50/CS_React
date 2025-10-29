@@ -6,7 +6,7 @@ import Board from "./board/Board";
 import Mail from "./mail/Mail";
 import MailWrite from "./mail/Components/mailWrite/MailWrite";
 import BoardDetail from "./board/Components/boardDetail/BoardDetail";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import WorkHourIndex from "./workhour/WorkHourIndex";
 import ApprovalIndex from "./approval/ApprovalIndex";
 import Mypage from "./mypage/Mypage";
@@ -25,6 +25,14 @@ function MemberIndex() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   // 채널 seq값 반환받을 준비
   const [selectedSeq, setSelectedSeq] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    // /channel 경로가 아니면 selectedSeq 초기화
+    if (!location.pathname.startsWith("/channel")) {
+      setSelectedSeq(null);
+    }
+  }, [location.pathname]); // 경로가 바뀔 때마다 실행
 
   return (
     <div className={styles.container}>
@@ -52,12 +60,12 @@ function MemberIndex() {
 
 
             {/* 채널 중첩 라우트 -- 혜빈승진*/}
-            <Route path="/channel/*" element={<Channellndex selectedSeq={selectedSeq} 
-                setSelectedSeq={setSelectedSeq} />}>
-              <Route index element={<MessagesIndex selectedSeq={selectedSeq} 
-                setSelectedSeq={setSelectedSeq}/>} /> {/* 메신저 */}
-              <Route path="schedule" element={<Schedule selectedSeq={selectedSeq} 
-                setSelectedSeq={setSelectedSeq}/>} />  {/* 먼슬리*/}
+            <Route path="/channel/*" element={<Channellndex selectedSeq={selectedSeq}
+              setSelectedSeq={setSelectedSeq} />}>
+              <Route index element={<MessagesIndex selectedSeq={selectedSeq}
+                setSelectedSeq={setSelectedSeq} />} /> {/* 메신저 */}
+              <Route path="schedule" element={<Schedule selectedSeq={selectedSeq}
+                setSelectedSeq={setSelectedSeq} />} />  {/* 먼슬리*/}
             </Route>
 
             {/* 보드 라우트 --영서 */}

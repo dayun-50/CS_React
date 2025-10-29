@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MessagesIndex.module.css";
 import Attendance from "./Components/attendance/Attendance";
 import ChannelName from "./Components/channelName/ChannelName";
@@ -11,12 +11,9 @@ import addIconActive from "./icon/Add-active.svg";
 import { useOutletContext } from "react-router-dom";
 
 const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
-  console.log("메세지인덱스",selectedSeq);
   const [isActive, setIsActive] = useState(false);
   // 알람 상태변수
-  const [alertRooms, setAlertRooms] = useState({}); 
-
-
+  const [alertRooms, setAlertRooms] = useState([]); 
 
   const handleChannelClick = (seq) => {
     console.log("메세지인덱스",selectedSeq);
@@ -34,7 +31,7 @@ const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
           <Attendance onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
-          <ChannelName onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
+          <ChannelName onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
           <CompletedChannel onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
         </div>
 

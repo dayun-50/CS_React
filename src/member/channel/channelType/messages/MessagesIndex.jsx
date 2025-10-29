@@ -14,6 +14,8 @@ const MessagesIndex = () => {
   // 채널 seq값 반환받을 준비
   const [selectedSeq, setSelectedSeq] = useState(null);
 
+
+
   const handleChannelClick = (seq) => {
     setSelectedSeq(seq); // 클릭된 채널 seq 저장
   };

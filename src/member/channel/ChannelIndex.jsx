@@ -5,6 +5,7 @@ import message from "./icon/Messages.svg";
 import calendar from "./icon/Calendar.svg";
 import messageActive from "./icon/Messages-active.svg"; // 이런 식으로 active 이미지도 import
 import calendarActive from "./icon/Calendar-active.svg";
+import MessagesIndex from "./channelType/messages/MessagesIndex";
 
 const Channellndex = () => {
   const [activeTab, setActiveTab] = useState("messages");
@@ -14,6 +15,7 @@ const Channellndex = () => {
     setActiveTab(tab);
     navigate(tab === "messages" ? "/channel" : "/channel/schedule");
   };
+
 
   return (
     <div className={styles.channelIndex}>

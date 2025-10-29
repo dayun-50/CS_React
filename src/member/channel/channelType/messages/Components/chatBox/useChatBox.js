@@ -35,13 +35,9 @@ function useChatBox(seq, setAlertRooms) {
     useEffect(() => {
         setMessages([]);
         if (!room.title) return;
-<<<<<<< HEAD
         setInput(prev => ({ ...prev, chat_seq: seq }));
         ws.current = new WebSocket(`ws://10.5.5.9/chatting?token=${token}&chat_seq=${seq}`);
-=======
-        setInput(prev=>({...prev, chat_seq: seq}));
-        ws.current = new WebSocket(`ws://10.10.55.89/chatting?token=${token}&chat_seq=${seq}`);
->>>>>>> 6ed85e2b43d57ff75f13d01d6b41446afd313374
+
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);

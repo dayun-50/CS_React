@@ -6,55 +6,13 @@ import search from "./icon/Search.svg";
 import useChatBox from "./useChatBox";
 import { useState, useRef, useEffect } from "react";
 
-<<<<<<< HEAD
+
 const ChatBox = ({ seq , setAlertRooms}) => {
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
     messageListRef
   } = useChatBox(seq, setAlertRooms);
-=======
-/**
- * ChatBox 컴포넌트 — 상세 동작 주석 포함
- *
- * 이 파일에는 "파일/메시지 전송"이 실제로 어떻게 흐르는지 (사용자 입력 -> FormData 구성 -> sendMessage 호출 ->
- * 로컬 UI 반영 -> 입력 초기화) 단계별로 매우 상세한 주석을 달아두었습니다.
- *
- * **중요 포인트 요약**
- * 1. 파일 선택: <input type="file">에서 change 이벤트로 파일을 읽어 fileList 상태에 저장.
- * 2. 전송(엔터/버튼): handleSendMessage 호출.
- * 3. handleSendMessage 내부:
- *    - input.message와 fileList 상태를 검사해 전송 가능 여부 판단.
- *    - FormData에 message와 files를 append해서 sendMessage(formData) 호출 (서버 전송).
- *    - UI 즉시 반영을 위해 임시 메시지 객체(newMsg)를 만들어 messages 상태에 추가.
- *    - 파일은 URL.createObjectURL로 임시 미리보기 링크(url)를 생성해서 newMsg.files에 넣음.
- *    - 입력창과 fileList, file input 요소를 초기화.
- *
- * 4. 서버 응답(여기서는 useChatBox 훅에서 처리)으로 실제 메시지 목록이 바뀌면 originalMessages가 바뀌고,
- *    useEffect가 이를 받아 화면(messages 상태)을 갱신함.
- */
-
-const ChatBox = ({ seq }) => {
-  // useChatBox 훅에서 받아오는 값들 설명:
-  // - id: 현재 로그인한 사용자의 고유 식별(이 예제에선 이메일)
-  // - room: 현재 채팅방 메타데이터 (title, memberCount 등)
-  // - originalMessages: 서버/소켓으로부터 받은 원본 메시지 배열 (외부 소스)
-  // - input: 입력 폼 상태 (현재 입력 중인 텍스트 등)
-  // - setInput: 입력 상태를 업데이트하는 함수
-  // - sendMessage: 서버로 FormData 전송을 담당하는 함수 (useChatBox 내부에서 구현)
-  // - handleKeyDown: (옵션) 입력 박스에서 키 입력을 처리하는 보조 함수
-  // - messageListRef: 메시지 리스트 DOM에 대한 ref (스크롤 이동 등에서 사용)
-  const {
-    id,
-    room,
-    messages: originalMessages,
-    input,
-    setInput,
-    sendMessage,
-    handleKeyDown,
-    messageListRef,
-  } = useChatBox(seq);
->>>>>>> 6ed85e2b43d57ff75f13d01d6b41446afd313374
 
   // 화면에 표시할 메시지 목록 (로컬 복사본)
   // originalMessages가 바뀌면 아래 useEffect에서 동기화함.

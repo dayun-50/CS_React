@@ -8,18 +8,22 @@ import FileBox from "./Components/fileBox/FileBox";
 import OutBox from "./Components/outBox/OutBox";
 import addIcon from "./icon/Add.svg";
 import addIconActive from "./icon/Add-active.svg";
+import { useOutletContext } from "react-router-dom";
 
-const MessagesIndex = () => {
+const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
+  console.log("메세지인덱스",selectedSeq);
   const [isActive, setIsActive] = useState(false);
-  // 채널 seq값 반환받을 준비
-  const [selectedSeq, setSelectedSeq] = useState(null);
+  // 알람 상태변수
+  const [alertRooms, setAlertRooms] = useState({}); 
 
 
 
   const handleChannelClick = (seq) => {
+    console.log("메세지인덱스",selectedSeq);
     setSelectedSeq(seq); // 클릭된 채널 seq 저장
   };
 
+  // 채널 추가 버튼
   const handleClick = () => {
     setIsActive(true);
     alert("채널 추가 클릭");
@@ -29,9 +33,9 @@ const MessagesIndex = () => {
     <div className={styles.container}>
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
-          <Attendance onChannelClick={handleChannelClick}/>
-          <ChannelName onChannelClick={handleChannelClick}/>
-          <CompletedChannel onChannelClick={handleChannelClick}/>
+          <Attendance onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
+          <ChannelName onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
+          <CompletedChannel onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
         </div>
 
         {/* 아래 고정된 추가 버튼 */}
@@ -58,7 +62,7 @@ const MessagesIndex = () => {
 
       <div className={styles.centerColumn}>
        {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        {selectedSeq && <ChatBox seq={selectedSeq} />}
+        {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms}/>}
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>

@@ -6,12 +6,12 @@ import search from "./icon/Search.svg";
 import useChatBox from "./useChatBox";
 import { useState, useRef, useEffect } from "react";
 
-const ChatBox = ({ seq }) => {
+const ChatBox = ({ seq , setAlertRooms}) => {
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
     messageListRef
-  } = useChatBox(seq);
+  } = useChatBox(seq, setAlertRooms);
 
   const [messages, setMessages] = useState(originalMessages);
   const [fileNames, setFileNames] = useState([]);

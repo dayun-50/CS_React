@@ -5,6 +5,8 @@ import "moment/locale/ko";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import styles from "./ScheduleBox.module.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import useScheduleBox from "./useScheduleBox";
+import { event } from "jquery";
 
 moment.locale("ko");
 const localizer = momentLocalizer(moment);
@@ -92,28 +94,32 @@ const CustomToolbar = ({ label, onNavigate }) => {
     );
 };
 
-const ScheduleBox = () => {
+const ScheduleBox = ({seq, selectedEmails, setSelectedEmails }) => {
     const [events, setEvents] = useState([]);
+    
+    const {
+        sevaEvent, handleSelectEvent
+    } = useScheduleBox(events, setEvents, seq, selectedEmails);
 
     // 이벤트 추가
     const handleSelectSlot = ({ start, end }) => {
         const title = prompt("이벤트 제목을 입력하세요:");
         if (title) {
-            setEvents([
-                ...events,
+            // 이벤트 컬러 결정
+            let color = "#00C7BE"; // 기본 민트
+            if (title.includes("휴가")) color = "#007AFF";
+            else if (title.includes("회의")) color = "#FF9500";
+            else if (title.includes("긴급")) color = "#FF3B30";
+            else if (title.includes("서류")) color = "#AF52DE";
+            const newEvent =
                 {
                     title,
-                    start,
-                    end,
-                },
-            ]);
-        }
-    };
-
-    // 이벤트 삭제
-    const handleSelectEvent = (event) => {
-        if (window.confirm(`"${event.title}" 이벤트를 삭제하시겠습니까?`)) {
-            setEvents(events.filter((e) => e !== event));
+                    color,
+                    start: start.toISOString(), 
+                    end: end.toISOString()
+                };
+            setEvents([...events, newEvent]);
+            sevaEvent(newEvent);
         }
     };
 

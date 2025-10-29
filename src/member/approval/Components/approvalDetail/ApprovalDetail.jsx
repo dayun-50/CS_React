@@ -13,11 +13,16 @@ function ApprovalDetail() {
 
     //1. 오리지날 객체 저장후, 화면에 뿌리기
     const [oriApproval, setOriApproval] = useState({}); //객체로받음
+    const [oriFiles, setOriFiles] = useState([]);
     useEffect(() => {
         caxios.get(`/approval/${seq}`)
 
             .then((resp) => {
-                const data = resp.data;
+                console.log("디테일 보드", resp);
+                console.log("디테일 보드파일 이름", resp.data.files);
+                setOriFiles(resp.data.files);
+                setNewFiles(resp.data.files);
+                const data = resp.data.approval;
                 // 날짜 포맷 변환
                 const formattedData = {
                     ...data,
@@ -35,7 +40,7 @@ function ApprovalDetail() {
 
 
 
-    //2. 삭제하기
+    //2. 글 삭제하기
     const handleDel = () => {
         console.log("삭제하기 버튼", seq);
         caxios.delete(`/approval/${seq}`)
@@ -56,43 +61,67 @@ function ApprovalDetail() {
         setUpdating(true);// 버튼 수정취소, 수정완료 버튼이 보임
     }
 
-    //업데이트용 객체에 넣기
+    //업데이트용 객체+변수에 넣기
     const titleRef = useRef();
     const contentRef = useRef();
-
+    const [newFiles, setNewFiles] = useState([]);
+    const handleFileChange = (e) => {
+        const selected = Array.from(e.target.files);
+        setNewFiles((prev) => [...prev, ...selected]); // 기존 유지 + 새로 추가
+    };
+    //파일 1개 x 버튼 누르면
+    const handleRemoveFile = (index) => {
+        setNewFiles((prev) => prev.filter((_, i) => i !== index));
+    };
     //수정취소 버튼누르면
     const handleUpdateDel = () => {
         if (titleRef.current) { titleRef.current.innerText = oriApproval.approval_title; } // 타이틀, 컨텐츠 원래대로 넣고
         if (contentRef.current) { contentRef.current.innerText = oriApproval.approval_content; }
+        setNewFiles(oriFiles); // 파일 목록 원본으로 되돌리기
         setUpdating(false);
     }
     //수정완료 버튼누르면
-
     const handleUpdateCom = () => {
         const approval_title = titleRef.current?.innerText || "";
         const approval_content = contentRef.current?.innerHTML || "";
 
-        // 길이 체크
-        // HTML 태그 제거
         const textOnly = approval_content.replace(/<[^>]*>/g, "").trim();
         if (approval_title.trim().length < 1 || textOnly.length < 1) {
             alert("제목과 내용을 입력하세요");
             return;
         }
 
-        caxios.put(`/approval/${oriApproval.approval_seq}`, { approval_seq: oriApproval.approval_seq, approval_title, approval_content })
-            .then(() => {
+        const formData = new FormData();
+        formData.append("approval_seq", oriApproval.approval_seq);
+        formData.append("approval_title", approval_title);
+        formData.append("approval_content", approval_content);
 
-                setOriApproval(prev => ({ ...prev, approval_title, approval_content }));
+        newFiles.forEach((f) => {
+            if (f instanceof File) formData.append("files", f);
+            else if (f.oriname) formData.append("keepFiles", f.oriname);
+        });
+
+        caxios.put(`/approval/${oriApproval.approval_seq}`, formData)
+            .then(() => {
+                // 수정 완료 후 즉시 최신 데이터 다시 불러오기
+                return caxios.get(`/approval/${oriApproval.approval_seq}`);
+            })
+            .then((resp) => {
+                const data = resp.data.approval;
+                setOriApproval({
+                    ...data,
+                    approval_at: dayjs(data.approval_at).format("YYYY-MM-DD"),
+                });
+                setOriFiles(resp.data.files);
+                setNewFiles(resp.data.files);
                 setUpdating(false);
                 alert("수정이 완료되었습니다!");
-                navigate(`/approval/detail/${oriApproval.approval_seq}`);
             })
-            .catch(() => {
-                alert("올바르지 않은 접근입니다!");
-            })
-            ;
+            .catch(() => alert("올바르지 않은 접근입니다!"));
     };
+
+
+
 
     return (
         <div className={styles.detailBox}>
@@ -133,14 +162,58 @@ function ApprovalDetail() {
 
 
                     <div className={styles.div9}>
-
                         <div className={styles.rectangleParent}>
-                            <div className={styles.iconbox}><img className={styles.documentIcon} alt="" /></div>
+                            {updating ? (
+                                <div className={styles.updatingFileBox}>
+                                    {newFiles.map((file, index) => (
+                                        <div key={index} className={styles.fileRow}>
+                                            <div className={styles.iconbox}>
+                                                <img className={styles.documentIcon} alt="" />
+                                            </div>
+                                            <div className={styles.hwp}>
+                                                {file.name || file.oriname}
+                                                <button className={styles.fileBtn} onClick={() => handleRemoveFile(index)}>X</button>
+                                            </div>
+                                        </div>
+                                    ))}
 
-                            <div className={styles.hwp}>자금 사용 정의서.hwp</div>
+                                    {/* 파일 추가 영역 */}
+                                    <div className={`${styles.fileRowCenter} ${styles.fileRow}`}>
+                                        <label htmlFor="fileUpload" className={styles.addFileLabel}>
+                                            + 파일 추가
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="fileUpload"
+                                            className={styles.hiddenFileInput}
+                                            onChange={handleFileChange}
+                                            multiple
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                oriFiles.length === 0 ? (
+                                    <div>파일이 존재하지 않습니다</div>
+                                ) : (
+                                    oriFiles.map((file, index) => (
+                                        <div key={index} className={styles.fileRow}>
+                                            <div className={styles.iconbox}>
+                                                <img className={styles.documentIcon} alt="" />
+                                            </div>
+                                            <div className={styles.hwp}>
+                                                <a href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`} download >
+                                                    {file.oriname}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    ))
+                                )
+                            )}
                         </div>
-
                     </div>
+
+
+
                     <div className={styles.div10}>
                         <div className={`${styles.txt} ${updating ? styles.txtActive : ""}`}
                             ref={contentRef}
@@ -169,7 +242,7 @@ function ApprovalDetail() {
                     </>
                 )}
             </div>
-        </div>
+        </div >
 
     );
 }

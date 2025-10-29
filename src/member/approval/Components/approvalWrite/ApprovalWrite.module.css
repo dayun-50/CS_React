@@ -1,6 +1,5 @@
-
 /*최상위박스*/
-.writeBox{
+.writeBox {
     padding: 10px 30px 0 30px;
     width: 100%;
     height: 100%;
@@ -12,21 +11,22 @@
 }
 
 /*윗부분 보더라인박스영역*/
-.parent{
+.parent {
     border-radius: 22px;
     background-color: #fff;
     border: 1px solid #8c8c8c;
 
-     align-self: stretch;
-     height: 90%;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
+    align-self: stretch;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-     padding: 10px;
+    padding: 10px;
 }
+
 /*설명*/
-.description{
+.description {
     height: 7%;
     width: 100%;
     display: flex;
@@ -34,7 +34,8 @@
     justify-content: center;
     margin-top: 5px;
 }
-.type{
+
+.type {
     width: 96%;
     height: 100%;
     display: flex;
@@ -45,8 +46,9 @@
     /* justify-content: center; */
 
 }
+
 /*제목*/
-.titlebox{
+.titlebox {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,7 +58,8 @@
 
     border-bottom: 1px solid #8c8c8c;
 }
-.title{
+
+.title {
     width: 96%;
     height: 55%;
     padding: 12px;
@@ -65,7 +68,7 @@
 }
 
 /*파일*/
-.fileWrapper{
+.fileWrapper {
     padding-top: 10px;
     width: 100%;
     height: 13%;
@@ -74,7 +77,8 @@
     justify-content: center;
     align-items: center;
 }
-.filebox{
+
+.filebox {
     height: 70%;
     width: 96%;
 
@@ -86,9 +90,11 @@
     cursor: pointer;
     padding: 5px;
 }
+
 .hiddenFileInput {
     display: none;
 }
+
 .customFileBtn {
     display: block;
     color: darkgray;
@@ -103,6 +109,7 @@
 
     overflow-y: auto;
 }
+
 .chooseFileText {
     display: flex;
     justify-content: center;
@@ -110,7 +117,7 @@
 }
 
 /*글*/
-.contentbox{
+.contentbox {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,7 +125,8 @@
     height: 68%;
     width: 100%;
 }
-.content{
+
+.content {
     width: 96%;
     height: 98%;
     padding: 12px;
@@ -130,32 +138,35 @@
 
 
 /*버튼영역*/
-.btns{
-     width: 100%;
-     height: 10%;
-     display: flex;
-     align-items: center;
-     justify-content: flex-end;
-      
-     font-size: 18px;
-     font-family: Pretendard;
-     gap: 25px;
+.btns {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    font-size: 18px;
+    font-family: Pretendard;
+    gap: 25px;
 }
 
-button{
-     height: 48px;
-     width: 200px;
-     border-radius: 22px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     padding: 16px;
-     box-sizing: border-box;
+button {
+    height: 48px;
+    width: 200px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
-.btn1{/*회색*/
+.btn1 {
+    /*회색*/
     background-color: #d9d9d9;
 }
-.btn2{ /*파랑*/
+
+.btn2 {
+    /*파랑*/
     background-color: #0090ff;
 }

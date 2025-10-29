@@ -35,7 +35,7 @@ function App() {
     <div className="container">
       <BrowserRouter>
         <Routes>
-          <Route path='/*' element={isLogin ? <MemberIndex /> : <Login /> } />{/* 로그인 되어잇으면 ? 멤버인덱스 :아니면 로그인페이지 */}
+          <Route path='/*' element={isLogin ? <MemberIndex /> : <Login />} />{/* 로그인 되어잇으면 ? 멤버인덱스 :아니면 로그인페이지 */}
           <Route path='/signin' element={<Signin />} />
           <Route path='/findpw' element={<Findpw />} />
           <Route path='/gnewpw/*' element={<Gnewpw />} />

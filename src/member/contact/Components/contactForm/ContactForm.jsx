@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import styles from "./ContactForm.module.css";
-import { IoChevronBackOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { caxios } from "../../../../config/config";
 
@@ -31,7 +30,7 @@ const ContactForm = () => {
       return;
     }
 
-    const ownerEmail = "test@test.com"; // 실제 사용자 이메일로 대체
+    const ownerEmail = "test@test.com"; // 실제 사용자 이메일로 대체 - 이메일
 
     const payload = {
       name,
@@ -162,7 +161,7 @@ const ContactForm = () => {
         {/* 추가 버튼 */}
         <div className={styles.formFooter}>
           <button className={styles.backButton} onClick={handleBack}>
-            <IoChevronBackOutline size={18} /> 뒤로가기
+            뒤로가기
           </button>
           <button className={styles.submitButton} onClick={handleAdd}>
             추가

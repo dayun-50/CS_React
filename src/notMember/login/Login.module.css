@@ -122,11 +122,11 @@
     /* transition: all 0.3s ease; */
 }
 
-.loginbutton:hover {
-    /* background-color: #3a8ce0;  조금 더 진한 색 */
+/*.loginbutton:hover {
+     background-color: #3a8ce0;  조금 더 진한 색 */
     /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 살짝 그림자 */
-    /* transform: translateY(-2px); 살짝 위로 올라오는 느낌 */
-}
+    /* transform: translateY(-2px); 살짝 위로 올라오는 느낌 
+}*/
 
 .signup {
     margin-bottom: 24px;
@@ -140,10 +140,10 @@
     /* transition: all 0.3s ease; */
 }
 
-.signup a:hover, .signup a:active {
+ /*.signup a:hover, .signup a:active {
     /* color: #347fca; /* 기존보다 진한 파랑 */
-    /* transition: color 0.3s ease;  */
-}
+    /* transition: color 0.3s ease;  
+}*/
 
 .changepw {
     color:rgb(153, 152, 152);

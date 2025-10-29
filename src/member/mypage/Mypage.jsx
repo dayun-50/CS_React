@@ -6,10 +6,11 @@ function Mypage({selectedSeq, setSelectedSeq}) {
   return (
     <div className={styles.fullbox}>
       <div className={styles.myInform}>
-      <MyInform />
+        <MyInform />
       </div>
       <div className={styles.mySchedule}>
       <MySchedule selectedSeq={selectedSeq} setSelectedSeq={setSelectedSeq}/>
+
       </div>
     </div>
   );

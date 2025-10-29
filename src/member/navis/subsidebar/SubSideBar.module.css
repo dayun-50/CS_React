@@ -72,14 +72,14 @@
 }
 
 /* 반응형 (모바일) */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .submenuWrapper {
     flex-direction: column;
     align-items: center;
     justify-content: start;
     border-left: none;
     border-bottom: 1px solid #eee;
-    padding: 40px 16px 30px;
+    padding: 40px 16px 0;
     gap: 10px;
     min-width: 100%;
     height: auto;

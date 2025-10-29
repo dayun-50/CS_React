@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Hour.module.css";
 import arrow from "./icon/arrow.svg";
-import axios from "axios";
 import { caxios } from "../../../../config/config";
 
 function Hour({ setReloadWeekly, setReloadIssue }){

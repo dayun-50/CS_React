@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MailList.module.css";
 import Search from "./icon/Search.svg";
@@ -25,6 +25,7 @@ function getInitials(str) {
 const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
   const navigate = useNavigate();
 
+  // ---------------- 상태 변수 ----------------
   const [currentPage, setCurrentPage] = useState(1);
   const [headerSelected, setHeaderSelected] = useState(false);
   const [selectedMails, setSelectedMails] = useState([]);
@@ -33,10 +34,19 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
   const [searchText, setSearchText] = useState("");
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [sortButtonText, setSortButtonText] = useState("정렬");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // 화면 너비 감지
 
   const sortOptions = ["날짜 순", "제목 순"];
   const mailsPerPage = 10;
 
+  // ---------------- 화면 크기 감지 ----------------
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ---------------- 더미 메일 데이터 ----------------
   const dummyMailsInitial = [
     { id: 1, email: "RLA15@gmail.com", title: "보낸 사람이 작성한 Title 나오는곳", date: "2025-10-25" },
     { id: 2, email: "testtest1@example.com", title: "베이베 내게 반해 버린 내게 왜이래", date: "2025-10-26" },
@@ -58,19 +68,16 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
 
   const [dummyMails, setDummyMails] = useState(dummyMailsInitial);
 
-  // 서버 데이터가 없으면 더미 사용
   let mails = (data.mails && data.mails.length > 0) ? data.mails : dummyMails;
 
-  // 검색 필터링
+  // ---------------- 검색 필터링 ----------------
   const filteredMails = mails.filter(mail => {
     const titleLower = mail.title.toLowerCase();
     const searchLower = searchText.toLowerCase();
-    const normalMatch = titleLower.includes(searchLower);
-    const initialsMatch = getInitials(mail.title).includes(searchText);
-    return normalMatch || initialsMatch;
+    return titleLower.includes(searchLower) || getInitials(mail.title).includes(searchText);
   });
 
-  // 정렬
+  // ---------------- 정렬 ----------------
   const sortedMails = [...filteredMails].sort((a, b) => {
     if (sortBy === "date") {
       const dateA = new Date(a.date);
@@ -87,7 +94,7 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
   const indexOfFirstMail = indexOfLastMail - mailsPerPage;
   const currentMails = sortedMails.slice(indexOfFirstMail, indexOfLastMail);
 
-  // 클릭 이벤트
+  // ---------------- 클릭 이벤트 ----------------
   const handleMailClick = (mail) => navigate("/mail/detail", { state: { mail } });
   const handleHeaderCircleClick = () => {
     if (headerSelected) {
@@ -131,6 +138,7 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
     }
   };
 
+  // ---------------- 렌더링 ----------------
   return (
     <div className={styles.maillistbox}>
       <div className={styles.maillistin}>
@@ -199,7 +207,10 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
                     style={{ backgroundColor: selectedMails.includes(mail.id) ? "#007AFF" : "#ccc" }}
                   />
                   <span className={styles.email}>{mail.email}</span>
-                  <span className={styles.listt}>{mail.title}</span>
+                  {/* 제목은 화면이 작으면 렌더링 안함 */}
+                  {windowWidth > 1024 && (
+                    <span className={styles.listt}>{mail.title}</span>
+                  )}
                 </div>
                 <span className={styles.day}>{mail.date}</span>
               </div>
@@ -230,7 +241,6 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
             />
           </div>
         )}
-
       </div>
     </div>
   );

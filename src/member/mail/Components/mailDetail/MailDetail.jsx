@@ -7,18 +7,19 @@ const MailDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate(); // 뒤로가기 기능용
 
-  const handleEditClick = () => {
-    setIsEditing(true);
+  // 삭제 버튼 클릭 시
+  const handleDelete = () => {
+    const confirmed = window.confirm("정말 삭제하시겠습니까?");
+    if (confirmed) {
+      // 실제 삭제 로직 실행 (예: 서버 요청)
+      // 여기서는 간단히 뒤로 가기로 처리
+      alert("삭제 완료!");
+      navigate(-1);
+    }
   };
 
   const handleBackClick = () => {
-    if (isEditing) {
-      // 수정 모드에서는 버튼 상태만 초기화
-      setIsEditing(false);
-    } else {
-      // 일반 모드에서는 실제 페이지 뒤로가기
-      navigate(-1);
-    }
+    navigate(-1); // 뒤로가기만 수행
   };
 
   return (
@@ -55,26 +56,13 @@ const MailDetail = () => {
           </div>
 
           <div className={styles.detailbutton}>
-            {isEditing ? (
-              <>
-                <button className={styles.bbt} onClick={handleBackClick}>
-                  뒤로가기
-                </button>
-                <button className={styles.addele}>삭제</button>
-                <button className={styles.adjustment}>완료</button>
-              </>
-            ) : (
-              <>
-                <button className={styles.bbt} onClick={handleBackClick}>
-                  뒤로가기
-                </button>
-                <button
-                  className={styles.adjustment}
-                  onClick={handleEditClick}
-                >
-                  수정
-                </button>
-              </>
+            <button className={styles.bbt} onClick={handleBackClick}>
+              뒤로가기
+            </button>
+            {!isEditing && (
+              <button className={styles.adjustment} onClick={handleDelete}>
+                삭제
+              </button>
             )}
           </div>
         </div>

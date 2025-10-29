@@ -4,7 +4,6 @@ import Topbar from "./navis/topbar/Topbar";
 import Sidebar from "./navis/sidebar/Sidebar";
 import Board from "./board/Board";
 import Mail from "./mail/Mail";
-import MailWrite from "./mail/Components/mailWrite/MailWrite";
 import BoardDetail from "./board/Components/boardDetail/BoardDetail";
 import { Route, Routes, useLocation } from "react-router-dom";
 import WorkHourIndex from "./workhour/WorkHourIndex";
@@ -18,7 +17,6 @@ import MessagesIndex from "./channel/channelType/messages/MessagesIndex";
 import Schedule from "./channel/channelType/schedule/Schedule";
 import Channellndex from "./channel/ChannelIndex";
 import ContactForm from "./contact/Components/contactForm/ContactForm";
-import ContactDetail from "./contact/Components/contactDetail/ContactDetail";
 
 function MemberIndex() {
   //사이드바 열림 여부 상태변수

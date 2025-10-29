@@ -1,14 +1,14 @@
 .contactList {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
-  background-color: #fff;
+  border-radius: var(--border-radius-main);
+  background-color: var(--color-white);
   border: 1px solid var(--color-font-color2);
   display: flex;
   flex-direction: column;
-  font-size: 1.375rem;
+  font-size: var(--font-size-base);
   color: var(--color-font-color1);
-  font-family: Pretendard;
+  font-family: var(--font-family);
   box-sizing: border-box;
   overflow: auto;
 }
@@ -18,13 +18,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding: 1.875rem; /* 30px */
 }
 
 .title {
   width: 40%;
-  font-size: 1.375rem;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: bold;
   text-transform: capitalize;
 }
 
@@ -32,11 +32,11 @@
   display: flex;
   align-items: center;
   width: 40%;
-  height: 48px;
+  height: 3rem; /* 48px */
   border: 1px solid var(--color-font-color2);
   border-radius: 144px;
-  padding: 0 16px;
-  font-size: 1rem;
+  padding: 0 1rem; /* 16px */
+  font-size: var(--font-size-base);
   color: var(--color-font-color2);
   background-color: var(--color-white);
   justify-content: space-between;
@@ -46,14 +46,14 @@
   border: none;
   outline: none;
   width: 80%;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   color: var(--color-font-color1);
 }
 
 .tableHeader,
 .tableRow {
   display: flex;
-  margin: 0 30px;
+  margin: 0 1.875rem; /* 30px */
   align-items: center;
   text-align: center;
   flex-wrap: nowrap;
@@ -63,20 +63,19 @@
 .tableHeader {
   font-size: 1.125rem;
   font-weight: 500;
-  padding-bottom: 16px;
   border-bottom: 1px solid var(--color-font-color2);
 }
 
 .tableRow {
   font-size: 1.125rem;
-  padding: 16px 0;
+  padding: 1rem 0; /* 16px 0 */
 }
 
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 8px;
+  padding: 0.75rem 0.5rem; /* 12px 8px */
   box-sizing: border-box;
   word-break: break-word;
   white-space: nowrap;
@@ -110,9 +109,9 @@
   border-radius: var(--border-radius-main);
   overflow: hidden;
   background-color: var(--color-sud-color2);
-  height: 40px;
+  height: 2.5rem; /* 40px */
   width: 100%;
-  max-width: 240px;
+  max-width: 15rem; /* 240px */
 }
 
 /* 버튼 */
@@ -121,7 +120,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   height: 100%;
   width: 100%;
   cursor: pointer;
@@ -143,7 +142,7 @@
 
 /* 비활성 상태 */
 .button.inactive {
-  color: var(--color-font-color3);
+  color: var(--color-font-back);
   background-color: var(--color-sud-color2);
 }
 
@@ -163,20 +162,20 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: Pretendard;
-  color: #d9d9d9;
+  font-family: var(--font-family);
+  color: var(--color-font-back);
 }
 
 .contactEmptyText {
-  font-size: 22px;
+  font-size: var(--font-size-base);
   font-weight: 800;
   text-transform: capitalize;
-  margin-top: 12px; /* 아이콘과 텍스트 간격 */
+  margin-top: 0.75rem; /* 12px */
 }
 
 .contactEmptyIcon {
-  width: 56px;
-  height: 56px;
+  width: 3.5rem; /* 56px */
+  height: 3.5rem;
   object-fit: cover;
 }
 
@@ -185,18 +184,17 @@
   .header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 20px;
+    padding: 1.25rem; /* 20px */
   }
 
   .title {
     width: 100%;
-    margin-bottom: 15px;
-    font-size: 1.25rem;
+    margin-bottom: 0.9375rem; /* 15px */
   }
 
   .searchBox {
     width: 100%;
-    height: 40px;
+    height: 2.25rem; /* 36px */
     font-size: 0.875rem;
   }
 
@@ -206,12 +204,14 @@
 
   .tableHeader,
   .tableRow {
-    margin: 0 20px;
+    margin: 0 1.25rem; /* 20px */
     font-size: 1rem;
   }
 
   .tableHeader .cell.number,
-  .tableRow .cell.number {
+  .tableRow .cell.number,
+  .tableHeader .cell.email,
+  .tableRow .cell.email {
     display: none;
   }
 
@@ -219,46 +219,39 @@
     flex: 0.2;
   }
   .cell.company {
-    flex: 0.2;
-  }
-  .cell.email {
-    flex: 0.2;
+    flex: 0.25;
   }
   .cell.phone {
-    flex: 0.15;
+    flex: 0.2;
   }
   .cell.group {
-    flex: 0.25;
+    flex: 0.35;
   }
 
   .buttonGroup {
     max-width: none;
-    height: 36px;
-  }
-
+    height: 2.25rem;
+  } /* 36px */
   .button {
     font-size: 0.875rem;
-    height: 36px;
+    height: 2.25rem;
   }
 }
 
 /* 모바일 대응 */
-@media (max-width: 480px) {
+@media (max-width: 487px) {
   .contactList {
-    padding: 14px;
+    padding: 0.875rem; /* 14px */
   }
-
   .header {
     padding: 0;
   }
-
   .searchBox {
     width: 100%;
-    height: 32px;
-    font-size: 12px;
-    padding: 0 12px;
+    height: 2rem;
+    font-size: 0.75rem;
+    padding: 0 0.75rem;
   }
-
   .tableHeader,
   .tableRow {
     margin: 0;
@@ -278,26 +271,23 @@
 
   .cell.name {
     flex: 1;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
-
   .cell.phone {
     flex: 1.5;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
-
   .cell.group {
     flex: 2;
   }
 
   .buttonGroup {
-    height: 32px;
-    font-size: 12px;
+    height: 2rem;
+    font-size: 0.75rem;
   }
-
   .button {
-    font-size: 12px;
-    height: 32px;
+    font-size: 0.75rem;
+    height: 2rem;
   }
 
   .noContacts {

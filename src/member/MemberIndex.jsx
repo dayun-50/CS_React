@@ -85,7 +85,7 @@ function MemberIndex() {
             <Route path="/mail/*" element={<Mail />} /> {/* 메일 */}
 
             {/* 마이페이지 라우트 -- 혜빈 승진 */}
-            <Route path='/mypage' element={<Mypage />} />
+            <Route path='/mypage' element={<Mypage selectedSeq={selectedSeq} setSelectedSeq={setSelectedSeq}/>} />
           </Routes>
 
 

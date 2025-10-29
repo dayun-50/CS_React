@@ -3,7 +3,7 @@ import styles from "./Attendance.module.css";
 import collapse from "./icon/Collapse Arrow.svg";
 import useAttendance from "./useAttendance";
 
-const Attendance = ({ onChannelClick, alertRooms , setAlertRooms}) => {
+const Attendance = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq}) => {
   console.log(alertRooms);
   const {
     members, chatSeq,
@@ -21,7 +21,7 @@ const Attendance = ({ onChannelClick, alertRooms , setAlertRooms}) => {
         {members.map((member, i) => (
           <button
             key={i}
-            className={`${styles.member} ${chatSeq === member.chat_seq ? styles.selected : ""
+            className={`${styles.member} ${selectedSeq == member.chat_seq ? styles.selected : ""
               } ${alertRooms.find(ar => ar.chat_seq === member.chat_seq)? styles.alert : ""}
               ${member.alert == "y"? styles.alert : ""}`}
             onClick={()=>handleClickChat(member.chat_seq)}

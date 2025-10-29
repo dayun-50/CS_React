@@ -8,7 +8,6 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
 
     // 이벤트 추가 및 삭제마다 다시 랜더링
     useEffect(() => {
-        console.log("아아", selectedEmails);
         const params = new URLSearchParams();
         selectedEmails.forEach(email => params.append("selectedEmails", email));
         caxios.post(`/schedule/eventsList?${params.toString()}`, { chat_seq: seq, member_email: id },

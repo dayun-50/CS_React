@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./ChannelIndex.module.css";
 import message from "./icon/Messages.svg";
@@ -11,6 +11,13 @@ const Channellndex = ({ selectedSeq, setSelectedSeq }) => {
   const [activeTab, setActiveTab] = useState("messages");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (selectedSeq) {
+      setActiveTab("schedule"); // selectedSeq가 있으면 schedule 탭으로 전환
+      navigate("/channel/schedule"); // schedule 페이지로 이동
+    }
+  }, []);
+
   const handleTabClick = (tab) => {
     console.log("채널 클릭, selectedSeq:", selectedSeq);
 
@@ -19,6 +26,7 @@ const Channellndex = ({ selectedSeq, setSelectedSeq }) => {
       return;
     }
     setActiveTab(tab);
+
     if (tab === "schedule") {
 
       navigate("/channel/schedule");

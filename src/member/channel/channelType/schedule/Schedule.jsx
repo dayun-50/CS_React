@@ -1,10 +1,11 @@
 import styles from "./Schedule.module.css";
 import ScheduleBox from "./Components/scheduleBox/ScheduleBox";
 import ToggleBox from "./Components/toggleBox/ToggleBox";
-import { useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { useOutletContext, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const Schedule = ({ selectedSeq }) => {
+const Schedule = ({ selectedSeq, setSelectedSeq  }) => {
+
   // 각 멤버 클릭 상태(on/off)를 배열로 관리
   const [selectedEmails, setSelectedEmails] = useState([]);
   if (!selectedSeq) return null;

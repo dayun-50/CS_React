@@ -30,9 +30,9 @@ const MessagesIndex = ({selectedSeq, setSelectedSeq}) => {
     <div className={styles.container}>
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
-          <Attendance onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
-          <ChannelName onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
-          <CompletedChannel onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
+          <Attendance selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
+          <ChannelName selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms}/>
+          <CompletedChannel selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms}/>
         </div>
 
         {/* 아래 고정된 추가 버튼 */}

@@ -7,6 +7,7 @@ import styles from "./ScheduleBox.module.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import useScheduleBox from "./useScheduleBox";
 import { event } from "jquery";
+import { useParams } from "react-router-dom";
 
 moment.locale("ko");
 const localizer = momentLocalizer(moment);
@@ -96,7 +97,6 @@ const CustomToolbar = ({ label, onNavigate }) => {
 
 const ScheduleBox = ({seq, selectedEmails, setSelectedEmails }) => {
     const [events, setEvents] = useState([]);
-    
     const {
         sevaEvent, handleSelectEvent
     } = useScheduleBox(events, setEvents, seq, selectedEmails);

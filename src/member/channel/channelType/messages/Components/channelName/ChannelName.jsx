@@ -5,7 +5,7 @@ import useChannelName from "./useChannelName";
 
 
 
-const ChannelName = ({ onChannelClick, alertRooms , setAlertRooms }) => {
+const ChannelName = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq }) => {
 
   const {
     rooms, chatSeq,
@@ -23,7 +23,7 @@ const ChannelName = ({ onChannelClick, alertRooms , setAlertRooms }) => {
           <button
             key={i}
             className={`${styles.room}
-                        ${chatSeq == room.chat_seq ? styles.selected : ""}
+                        ${selectedSeq == room.chat_seq ? styles.selected : ""}
                         ${alertRooms.find(ar => ar.chat_seq === room.chat_seq) ? styles.alert : ""}
                         ${room.alert == "y"? styles.alert : ""}`}
             onClick={() => handleClickChat(room.chat_seq)}>

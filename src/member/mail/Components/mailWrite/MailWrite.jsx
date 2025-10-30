@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./MailWrite.module.css";
 import plus from "./icon/plus.svg";
 import grayplus from "./icon/grayplus.svg";
-import { caxios } from "../../../../config/config";
+import { caxios, mailRequest } from "../../../../config/config";
 
 // 받는 사람 선택 모달 컴포넌트
 const RecipientModal = ({ onClose, onSelect }) => {
@@ -115,9 +115,9 @@ const MailWrite = () => {
     };
 
     try {
-      const response = await caxios.post("/emails/send", sendData, {
+      const response = await mailRequest("post", "/emails/send", sendData, {
         headers: {
-          // 이 부분이 caxios의 기본 Authorization 헤더를 덮어씁니다.
+          // 이 헤더가 caxios의 기본 Authorization 헤더(Token A)를 덮어씁니다.
           Authorization: `Bearer ${combinedToken}`,
           "Content-Type": "application/json",
         },

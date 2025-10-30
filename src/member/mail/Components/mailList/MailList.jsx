@@ -5,14 +5,35 @@ import Search from "./icon/Search.svg";
 import basket from "./icon/basket.svg";
 import CollapseArrow from "./icon/CollapseArrow.svg";
 import PageNaviBar from "../../../navis/pagenavibar/PageNaviBar";
+import { mailRequest } from "../../../../config/config";
 
 // 한글 초성 배열
-const CHO = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+const CHO = [
+  "ㄱ",
+  "ㄲ",
+  "ㄴ",
+  "ㄷ",
+  "ㄸ",
+  "ㄹ",
+  "ㅁ",
+  "ㅂ",
+  "ㅃ",
+  "ㅅ",
+  "ㅆ",
+  "ㅇ",
+  "ㅈ",
+  "ㅉ",
+  "ㅊ",
+  "ㅋ",
+  "ㅌ",
+  "ㅍ",
+  "ㅎ",
+];
 
 function getInitials(str) {
   return str
     .split("")
-    .map(ch => {
+    .map((ch) => {
       const code = ch.charCodeAt(0) - 44032;
       if (code >= 0 && code <= 11171) {
         return CHO[Math.floor(code / 588)];
@@ -22,14 +43,16 @@ function getInitials(str) {
     .join("");
 }
 
-const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
+const MailList = ({ tabName = "전체" }) => {
   const navigate = useNavigate();
 
   // ---------------- 상태 변수 ----------------
+  const [mailList, setMailList] = useState([]); // 💡 실제 API 데이터 목록
+  const [isLoading, setIsLoading] = useState(true); // 💡 로딩 상태
   const [currentPage, setCurrentPage] = useState(1);
   const [headerSelected, setHeaderSelected] = useState(false);
-  const [selectedMails, setSelectedMails] = useState([]);
-  const [sortBy, setSortBy] = useState("date");
+  const [selectedMails, setSelectedMails] = useState([]); //uid 저장
+  const [sortBy, setSortBy] = useState("date"); // 💡 date -> receivedDate
   const [sortAsc, setSortAsc] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -39,55 +62,101 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
   const sortOptions = ["날짜 순", "제목 순"];
   const mailsPerPage = 10;
 
-  // ---------------- 화면 크기 감지 ----------------
+  // ---------------- 화면 크기 감지 (고객님 요청에 따라 유지) ----------------
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ---------------- 더미 메일 데이터 ----------------
-  const dummyMailsInitial = [
-    { id: 1, email: "RLA15@gmail.com", title: "보낸 사람이 작성한 Title 나오는곳", date: "2025-10-25" },
-    { id: 2, email: "testtest1@example.com", title: "베이베 내게 반해 버린 내게 왜이래", date: "2025-10-26" },
-    { id: 3, email: "test2@example.com", title: "링딩동 링딩동 링디리링 디디 딩딩딩", date: "2025-10-22" },
-    { id: 4, email: "test3@example.com", title: "ㄴ집에 가지마 베이베 너에게 줄 숙제가 여깄는데", date: "2025-10-07" },
-    { id: 5, email: "test3@example.com", title: "베이베~ 이제는 내게와 and be my lady", date: "2025-10-03" },
-    { id: 6, email: "test3@example.com", title: "갈비찜을 밥위 얹어주세용~ 내가 제일 좋아하는 갈비찜 덮밥", date: "2025-10-01" },
-    { id: 7, email: "test3@example.com", title: "베이베 베이베 베이베 그대가 내 안에", date: "2025-10-13" },
-    { id: 8, email: "test3@example.com", title: "베이베 베이베 베이베 oh~~", date: "2025-10-18" },
-    { id: 9, email: "test3@example.com", title: "나는 운이 좋았지 내 삶에서 나보다 더 사랑한 사람이 있었으니", date: "2025-10-28" },
-    { id: 10, email: "test3@example.com", title: "내게 반해 버린 내게 왜이래~", date: "2025-10-17" },
-    { id: 11, email: "test3@example.com", title: "니가 바람 펴도 너는 절대 피지마 베이베~", date: "2025-10-13" },
-    { id: 12, email: "test3@example.com", title: "이러다 미쳐 내가 여리여리 착하던 그런 내가", date: "2025-10-13" },
-    { id: 13, email: "test3@example.com", title: "미스터 chu~♥ 입술위에 chu~♥ 달콤하게 chu~♥ 널보면 난 눈이 떨려", date: "2025-10-13" },
-    { id: 14, email: "test3@example.com", title: "마돈나 돈나 돈나 마돈나 돈나 돈나 ", date: "2025-10-13" },
-    { id: 15, email: "test3@example.com", title: "Girl Pretty Girl Pretty Girl 그냥 되진 않는 거죠 난!! ", date: "2025-10-13" },
-    { id: 16, email: "test3@example.com", title: "Hey 거기 거기 Mr 여길 좀 봐봐 Mr ", date: "2025-10-13" },
-  ];
+  // ---------------- API 호출 및 데이터 로드 ----------------
 
-  const [dummyMails, setDummyMails] = useState(dummyMailsInitial);
+  useEffect(() => {
+    const loadMails = async () => {
+      setIsLoading(true);
 
-  let mails = (data.mails && data.mails.length > 0) ? data.mails : dummyMails;
+      try {
+        let emails = [];
+
+        if (tabName === "받은 편지함" || tabName === "전체") {
+          // 받은 편지함 (INBOX) 단일 조회
+          const response = await mailRequest(
+            "get",
+            `/emails/list?folder=INBOX`
+          );
+          emails =
+            response.data.status === "SUCCESS" ? response.data.emails : [];
+        } else if (tabName === "보낸 편지함") {
+          // 보낸 편지함 (Sent) 단일 조회
+          const response = await mailRequest("get", `/emails/list?folder=Sent`);
+          emails =
+            response.data.status === "SUCCESS" ? response.data.emails : [];
+        } else if (tabName === "전체 메일함") {
+          // 💡 [전체 메일함] INBOX와 Sent 두 폴더 조회 후 합치기
+          const [inboxRes, sentRes] = await Promise.all([
+            mailRequest("get", `/emails/list?folder=INBOX`),
+            mailRequest("get", `/emails/list?folder=Sent`),
+          ]);
+
+          const inboxMails =
+            inboxRes.data.status === "SUCCESS" ? inboxRes.data.emails : [];
+          const sentMails =
+            sentRes.data.status === "SUCCESS" ? sentRes.data.emails : []; // 두 목록을 합치고, 최신 날짜순으로 정렬
+
+          emails = [...inboxMails, ...sentMails].sort((a, b) => {
+            // 받은 날짜(INBOX) 또는 보낸 날짜(Sent) 중 존재하는 날짜를 기준으로 정렬
+            const dateA = new Date(a.receivedDate || a.sentDate);
+            const dateB = new Date(b.receivedDate || b.sentDate);
+            return dateB - dateA; // 내림차순 (최신순)
+          });
+        }
+        setMailList(emails);
+      } catch (error) {
+        console.error(
+          "메일 목록 조회 중 오류 발생:",
+          error.response?.data?.error || error.message
+        );
+        alert("세션 만료 또는 서버 연결 오류로 목록을 불러올 수 없습니다.");
+        setMailList([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadMails();
+  }, [tabName]); // tabName이 변경될 때마다 전체 로직 재실행
+
+  // ---------------- 데이터 가공 (API 데이터 사용) ----------------
+
+  let mails = mailList;
 
   // ---------------- 검색 필터링 ----------------
-  const filteredMails = mails.filter(mail => {
-    const titleLower = mail.title.toLowerCase();
+  const filteredMails = mails.filter((mail) => {
+    const subjectLower = mail.subject ? mail.subject.toLowerCase() : ""; // subject 사용
+    const senderLower = mail.sender ? mail.sender.toLowerCase() : ""; // sender 추가
     const searchLower = searchText.toLowerCase();
-    return titleLower.includes(searchLower) || getInitials(mail.title).includes(searchText);
+    return (
+      subjectLower.includes(searchLower) ||
+      senderLower.includes(searchLower) || // sender 검색 추가
+      getInitials(subjectLower).includes(searchText) // subject 초성 검색
+    );
   });
 
   // ---------------- 정렬 ----------------
   const sortedMails = [...filteredMails].sort((a, b) => {
     if (sortBy === "date") {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
+      const dateA = new Date(a.receivedDate || a.sentDate);
+      const dateB = new Date(b.receivedDate || b.sentDate);
       return sortAsc ? dateA - dateB : dateB - dateA;
     } else if (sortBy === "title") {
-      return sortAsc ? a.title.localeCompare(b.title, "ko") : b.title.localeCompare(a.title, "ko");
+      return sortAsc
+        ? a.subject.localeCompare(b.subject, "ko") // subject 사용
+        : b.subject.localeCompare(a.subject, "ko"); // subject 사용
     }
     return 0;
   });
+
+  // 페이지 네이션 적용
 
   const totalPages = Math.ceil(sortedMails.length / mailsPerPage);
   const indexOfLastMail = currentPage * mailsPerPage;
@@ -95,22 +164,38 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
   const currentMails = sortedMails.slice(indexOfFirstMail, indexOfLastMail);
 
   // ---------------- 클릭 이벤트 ----------------
-  const handleMailClick = (mail) => navigate("/mail/detail", { state: { mail } });
+  // 💡 상세 페이지 이동 시 mail.uid 로 수정
+  const handleMailClick = (mail) => {
+    // 상세 페이지에서는 실제 폴더 이름을 전달해야 정확한 메일을 로드할 수 있음
+    let folderName = "";
+    if (
+      tabName === "보낸 편지함" ||
+      (tabName === "전체 메일함" && mail.folder === "Sent")
+    ) {
+      folderName = "Sent";
+    } else {
+      folderName = "INBOX";
+    }
+    // mail.folder 필드가 EmailDTO에 있다고 가정하고 로직 작성
+    if (mail.folder) folderName = mail.folder;
+
+    navigate(`/mail/detail/${mail.uid}?folder=${folderName}`);
+  };
   const handleHeaderCircleClick = () => {
     if (headerSelected) {
       setHeaderSelected(false);
       setSelectedMails([]);
     } else {
       setHeaderSelected(true);
-      setSelectedMails(currentMails.map(mail => mail.id));
+      setSelectedMails(currentMails.map((mail) => mail.uid));
     }
   };
-  const handleCircleClick = (id, e) => {
+  const handleCircleClick = (uid, e) => {
     e.stopPropagation();
-    setSelectedMails(prev => {
-      const newSelected = prev.includes(id)
-        ? prev.filter(i => i !== id)
-        : [...prev, id];
+    setSelectedMails((prev) => {
+      const newSelected = prev.includes(uid)
+        ? prev.filter((i) => i !== uid)
+        : [...prev, uid];
       setHeaderSelected(newSelected.length === currentMails.length);
       return newSelected;
     });
@@ -122,19 +207,24 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
       return;
     }
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      setDummyMails(prev => prev.filter(mail => !selectedMails.includes(mail.id)));
+      // 💡 임시: setMailList로 상태 업데이트 (실제로는 API 호출 후 fetchMailList 재호출)
+      setMailList((prev) =>
+        prev.filter((mail) => !selectedMails.includes(mail.uid))
+      );
       setSelectedMails([]);
       setHeaderSelected(false);
     }
   };
-  const handleSortClick = () => setShowSortDropdown(prev => !prev);
+  const handleSortClick = () => setShowSortDropdown((prev) => !prev);
   const handleSortOptionClick = (option) => {
     setShowSortDropdown(false);
     setSortButtonText(option);
     if (option === "날짜 순") {
-      setSortBy("date"); setSortAsc(false);
+      setSortBy("date");
+      setSortAsc(false);
     } else if (option === "제목 순") {
-      setSortBy("title"); setSortAsc(true);
+      setSortBy("title");
+      setSortAsc(true);
     }
   };
 
@@ -145,7 +235,8 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
         {/* 상단 제목 + 검색 */}
         <div className={styles.maillisttitle}>
           <span className={styles.titleText}>
-            {tabName === "전체" ? `${tabName} 메일` : tabName} {filteredMails.length}
+            {tabName === "전체" ? `${tabName} 메일` : tabName}{" "}
+            {filteredMails.length}
           </span>
           <div className={styles.searchBox}>
             <input
@@ -167,17 +258,26 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
               style={{ backgroundColor: headerSelected ? "#007AFF" : "#ccc" }}
             />
             <span className={styles.mailtext}>목록</span>
-            <button className={styles.delebt} onClick={handleDeleteClick}>삭제</button>
+            <button className={styles.delebt} onClick={handleDeleteClick}>
+              삭제
+            </button>
           </div>
 
-          <div className={styles.maild} style={{ position: "relative", cursor: "pointer" }}>
+          <div
+            className={styles.maild}
+            style={{ position: "relative", cursor: "pointer" }}
+          >
             <span onClick={handleSortClick}>
               {sortButtonText}
-              <img src={CollapseArrow} className={styles.arrowicon} alt="정렬"/>
+              <img
+                src={CollapseArrow}
+                className={styles.arrowicon}
+                alt="정렬"
+              />
             </span>
             {showSortDropdown && (
               <div className={styles.sortDropdown}>
-                {sortOptions.map(option => (
+                {sortOptions.map((option) => (
                   <div
                     key={option}
                     className={styles.sortOption}
@@ -194,31 +294,42 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
         {/* 메일 리스트 */}
         <div className={styles.realmaillist}>
           {currentMails.length > 0 ? (
-            currentMails.map(mail => (
+            currentMails.map((mail) => (
               <div
-                key={mail.id}
+                key={mail.uid}
                 className={styles.maillistdown}
                 onClick={() => handleMailClick(mail)}
+                style={{ fontWeight: mail.isRead === "n" ? "bold" : "normal" }} // 안 읽은 메일 굵게
               >
                 <div className={styles.leftGroup}>
                   <div
                     className={styles.mailcirclelist}
-                    onClick={(e) => handleCircleClick(mail.id, e)}
-                    style={{ backgroundColor: selectedMails.includes(mail.id) ? "#007AFF" : "#ccc" }}
+                    onClick={(e) => handleCircleClick(mail.uid, e)}
+                    style={{
+                      backgroundColor: selectedMails.includes(mail.uid)
+                        ? "#007AFF"
+                        : "#ccc",
+                    }}
                   />
-                  <span className={styles.email}>{mail.email}</span>
+                  <span className={styles.sender}>{mail.sender}</span>
                   {/* 제목은 화면이 작으면 렌더링 안함 */}
                   {windowWidth > 1024 && (
-                    <span className={styles.listt}>{mail.title}</span>
+                    <span className={styles.listt}>{mail.subject}</span>
                   )}
                 </div>
-                <span className={styles.day}>{mail.date}</span>
+                <span className={styles.day}>
+                  {mail.receivedDate
+                    ? mail.receivedDate.split(" ")[0]
+                    : mail.sentDate
+                    ? mail.sentDate.split(" ")[0]
+                    : ""}
+                </span>
               </div>
             ))
           ) : (
             <div className={styles.mailh}>
               <div className={styles.mmh}>
-                <img src={basket} alt="empty"/>
+                <img src={basket} alt="empty" />
                 <p>메일함이 비어있습니다.</p>
               </div>
             </div>
@@ -233,9 +344,9 @@ const MailList = ({ tabName = "전체", data = { mails: [] } }) => {
               path={tabName ? `/approval?type=${tabName}` : `/approval`}
               onData={(newMails) => {
                 if (!newMails || newMails.length === 0) {
-                  setDummyMails(dummyMailsInitial);
+                  setMailList([]);
                 } else {
-                  setDummyMails(newMails);
+                  setMailList(newMails);
                 }
               }}
             />

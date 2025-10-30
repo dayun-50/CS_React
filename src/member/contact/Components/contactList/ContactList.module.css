@@ -1,18 +1,25 @@
 .contactList {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 리스트 영역과 페이지네비게이션 사이 공간 확보 */
   border-radius: var(--border-radius-main);
   background-color: var(--color-white);
   border: 1px solid var(--color-font-color2);
-  display: flex;
-  flex-direction: column;
   font-size: var(--font-size-base);
   color: var(--color-font-color1);
   font-family: var(--font-family);
   box-sizing: border-box;
-  overflow: auto;
 }
 
+/* 리스트 영역: 스크롤 가능 */
+.listContainer {
+  flex: 1;           /* 남은 공간 모두 차지 */
+  overflow-y: auto;  /* 세로 스크롤 가능 */
+}
+
+/* ------------------- 헤더 ------------------- */
 .header {
   width: 100%;
   display: flex;
@@ -50,6 +57,7 @@
   color: var(--color-font-color1);
 }
 
+/* ------------------- 테이블 ------------------- */
 .tableHeader,
 .tableRow {
   display: flex;
@@ -57,7 +65,6 @@
   align-items: center;
   text-align: center;
   flex-wrap: nowrap;
-  overflow-x: auto;
 }
 
 .tableHeader {
@@ -68,14 +75,15 @@
 
 .tableRow {
   font-size: 1.125rem;
-  padding: 1rem 0; /* 16px 0 */
+  height: 50px;
+  margin-top: 4px;
 }
 
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 0.5rem; /* 12px 8px */
+  padding: 0.75rem 0.5rem;
   box-sizing: border-box;
   word-break: break-word;
   white-space: nowrap;
@@ -84,26 +92,13 @@
   min-width: 0;
 }
 
-.cell.number {
-  flex: 0.08;
-}
-.cell.name {
-  flex: 0.12;
-}
-.cell.company {
-  flex: 0.2;
-}
-.cell.email {
-  flex: 0.2;
-}
-.cell.phone {
-  flex: 0.15;
-}
-.cell.group {
-  flex: 0.25;
-}
+.cell.number { flex: 0.08; }
+.cell.name { flex: 0.12; }
+.cell.company { flex: 0.2; }
+.cell.email { flex: 0.2; }
+.cell.phone { flex: 0.15; }
+.cell.group { flex: 0.25; }
 
-/* 버튼 그룹 */
 .buttonGroup {
   display: flex;
   border-radius: var(--border-radius-main);
@@ -114,7 +109,6 @@
   max-width: 15rem; /* 240px */
 }
 
-/* 버튼 */
 .button {
   flex: 1;
   display: flex;
@@ -131,7 +125,6 @@
   text-overflow: ellipsis;
 }
 
-/* 활성 상태 */
 .button.active {
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -140,7 +133,6 @@
   opacity: 0.9;
 }
 
-/* 비활성 상태 */
 .button.inactive {
   color: var(--color-font-back);
   background-color: var(--color-sud-color2);
@@ -152,7 +144,7 @@
   opacity: 0.9;
 }
 
-/* 공지사항이 없을 경우 */
+/* ------------------- 주소록 비어있음 ------------------- */
 .contactEmptyContainer {
   width: 100%;
   height: 100%;
@@ -179,118 +171,116 @@
   object-fit: cover;
 }
 
-/* 테블릿 대응 */
+/* ------------------- 페이지네비게이션 ------------------- */
+.paginationParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 0;
+  flex-wrap: wrap;
+}
+
+.pageButton ,.pageArrow{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-sud-color2);
+  border: none;
+  color: var(--color-font-color2);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pageButton:hover{
+  background-color: var(--color-sud-color1);
+  color: var(--color-white);
+}
+
+.activePage {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-weight: bold;
+}
+
+.pageArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageArrow {
+  background-color: white;
+}
+
+/* ------------------- 반응형 ------------------- */
+@media (min-width: 768px) {
+  .pageButton, .pageArrow { width: 36px; height: 36px; font-size: 16px; }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .pageButton, .pageArrow { width: 32px; height: 32px; font-size: 15px; }
+}
+
+@media (max-width: 480px) {
+  .pageButton, .pageArrow { width: 28px; height: 28px; font-size: 14px; }
+}
+
+/* ------------------- 테블릿 / 모바일 대응 ------------------- */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.25rem; /* 20px */
+    padding: 1.25rem;
   }
 
   .title {
     width: 100%;
-    margin-bottom: 0.9375rem; /* 15px */
+    margin-bottom: 0.9375rem;
   }
 
   .searchBox {
     width: 100%;
-    height: 2.25rem; /* 36px */
+    height: 2.25rem;
     font-size: 0.875rem;
   }
 
-  .searchInput {
-    font-size: 0.875rem;
-  }
+  .searchInput { font-size: 0.875rem; }
 
-  .tableHeader,
-  .tableRow {
-    margin: 0 1.25rem; /* 20px */
-    font-size: 1rem;
-  }
+  .tableHeader, .tableRow { margin: 0 1.25rem; font-size: 1rem; }
 
   .tableHeader .cell.number,
   .tableRow .cell.number,
   .tableHeader .cell.email,
-  .tableRow .cell.email {
-    display: none;
-  }
+  .tableRow .cell.email { display: none; }
 
-  .cell.name {
-    flex: 0.2;
-  }
-  .cell.company {
-    flex: 0.25;
-  }
-  .cell.phone {
-    flex: 0.2;
-  }
-  .cell.group {
-    flex: 0.35;
-  }
+  .cell.name { flex: 0.2; }
+  .cell.company { flex: 0.25; }
+  .cell.phone { flex: 0.2; }
+  .cell.group { flex: 0.35; }
 
-  .buttonGroup {
-    max-width: none;
-    height: 2.25rem;
-  } /* 36px */
-  .button {
-    font-size: 0.875rem;
-    height: 2.25rem;
-  }
+  .buttonGroup { max-width: none; height: 2.25rem; }
+  .button { font-size: 0.875rem; height: 2.25rem; }
 }
 
-/* 모바일 대응 */
 @media (max-width: 487px) {
-  .contactList {
-    padding: 0.875rem; /* 14px */
-  }
-  .header {
-    padding: 0;
-  }
-  .searchBox {
-    width: 100%;
-    height: 2rem;
-    font-size: 0.75rem;
-    padding: 0 0.75rem;
-  }
-  .tableHeader,
-  .tableRow {
-    margin: 0;
-    font-size: 0.875rem;
-    padding: 0;
-    overflow-x: auto;
-  }
+  .contactList { padding: 0.875rem; }
+  .header { padding: 0; }
+  .searchBox { width: 100%; height: 2rem; font-size: 0.75rem; padding: 0 0.75rem; }
+  .tableHeader, .tableRow { margin: 0; font-size: 0.875rem; padding: 0; overflow-x: auto; }
 
   .tableHeader .cell.number,
   .tableRow .cell.number,
   .tableHeader .cell.company,
   .tableRow .cell.company,
   .tableHeader .cell.email,
-  .tableRow .cell.email {
-    display: none;
-  }
+  .tableRow .cell.email { display: none; }
 
-  .cell.name {
-    flex: 1;
-    font-size: 0.75rem;
-  }
-  .cell.phone {
-    flex: 1.5;
-    font-size: 0.75rem;
-  }
-  .cell.group {
-    flex: 2;
-  }
+  .cell.name { flex: 1; font-size: 0.75rem; }
+  .cell.phone { flex: 1.5; font-size: 0.75rem; }
+  .cell.group { flex: 2; }
 
-  .buttonGroup {
-    height: 2rem;
-    font-size: 0.75rem;
-  }
-  .button {
-    font-size: 0.75rem;
-    height: 2rem;
-  }
-
-  .noContacts {
-    font-size: 0.875rem;
-  }
+  .buttonGroup { height: 2rem; font-size: 0.75rem; }
+  .button { font-size: 0.75rem; height: 2rem; }
 }

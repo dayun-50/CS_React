@@ -25,7 +25,7 @@ function ApprovalDetail() {
                 };
 
                 setOriApproval(formattedData);
-                console.log(formattedData);
+                console.log(formattedData, "폼태그");
             })
             .catch((resp) => {
                 alert("올바르지 않은 접근입니다!");
@@ -68,38 +68,39 @@ function ApprovalDetail() {
     }
     //수정완료 버튼누르면
 
-    const handleUpdateCom = () => {
-        const approval_title = titleRef.current?.innerText || "";
-        const approval_content = contentRef.current?.innerHTML || "";
+const handleUpdateCom = async () => {
+  const approval_seq = oriApproval?.approval?.approval_seq || seq;
+  const approval_title = titleRef.current?.innerText || "";
+  const approval_content = contentRef.current?.innerHTML || "";
 
-        // 길이 체크
-        // HTML 태그 제거
-        const textOnly = approval_content.replace(/<[^>]*>/g, "").trim();
-        if (approval_title.trim().length < 1 || textOnly.length < 1) {
-            alert("제목과 내용을 입력하세요");
-            return;
-        }
+  const formData = new FormData();
+  formData.append("approval_seq", approval_seq);
+  formData.append("approval_title", approval_title);
+  formData.append("approval_content", approval_content);
 
-        caxios.put(`/approval/${oriApproval.approval_seq}`, { approval_seq: oriApproval.approval_seq, approval_title, approval_content })
-            .then(() => {
+  try {
+    const resp = await caxios.put(`/approval/${approval_seq}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-                setOriApproval(prev => ({ ...prev, approval_title, approval_content }));
-                setUpdating(false);
-                alert("수정이 완료되었습니다!");
-                navigate(`/approval/detail/${oriApproval.approval_seq}`);
-            })
-            .catch(() => {
-                alert("올바르지 않은 접근입니다!");
-            })
-            ;
-    };
+    alert("수정이 완료되었습니다!");
+    setUpdating(false);
+  } catch (error) {
+    console.error(error);
+    alert("수정 실패: " + (error.response?.status || ""));
+  }
+};
 
     return (
         <div className={styles.detailBox}>
+            
             <div className={styles.parent}>
 
 
                 <div className={styles.div2}>
+                    
                     <div className={`${styles.div3} ${updating ? styles.div3Active : ""}`}
                         ref={titleRef} contentEditable={updating}
                         onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); } }}
@@ -118,17 +119,21 @@ function ApprovalDetail() {
                                 sel.addRange(range);
                             }
                         }}
-                    >
-                        {oriApproval.approval_title}
+                    >   
+                        {oriApproval.approval?.approval_title}
                     </div>
                 </div>
 
 
                 <div className={styles.div4}>
                     <div className={styles.div5}>
-                        <div className={`${styles.div6} ${styles.div6_left}`} id={styles.unseen}>{oriApproval.member_email}</div>
+                        <div className={`${styles.div6} ${styles.div6_left}`}>
+  {oriApproval.approval?.member_email}
+</div>
                         <div className={`${styles.div6} ${styles.div6_center}`}>{oriApproval.approval_at}</div>
-                        <div className={`${styles.div6} ${styles.div6_right}`}>{oriApproval.approval_status}</div>
+                        <div className={`${styles.div6} ${styles.div6_right}`}>
+  {oriApproval.approval?.approval_status}
+</div>
                     </div>
 
 
@@ -145,7 +150,7 @@ function ApprovalDetail() {
                         <div className={`${styles.txt} ${updating ? styles.txtActive : ""}`}
                             ref={contentRef}
                             contentEditable={updating}
-                            dangerouslySetInnerHTML={{ __html: oriApproval.approval_content }}
+                            dangerouslySetInnerHTML={{ __html: oriApproval.approval?.approval_content }}
                         ></div>
                     </div>
                 </div>
@@ -155,14 +160,14 @@ function ApprovalDetail() {
             <div className={styles.btns}>
                 <button className={styles.btn3} onClick={() => { navigate(-1) }}>뒤로가기</button>
 
-                {oriApproval.approval_status == "처리중" && !updating && (
+                {oriApproval.approval?.approval_status == "처리중" && !updating && (
                     <>
                         <button className={styles.btn2} onClick={handleDel}>삭제하기</button>
                         <button className={styles.btn1} onClick={handleUpdate}>수정하기</button>
                     </>
                 )}
 
-                {oriApproval.approval_status == "처리중" && updating && (
+                {oriApproval.approval?.approval_status == "처리중" && updating && (
                     <>
                         <button className={styles.btn2} onClick={handleUpdateDel}>수정취소</button>
                         <button className={styles.btn1} onClick={handleUpdateCom}>수정완료</button>

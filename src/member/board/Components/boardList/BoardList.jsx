@@ -1,14 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./BoardList.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import file from "./icon/File.svg";
 import dayjs from "dayjs";
 import PageNaviBar from "../../../navis/pagenavibar/PageNaviBar";
+import { caxios } from "../../../../config/config";
 
 const BoardList = () => {
   const [noticeList, setNoticeList] = useState([]); // 페이지별 공지사항
   const navigate = useNavigate();
   const target = null; // 필요 시 필터용
+
+  useEffect(() => {
+    caxios.get('/board/notices')
+      .then(resp => {
+        setNoticeList(resp.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },[noticeList])
 
   const handleTitleClick = (id) => {
     navigate(`/board/detail/${id}`);

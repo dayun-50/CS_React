@@ -7,12 +7,12 @@ import useChatBox from "./useChatBox";
 import { useState, useRef, useEffect } from "react";
 
 
-const ChatBox = ({ seq , setAlertRooms}) => {
+const ChatBox = ({ seq , setAlertRooms, setMemberCount}) => {
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
     messageListRef
-  } = useChatBox(seq, setAlertRooms);
+  } = useChatBox(seq, setAlertRooms, setMemberCount);
 
   // 화면에 표시할 메시지 목록 (로컬 복사본)
   // originalMessages가 바뀌면 아래 useEffect에서 동기화함.
@@ -28,15 +28,6 @@ const ChatBox = ({ seq , setAlertRooms}) => {
   const buttonRef = useRef(null);
   const [dropdownWidth, setDropdownWidth] = useState(0);
   const [searchText, setSearchText] = useState("");
-
-  // 직급 코드 → 레이블 매핑
-  const levelMap = {
-    LEVEL01: "사원",
-    LEVEL02: "대리",
-    LEVEL03: "과장",
-    LEVEL04: "차장",
-    LEVEL05: "부장",
-  };
 
   // 외부(originalMessages) 변경을 로컬(messages)로 반영
   useEffect(() => setMessages(originalMessages), [originalMessages]);
@@ -85,26 +76,12 @@ const ChatBox = ({ seq , setAlertRooms}) => {
   };
 
   /**
-   * 정렬 옵션 선택 시 메시지 정렬
-   * - "날짜": message_at 기준으로 정렬
-   * - "메시지": 텍스트 내용 기준으로 정렬 (localeCompare)
-   *
-   * 로컬 messages 배열을 정렬해서 setMessages 호출
+      검색 기능
    */
   const handleCollapseOptionClick = (option) => {
     setShowCollapseDropdown(false);
     setCollapseButtonText(option);
 
-    const sortedMessages = [...messages];
-    if (option === "날짜") {
-      sortedMessages.sort(
-        (a, b) =>
-          new Date(a.message_at || Date.now()) - new Date(b.message_at || Date.now())
-      );
-    } else if (option === "메시지") {
-      sortedMessages.sort((a, b) => a.message.localeCompare(b.message, "ko"));
-    }
-    setMessages(sortedMessages);
   };
 
   /**
@@ -246,7 +223,9 @@ const ChatBox = ({ seq , setAlertRooms}) => {
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyDown={handleSearchEnter}
               />
-              <img src={search} className={styles.chatBox__searchIcon} alt="검색 아이콘" />
+              <img src={search} className={styles.chatBox__searchIcon} 
+                
+              alt="검색 아이콘" />
             </div>
 
             <div style={{ position: "relative" }}>
@@ -291,7 +270,7 @@ const ChatBox = ({ seq , setAlertRooms}) => {
               {/* 상대방 메시지면 이름/직급 표시 (예: 홍길동 / 과장) */}
               {msg.member_email !== id && (
                 <div className={styles.chatBox__sender}>
-                  {`${msg.name || msg.member_email} / ${levelMap[msg.level_code] || ""}`}
+                  {`${msg.name}`}
                 </div>
               )}
 

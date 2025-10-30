@@ -26,7 +26,7 @@ const Attendance = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq}) 
               ${member.alert == "y"? styles.alert : ""}`}
             onClick={()=>handleClickChat(member.chat_seq)}
           >
-            {member.name}
+            {member.name} ({member.level_code})
           </button>
         ))}
       </div>

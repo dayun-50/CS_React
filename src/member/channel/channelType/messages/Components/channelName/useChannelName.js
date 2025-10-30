@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms) {
+function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms, isOn) {
 
     // 출력 채팅방 받을 준비
     const [rooms, setRooms] = useState([]);
@@ -13,14 +13,14 @@ function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms) {
         caxios.post("/chat/chatRoomList", { email: id },
             { withCredentials: true })
             .then(resp => {
+                console.log("채팅");
                 setRooms(resp.data);
-                console.log("헤이",resp.data);
                 setChatSeq(resp.data.chat_seq);
             })
             .catch(err => {
                 console.log(err);
             });
-    }, [newRooms]);
+    }, [newRooms, isOn]);
 
     // 클릭이벤트
     const handleClickChat = (chat_seq)=>{

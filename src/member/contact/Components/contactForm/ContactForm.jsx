@@ -13,6 +13,8 @@ const ContactForm = () => {
   const [memo, setMemo] = useState(""); // 메모 내용
   //  owner_email은 보통 로그인된 사용자 정보를 Context/Redux에서 가져옵니다.
 
+  const { user } = useContext(); // user.email 등 접근 가능
+
   const navigate = useNavigate();
 
   // 뒤로 가기 버튼 클릭 시
@@ -30,8 +32,12 @@ const ContactForm = () => {
       return;
     }
 
-    const ownerEmail = "test@test.com"; // 실제 사용자 이메일로 대체 - 이메일
-
+    // 수정
+    if (!user || !user.email) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    const ownerEmail = user.email;
     const payload = {
       name,
       email,

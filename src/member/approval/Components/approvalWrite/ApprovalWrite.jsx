@@ -3,6 +3,7 @@ import styles from './ApprovalWrite.module.css';
 import { useRef, useState } from 'react';
 import axios from 'axios';
 import { caxios } from '../../../../config/config';
+import plusicon from "./icon/plusicon.svg";
 function ApprovalWrite() {
 
     const navigate = useNavigate();
@@ -84,13 +85,14 @@ function ApprovalWrite() {
 
                 <div className={styles.fileWrapper}>
                     <div className={styles.filebox}>
-
                         <label htmlFor="fileUpload" className={styles.customFileBtn}>
-                            {fileList.length == 0
-                                ? (<div className={styles.chooseFileText}>파일 선택</div>)
-                                : fileList.map((file) => (
-                                    <div className='fileRow'>{file.name}</div>
-                                ))}
+                            <img src={plusicon} alt="add file" className={styles.icon} />
+                            {fileList.length === 0
+                                ? (<div className={styles.chooseFileText}>눌러 파일을 첨부해 주세요</div>)
+                                : fileList.map((file, idx) => (
+                                    <div key={idx} className="fileRow">{file.name}</div>
+                                ))
+                            }
                         </label>
 
                         <input
@@ -100,12 +102,16 @@ function ApprovalWrite() {
                             onChange={handleFileChange}
                             multiple
                         />
-
                     </div>
                 </div>
 
                 <div className={styles.contentbox}>
-                    <div ref={contentRef} className={styles.content} contentEditable></div>
+                    <div
+                        ref={contentRef}
+                        className={styles.content}
+                        contentEditable
+                        data-placeholder="보낼 내용을 입력해주세요."
+                    ></div>
                 </div>
             </div>
 

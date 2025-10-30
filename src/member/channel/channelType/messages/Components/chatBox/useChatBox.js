@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox(seq) {
+function useChatBox(seq, setAlertRooms) {
 
     // 채팅방 제목 받을 준비
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -16,6 +16,7 @@ function useChatBox(seq) {
     const messageListRef = useRef(null);
 
     useEffect(() => {
+        console.log(seq);
         caxios.post("/chat/chatRoom", { chat_seq: seq, member_email: id },
             { withCredentials: true })
             .then(resp => {
@@ -45,6 +46,14 @@ function useChatBox(seq) {
             } else if (data.type === "history") {
                 console.log(data);
                 setMessages(data.messages);
+            } else if (data.type === "alert") { // 채팅 알람기능
+                setAlertRooms(prev => {
+                    // 중복 방지: chat_seq가 이미 있으면 추가하지 않음
+                    if (!prev.some(room => room.chat_seq === data.chat_seq)) {
+                        return [...prev, { chat_seq: data.chat_seq, title: data.title }];
+                    }
+                    return prev;
+                });
             }
         };
 

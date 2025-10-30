@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ChannelName.module.css";
 import collapse from "./icon/Collapse Arrow.svg";
 import useChannelName from "./useChannelName";
 
 
 
-const ChannelName = ({ onChannelClick }) => {
+const ChannelName = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq, newRooms }) => {
+
   const {
     rooms, chatSeq,
     handleClickChat
-  } = useChannelName(onChannelClick);
+  } = useChannelName(onChannelClick, alertRooms , setAlertRooms, newRooms);
 
   return (
     <div className={styles.container}>
@@ -21,13 +22,14 @@ const ChannelName = ({ onChannelClick }) => {
         {rooms.map((room, i) => (
           <button
             key={i}
-            className={`${styles.room} ${chatSeq === room.chat_seq ? styles.selected : ""
-              }`}
-            onClick={() => handleClickChat(room.chat_seq)}
-          >
-            <span className={styles.hash}>#</span> {room.chat_name}
+            className={`${styles.room}
+                        ${selectedSeq == room.chat_seq ? styles.selected : ""}
+                        ${alertRooms.find(ar => ar.chat_seq === room.chat_seq) ? styles.alert : ""}
+                        ${room.alert == "y"? styles.alert : ""}`}
+            onClick={() => handleClickChat(room.chat_seq)}>
+                <span className={styles.hash}>#</span>{room.chat_name}
           </button>
-        ))}
+        ))} 
       </div>
     </div>
   );

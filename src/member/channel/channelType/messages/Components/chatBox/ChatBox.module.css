@@ -48,7 +48,7 @@
 .chatBox__topControls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 100px;
   width: 70%;
   flex-wrap: wrap; /* 줄바꿈 가능 */
 }
@@ -85,7 +85,7 @@
 /* 필터 버튼 */
 .chatBox__collapseBtn {
   min-width: 80px;
-  max-width: 150px;
+  max-width: 100px;
   height: 40px;
   padding: 0 12px;
   background: #fff;
@@ -107,13 +107,13 @@
 
 .chatBox__sortDropdown {
   min-width: 100%;
-  max-width: 150px;
+  max-width: 100px;
   position: absolute;
   top: 48px;
   left: 0;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 15px;
+  border-radius: 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   z-index: 10;
   padding: 4px 0;

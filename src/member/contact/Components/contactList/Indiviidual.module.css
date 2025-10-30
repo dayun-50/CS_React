@@ -1,0 +1,276 @@
+.contactList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 20px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-font-color2);
+  font-size: var(--font-size-base);
+  color: var(--color-font-color1);
+  font-family: var(--font-family);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.listContainer {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.875rem;
+}
+
+.title {
+  width: 40%;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  height: 3rem;
+  border: 1px solid var(--color-font-color2);
+  border-radius: 144px;
+  padding: 0 1rem;
+  font-size: var(--font-size-base);
+  color: var(--color-font-color2);
+  background-color: var(--color-white);
+  justify-content: space-between;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  width: 80%;
+  font-size: var(--font-size-base);
+  color: var(--color-font-color1);
+}
+
+/* Table */
+.tableHeader,
+.tableRow {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-wrap: nowrap;
+  margin: 0 1.875rem;
+}
+
+.tableHeader {
+  font-size: 1.125rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-font-color2);
+}
+
+.tableRow {
+  font-size: 1.125rem;
+  height: auto;
+  margin-top: 10px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.cell.number { flex: 0.08; }
+.cell.name { flex: 0.12; }
+.cell.company { flex: 0.2; }
+.cell.email { flex: 0.2; }
+.cell.phone { flex: 0.15; }
+.cell.group { flex: 0.25; }
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  border-radius: var(--border-radius-main);
+  overflow: hidden;
+  background-color: var(--color-sud-color2);
+  height: 2.5rem;
+  width: 100%;
+  max-width: 15rem;
+}
+
+.button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-base);
+  height: 100%;
+  cursor: pointer;
+  text-transform: capitalize;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-sud-color2);
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.button.inactive {
+  color: var(--color-font-back);
+  background-color: var(--color-sud-color2);
+}
+
+.button.inactive:hover {
+  background-color: var(--color-sud-color1);
+  color: var(--color-white);
+  opacity: 0.9;
+}
+
+/* Empty state */
+.contactEmptyContainer {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-family);
+  color: var(--color-font-back);
+}
+
+.contactEmptyText {
+  font-size: var(--font-size-base);
+  font-weight: 800;
+  text-transform: capitalize;
+  margin-top: 0.75rem;
+}
+
+.contactEmptyIcon {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+}
+
+/* Pagination — 하단 고정 */
+.paginationParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 0;
+  flex-wrap: wrap;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--color-white);
+  z-index: 10;
+  margin-top: auto;
+}
+
+.pageButton,
+.pageArrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-sud-color2);
+  border: none;
+  color: var(--color-font-color2);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pageButton:hover {
+  background-color: var(--color-sud-color1);
+  color: var(--color-white);
+}
+
+.activePage {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-weight: bold;
+}
+
+.pageArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageArrow {
+  background-color: white;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .pageButton, .pageArrow { width: 36px; height: 36px; font-size: 16px; }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .pageButton, .pageArrow { width: 32px; height: 32px; font-size: 15px; }
+}
+
+@media (max-width: 480px) {
+  .pageButton, .pageArrow { width: 28px; height: 28px; font-size: 14px; }
+}
+
+/* Tablet / Mobile adjustments */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+  .title { width: 100%; margin-bottom: 0.9375rem; }
+  .searchBox { width: 100%; height: 2.25rem; font-size: 0.875rem; }
+  .searchInput { font-size: 0.875rem; }
+  .tableHeader, .tableRow { margin: 0 1.25rem; font-size: 1rem; }
+  .tableHeader .cell.number,
+  .tableRow .cell.number,
+  .tableHeader .cell.email,
+  .tableRow .cell.email { display: none; }
+  .cell.name { flex: 0.2; }
+  .cell.company { flex: 0.25; }
+  .cell.phone { flex: 0.2; }
+  .cell.group { flex: 0.35; }
+  .buttonGroup { max-width: none; height: 2.25rem; }
+  .button { font-size: 0.875rem; height: 2.25rem; }
+}
+
+@media (max-width: 487px) {
+  .contactList { padding: 0.875rem; }
+  .header { padding: 0; }
+  .searchBox { width: 100%; height: 2rem; font-size: 0.75rem; padding: 0 0.75rem; }
+  .tableHeader, .tableRow { margin: 0; font-size: 0.875rem; padding: 0; overflow-x: auto; }
+  .tableHeader .cell.number,
+  .tableRow .cell.number,
+  .tableHeader .cell.company,
+  .tableRow .cell.company,
+  .tableHeader .cell.email,
+  .tableRow .cell.email { display: none; }
+  .cell.name { flex: 1; font-size: 0.75rem; }
+  .cell.phone { flex: 1.5; font-size: 0.75rem; }
+  .cell.group { flex: 2; }
+  .buttonGroup { height: 2rem; font-size: 0.75rem; }
+  .button { font-size: 0.75rem; height: 2rem; }
+}

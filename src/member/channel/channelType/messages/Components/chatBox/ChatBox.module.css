@@ -50,6 +50,7 @@
   align-items: center;
   gap: 12px;
   width: 70%;
+  flex-wrap: wrap; /* 줄바꿈 가능 */
 }
 
 .chatBox__searchBar {
@@ -64,7 +65,6 @@
   box-sizing: border-box;
 }
 
-/* 검색용 */
 .chatBox__searchInput {
   flex: 1;
   border: none;
@@ -72,11 +72,6 @@
   font-size: 12px;
   color: #8c8c8c;
   background: transparent;
-}
-
-.chatBox__icon {
-  width: 24px;
-  height: 24px;
 }
 
 .chatBox__searchIcon {
@@ -87,9 +82,10 @@
   cursor: pointer;
 }
 
-/* 필터 쪽 */
+/* 필터 버튼 */
 .chatBox__collapseBtn {
-  width: 20%;
+  min-width: 80px;
+  max-width: 150px;
   height: 40px;
   padding: 0 12px;
   background: #fff;
@@ -100,13 +96,43 @@
   gap: 6px;
   font-size: 14px;
   cursor: pointer;
-  white-space: nowrap; /* 메시지 줄바꿈 방지 */
+  white-space: nowrap;
 }
 
 .chatBox__collapseIcon {
   width: 20px;
   height: 20px;
   object-fit: contain;
+}
+
+.chatBox__sortDropdown {
+  min-width: 100%;
+  max-width: 150px;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  z-index: 10;
+  padding: 4px 0;
+}
+
+.chatBox__sortOption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.chatBox__sortOption:hover {
+  background-color: #f0f0f0;
+  border-radius: 10px;
 }
 
 /* 메시지 리스트 */
@@ -123,33 +149,77 @@
   border-radius: 22px;
 }
 
-/* 메시지 아이템 */
+/* 메시지 wrapper (말풍선 + 시간) */
+.chatBox__messageWrapper {
+  display: flex;
+  flex-direction: column; /* 말풍선+시간 위, 이름/직급 아래 */
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* 내부: 말풍선 + 시간 */
+.chatBox__messageInner {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* 왼쪽 메시지 (상대방) */
+.chatBox__messageWrapper--left .chatBox__messageInner {
+  flex-direction: row; /* 말풍선 왼쪽, 시간 오른쪽 */
+  align-self: flex-start;
+}
+
+/* 오른쪽 메시지 (내쪽) */
+.chatBox__messageWrapper--right .chatBox__messageInner {
+  flex-direction: row; /* 말풍선 오른쪽, 시간 왼쪽 */
+  align-self: flex-end;
+}
+
+/* 이름/직급: 말풍선 아래 */
+.chatBox__sender {
+  font-size: 14px;
+  color: #404040;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+/* 말풍선 */
 .chatBox__message {
-  background-color: #bde2ff;
-  border-radius: 16px 0 16px 16px;
+  background-color: #bde2ff; /* 내/상대 동일 */
+  border-radius: 16px 0 16px 16px; /* 기본 왼쪽 모양 */
   padding: 10px 20px;
   max-width: 70%;
   color: #404040;
-  text-transform: uppercase;
   word-break: break-word;
+  display: inline-block;
+  transform-origin: center;
 }
 
-.chatBox__message--left {
-  align-self: flex-start;
-  transform: scaleX(-1);
+/* 오른쪽 말풍선 모양 */
+.chatBox__messageWrapper--right .chatBox__message {
+  border-radius: 0 16px 16px 16px;
 }
 
-.chatBox__message--left .chatBox__messageInner {
-  align-self: flex-start;
-  transform: scaleX(-1);
+/* 말풍선 상하 + 좌우 뒤집기 */
+.chatBox__messageWrapper--left .chatBox__message {
+  transform: scaleX(-1) scaleY(-1);
 }
 
-.chatBox__message--right .chatBox__messageInner{
-  align-self: flex-start;
+.chatBox__messageWrapper--right .chatBox__message {
+  transform: scaleX(-1) scaleY(-1);
 }
 
-.chatBox__message--right {
-  align-self: flex-end;
+/* 글자는 다시 뒤집어서 정상 표시 */
+.chatBox__message > * {
+  transform: scaleX(-1) scaleY(-1);
+}
+
+/* 시간 */
+.chatBox__timestamp {
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
 }
 
 /* 입력 영역 */
@@ -178,19 +248,6 @@
   justify-content: center;
 }
 
-.chatBox__attachButton button {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 36px;
-  padding: 8px;
-  background: transparent;
-  cursor: pointer;
-}
-
 .chatBox__inputIcon {
   width: 24px;
   height: 24px;
@@ -206,7 +263,6 @@
   background: transparent;
   border: none;
   outline: none;
-  text-transform: none;
 }
 
 .chatBox__sendButton {
@@ -219,7 +275,6 @@
   justify-content: center;
   border: none;
   cursor: pointer;
-  padding: 0;           /* 불필요한 패딩 제거 */
 }
 
 .chatBox__sendButton:hover {
@@ -230,95 +285,8 @@
 .chatBox__sendIcon {
   width: 30px;
   height: 30px;
-  
 }
 
-/* 채팅창 파일 접었다 폈다 */
-.chatBox__sortDropdown {
-  min-width: 100%; /* 버튼 기준 */
-  max-width: 150px; /* 너무 커지지 않게 */
-  position: absolute;
-  top: 48px; /* 버튼 높이 맞춤 */
-  left: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  z-index: 10;
-  padding: 4px 0;
-}
-
-.chatBox__sortOption {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 32px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-   white-space: nowrap; /* 줄바꿈 방지 */
-}
-
-.chatBox__sortOption:hover {
-  background-color: #f0f0f0;
-  border-radius: 10px;
-}
-
-.chatBox__collapseBtn {
-  min-width: 80px; /* 최소 폭 */
-  max-width: 150px; /* 최대 폭 */
-  width: auto;      /* 내용에 맞춰 */
-}
-
-.chatBox__topControls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap; /* 버튼과 검색창이 좁아도 줄바꿈 가능 */
-}
-
-.chatBox__collapseWrapper {
-  margin-left: 95px;
-}
-
-
-
-/* 말풍선 + 시간 wrapper */
-.chatBox__messageWrapper {
-  display: flex;
-  align-items: flex-end; /* 말풍선과 시간 아래쪽 맞춤 */
-  gap: 6px; /* 말풍선과 시간 간격 */
-  margin-bottom: 8px;
-}
-
-.chatBox__messageWrapper--left {
-  flex-direction: row; /* 말풍선 왼쪽, 시간 오른쪽 */
-  align-self: flex-start;
-}
-
-.chatBox__messageWrapper--right {
-  flex-direction: row-reverse; /* 말풍선 오른쪽, 시간 왼쪽 */
-  align-self: flex-end;
-}
-
-/* 말풍선 */
-.chatBox__message {
-  background-color: #bde2ff;
-  border-radius: 16px 0 16px 16px;
-  padding: 10px 20px;
-  max-width: 70%;
-  color: #404040;
-  word-break: break-word;
-}
-
-
-
-/* 시간 표시 */
-.chatBox__timestamp {
-  font-size: 10px;
-  color: #999;
-  white-space: nowrap;
-}
 /* 반응형 */
 @media (max-width: 600px) {
   .chatBox__headerWrapper {

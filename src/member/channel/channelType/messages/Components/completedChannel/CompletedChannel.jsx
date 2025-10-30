@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./CompletedChannel.module.css";
 import useCompletedChannel from "./useCompletedChannel";
 
-const CompletedChannel = ({ onChannelClick }) => {
+const CompletedChannel = ({ onChannelClick, selectedSeq }) => {
 
   const {
     completedList, chatSeq,
@@ -19,7 +19,7 @@ const CompletedChannel = ({ onChannelClick }) => {
         {completedList.map((item) => (
           <li
             key={item.chat_seq}
-            className={`${styles.item} ${chatSeq === item.chat_seq ? styles.selected : ""
+            className={`${styles.item} ${selectedSeq === item.chat_seq ? styles.selected : ""
               }`}
             onClick={() => handleClickChat(item.chat_seq)}
           >

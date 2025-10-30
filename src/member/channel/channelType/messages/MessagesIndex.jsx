@@ -84,7 +84,7 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>
-          <FileBox />
+          <FileBox key={selectedSeq} seq={selectedSeq} />
         </div>
         <div className={styles.outBox}>
           <OutBox />

@@ -15,6 +15,7 @@ function useChatBox(seq, setAlertRooms) {
     const ws = useRef(null);
     const messageListRef = useRef(null);
 
+
     useEffect(() => {
         console.log(seq);
         caxios.post("/chat/chatRoom", { chat_seq: seq, member_email: id },
@@ -36,7 +37,8 @@ function useChatBox(seq, setAlertRooms) {
         setMessages([]);
         if (!room.title) return;
         setInput(prev => ({ ...prev, chat_seq: seq }));
-        ws.current = new WebSocket(`ws://10.10.55.89/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current = new WebSocket(`ws://10.10.55.103/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current.binaryType = "arraybuffer";
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
@@ -45,7 +47,34 @@ function useChatBox(seq, setAlertRooms) {
                 setMessages((prev) => [...prev, data.data]);
             } else if (data.type === "history") {
                 console.log(data);
-                setMessages(data.messages);
+                const converted = data.each.map(item => {
+                    const msg = item.data;
+                    const file = item.fdata;
+
+                    if (file) {
+                        return {
+                            ...msg,
+                            type: "file",
+                            sysname: file.sysname,
+                            oriname: file.oriname,
+                            file_type: file.file_type,
+                        };
+                    } else {
+                        return { ...msg, type: "chat" };
+                    }
+                })
+                setMessages(converted);
+            } else if (data.type === "file") {
+                console.log(data);
+                setMessages((prev) => [
+                    ...prev,
+                    {
+                        ...data.data,        // 기본 메시지 정보
+                        type: "file",        // 여기에 타입 표시 추가!
+                        sysname: data.fdata.sysname,
+                        file_type: data.fdata.file_type
+                    },
+                ]);
             } else if (data.type === "alert") { // 채팅 알람기능
                 setAlertRooms(prev => {
                     // 중복 방지: chat_seq가 이미 있으면 추가하지 않음
@@ -57,40 +86,50 @@ function useChatBox(seq, setAlertRooms) {
             }
         };
 
-        return () => ws.current?.close();
+        return () => {
+            if (ws.current) {
+                ws.current.close();
+                ws.current = null;
+            }
+        };
     }, [room.title, seq]);
 
     // 메세지 전송
     const sendMessage = async (data) => {
-        if (input.message.trim() === "" && (!data || data.length === 0)) return;//메세지나 파일리스트 비어잇음 반송
 
         // 1️.텍스트 메시지 전송
         if (input.message.trim() !== "") {
-            ws.current.send(JSON.stringify(input));
+            ws.current.send(JSON.stringify({
+                ...input,
+                chat_seq: seq
+            }));
             setInput(prev => ({ ...prev, message: "" }));
         }
 
+
         // 2️. 파일(Blob 또는 FileList) 전송
-        if (data) {
-            const files = data instanceof FileList ? Array.from(data) : [data];// FileList나 단일 Blob 구분 없이 배열로 변환
+        if (data instanceof Blob || data instanceof File) {
+            const file = data;
+            const fileName = file.name || `chatFile_${Date.now()}.bin`;
 
-            // 순차적으로 전송 (await로 메타 → 데이터 순서 보장)
-            for (const file of files) {
-                const fileName = file.name || `chatFile_${Date.now()}.bin`;
+            // 1. 파일 메타정보 먼저 전송
+            const fileMeta = {
+                type: "file",
+                chat_seq: seq,
+                file_name: fileName,
+            };
 
-                // 1. 파일 메타정보 먼저 전송
-                const fileMeta = {
-                    type: "file",
-                    chat_seq: input.chat_seq,
-                    file_name: fileName,
-                };
-                ws.current.send(JSON.stringify(fileMeta)); // 채팅방 시퀀스, 파일 이름 보냄
+            ws.current.send(JSON.stringify(fileMeta));
+            // 2. 메타 프레임 보낸 후 잠깐 기다리기
+            await new Promise(resolve => setTimeout(resolve, 100));
 
-                await new Promise((resolve) => setTimeout(resolve, 80));// 2. 잠시 대기 — 순차적으로 들어가도록
-                ws.current.send(file);// 3.실제 파일 Blob 전송
-            }
+            const buffer = await file.arrayBuffer();
+            console.log("보내는 파일:", file.name, "크기:", file.size, "arrayBuffer:", buffer.byteLength);
+            ws.current.send(buffer);
+            setInput(prev => ({ ...prev, message: "" }));
         }
     };
+
 
 
 

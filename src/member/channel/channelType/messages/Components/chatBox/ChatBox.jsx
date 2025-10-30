@@ -7,7 +7,7 @@ import useChatBox from "./useChatBox";
 import { useState, useRef, useEffect } from "react";
 
 
-const ChatBox = ({ seq , setAlertRooms}) => {
+const ChatBox = ({ seq, setAlertRooms }) => {
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
@@ -17,6 +17,8 @@ const ChatBox = ({ seq , setAlertRooms}) => {
   // 화면에 표시할 메시지 목록 (로컬 복사본)
   // originalMessages가 바뀌면 아래 useEffect에서 동기화함.
   const [messages, setMessages] = useState(originalMessages);
+
+
 
   // 현재 입력폼에서 첨부된 파일들 (File 객체 배열)
   // 사용자가 <input type="file">로 파일을 선택하면 handleFileChange에서 설정.
@@ -41,30 +43,17 @@ const ChatBox = ({ seq , setAlertRooms}) => {
   // 외부(originalMessages) 변경을 로컬(messages)로 반영
   useEffect(() => setMessages(originalMessages), [originalMessages]);
 
-  /**
-   * 파일 선택 이벤트 핸들러
-   *
-   * e.target.files는 FileList(유사 배열) 입니다. Array.from으로 일반 배열로 변환해서
-   * fileList 상태에 저장합니다. 이 상태는 나중에 handleSendMessage에서 FormData에 append됩니다.
-   *
-   * - fileList 항목은 실제 File 객체들을 포함합니다 (name, size, type, 등 접근 가능).
-   * - 파일을 화면에 보여줄 때는 URL.createObjectURL 또는 서버에서 받은 URL을 사용합니다.
-   */
+
+  //파일 선택하면 상태변수배열로 저장
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setFileList(files);
   };
-
-  /**
-   * 첨부한 파일 제거
-   *
-   * - fileList 배열에서 특정 인덱스 제거
-   * - input[type=file]의 내부 파일 목록도 DataTransfer를 이용해 동기화 (브라우저에서 파일 input을 프로그래밍으로
-   *   바꾸려면 DataTransfer를 사용해야 함)
-   */
+  //상태변수 배열 없애기
   const handleRemoveFile = (index) => {
     const newFileList = fileList.filter((_, i) => i !== index);
     setFileList(newFileList);
+
 
     // 파일 input 내부 값도 직접 변경해주기
     const fileInput = document.getElementById("fileUpload");
@@ -75,10 +64,7 @@ const ChatBox = ({ seq , setAlertRooms}) => {
     }
   };
 
-  /**
-   * 정렬 버튼 클릭 — 드롭다운 보이기/숨기기
-   * 버튼 너비를 재어 드롭다운 너비로 사용
-   */
+  //드롭다운
   const handleCollapseClick = () => {
     if (buttonRef.current) setDropdownWidth(buttonRef.current.offsetWidth);
     setShowCollapseDropdown((prev) => !prev);
@@ -107,60 +93,29 @@ const ChatBox = ({ seq , setAlertRooms}) => {
     setMessages(sortedMessages);
   };
 
-  /**
-   * 타임스탬프 포맷터 (HH:mm)
-   */
+
+
+  // 지원왈 : 혜빈아 이거 시스데이터로 백엔드서버에서 넣을거면 필요없지 않나?
   const formatTimestamp = (ts) => {
     const date = ts ? new Date(ts) : new Date();
     if (isNaN(date)) return "";
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  /**
-   * 메시지/파일 전송 핵심 함수 (handleSendMessage)
-   *
-   * 흐름(세부 단계):
-   * 1) 유효성 검사: 텍스트가 모두 공백이고 파일도 없으면 아무 동작 안 함.
-   * 2) FormData 구성:
-   *    - formData.append("message", input.message)
-   *    - fileList.forEach(f => formData.append("files", f))
-   *    => 이 FormData 객체를 sendMessage(formData)로 보냄. (sendMessage는 useChatBox에서 서버 전송 로직을 담당)
-   * 3) 로컬 UI 즉시 반영:
-   *    - 서버 응답을 기다리지 않고 즉시 화면에 보여주기 위해 newMsg 객체 생성
-   *    - newMsg.files에 URL.createObjectURL(f)를 사용해 임시 브라우저 URL을 넣음(브라우저 로컬 미리보기)
-   *      -> 주의: createObjectURL로 생성된 URL은 나중에 URL.revokeObjectURL로 해제해주는 것이 메모리 누수 방지에 좋음.
-   *    - setMessages(prev => [...prev, newMsg])로 화면에 추가
-   * 4) 입력 초기화:
-   *    - setInput({ message: "" })
-   *    - setFileList([])
-   *    - file input 요소의 value를 ""로 리셋
-   *
-   * NOTE: 서버에서 실제로 메시지와 파일 URL을 반환하면 useChatBox 훅이 originalMessages를 업데이트하고
-   *       useEffect가 messages를 동기화함. 그러면 로컬의 임시 메시지는 서버에서 온 정식 메시지로
-   *       대체(또는 추가)될 수 있음.
-   */
-  const handleSendMessage = () => {
+
+  //메세지 전송 클릭햇을때 
+  const handleSendMessage = async () => {
     // 1) 텍스트가 공백이고 파일 없음 -> 전송 중단
     if (!input.message.trim() && fileList.length === 0) return;
 
-    // 2) FormData 준비 (서버 전송을 위한 포맷)
-    //const formData = new FormData();
-    // 텍스트 메시지 포함
-    //formData.append("message", input.message);
-    // 파일들을 files 필드에 append (백엔드에서 동일한 필드명으로 받도록 구현되어 있어야 함)
-    //for (const file of fileList) {
-    //  form.append("fileList", file)
-    //}
-
-    // 실제 네트워크 전송은 useChatBox 훅의 sendMessage가 담당.
-    // sendMessage(formData)는 보통 fetch/axios 또는 WebSocket을 통해 서버로 보냄.
-    // (sendMessage 내부에서 성공/실패 콜백, 에러 처리 등이 있을 수 있음)
-
-    // 파일 먼저 전송 (바이너리)
-    for (const blob of fileList) {
-      sendMessage(blob);
+    //2) 파일이라면
+    if (fileList.length > 0) {
+      for (const blob of fileList) {
+        await sendMessage(blob); // 각 파일 전송 완료 후 다음 파일로 넘어감
+      }
     }
-
+    //2. 메세지 잇으면 메세지 전송
+    sendMessage(input.message);
 
 
     // 3) UI 즉시 반영을 위한 임시 메시지 객체 생성
@@ -171,13 +126,6 @@ const ChatBox = ({ seq , setAlertRooms}) => {
       message_seq: messages.length,
       member_email: id,
       message: input.message,
-      files: fileList.map((f) => ({
-        name: f.name,
-        // URL.createObjectURL은 브라우저에서 File 객체에 접근해 임시 URL을 만들어줌.
-        // 클릭하면 브라우저가 미리보기를 보여주거나 다운로드가 가능.
-        // (참고: 이 URL은 임시이므로 사용 후 URL.revokeObjectURL로 해제해주는 것이 권장됨)
-        url: URL.createObjectURL(f),
-      })),
       message_at: new Date().toISOString(),
       name: "나",
       level_code: "",
@@ -233,6 +181,8 @@ const ChatBox = ({ seq , setAlertRooms}) => {
       }
     }
   };
+
+
 
   return (
     <div className={styles.chatBox}>
@@ -306,27 +256,27 @@ const ChatBox = ({ seq , setAlertRooms}) => {
               <div className={styles.chatBox__messageInner}>
                 {/* 말풍선 내부: 텍스트 + 파일 목록을 함께 보여줌 */}
                 <div className={styles.chatBox__message}>
-                  {/* 텍스트 메시지가 비어있지 않으면 표시 */}
-                  {msg.message && <div>{msg.message}</div>}
-
-                  {/* 파일이 있으면 말풍선 내부에 링크로 표시
-                      - 현재 코드는 `download` 속성을 사용해서 클릭하면 다운로드를 시도함.
-                      - 만약 새 탭 미리보기를 원하면 `download` 제거.
-                   */}
-                  {msg.files && msg.files.length > 0 && (
-                    <div className={styles.chatBox__fileList}>
-                      {msg.files.map((file, idx) => (
-                        <a
-                          key={idx}
-                          href={file.url}
-                          download
-                          className={styles.chatBox__fileLink}
-                        >
-                          📎 {file.name}
-                        </a>
-                      ))}
+                  {/* ✅ 수정 시작 — 파일 여부에 따라 조건부 렌더링 */}
+                  {!msg.sysname ? (
+                    // 파일이 없으면 일반 메시지 표시
+                    msg.message && <div>{msg.message}</div>
+                  ) : (
+                    // 파일이 있으면 a태그로 다운로드 링크 표시
+                    <div>
+                      <a
+                        href={`http://10.10.55.103/file/download?sysname=${encodeURIComponent(
+                          msg.sysname
+                        )}&file_type=${encodeURIComponent(msg.file_type)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                      >
+                        📎 {msg.oriname || msg.message}
+                      </a>
                     </div>
                   )}
+                  {/* ✅ 수정 끝 */}
+
                 </div>
 
                 {/* 말풍선 오른쪽(또는 왼쪽)에 표시되는 시간 */}

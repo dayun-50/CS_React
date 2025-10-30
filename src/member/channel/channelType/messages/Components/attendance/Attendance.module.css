@@ -72,11 +72,11 @@
 
 /* 선택된 멤버 */
 .selected {
-  width: 100%;
-  border-left: 2px solid #0090ff;
-  background-color: #e6f3ff;
-  font-weight: bold;
-  color: #0090ff;
+  width: 100% !important;
+  border-left: 2px solid #0090ff !important;
+  background-color: #e6f3ff !important;
+  font-weight: bold !important;
+  color: #0090ff !important;
 }
 
 /* 호버 효과 */
@@ -86,4 +86,10 @@
   border-left: 2px solid #0090ff;
   font-weight: bold;
   color: #0090ff;
+}
+
+
+/* 알람기능 */
+.alert {
+  background-color: #50b3ff56;
 }

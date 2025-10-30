@@ -1,10 +1,15 @@
-import { useState } from "react"; // React의 상태 관리 훅
-import { Calendar, momentLocalizer } from "react-big-calendar"; // React Big Calendar 컴포넌트와 로컬라이저
-import moment from "moment"; // 날짜/시간 처리 라이브러리
-import "moment/locale/ko"; // 한국어 로케일 설정
-import "react-big-calendar/lib/css/react-big-calendar.css"; // 캘린더 기본 스타일
-import styles from "./ScheduleBox.module.css"; // CSS 모듈
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io"; // 이전/다음 아이콘
+
+import { useState } from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "moment/locale/ko";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import styles from "./ScheduleBox.module.css";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import useScheduleBox from "./useScheduleBox";
+import { event } from "jquery";
+import { useParams } from "react-router-dom";
+
 
 moment.locale("ko"); // moment 로케일을 한국어로 설정
 const localizer = momentLocalizer(moment); // react-big-calendar에 moment 로컬라이저 적용
@@ -61,7 +66,7 @@ const CustomToolbar = ({ label, onNavigate }) => {
 // ─── 커스텀 이벤트 카드 컴포넌트
 const CustomEvent = ({ event }) => {
     return (
-        <div className={styles.eventCard} style={{ display: "flex", justifyContent: "space-between" , alignItems: "center" }}>
+        <div className={styles.eventCard} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             {/* 이벤트 제목 */}
             <div className={styles.eventTitle}>{event.title}</div>
             {/* 이벤트 기간 */}
@@ -72,28 +77,34 @@ const CustomEvent = ({ event }) => {
     );
 };
 
-const ScheduleBox = () => {
-    const [events, setEvents] = useState([]); // 이벤트 배열 상태
+
+const ScheduleBox = ({ seq, selectedEmails, setSelectedEmails }) => {
+    const [events, setEvents] = useState([]);
+    const {
+        sevaEvent, handleSelectEvent
+    } = useScheduleBox(events, setEvents, seq, selectedEmails);
+
 
     // ─── 이벤트 추가
     const handleSelectSlot = ({ start, end }) => {
         const title = prompt("이벤트 제목을 입력하세요:"); // 사용자 입력
         if (title) {
-            setEvents([
-                ...events,
-                {
-                    title, // 이벤트 제목
-                    start, // 시작 날짜
-                    end,   // 종료 날짜
-                },
-            ]);
-        }
-    };
+            // 이벤트 컬러 결정
+            let color = "#00C7BE"; // 기본 민트
+            if (title.includes("휴가")) color = "#007AFF";
+            else if (title.includes("회의")) color = "#FF9500";
+            else if (title.includes("긴급")) color = "#FF3B30";
+            else if (title.includes("서류")) color = "#AF52DE";
+            const newEvent =
+            {
+                title,
+                color,
+                start: start.toISOString(),
+                end: end.toISOString()
+            };
+            setEvents([...events, newEvent]);
+            sevaEvent(newEvent);
 
-    // ─── 이벤트 삭제
-    const handleSelectEvent = (event) => {
-        if (window.confirm(`"${event.title}" 이벤트를 삭제하시겠습니까?`)) {
-            setEvents(events.filter((e) => e !== event)); // 선택한 이벤트 제외
         }
     };
 
@@ -162,5 +173,6 @@ const ScheduleBox = () => {
         </div>
     );
 };
+
 
 export default ScheduleBox;

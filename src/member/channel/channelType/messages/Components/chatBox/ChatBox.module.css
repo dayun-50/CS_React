@@ -172,7 +172,7 @@
 
 /* 오른쪽 메시지 (내쪽) */
 .chatBox__messageWrapper--right .chatBox__messageInner {
-  flex-direction: row-reverse;; /* 말풍선 오른쪽, 시간 왼쪽 */
+  flex-direction: row-reverse; /* 말풍선 오른쪽, 시간 왼쪽 */
   align-self: flex-end;
 }
 
@@ -288,7 +288,8 @@
   height: 30px;
 }
 
-/* 반응형 */
+/* ------------------ 반응형 ------------------ */
+/* 모바일 <= 600px */
 @media (max-width: 600px) {
   .chatBox__headerWrapper {
     flex-direction: column;
@@ -300,10 +301,47 @@
   .chatBox__topControls {
     flex-direction: column;
     width: 100%;
+    gap: 10px;
   }
 
   .chatBox__searchBar,
   .chatBox__collapseBtn {
     width: 100%;
+    min-width: auto;
+    max-width: none;
+  }
+
+  .chatBox__message {
+    max-width: calc(100% - 20px);
+  }
+
+  .chatBox__inputText {
+    width: auto;
+    flex-grow: 1;
+  }
+
+  .chatBox__sendButton {
+    width: auto;
+    flex-shrink: 0;
+  }
+}
+
+/* 태블릿 601px ~ 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .chatBox__topControls {
+    width: 90%;
+    gap: 20px;
+  }
+
+  .chatBox__searchBar {
+    width: 65%;
+  }
+
+  .chatBox__collapseBtn {
+    width: 30%;
+  }
+
+  .chatBox__message {
+    max-width: 80%;
   }
 }

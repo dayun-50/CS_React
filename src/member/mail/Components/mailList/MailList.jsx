@@ -76,41 +76,21 @@ const MailList = ({ tabName = "전체" }) => {
       setIsLoading(true);
 
       try {
-        let emails = [];
+        // 💡 API 호출: INBOX, Sent 구분하여 호출
+        let folderToFetch = "INBOX";
+        if (tabName === "보낸 편지함") folderToFetch = "Sent";
+        // 💡 mailRequest 헬퍼 함수를 사용하여 JWT 인증을 통과하며 데이터 요청
 
-        if (tabName === "받은 편지함" || tabName === "전체") {
-          // 받은 편지함 (INBOX) 단일 조회
-          const response = await mailRequest(
-            "get",
-            `/emails/list?folder=INBOX`
-          );
-          emails =
-            response.data.status === "SUCCESS" ? response.data.emails : [];
-        } else if (tabName === "보낸 편지함") {
-          // 보낸 편지함 (Sent) 단일 조회
-          const response = await mailRequest("get", `/emails/list?folder=Sent`);
-          emails =
-            response.data.status === "SUCCESS" ? response.data.emails : [];
-        } else if (tabName === "전체 메일함") {
-          // 💡 [전체 메일함] INBOX와 Sent 두 폴더 조회 후 합치기
-          const [inboxRes, sentRes] = await Promise.all([
-            mailRequest("get", `/emails/list?folder=INBOX`),
-            mailRequest("get", `/emails/list?folder=Sent`),
-          ]);
-
-          const inboxMails =
-            inboxRes.data.status === "SUCCESS" ? inboxRes.data.emails : [];
-          const sentMails =
-            sentRes.data.status === "SUCCESS" ? sentRes.data.emails : []; // 두 목록을 합치고, 최신 날짜순으로 정렬
-
-          emails = [...inboxMails, ...sentMails].sort((a, b) => {
-            // 받은 날짜(INBOX) 또는 보낸 날짜(Sent) 중 존재하는 날짜를 기준으로 정렬
-            const dateA = new Date(a.receivedDate || a.sentDate);
-            const dateB = new Date(b.receivedDate || b.sentDate);
-            return dateB - dateA; // 내림차순 (최신순)
-          });
+        const response = await mailRequest(
+          "get",
+          `/emails/list?folder=${folderToFetch}`
+        );
+        if (response.data.status === "SUCCESS" && response.data.emails) {
+          // 💡 [핵심] folder.getMessages()의 결과(EmailDTO 목록)를 상태에 저장
+          setMailList(response.data.emails);
+        } else {
+          setMailList([]);
         }
-        setMailList(emails);
       } catch (error) {
         console.error(
           "메일 목록 조회 중 오류 발생:",
@@ -293,10 +273,12 @@ const MailList = ({ tabName = "전체" }) => {
 
         {/* 메일 리스트 */}
         <div className={styles.realmaillist}>
-          {currentMails.length > 0 ? (
+          {isLoading ? ( // 💡 로딩 상태 표시
+            <p>메일 목록을 불러오는 중입니다...</p>
+          ) : currentMails.length > 0 ? (
             currentMails.map((mail) => (
               <div
-                key={mail.uid}
+                key={mail.uid} //고유키 사용
                 className={styles.maillistdown}
                 onClick={() => handleMailClick(mail)}
                 style={{ fontWeight: mail.isRead === "n" ? "bold" : "normal" }} // 안 읽은 메일 굵게

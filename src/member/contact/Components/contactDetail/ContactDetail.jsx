@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import styles from "./ContactDetail.module.css";
 import { IoClose } from "react-icons/io5";
 import { caxios } from "../../../../config/config"; // axios 인스턴스
+import useAuthStore from "../../../../store/useAuthStore";
 
 const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
+  const { id: userEmail } = useAuthStore();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [category, setCategory] = useState(
@@ -29,6 +31,7 @@ const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
       const shareValue = category === "팀용" ? "y" : "n";
       const payload = {
         contact_seq: contact.contact_seq,
+        owner_email: userEmail, // 💡 [필수 수정] owner_email 추가
         share: shareValue,
         contact_group: company,
         name,
@@ -52,7 +55,12 @@ const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
   const handleDelete = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       caxios
-        .delete(`/contact/delete/${contact.contact_seq}`)
+        .delete(`/contact/delete`, {
+          data: {
+            contact_seq: contact.contact_seq,
+            owner_email: userEmail, // [추가] 소유자 이메일 추가
+          },
+        })
         .then(() => {
           alert("삭제되었습니다.");
           onDeleted(contact.contact_seq);
@@ -182,7 +190,7 @@ const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
                 onChange={(e) => setMemo(e.target.value)}
               />
             ) : (
-              <div className={styles.memo}>{memo}</div>
+              <div className={styles.value}>{memo}</div>
             )}
           </div>
         </div>

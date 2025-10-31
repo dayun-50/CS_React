@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export const caxios = axios.create({
-    baseURL : `http://10.10.55.80`
+    baseURL: `http://10.10.55.80`
 });
+
 
 // 이 함수는 MailWrite.jsx에서 호출되며, James Access Token을 수동으로 삽입합니다.
 // export const mailRequest = async (method, url, data) => {

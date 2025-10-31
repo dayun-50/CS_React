@@ -1,63 +1,58 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styles from "./ContactForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { caxios } from "../../../../config/config";
+import useAuthStore from "../../../../store/useAuthStore";
 
 const ContactForm = () => {
   const [group, setGroup] = useState(""); // 개인용 or 팀용
-  const [name, setName] = useState(""); // 이름
-  const [company, setCompany] = useState(""); // 회사 이름
-  const [phone1, setPhone1] = useState(""); // 연락처 1
-  const [phone2, setPhone2] = useState(""); // 연락처 2
-  const [email, setEmail] = useState(""); // 이메일
-  const [memo, setMemo] = useState(""); // 메모 내용
-  //  owner_email은 보통 로그인된 사용자 정보를 Context/Redux에서 가져옵니다.
-
-  const { user } = useContext(); // user.email 등 접근 가능
+  const [name, setName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [phone1, setPhone1] = useState("");
+  const [phone2, setPhone2] = useState("");
+  const [email, setEmail] = useState("");
+  const [memo, setMemo] = useState("");
 
   const navigate = useNavigate();
+  const { id: ownerEmail, isLogin } = useAuthStore();
 
-  // 뒤로 가기 버튼 클릭 시
-  const handleBack = () => {
-    navigate("/contact");
-  };
+  const handleBack = () => navigate("/contact");
 
-  // 추가 버튼 클릭 시
   const handleAdd = async () => {
-    const phone = `010-${phone1}-${phone2}`;
-    const share = group === "개인용" ? "n" : "y";
+    if (!isLogin) return alert("로그인이 필요합니다.");
+    if (!ownerEmail) return alert("로그인 정보가 올바르지 않습니다.");
+    if (!name || !phone1 || !phone2 || !email || !group)
+      return alert("모든 필수 항목을 입력해주세요.");
+    if (!/^\d{4}$/.test(phone1) || !/^\d{4}$/.test(phone2))
+      return alert("숫자 4자리씩 입력해주세요.");
 
-    if (!name || !phone1 || !phone2 || !email || !group) {
-      alert("모든 필수 항목(이름, 연락처, 이메일, 분류)을 입력해주세요.");
-      return;
-    }
-
-    // 수정
-    if (!user || !user.email) {
-      alert("로그인이 필요합니다.");
-      return;
-    }
-    const ownerEmail = user.email;
     const payload = {
-      name,
-      email,
-      phone,
-      share,
-      contact_group: company, // 회사 명
-      memo,
-      owner_email: ownerEmail, // 로그인한 사용자
+      name: name.trim(),
+      email: email.trim(),
+      phone: `010${phone1}${phone2}`,
+      share: group === "개인용" ? "n" : "y",
+      contact_group: companyName, // input에서 가져온 회사 이름
+      memo: memo ? memo.trim() : null,
+      owner_email: ownerEmail,
     };
 
-    console.log("보내는 payload:", payload); // 콘솔 확인
+    console.log("전송 payload:", JSON.stringify(payload, null, 2));
 
     try {
-      const res = await caxios.post(`/contact/insert`, payload);
-      console.log("주소록 등록 성공:", res.data);
-      navigate("/contacts");
+      const res = await caxios.post("/contact/insert", payload);
+      if (res.status === 200 && res.data === 1) {
+        alert("주소록이 성공적으로 등록되었습니다.");
+        navigate("/contact");
+      } else {
+        alert("등록에 실패했습니다. 서버 응답을 확인하세요.");
+      }
     } catch (err) {
-      console.error("주소록 등록 실패:", err);
-      console.log("서버 응답 내용:", err.response?.data); // 서버 에러 확인
-      alert("등록에 실패했습니다. 콘솔에서 에러 내용을 확인하세요.");
+      console.error("주소록 등록 실패:", err.response || err);
+      if (err.response?.status === 400) {
+        alert("요청이 잘못되었습니다. 필수 항목을 확인해주세요.");
+      } else {
+        alert("등록 중 서버 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -75,10 +70,7 @@ const ContactForm = () => {
               className={`${styles.groupButton} ${
                 group === "개인용" ? styles.active : styles.inactive
               }`}
-              onClick={() => {
-                setGroup("개인용");
-                console.log("group:", "개인용");
-              }}
+              onClick={() => setGroup("개인용")}
             >
               개인용
             </button>
@@ -93,7 +85,6 @@ const ContactForm = () => {
           </div>
         </div>
 
-        {/* 이름 */}
         <div className={styles.formContent}>
           <div className={styles.inputField}>
             <div className={styles.inputLabel}>이름</div>
@@ -105,18 +96,18 @@ const ContactForm = () => {
               className={styles.textInput}
             />
           </div>
-          {/* 회사 이름 */}
+
           <div className={styles.inputField}>
             <div className={styles.inputLabel}>회사 이름</div>
             <input
               type="text"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
               placeholder="회사 이름을 입력하세요"
               className={styles.textInput}
             />
           </div>
-          {/* 연락처 */}
+
           <div className={styles.inputField}>
             <div className={styles.inputLabel}>연락처</div>
             <div className={styles.phoneWrapper}>
@@ -141,7 +132,7 @@ const ContactForm = () => {
               />
             </div>
           </div>
-          {/* 이메일 */}
+
           <div className={styles.inputField}>
             <div className={styles.inputLabel}>이메일</div>
             <input
@@ -152,7 +143,7 @@ const ContactForm = () => {
               className={styles.textInput}
             />
           </div>
-          {/* 메모장 */}
+
           <div className={styles.memoField}>
             <div className={styles.inputLabel}>메모</div>
             <textarea
@@ -164,7 +155,7 @@ const ContactForm = () => {
             ></textarea>
           </div>
         </div>
-        {/* 추가 버튼 */}
+
         <div className={styles.formFooter}>
           <button className={styles.backButton} onClick={handleBack}>
             뒤로가기

@@ -6,12 +6,13 @@ import search from "./icon/Search.svg"; // 검색 아이콘
 import useChatBox from "./useChatBox"; // 채팅 관련 훅
 import { useState, useEffect, useRef } from "react";
 
-const ChatBox = ({ seq , setAlertRooms }) => {
+const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
+
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
     messageListRef
-  } = useChatBox(seq, setAlertRooms);
+  } = useChatBox(seq, setAlertRooms, setMemberCount);
 
   const [messages, setMessages] = useState(originalMessages);
   const [fileList, setFileList] = useState([]);
@@ -21,13 +22,6 @@ const ChatBox = ({ seq , setAlertRooms }) => {
   const buttonRef = useRef(null);
   const [dropdownWidth, setDropdownWidth] = useState(0);
 
-  const levelMap = {
-    LEVEL01: "사원",
-    LEVEL02: "대리",
-    LEVEL03: "과장",
-    LEVEL04: "차장",
-    LEVEL05: "부장",
-  };
 
   useEffect(() => setMessages(originalMessages), [originalMessages]);
 
@@ -53,10 +47,11 @@ const ChatBox = ({ seq , setAlertRooms }) => {
     setShowCollapseDropdown((prev) => !prev);
   };
 
-  // 드롭다운 옵션 클릭: 버튼 텍스트 + placeholder 변경
+
   const handleCollapseOptionClick = (option) => {
     setCollapseButtonText(option);
     setShowCollapseDropdown(false);
+
 
     if(option === "날짜") {
       setSearchPlaceholder("YY-MM-DD");
@@ -118,7 +113,9 @@ const ChatBox = ({ seq , setAlertRooms }) => {
                 placeholder={searchPlaceholder} // 상태로 placeholder
                 className={styles.chatBox__searchInput}
               />
-              <img src={search} className={styles.chatBox__searchIcon} alt="검색 아이콘" />
+              <img src={search} className={styles.chatBox__searchIcon} 
+                
+              alt="검색 아이콘" />
             </div>
 
             {/* 드롭다운 */}
@@ -162,7 +159,7 @@ const ChatBox = ({ seq , setAlertRooms }) => {
             >
               {msg.member_email !== id && (
                 <div className={styles.chatBox__sender}>
-                  {`${msg.name || msg.member_email} / ${levelMap[msg.level_code] || ""}`}
+                  {`${msg.name}`}
                 </div>
               )}
 
@@ -224,9 +221,9 @@ const ChatBox = ({ seq , setAlertRooms }) => {
           <div style={{ flexGrow: 1, position: "relative", display: "flex", alignItems: "center" }}>
             <input
               type="text"
-              className={styles.chatBox__inputText}
+              className={`${styles.chatBox__inputText} ${isOn ? '' : styles.prohibition}`}
               value={input.message}
-              placeholder="메시지를 입력하세요"
+              placeholder={isOn ? "메시지를 입력하세요" : "종료된 프로젝트방 입니다."}
               onChange={(e) => setInput((prev) => ({ ...prev, message: e.target.value }))}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
@@ -237,6 +234,7 @@ const ChatBox = ({ seq , setAlertRooms }) => {
                 }
               }}
               style={{ flexGrow: 1, paddingRight: "8px" }}
+              disabled={!isOn} 
             />
 
             {fileList.length > 0 && (

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox(seq, setAlertRooms) {
+function useChatBox(seq, setAlertRooms, setMemberCount) {
 
     // 채팅방 제목 받을 준비
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -25,6 +25,8 @@ function useChatBox(seq, setAlertRooms) {
                     title: resp.data.CHAT_NAME,
                     memberCount: resp.data.MEMBER_COUNT
                 }))
+                setMemberCount(resp.data.MEMBER_COUNT);
+            console.log("카운트~",resp.data.MEMBER_COUNT);
             })
             .catch(err => {
                 console.log(err);
@@ -83,9 +85,19 @@ function useChatBox(seq, setAlertRooms) {
         }
     }, [messages]);
 
+    // 검색 아이콘
+    const serchBut = (options) => {
+        caxios.post("/chat/", {},
+            { withCredentials: true })
+            .then(resp=>{
+
+            })
+            .catch(err=>console.log(err));
+    }
+
     return {
         id, room, messages, input,
-        setInput, sendMessage, handleKeyDown,
+        setInput, sendMessage, handleKeyDown, serchBut,
         messageListRef
     }
 }

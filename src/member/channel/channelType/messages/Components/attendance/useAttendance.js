@@ -14,6 +14,7 @@ function useAttendance(onChannelClick, alertRooms, setAlertRooms) {
         caxios.post("/chat/private", { email: id },
             { withCredentials: true })
             .then(resp => {
+                console.log(resp.data);
                 setMembers(resp.data);
                 setChatSeq(resp.data.chat_seq);
             })

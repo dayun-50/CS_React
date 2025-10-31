@@ -1,3 +1,25 @@
+/* ---------------------------- */
+/* 상태 컬러 */
+.inProgress {
+  color: var(--color-font-color2);
+  font-weight: 500;
+}
+
+.approved {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.denied {
+  color: var(--color-delete-hover);
+  font-weight: 600;
+}
+
+.from {
+  font-weight: 600;
+  font-size: 16px;
+}
+
 .container {
   width: 100%;
   height: auto;
@@ -98,9 +120,9 @@ select {
   align-items: center;
 }
 
-input[type="date"] {
+.dateInputBox input[type="date"] {
   margin-right: 10px;
-  width: 120px;
+  width: 140px;
   height: 90%;
   padding: 8px;
   font-size: var(--font-size-small);
@@ -124,14 +146,13 @@ input[type="date"] {
   justify-content: flex-end;
   height: 100%;
   width: 10%;
-  padding-top: 2px;
+  padding-top: 6px;
 }
 
 /* 바디 */
 .parentBody {
   width: 100%;
   height: 250px;
-  background-color: rgb(255, 156, 255);
   padding: 10px;
   overflow: hidden;
 }
@@ -166,6 +187,9 @@ button {
   height: 48px;
   width: 200px;
   border-radius: var(--border-radius-main);
+  border: none;
+  color: white;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,20 +213,56 @@ button {
 
 /* --------------------------------------------------------- */
 /* 반응형: 작은 화면 */
-@media (max-width: 1110px) {
-  .div6_left {
+@media (max-width: 1150px) {
+  .headerEmail {
     display: none;
   }
 
-  .div6_center {
-    flex: 8.5;
+  /* ✅ 스코프 동일하게 */
+  .dateInputBox input[type="date"] {
+    width: 120px;
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .header_start_at {
+    flex: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding-right: 15px;
   }
 
-  .div6_right {
-    flex: 1.5;
+  .header_end_at {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+  }
+}
+
+/* 📱 모바일 대응 (768px 이하) */
+@media (max-width: 768px) {
+  .parentHeader {
+    padding-bottom: 15px;
+  }
+
+  /* ✅ 여기도 동일하게 */
+  .dateInputBox input[type="date"] {
+    width: 80px;
+    font-size: 12px;
+    padding: 4px;
+  }
+}
+
+/* 📱 더 작은 화면 (435px 이하) */
+@media (max-width: 435px) {
+
+  /* ✅ 여기도 동일하게 */
+  .dateInputBox input[type="date"] {
+    width: 65px;
+    font-size: 11px;
+    padding: 3px;
   }
 }

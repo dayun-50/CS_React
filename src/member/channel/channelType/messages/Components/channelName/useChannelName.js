@@ -14,6 +14,7 @@ function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms, isO
             { withCredentials: true })
             .then(resp => {
                 setDeptSeq(resp.data[0].chat_seq);
+                console.log("단체",resp.data);
                 setRooms(resp.data);
                 setChatSeq(resp.data.chat_seq);
             })

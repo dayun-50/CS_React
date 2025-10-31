@@ -23,7 +23,7 @@ const ChatRoomPlus = ({ onClose, onSelect }) => {
 
         <div className={styles.chatnamebox}>
           <label className={styles.chatname}>채팅방 이름</label>
-          <input type="text" value={list} placeholder="채팅방 이름을 입력해주세요."/>
+          <input type="text" placeholder="채팅방 이름을 입력해주세요."/>
         </div>
 
         <div className={styles.peoplemail}>

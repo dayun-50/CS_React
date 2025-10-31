@@ -43,6 +43,8 @@
   width: 100%;
   padding: 0 1.25rem;
   box-sizing: border-box;
+  /* border:1px solid black; */
+  margin-top: 12px;
 }
 
 /* 헤더 전용 스타일 */
@@ -123,72 +125,79 @@
   object-fit: cover;
 }
 
-/* 페이징 네비게이션 */
+/* ------------------- 페이지네비게이션 ------------------- */
 .paginationParent {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 0;
+  gap: 8px;
+  padding: 20px 0;
   flex-wrap: wrap;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-}
-
-.paginationList {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.paginationPage,
-.paginationPageActive {
+/* 일반 페이지 숫자 버튼 */
+.paginationButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-sud-color2); /* 클릭 안 된 상태 연한 회색 */
+  color: var(--color-font-color2);
+  border: none;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
+  transition: all 0.2s ease;
   font-size: var(--font-size-base);
   font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.2s ease;
 }
 
-.paginationPage {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+.paginationButton img {
+  width: 24px; /* 아이콘 크기 */
+  height: 24px;
 }
 
-.paginationPage:hover {
-  background-color: var(--color-sud-color1);
+.paginationButton:has(img) {
+  background-color: transparent; /* 배경 제거 */
 }
 
+
+.paginationButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 클릭된 페이지 */
 .paginationPageActive {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   background-color: var(--color-primary);
   color: var(--color-white);
   font-weight: bold;
+  border: none;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.pageNumber {
-  pointer-events: none;
+.paginationPageActive:hover {
+  background-color: var(--color-primary);
 }
 
-img {
-  width: 1.5rem; /* 24px */
-  height: 1.5rem;
-  cursor: pointer;
+/* ------------------- 반응형 ------------------- */
+@media (min-width: 768px) {
+  .paginationButton, .paginationPageActive { width: 36px; height: 36px; font-size: 16px; }
 }
 
-.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
+@media (min-width: 481px) and (max-width: 767px) {
+  .paginationButton, .paginationPageActive { width: 32px; height: 32px; font-size: 15px; }
 }
 
+@media (max-width: 480px) {
+  .paginationButton, .paginationPageActive { width: 28px; height: 28px; font-size: 14px; }
+}
 /* ----------------- 반응형 ----------------- */
 
 /* 모바일: 최대 480px */

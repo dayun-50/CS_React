@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox(seq, setAlertRooms, setMemberCount) {
+function useChatBox(seq, setAlertRooms, setMemberCount, collapseButtonText, serchValue, setIsSearching) {
 
     // 채팅방 제목 받을 준비
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -26,7 +26,7 @@ function useChatBox(seq, setAlertRooms, setMemberCount) {
                     memberCount: resp.data.MEMBER_COUNT
                 }))
                 setMemberCount(resp.data.MEMBER_COUNT);
-            console.log("카운트~",resp.data.MEMBER_COUNT);
+                console.log("카운트~", resp.data.MEMBER_COUNT);
             })
             .catch(err => {
                 console.log(err);
@@ -86,13 +86,23 @@ function useChatBox(seq, setAlertRooms, setMemberCount) {
     }, [messages]);
 
     // 검색 아이콘
-    const serchBut = (options) => {
-        caxios.post("/chat/", {},
-            { withCredentials: true })
-            .then(resp=>{
+    const serchBut = () => {
+        if (collapseButtonText === "메시지") {
+            caxios.post("/chatMessage/serchByText", {chat_seq: seq, message: serchValue}, { withCredentials: true })
+                .then(resp => {
+                    setIsSearching(prev => !prev);
+                    console.log(resp.data); // 처리할 내용
 
-            })
-            .catch(err=>console.log(err));
+                })
+                .catch(err => console.log(err));
+        } else if (collapseButtonText === "날짜") {
+            caxios.post("/chatMessage/serchByDate", {chat_seq: seq, message_at: serchValue}, { withCredentials: true })
+                .then(resp => {
+                    setIsSearching(prev => !prev);
+                    console.log(resp.data);
+                })
+                .catch(err => console.log(err));
+        }
     }
 
     return {

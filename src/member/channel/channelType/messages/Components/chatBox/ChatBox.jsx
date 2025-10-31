@@ -1,27 +1,32 @@
 import styles from "./ChatBox.module.css";
-import attach from "./icon/Attach.svg"; // 파일 첨부 아이콘
-import message from "./icon/message.svg"; // 전송 버튼 아이콘
-import collapse from "./icon/Collapse Arrow.svg"; // 드롭다운 버튼 아이콘
-import search from "./icon/Search.svg"; // 검색 아이콘
-import useChatBox from "./useChatBox"; // 채팅 관련 훅
+import attach from "./icon/Attach.svg";
+import message from "./icon/message.svg";
+import collapse from "./icon/Collapse Arrow.svg";
+import search from "./icon/Search.svg";
+import useChatBox from "./useChatBox";
 import { useState, useEffect, useRef } from "react";
+import { IoClose } from "react-icons/io5";
 
-const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
-
-  const {
-    id, room, messages: originalMessages, input,
-    setInput, sendMessage, handleKeyDown,
-    messageListRef
-  } = useChatBox(seq, setAlertRooms, setMemberCount);
-
-  const [messages, setMessages] = useState(originalMessages);
+const ChatBox = ({ seq, setAlertRooms, setMemberCount, isOn }) => {
+  const [collapseButtonText, setCollapseButtonText] = useState("메시지");
+  const [serchValue, setSerchValue] = useState("");
+  const [searchPlaceholder, setSearchPlaceholder] = useState("검색할 내용");
+  const [messages, setMessages] = useState([]);
   const [fileList, setFileList] = useState([]);
   const [showCollapseDropdown, setShowCollapseDropdown] = useState(false);
-  const [collapseButtonText, setCollapseButtonText] = useState("메시지");
-  const [searchPlaceholder, setSearchPlaceholder] = useState("검색할 내용"); // placeholder 상태
+  const [isSearching, setIsSearching] = useState(false);
+
   const buttonRef = useRef(null);
   const [dropdownWidth, setDropdownWidth] = useState(0);
 
+  const {
+    id, room, messages: originalMessages, input,
+    setInput, sendMessage, handleKeyDown, serchBut,
+    messageListRef
+  } = useChatBox(
+    seq, setAlertRooms, setMemberCount, collapseButtonText, serchValue,
+    setIsSearching
+  );
 
   useEffect(() => setMessages(originalMessages), [originalMessages]);
 
@@ -47,13 +52,11 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
     setShowCollapseDropdown((prev) => !prev);
   };
 
-
   const handleCollapseOptionClick = (option) => {
     setCollapseButtonText(option);
     setShowCollapseDropdown(false);
 
-
-    if(option === "날짜") {
+    if (option === "날짜") {
       setSearchPlaceholder("YY-MM-DD");
     } else {
       setSearchPlaceholder("검색할 내용");
@@ -106,19 +109,19 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
           </b>
 
           <div className={styles.chatBox__topControls}>
-            {/* 검색창 */}
             <div className={styles.chatBox__searchBar}>
               <input
                 type="text"
-                placeholder={searchPlaceholder} // 상태로 placeholder
+                placeholder={searchPlaceholder}
                 className={styles.chatBox__searchInput}
+                value={serchValue}
+                onChange={e => setSerchValue(e.target.value)}
               />
-              <img src={search} className={styles.chatBox__searchIcon} 
-                
-              alt="검색 아이콘" />
+              <span onClick={serchBut} style={{ cursor: "pointer" }}>
+                {isSearching ? <IoClose size={20} /> : <img src={search} alt="검색 아이콘" />}
+              </span>
             </div>
 
-            {/* 드롭다운 */}
             <div style={{ position: "relative" }}>
               <button
                 ref={buttonRef}
@@ -151,18 +154,14 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
             <div
               key={`${msg.chat_seq}-${msg.message_seq}`}
               id={`msg-${msg.chat_seq}-${msg.message_seq}`}
-              className={`${styles.chatBox__messageWrapper} ${
-                msg.member_email === id
+              className={`${styles.chatBox__messageWrapper} ${msg.member_email === id
                   ? styles["chatBox__messageWrapper--right"]
                   : styles["chatBox__messageWrapper--left"]
-              }`}
+                }`}
             >
               {msg.member_email !== id && (
-                <div className={styles.chatBox__sender}>
-                  {`${msg.name}`}
-                </div>
+                <div className={styles.chatBox__sender}>{`${msg.name}`}</div>
               )}
-
               <div className={styles.chatBox__messageInner}>
                 <div className={styles.chatBox__message}>
                   {msg.message && <div>{msg.message}</div>}
@@ -170,25 +169,23 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
                     <div className={styles.chatBox__fileList}>
                       {msg.files.map((file, idx) => (
                         <div
-  key={idx}
-  className={styles.chatBox__fileLink}
-  onClick={() => {
-    const link = document.createElement("a");
-    link.href = file.url;
-    link.download = file.name;
-    link.click();
-  }}
-  style={{ cursor: "pointer" }}
->
-  📎 {file.name}
-</div>
+                          key={idx}
+                          className={styles.chatBox__fileLink}
+                          onClick={() => {
+                            const link = document.createElement("a");
+                            link.href = file.url;
+                            link.download = file.name;
+                            link.click();
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          📎 {file.name}
+                        </div>
                       ))}
                     </div>
                   )}
                 </div>
-                <div className={styles.chatBox__timestamp}>
-                  {formatTimestamp(msg.message_at)}
-                </div>
+                <div className={styles.chatBox__timestamp}>{formatTimestamp(msg.message_at)}</div>
               </div>
             </div>
           ))}
@@ -234,7 +231,7 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
                 }
               }}
               style={{ flexGrow: 1, paddingRight: "8px" }}
-              disabled={!isOn} 
+              disabled={!isOn}
             />
 
             {fileList.length > 0 && (

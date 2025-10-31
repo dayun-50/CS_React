@@ -2,12 +2,12 @@ import { useState } from "react";
 import styles from "./CompletedChannel.module.css";
 import useCompletedChannel from "./useCompletedChannel";
 
-const CompletedChannel = ({ onChannelClick, selectedSeq }) => {
+const CompletedChannel = ({ onChannelClick, selectedSeq, isOn }) => {
 
   const {
-    completedList, chatSeq,
+    completedList, chatSeq, 
     handleClickChat
-  } = useCompletedChannel(onChannelClick);
+  } = useCompletedChannel(onChannelClick, isOn);
 
   return (
     <div className={styles.container}>

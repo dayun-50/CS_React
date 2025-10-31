@@ -1,13 +1,37 @@
 import { useState } from "react";
 import styles from "./OutBox.module.css";
 import arrow from "./icon/Collapse Arrow.svg";
+import useOutBox from "./useOutBox";
+import { caxios } from "../../../../../../config/config";
 
-const OutBox = () => {
-  const [isOn, setIsOn] = useState(true);
+const OutBox = ({ seq, setSelectedSeq, isOn, setIsOn, memberCount, deptSeq }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const {
+    id, manager
+  } = useOutBox(seq, isOn, setIsOn);
+
   const toggleSwitch = () => {
-    setIsOn((prev) => !prev);
+    const newState = !isOn;
+    setIsOn(newState); // 일단 UI 먼저 변경
+
+    // 서버 요청
+    const project_progress = newState ? "y" : "n";
+
+    caxios.post(
+      "/chatRoom/projectOnOff",
+      { chat_seq: seq, project_progress },
+      { withCredentials: true }
+    )
+      .then((resp) => {
+        if (resp.data !== 1) {
+          // 실패했으면 UI 롤백
+          setIsOn(!newState);
+        }
+      })
+      .catch((err) => {
+        setIsOn(!newState); // 실패 시 롤백
+      });
   };
 
   const handleExitClick = () => {
@@ -16,9 +40,10 @@ const OutBox = () => {
 
   const handleConfirm = () => {
     setShowConfirm(false);
-    // 여기서 실제 '나가기' 동작 수행
-    // 예: window.location.href = '/logout' 또는 router 이동 등
-    alert("나가졌습니다!"); // 예시로 alert
+    caxios.post("/chatRoom/outChat",{chat_seq: seq, member_email: id},{ withCredentials: true })
+    .then(resp=>{
+      setSelectedSeq("");
+    }).catch(err=>console.log(err))
   };
 
   const handleCancel = () => {
@@ -28,16 +53,16 @@ const OutBox = () => {
   return (
     <div className={styles.container}>
       {/* 프로젝트 완료시 작동 버튼 */}
-      <div className={styles.projectCompleteRow}>
+      <div className={`${id === manager ? styles.projectCompleteRow : styles.hiden
+        } ${(memberCount > 2)? "" : styles.hiden} ${deptSeq === seq ? styles.hiden : ""}`}>
         <div className={styles.projectCompleteText}>프로젝트 완료</div>
         <div
           className={`${styles.toggleSwitch} ${isOn ? styles.on : styles.off}`}
           onClick={toggleSwitch}
         >
           <span
-            className={`${styles.statusText} ${
-              isOn ? styles.left : styles.right
-            }`}
+            className={`${styles.statusText} ${isOn ? styles.left : styles.right
+              }`}
           >
             {isOn ? "ON" : "OFF"}
           </span>

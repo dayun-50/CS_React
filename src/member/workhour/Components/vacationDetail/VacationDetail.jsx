@@ -155,7 +155,7 @@ function VacationDetail({ selectedData, setSelectedData, setClickedDetailBtn }) 
             pto_content: pto_content,
             pto_start_at: pto_start_at,
             pto_end_at: pto_end_at,
-            pto_seq :seq
+            pto_seq: seq
         };
 
         caxios.put(`/ptorequest/${oriRequest.pto_seq}`, data)
@@ -202,13 +202,15 @@ function VacationDetail({ selectedData, setSelectedData, setClickedDetailBtn }) 
                                     value={startDate}
                                     onChange={(e) => setStartDate(e.target.value)}
                                     min={formatDate(todayAfterWeek)}
-                            max={formatDate(oneYearLater)}
+                                    max={formatDate(oneYearLater)}
                                     disabled={!updating}
                                 />
                             </div>
+
                         </div>
 
                     </div>
+
                     <div className={styles.header_end_at}>
                         <div className={styles.endBoxRight}>
                             <div className={styles.selectGroup}>
@@ -233,15 +235,22 @@ function VacationDetail({ selectedData, setSelectedData, setClickedDetailBtn }) 
                                     value={endDate}
                                     onChange={(e) => setEndDate(e.target.value)}
                                     min={formatDate(todayAfterWeek)}
-                            max={formatDate(oneYearLater)}
+                                    max={formatDate(oneYearLater)}
                                     disabled={!updating}
                                 />
                             </div>
                         </div>
                     </div>
-                    <div className={styles.header_status}>
+                    <div
+                        className={`${styles.header_status} ${{
+                            대기: styles.inProgress,
+                            완료: styles.approved,
+                        }[oriRequest.pto_status] || styles.denied
+                            }`}
+                    >
                         {oriRequest.pto_status}
                     </div>
+
                 </div>
 
                 <div className={styles.parentBody}>

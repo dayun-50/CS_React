@@ -26,12 +26,13 @@ const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
     setMemo(contact.memo || "");
   }, [contact]);
 
+
   const handleSave = async () => {
     try {
       const shareValue = category === "팀용" ? "y" : "n";
       const payload = {
         contact_seq: contact.contact_seq,
-        owner_email: userEmail, // 💡 [필수 수정] owner_email 추가
+        owner_email: userEmail, // [필수 수정] owner_email 추가
         share: shareValue,
         contact_group: company,
         name,
@@ -40,6 +41,7 @@ const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
         memo,
       };
 
+      // 모든걸 써야갈 수 있는로직을 추가하기
       await caxios.put(`/contact/update`, payload);
       alert("수정이 완료되었습니다.");
       setIsEditMode(false);

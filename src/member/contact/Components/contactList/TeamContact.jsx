@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import styles from "./ContactList.module.css";
+import styles from "./TeamContact.module.css";
 import { caxios } from "../../../../config/config";
 import { IoSearch } from "react-icons/io5";
 import ContactDetail from "../contactDetail/ContactDetail";
 import addressBook from "./icon/Address Book.svg";
+import doubleLeftArrow from "./icon/doubleLeftArrow.svg";
+import leftArrow from "./icon/leftArrow.svg";
+import rightArrow from "./icon/rightArrow.svg";
 import useAuthStore from "../../../../store/useAuthStore";
 
 const TeamContact = () => {
@@ -11,6 +14,8 @@ const TeamContact = () => {
   const [contacts, setContacts] = useState([]); // 팀용 연락처 상태
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const [selectedContact, setSelectedContact] = useState(null); // 상세보기 연락처 상태
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // 팀용 연락처 불러오기 (로그인 사용자가 추가한 것만)
   const fetchContacts = () => {
@@ -80,6 +85,20 @@ const TeamContact = () => {
       contact.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Pagination
+  const totalPages = Math.ceil(filteredContacts.length / itemsPerPage);
+  const currentContacts = filteredContacts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const goToPage = (page) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
+  const goPrev = () => goToPage(currentPage - 1);
+  const goNext = () => goToPage(currentPage + 1);
+
   return (
     <div className={styles.contactList}>
       {selectedContact ? (
@@ -104,7 +123,10 @@ const TeamContact = () => {
                 type="text"
                 placeholder="회사 이름 또는 이름을 입력하세요"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1); // 검색 시 페이지 초기화
+                }}
                 className={styles.searchInput}
               />
               <IoSearch size={24} color="#8c8c8c" />
@@ -194,6 +216,52 @@ const TeamContact = () => {
               </div>
             </div>
           ))}
+          {/* Pagination (항상 하단 고정) */}
+          {totalPages > 1 && (
+            <div className={styles.paginationParent}>
+              <button
+                className={styles.pageArrow}
+                onClick={() => goToPage(1)}
+                disabled={currentPage === 1}
+              >
+                <img src={doubleLeftArrow} alt="first" />
+              </button>
+              <button
+                className={styles.pageArrow}
+                onClick={goPrev}
+                disabled={currentPage === 1}
+              >
+                <img src={leftArrow} alt="prev" />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  className={`${styles.pageButton} ${
+                    currentPage === i + 1 ? styles.activePage : ""
+                  }`}
+                  onClick={() => goToPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                className={styles.pageArrow}
+                onClick={goNext}
+                disabled={currentPage === totalPages}
+              >
+                <img src={rightArrow} alt="next" />
+              </button>
+              <button
+                className={styles.pageArrow}
+                onClick={() => goToPage(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                <img src={doubleRightArrow} alt="last" />
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>

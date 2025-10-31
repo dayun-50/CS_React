@@ -1,6 +1,6 @@
-.pageNaviContainer{
-    width: 100%;
-    height: 100%;
+.pageNaviContainer {
+  width: 100%;
+  height: 100%;
 }
 
 /* 페이징네비바 */
@@ -53,7 +53,8 @@
 }
 
 .pageNumber {
-  pointer-events: none; /* 내부 숫자 클릭 시 이벤트 막기 */
+  pointer-events: none;
+  /* 내부 숫자 클릭 시 이벤트 막기 */
 }
 
 img {
@@ -141,6 +142,3 @@ img {
     height: 20px;
   }
 }
-
-
-

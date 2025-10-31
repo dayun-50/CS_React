@@ -2,7 +2,7 @@ import { post } from "jquery";
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatRoomPlus(selected) {
+function useChatRoomPlus(selected, title, setTitle ) {
     const [recipients, setRecipients] = useState([]);
     const id = sessionStorage.getItem("id");
     const [list, setList] = useState("");
@@ -25,8 +25,13 @@ function useChatRoomPlus(selected) {
         setList(selectedNames.join(", "));
     }, [selected, recipients]);
 
+    const hendleTitle=(e)=>{
+        setTitle(e.target.value);
+    }
+
     return {
-        recipients, list
+        recipients, list,
+        hendleTitle
     }
 }
 export default useChatRoomPlus;

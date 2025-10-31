@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useCompletedChannel(onChannelClick) {
+function useCompletedChannel(onChannelClick, isOn) {
 
     const [completedList, setCompletedList] = useState([]);
     const [chatSeq, setChatSeq] = useState("");
@@ -18,7 +18,7 @@ function useCompletedChannel(onChannelClick) {
             .catch(err => {
                 console.log(err);
             });
-    }, []);
+    }, [isOn]);
 
     // 클릭이벤트
     const handleClickChat = (chat_seq)=>{

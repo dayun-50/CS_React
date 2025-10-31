@@ -88,7 +88,7 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
 
       <div className={styles.centerColumn}>
         {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms} setMemberCount={setMemberCount}/>}
+        {selectedSeq && <ChatBox seq={selectedSeq} isOn={isOn} setAlertRooms={setAlertRooms} setMemberCount={setMemberCount}/>}
 
 
       </div>

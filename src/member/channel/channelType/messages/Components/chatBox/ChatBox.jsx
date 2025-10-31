@@ -6,7 +6,7 @@ import search from "./icon/Search.svg"; // 검색 아이콘
 import useChatBox from "./useChatBox"; // 채팅 관련 훅
 import { useState, useEffect, useRef } from "react";
 
-const ChatBox = ({ seq , setAlertRooms, setMemberCount}) => {
+const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
 
   const {
     id, room, messages: originalMessages, input,
@@ -221,9 +221,9 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount}) => {
           <div style={{ flexGrow: 1, position: "relative", display: "flex", alignItems: "center" }}>
             <input
               type="text"
-              className={styles.chatBox__inputText}
+              className={`${styles.chatBox__inputText} ${isOn ? '' : styles.prohibition}`}
               value={input.message}
-              placeholder="메시지를 입력하세요"
+              placeholder={isOn ? "메시지를 입력하세요" : "종료된 프로젝트방 입니다."}
               onChange={(e) => setInput((prev) => ({ ...prev, message: e.target.value }))}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
@@ -234,6 +234,7 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount}) => {
                 }
               }}
               style={{ flexGrow: 1, paddingRight: "8px" }}
+              disabled={!isOn} 
             />
 
             {fileList.length > 0 && (

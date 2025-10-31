@@ -12,7 +12,6 @@ function useCompletedChannel(onChannelClick, isOn) {
         caxios.post("/chat/completedList", { email: id },
             { withCredentials: true })
             .then(resp => {
-                console.log("종료된채팅");
                 setCompletedList(resp.data);
                 setChatSeq(resp.data.chat_seq);
             })

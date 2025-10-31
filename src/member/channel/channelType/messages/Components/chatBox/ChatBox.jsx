@@ -6,13 +6,13 @@ import search from "./icon/Search.svg"; // 검색 아이콘
 import useChatBox from "./useChatBox"; // 채팅 관련 훅
 import { useState, useEffect, useRef } from "react";
 
-const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
+const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) => {
 
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
     messageListRef
-  } = useChatBox(seq, setAlertRooms, setMemberCount);
+  } = useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded);
 
   const [messages, setMessages] = useState(originalMessages);
   const [fileList, setFileList] = useState([]);
@@ -52,8 +52,7 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
     setCollapseButtonText(option);
     setShowCollapseDropdown(false);
 
-
-    if(option === "날짜") {
+    if (option === "날짜") {
       setSearchPlaceholder("YY-MM-DD");
     } else {
       setSearchPlaceholder("검색할 내용");
@@ -66,24 +65,33 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  const handleSendMessage = () => {
+
+  //---------------------------------------------------------메세지 전송
+  const handleSendMessage = async () => {
+    // 1. 텍스트가 공백이고 파일 없음 -> 전송 중단
     if (!input.message.trim() && fileList.length === 0) return;
 
-    const formData = new FormData();
-    formData.append("message", input.message);
-    fileList.forEach((f) => formData.append("files", f));
+    //2. 파일전송법
+    if (fileList.length > 0) {
+      for (const blob of fileList) {
+        await sendMessage(blob); // 각 파일 전송 완료 후 다음 파일로 넘어감
+      }
+      // 파일 올릴때 빈칸생기는거 싫어서 추가한로직, 아래 메세지용 로직실행하지 않고 값다 정리하고 리턴시킴
+      setInput({ message: "" });
+      setFileList([]);
+      const fileInput = document.getElementById("fileUpload");
+      if (fileInput) fileInput.value = "";
+      return;
+    }
 
-    sendMessage(formData);
+    //2.메세지 전송법
+    sendMessage(input.message);
 
     const newMsg = {
       chat_seq: Date.now(),
       message_seq: messages.length,
       member_email: id,
       message: input.message,
-      files: fileList.map((f) => ({
-        name: f.name,
-        url: URL.createObjectURL(f),
-      })),
       message_at: new Date().toISOString(),
       name: "나",
       level_code: "",
@@ -91,11 +99,22 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
 
     setMessages((prev) => [...prev, newMsg]);
     setInput({ message: "" });
-    setFileList([]);
+
 
     const fileInput = document.getElementById("fileUpload");
     if (fileInput) fileInput.value = "";
   };
+
+
+
+
+  //-------------------------------------------------****자동 스크롤 내리기 함수 옮김
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
+
 
   return (
     <div className={styles.chatBox}>
@@ -113,9 +132,9 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
                 placeholder={searchPlaceholder} // 상태로 placeholder
                 className={styles.chatBox__searchInput}
               />
-              <img src={search} className={styles.chatBox__searchIcon} 
-                
-              alt="검색 아이콘" />
+              <img src={search} className={styles.chatBox__searchIcon}
+
+                alt="검색 아이콘" />
             </div>
 
             {/* 드롭다운 */}
@@ -151,11 +170,10 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
             <div
               key={`${msg.chat_seq}-${msg.message_seq}`}
               id={`msg-${msg.chat_seq}-${msg.message_seq}`}
-              className={`${styles.chatBox__messageWrapper} ${
-                msg.member_email === id
-                  ? styles["chatBox__messageWrapper--right"]
-                  : styles["chatBox__messageWrapper--left"]
-              }`}
+              className={`${styles.chatBox__messageWrapper} ${msg.member_email === id
+                ? styles["chatBox__messageWrapper--right"]
+                : styles["chatBox__messageWrapper--left"]
+                }`}
             >
               {msg.member_email !== id && (
                 <div className={styles.chatBox__sender}>
@@ -165,26 +183,21 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
 
               <div className={styles.chatBox__messageInner}>
                 <div className={styles.chatBox__message}>
-                  {msg.message && <div>{msg.message}</div>}
-                  {msg.files && msg.files.length > 0 && (
-                    <div className={styles.chatBox__fileList}>
-                      {msg.files.map((file, idx) => (
-                        <div
-  key={idx}
-  className={styles.chatBox__fileLink}
-  onClick={() => {
-    const link = document.createElement("a");
-    link.href = file.url;
-    link.download = file.name;
-    link.click();
-  }}
-  style={{ cursor: "pointer" }}
->
-  📎 {file.name}
-</div>
-                      ))}
+
+
+                  {/* 파일 여부에 따라 조건부 렌더링 */}
+                  {!msg.sysname ? (
+                    msg.message && <div>{msg.message}</div> // 파일이 없으면 일반 메시지 표시
+                  ) : (
+                    // 파일이 있으면 a태그로 다운로드 링크 표시
+                    <div>
+                      <a href={`http://10.10.55.103/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
+                        target="_blank" rel="noopener noreferrer" download>
+                        {msg.oriname || msg.message}
+                      </a>
                     </div>
                   )}
+
                 </div>
                 <div className={styles.chatBox__timestamp}>
                   {formatTimestamp(msg.message_at)}
@@ -194,6 +207,10 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
           ))}
         </div>
 
+
+
+
+        {/* 입력영역: 파일첨부 + 텍스트 입력 + 전송 */}
         <div className={styles.chatBox__inputArea}>
           <div className={styles.chatBox__attachButton}>
             <label
@@ -234,7 +251,7 @@ const ChatBox = ({ seq , setAlertRooms, setMemberCount, isOn}) => {
                 }
               }}
               style={{ flexGrow: 1, paddingRight: "8px" }}
-              disabled={!isOn} 
+              disabled={!isOn}
             />
 
             {fileList.length > 0 && (

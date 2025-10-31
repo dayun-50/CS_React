@@ -48,3 +48,5 @@ function useGewpw() {
     }
 }
 export default useGewpw;
+
+/* 혜빈쨩 비밀번호 재설정 유효성검사가 빠져있다능 , 유효성 css 해야 한다능 */

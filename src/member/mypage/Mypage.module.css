@@ -14,6 +14,7 @@
   gap: 50px;
   padding: 30px;
   overflow-y: auto;
+  padding-bottom: 10px;
 }
 
 /* 회원 정보 */
@@ -28,14 +29,13 @@
   height: 100%;
 }
 
-/* 태블릿 대응 (768px 이하) */
-@media (max-width: 768px) {
+/* 대형 태블릿 ~1024px */
+@media (max-width: 1024px) {
   .fullbox {
     flex-direction: column;
-    gap: 25px;
-    padding: 20px;
+    gap: 40px;
+    padding: 80px 25px 25px 25px;
     align-items: center;
-    overflow-y: auto;
   }
 
   .myInform,
@@ -45,12 +45,13 @@
   }
 }
 
-/* 모바일 대응 (480px 이하) */
-@media (max-width: 480px) {
+/* 일반 태블릿 ~768px */
+@media (max-width: 768px) {
   .fullbox {
     flex-direction: column;
-    gap: 15px;
-    padding: 10px;
+    gap: 30px;
+    padding: 250px 20px 20px 20px; /* 상단 더 확보 */
+    align-items: center;
   }
 
   .myInform,
@@ -58,11 +59,51 @@
     width: 100%;
     height: auto;
   }
+}
 
-  /* 필요하면 내부 요소 폰트/버튼/이미지 크기 조정 */
+/* 작은 태블릿 / 큰 모바일 ~600px */
+@media (max-width: 600px) {
+  .fullbox {
+    flex-direction: column;
+    gap: 25px;
+    padding: 330px 15px 15px 15px;
+  }
+
   .myInform,
   .mySchedule {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* 일반 모바일 ~480px */
+@media (max-width: 480px) {
+  .fullbox {
+    flex-direction: column;
+    gap: 20px;
+    padding: 160px 10px 10px 10px;
+  }
+
+  .myInform,
+  .mySchedule {
+    width: 100%;
+    height: auto;
     font-size: 14px;
-    /* 모바일용 폰트 크기 조정 */
+  }
+}
+
+/* 작은 모바일 ~360px */
+@media (max-width: 360px) {
+  .fullbox {
+    flex-direction: column;
+    gap: 15px;
+    padding: 180px 8px 8px 8px;
+  }
+
+  .myInform,
+  .mySchedule {
+    width: 100%;
+    height: auto;
+    font-size: 13px;
   }
 }

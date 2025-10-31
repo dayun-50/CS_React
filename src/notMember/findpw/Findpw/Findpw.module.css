@@ -36,12 +36,12 @@
 }
 
 .high span {
-    color:rgb(153, 152, 152);
+    color:#8C8C8C;
     font-weight: 700;
 }
 
 .findemail label {
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
     margin-left: 12px;
@@ -53,14 +53,14 @@
     width:290px;
     height:48px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #8C8C8C;
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .inputButtonemail input::placeholder {
-    color: #b9b9b9;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -73,7 +73,7 @@
 .emailrequest{
     width:100px;
     height: 48px;
-    background-color: #cac9c9;
+    background-color: #D9D9D9;
     color:white;
     border-radius: 20px;
     font-size: 15px;
@@ -84,11 +84,7 @@
 }
 
 .emailrequest:hover {
-    /* background-color: #b0afb0; 조금 더 진한 회색 */
-    /* transform: translateY(-2px); 살짝 위로 이동 */
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 그림자 */
-    /* cursor: pointer; */
-    /* transition: all 0.3s ease; */
+    background-color: #B0B0B0;
 }
 
 .findemail {
@@ -98,7 +94,7 @@
 .requestcheck label {
     display: block;       /* label을 block으로 만들어 input 위에 위치 */
     margin-bottom: 10px;
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
     margin-left: 12px;
@@ -108,14 +104,14 @@
     width:100%;
     height:48px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #8C8C8C;
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .requestcheck input::placeholder {
-    color: #b9b9b9;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -141,14 +137,12 @@
     border: none;
     /* cursor: pointer; */
     color: white;
-    background-color: #cac9c9;
+    background-color: #D9D9D9;
     /* transition: all 0.3s ease; */
 }
 
 .backbt:hover {
-    /* background-color: #b0b0b0; */
-    /* transform: translateY(-2px); */
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
+    background-color: #B0B0B0;
 }
 
 .okbt {
@@ -159,15 +153,13 @@
     font-weight: 700;
     border: none;
     /* cursor: pointer; */
-    background-color: #499ef8;
+    background-color: #0090FF;
     color: white;
     /* transition: all 0.3s ease; */
 }
 
 .okbt:hover {
-    /* background-color: #3a8ce0; */
-    /* transform: translateY(-2px); */
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
+    background-color: #007ACC;;
 }
 
 @media (max-width: 425px) {

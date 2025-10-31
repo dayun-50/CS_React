@@ -60,7 +60,7 @@
   width: 96%;
   height: 55%;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid #8C8C8C;
   border-radius: 30px;
   box-sizing: border-box;
 }
@@ -135,7 +135,7 @@
   width: 96%;
   height: 98%;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid #8C8C8C;
   border-radius: 15px;
   font-size: 16px;
   font-family: inherit;
@@ -187,7 +187,15 @@ button {
   color: white;
 }
 
+.btn1:hover {
+  background-color: #B0B0B0;
+}
+
 .btn2 {
     font-size: 18px;
   background-color: #0090ff;
+}
+
+.btn2:hover {
+  background-color: #007ACC;;
 }

@@ -66,7 +66,7 @@
 .emailauth{
     width:210px;
     height: 48px;
-    background-color: #cac9c9;
+    background-color: #D9D9D9;
     color:white;
     border-radius: 20px;
     font-size: 16px;
@@ -76,16 +76,13 @@
     /* cursor: pointer; */
 }
 
-/* .emailauth:hover {
-    background-color: #b0afb0; /* 조금 더 진한 회색 
-    cursor: pointer;
-    transform: translateY(-2px); /* 살짝 위로 이동 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 살짝 그림자 
-    transition: all 0.3s ease;
-} */
+.emailauth:hover {
+    background-color: #B0B0B0; /* 조금 더 진한 회색 */
+
+}
 
 .newemail label {
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
     
@@ -97,14 +94,14 @@
     width:300px;
     height:44px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #8C8C8C;
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .newemail input::placeholder {
-    color: #b9b9b9;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -117,7 +114,7 @@
 .newpw label {
     display: block;       /* label을 block으로 만들어 input 위에 위치 */
     margin-bottom: 10px;
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
     
@@ -127,14 +124,14 @@
     width:100%;
     height:44px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #8C8C8C;
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .newpw input::placeholder {
-    color: #b9b9b9;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -145,7 +142,7 @@
 .name label {
     display: block;       /* label을 block으로 만들어 input 위에 위치 */
     margin-bottom: 10px;
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
     
@@ -154,14 +151,14 @@
     width:100%;
     height:44px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #8C8C8C;
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .name input::placeholder {
-    color: #b9b9b9;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -172,7 +169,7 @@
 .phone label {
     display: block;       /* label을 block으로 만들어 input 위에 위치 */
     margin-bottom: 10px;
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
    
@@ -189,7 +186,7 @@
     text-align: center;    /* 글자 가운데 정렬 */
     font-size: 16px;
     font-weight: 400;
-    color: #b1b1b1;
+    color: #8C8C8C;
     flex-shrink: 0; /* 줄어들지 않게 */
 }
 
@@ -198,7 +195,7 @@
     text-align: center;    /* 글자 가운데 정렬 */
     font-size: 16px;
     font-weight: 400;
-    color: #b1b1b1;
+    color: #8C8C8C;
     flex-shrink: 0;
 }
 
@@ -207,14 +204,14 @@
     min-width: 0;
     height: 44px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;  /* 조금 두껍게 */
+    border: 1px solid #8C8C8C;  /* 조금 두껍게 */
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .phoneWrapper input::placeholder {
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -225,7 +222,7 @@
 .invitecode label {
     display: block;       /* label을 block으로 만들어 input 위에 위치 */
     margin-bottom: 10px;
-    color: #afafaf;
+    color: #8C8C8C;
     font-size: 16px;
     font-weight: 700;
     
@@ -235,14 +232,14 @@
     width:100%;
     height:44px;
     border-radius: 20px;
-    border: 1px solid #b1b1b1;
+    border: 1px solid #8C8C8C;
     padding: 0 12px;
     box-sizing: border-box;
     outline: none;
 }
 
 .invitecode input::placeholder {
-    color: #b9b9b9;
+    color: #8C8C8C;
     font-size: 14px;
 }
 
@@ -255,7 +252,7 @@
     display: flex;         /* 체크박스와 텍스트 가로 배치 */
     align-items: center;   /* 체크박스와 글씨 세로 중앙 */
     gap: 8px;              /* 체크박스와 글씨 사이 간격 */
-    color: #cac9c9;
+    color: #8C8C8C;
     cursor: pointer;
     font-weight: 700;
 }
@@ -263,7 +260,7 @@
 .checkboxLabel input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    border: 1px solid #999;
+    border: 1px solid #8C8C8C;
     border-radius: 15px;    /* 체크박스 둥글기 */
     appearance: none;      /* 기본 체크박스 제거 */
     -webkit-appearance: none;
@@ -295,8 +292,12 @@
     border: none;
     /* cursor: pointer; */
     color: white;
-    background-color: #cac9c9;
+    background-color: #D9D9D9;
     /* transition: all 0.3s ease; */
+}
+
+.backbutton:hover {
+    background-color: #B0B0B0;
 }
 
 .signinbutton {
@@ -308,22 +309,14 @@
     font-weight: 700;
     border: none;
     /* cursor: pointer; */
-    background-color: #499ef8;
+    background-color: #0090FF;
     color:white;
     /* transition: all 0.3s ease; */
 } 
 
-/* .backbutton:hover {
-    background-color: #b0b0b0; /* 조금 더 진한 회색 
-    transform: translateY(-2px); /* 살짝 위로 올라오는 느낌 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 살짝 그림자 
-} */
-
-/*.signinbutton:hover {
-    background-color: #3a8ce0; /* 조금 더 진한 파랑 
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-} */
+.signinbutton:hover {
+    background-color: #007ACC; 
+}
 
 /* 태블릿용 반응형 */
 @media (max-width: 768px) {

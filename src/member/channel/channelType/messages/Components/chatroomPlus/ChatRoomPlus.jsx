@@ -21,6 +21,11 @@ const ChatRoomPlus = ({ onClose, onSelect }) => {
       <div className={styles.modalContent}>
         <h1>채널 추가</h1>
 
+        <div className={styles.chatnamebox}>
+          <label className={styles.chatname}>채팅방 이름</label>
+          <input type="text" value={list} placeholder="채팅방 이름을 입력해주세요."/>
+        </div>
+
         <div className={styles.peoplemail}>
           <label className={styles.labelpeople}>대화상대 선택</label>
           <input type="text" value={list} placeholder="추가된 친구" disabled />

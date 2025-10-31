@@ -22,6 +22,10 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   const [isOn, setIsOn] = useState(true);
   // 인원 카운트 
   const [memberCount, setMemberCount] = useState("");
+  // 채팅방 추가시 제목...
+  const [title, setTitle] = useState("");
+  // 부서 단체 체팅방 seq
+  const [deptSeq, setDeptSeq] = useState("");
 
   const handleChannelClick = (seq) => {
     setSelectedSeq(seq); // 클릭된 채널 seq 저장
@@ -40,11 +44,12 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   const handleSelect = (selectedPeople) => {
     console.log("선택된 참여자:", selectedPeople);
     // 여기서 채널 생성 API 호출하거나 상태 업데이트 로직 작성 가능
-    caxios.post("/chat/newCaht", { owner_email: id, contact_seq: selectedPeople },
+    caxios.post("/chat/newCaht", { owner_email: id,title: title, contact_seq: selectedPeople },
       { withCredentials: true })
       .then(resp => {
         setRooms(prev => !prev);
         setSelectedSeq(resp.data);
+        setTitle("");
       })
       .catch(err => console.log(err))
   };
@@ -54,7 +59,7 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
           <Attendance selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
-          <ChannelName isOn={isOn} newRooms={rooms} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
+          <ChannelName setDeptSeq={setDeptSeq} isOn={isOn} newRooms={rooms} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
           <CompletedChannel isOn={isOn} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} />
 
         </div>
@@ -85,13 +90,14 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
         {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
         {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms} setMemberCount={setMemberCount}/>}
 
+
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>
           <FileBox />
         </div>
         <div className={styles.outBox}>
-          <OutBox setSelectedSeq={setSelectedSeq} seq={selectedSeq} isOn={isOn} setIsOn={setIsOn} memberCount={memberCount}/>
+          <OutBox deptSeq={deptSeq} setSelectedSeq={setSelectedSeq} seq={selectedSeq} isOn={isOn} setIsOn={setIsOn} memberCount={memberCount}/>
         </div>
       </div>
 
@@ -100,6 +106,8 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
         <ChatRoomPlus
           onClose={handleClose}
           onSelect={handleSelect}
+          title={title}
+          setTitle={setTitle}
         />
       )}
     </div>

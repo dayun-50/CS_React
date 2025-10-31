@@ -4,7 +4,7 @@ import arrow from "./icon/Collapse Arrow.svg";
 import useOutBox from "./useOutBox";
 import { caxios } from "../../../../../../config/config";
 
-const OutBox = ({ seq, setSelectedSeq, isOn, setIsOn, memberCount }) => {
+const OutBox = ({ seq, setSelectedSeq, isOn, setIsOn, memberCount, deptSeq }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
   const {
@@ -54,7 +54,7 @@ const OutBox = ({ seq, setSelectedSeq, isOn, setIsOn, memberCount }) => {
     <div className={styles.container}>
       {/* 프로젝트 완료시 작동 버튼 */}
       <div className={`${id === manager ? styles.projectCompleteRow : styles.hiden
-        } ${(memberCount > 2)? "" : styles.hiden}`}>
+        } ${(memberCount > 2)? "" : styles.hiden} ${deptSeq === seq ? styles.hiden : ""}`}>
         <div className={styles.projectCompleteText}>프로젝트 완료</div>
         <div
           className={`${styles.toggleSwitch} ${isOn ? styles.on : styles.off}`}

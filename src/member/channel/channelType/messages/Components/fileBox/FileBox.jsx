@@ -7,7 +7,7 @@ import { caxios } from "../../../../../../config/config";
 import dayjs from "dayjs";
 
 
-const FileBox = ({ seq }) => {
+const FileBox = ({ seq, trigger }) => {
   console.log(seq, "시퀀스팡리박스")
 
 
@@ -22,7 +22,7 @@ const FileBox = ({ seq }) => {
         setFiles(resp.data);
         console.log(resp.data);
       })
-  }, [seq])
+  }, [seq, trigger])
 
   return (
     <div className={styles.fileBox}>

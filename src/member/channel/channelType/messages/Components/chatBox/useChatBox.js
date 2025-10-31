@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox(seq, setAlertRooms) {
+function useChatBox(seq, setAlertRooms, onFileUploaded) {
 
     // 채팅방 제목 받을 준비
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -13,6 +13,8 @@ function useChatBox(seq, setAlertRooms) {
     // 서버에 메세지 보내는 용
     const [input, setInput] = useState({ chat_seq: seq, message: "" });
     const ws = useRef(null);
+
+
     const messageListRef = useRef(null);
 
 
@@ -42,39 +44,29 @@ function useChatBox(seq, setAlertRooms) {
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
-            if (data.type === "chat") {
+
+            if (data.type === "chat") {// 채팅 타입이라면
                 console.log(data);
                 setMessages((prev) => [...prev, data.data]);
-            } else if (data.type === "history") {
+
+            } else if (data.type === "history") { // 과거 내용이라면
                 console.log(data);
                 const converted = data.each.map(item => {
                     const msg = item.data;
                     const file = item.fdata;
-
-                    if (file) {
-                        return {
-                            ...msg,
-                            type: "file",
-                            sysname: file.sysname,
-                            oriname: file.oriname,
-                            file_type: file.file_type,
-                        };
+                    if (file) {// 파일이면 링크처리 가능하게 추가정보
+                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, };
                     } else {
                         return { ...msg, type: "chat" };
                     }
                 })
                 setMessages(converted);
-            } else if (data.type === "file") {
+
+            } else if (data.type === "file") {// 파일타입
                 console.log(data);
-                setMessages((prev) => [
-                    ...prev,
-                    {
-                        ...data.data,        // 기본 메시지 정보
-                        type: "file",        // 여기에 타입 표시 추가!
-                        sysname: data.fdata.sysname,
-                        file_type: data.fdata.file_type
-                    },
-                ]);
+                setMessages((prev) => [...prev, { ...data.data, type: "file", sysname: data.fdata.sysname, file_type: data.fdata.file_type },]);
+                onFileUploaded();// 파일올라갓다는 토글 실행
+
             } else if (data.type === "alert") { // 채팅 알람기능
                 setAlertRooms(prev => {
                     // 중복 방지: chat_seq가 이미 있으면 추가하지 않음
@@ -86,7 +78,7 @@ function useChatBox(seq, setAlertRooms) {
             }
         };
 
-        return () => {
+        return () => { //클리어
             if (ws.current) {
                 ws.current.close();
                 ws.current = null;
@@ -142,11 +134,7 @@ function useChatBox(seq, setAlertRooms) {
     };
 
     // 최신 메세지로 자동 스크롤
-    useEffect(() => {
-        if (messageListRef.current) {
-            messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
-        }
-    }, [messages]);
+    // js파일에 잇으면 작동을 안하고 jsx 파일에 잇어야 작동이 되서 옮겻습니다..-지원
 
     return {
         id, room, messages, input,

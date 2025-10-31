@@ -7,22 +7,16 @@ import useChatBox from "./useChatBox";
 import { useState, useRef, useEffect } from "react";
 
 
-const ChatBox = ({ seq, setAlertRooms }) => {
+const ChatBox = ({ seq, setAlertRooms, onFileUploaded }) => {
   const {
     id, room, messages: originalMessages, input,
     setInput, sendMessage, handleKeyDown,
     messageListRef
-  } = useChatBox(seq, setAlertRooms);
+  } = useChatBox(seq, setAlertRooms, onFileUploaded);
 
   // 화면에 표시할 메시지 목록 (로컬 복사본)
   // originalMessages가 바뀌면 아래 useEffect에서 동기화함.
   const [messages, setMessages] = useState(originalMessages);
-
-
-
-  // 현재 입력폼에서 첨부된 파일들 (File 객체 배열)
-  // 사용자가 <input type="file">로 파일을 선택하면 handleFileChange에서 설정.
-  const [fileList, setFileList] = useState([]);
 
   // 정렬 드롭다운, 검색창 등 UI 상태
   const [showCollapseDropdown, setShowCollapseDropdown] = useState(false);
@@ -44,6 +38,10 @@ const ChatBox = ({ seq, setAlertRooms }) => {
   useEffect(() => setMessages(originalMessages), [originalMessages]);
 
 
+  //---------------------------------------------------------파일
+  // 현재 입력폼에서 첨부된 파일들 (File 객체 배열)
+  // 사용자가 <input type="file">로 파일을 선택하면 handleFileChange에서 설정.
+  const [fileList, setFileList] = useState([]);
   //파일 선택하면 상태변수배열로 저장
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -53,8 +51,6 @@ const ChatBox = ({ seq, setAlertRooms }) => {
   const handleRemoveFile = (index) => {
     const newFileList = fileList.filter((_, i) => i !== index);
     setFileList(newFileList);
-
-
     // 파일 input 내부 값도 직접 변경해주기
     const fileInput = document.getElementById("fileUpload");
     if (fileInput?.files) {
@@ -64,12 +60,14 @@ const ChatBox = ({ seq, setAlertRooms }) => {
     }
   };
 
+
+
+
   //드롭다운
   const handleCollapseClick = () => {
     if (buttonRef.current) setDropdownWidth(buttonRef.current.offsetWidth);
     setShowCollapseDropdown((prev) => !prev);
   };
-
   /**
    * 정렬 옵션 선택 시 메시지 정렬
    * - "날짜": message_at 기준으로 정렬
@@ -92,10 +90,7 @@ const ChatBox = ({ seq, setAlertRooms }) => {
     }
     setMessages(sortedMessages);
   };
-
-
-
-  // 지원왈 : 혜빈아 이거 시스데이터로 백엔드서버에서 넣을거면 필요없지 않나?
+  //시간 포맷용 --ui
   const formatTimestamp = (ts) => {
     const date = ts ? new Date(ts) : new Date();
     if (isNaN(date)) return "";
@@ -103,20 +98,26 @@ const ChatBox = ({ seq, setAlertRooms }) => {
   };
 
 
-  //메세지 전송 클릭햇을때 
+  //---------------------------------------------------------메세지 전송
   const handleSendMessage = async () => {
-    // 1) 텍스트가 공백이고 파일 없음 -> 전송 중단
+    // 1. 텍스트가 공백이고 파일 없음 -> 전송 중단
     if (!input.message.trim() && fileList.length === 0) return;
 
-    //2) 파일이라면
+    //2. 파일전송법
     if (fileList.length > 0) {
       for (const blob of fileList) {
         await sendMessage(blob); // 각 파일 전송 완료 후 다음 파일로 넘어감
       }
+      // 파일 올릴때 빈칸생기는거 싫어서 추가한로직, 아래 메세지용 로직실행하지 않고 값다 정리하고 리턴시킴
+      setInput({ message: "" });
+      setFileList([]);
+      const fileInput = document.getElementById("fileUpload");
+      if (fileInput) fileInput.value = "";
+      return;
     }
-    //2. 메세지 잇으면 메세지 전송
-    sendMessage(input.message);
 
+    //2.메세지 전송법
+    sendMessage(input.message);
 
     // 3) UI 즉시 반영을 위한 임시 메시지 객체 생성
     //    - chat_seq, message_seq는 임시로 Date.now()나 messages.length로 만듦
@@ -182,6 +183,13 @@ const ChatBox = ({ seq, setAlertRooms }) => {
     }
   };
 
+
+  //-------------------------------------------------****자동 스크롤 내리기 함수 옮김
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
 
 
   return (
@@ -256,26 +264,20 @@ const ChatBox = ({ seq, setAlertRooms }) => {
               <div className={styles.chatBox__messageInner}>
                 {/* 말풍선 내부: 텍스트 + 파일 목록을 함께 보여줌 */}
                 <div className={styles.chatBox__message}>
-                  {/* ✅ 수정 시작 — 파일 여부에 따라 조건부 렌더링 */}
+
+
+                  {/* 파일 여부에 따라 조건부 렌더링 */}
                   {!msg.sysname ? (
-                    // 파일이 없으면 일반 메시지 표시
-                    msg.message && <div>{msg.message}</div>
+                    msg.message && <div>{msg.message}</div> // 파일이 없으면 일반 메시지 표시
                   ) : (
                     // 파일이 있으면 a태그로 다운로드 링크 표시
                     <div>
-                      <a
-                        href={`http://10.10.55.103/file/download?sysname=${encodeURIComponent(
-                          msg.sysname
-                        )}&file_type=${encodeURIComponent(msg.file_type)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        download
-                      >
-                        📎 {msg.oriname || msg.message}
+                      <a href={`http://10.10.55.103/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
+                        target="_blank" rel="noopener noreferrer" download>
+                        {msg.oriname || msg.message}
                       </a>
                     </div>
                   )}
-                  {/* ✅ 수정 끝 */}
 
                 </div>
 
@@ -287,6 +289,9 @@ const ChatBox = ({ seq, setAlertRooms }) => {
             </div>
           ))}
         </div>
+
+
+
 
         {/* 입력영역: 파일첨부 + 텍스트 입력 + 전송 */}
         <div className={styles.chatBox__inputArea}>

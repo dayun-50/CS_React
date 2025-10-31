@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./MessagesIndex.module.css";
 import Attendance from "./Components/attendance/Attendance";
 import ChannelName from "./Components/channelName/ChannelName";
@@ -45,6 +45,16 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
       .catch(err => console.log(err))
   };
 
+
+  //--------------------------------------------파일 동기화
+  const [fileTrigger, setFileTrigger] = useState(false);
+  const handleFileUploaded = useCallback(() => {
+    setFileTrigger(prev => !prev); // true ↔ false 반복
+  }, []);
+
+
+
+
   return (
     <div className={styles.container}>
       <div className={styles.leftColumn}>
@@ -79,12 +89,12 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
 
       <div className={styles.centerColumn}>
         {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms} />}
+        {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms} onFileUploaded={handleFileUploaded} />}
 
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>
-          <FileBox key={selectedSeq} seq={selectedSeq} />
+          <FileBox key={selectedSeq} seq={selectedSeq} trigger={fileTrigger} />
         </div>
         <div className={styles.outBox}>
           <OutBox />

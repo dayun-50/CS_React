@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 import { useEffect, useState } from "react";
 import useChannelName from "../channelName/useChannelName";
+>>>>>>> 8edc7aaabde430143e2a5dbbdaac16a76ce80e0c
 import styles from "./fileBox.module.css";
 import arrow from "./icon/Collapse Arrow.svg";
 import search from "./icon/Search.svg";

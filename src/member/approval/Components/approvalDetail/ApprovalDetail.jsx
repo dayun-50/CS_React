@@ -30,7 +30,7 @@ function ApprovalDetail() {
                 };
 
                 setOriApproval(formattedData);
-                console.log(formattedData);
+                console.log(formattedData, "폼태그");
             })
             .catch((resp) => {
                 alert("올바르지 않은 접근입니다!");
@@ -125,10 +125,12 @@ function ApprovalDetail() {
 
     return (
         <div className={styles.detailBox}>
+
             <div className={styles.parent}>
 
 
                 <div className={styles.div2}>
+
                     <div className={`${styles.div3} ${updating ? styles.div3Active : ""}`}
                         ref={titleRef} contentEditable={updating}
                         onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); } }}
@@ -155,9 +157,19 @@ function ApprovalDetail() {
 
                 <div className={styles.div4}>
                     <div className={styles.div5}>
-                        <div className={`${styles.div6} ${styles.div6_left}`} id={styles.unseen}>{oriApproval.member_email}</div>
+                        <div className={`${styles.div6} ${styles.div6_left}`}>
+                            {oriApproval.member_email}
+                        </div>
                         <div className={`${styles.div6} ${styles.div6_center}`}>{oriApproval.approval_at}</div>
-                        <div className={`${styles.div6} ${styles.div6_right}`}>{oriApproval.approval_status}</div>
+                        <div className={
+                            {
+                                처리중: `${styles.div6} ${styles.div6_right} ${styles.inProgress}`,
+                                완료: `${styles.div6} ${styles.div6_right} ${styles.approved}`,
+                            }
+                            [oriApproval.approval_status] || `${styles.div6} ${styles.div6_right} ${styles.denied}`}>
+                            {oriApproval.approval_status}
+                        </div>
+
                     </div>
 
 
@@ -167,9 +179,9 @@ function ApprovalDetail() {
                                 <div className={styles.updatingFileBox}>
                                     {newFiles.map((file, index) => (
                                         <div key={index} className={styles.fileRow}>
-                                            <div className={styles.iconbox}>
+                                            {/* <div className={styles.iconbox}>
                                                 <img className={styles.documentIcon} alt="" />
-                                            </div>
+                                            </div> */}
                                             <div className={styles.hwp}>
                                                 {file.name || file.oriname}
                                                 <button className={styles.fileBtn} onClick={() => handleRemoveFile(index)}>X</button>
@@ -193,13 +205,13 @@ function ApprovalDetail() {
                                 </div>
                             ) : (
                                 oriFiles.length === 0 ? (
-                                    <div>파일이 존재하지 않습니다</div>
+                                    <div className={styles.noFile}>파일이 존재하지 않습니다</div>
                                 ) : (
                                     oriFiles.map((file, index) => (
                                         <div key={index} className={styles.fileRow}>
-                                            <div className={styles.iconbox}>
+                                            {/* <div className={styles.iconbox}>
                                                 <img className={styles.documentIcon} alt="" />
-                                            </div>
+                                            </div> */}
                                             <div className={styles.hwp}>
                                                 <a href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`} download >
                                                     {file.oriname}
@@ -218,6 +230,7 @@ function ApprovalDetail() {
                         <div className={`${styles.txt} ${updating ? styles.txtActive : ""}`}
                             ref={contentRef}
                             contentEditable={updating}
+                            // dangerouslySetInnerHTML={{ __html: oriApproval.approval?.approval_content }}
                             dangerouslySetInnerHTML={{ __html: oriApproval.approval_content }}
                         ></div>
                     </div>
@@ -228,14 +241,14 @@ function ApprovalDetail() {
             <div className={styles.btns}>
                 <button className={styles.btn3} onClick={() => { navigate(-1) }}>뒤로가기</button>
 
-                {oriApproval.approval_status == "처리중" && !updating && (
+                {oriApproval.approval?.approval_status == "처리중" && !updating && (
                     <>
                         <button className={styles.btn2} onClick={handleDel}>삭제하기</button>
                         <button className={styles.btn1} onClick={handleUpdate}>수정하기</button>
                     </>
                 )}
 
-                {oriApproval.approval_status == "처리중" && updating && (
+                {oriApproval.approval?.approval_status == "처리중" && updating && (
                     <>
                         <button className={styles.btn2} onClick={handleUpdateDel}>수정취소</button>
                         <button className={styles.btn1} onClick={handleUpdateCom}>수정완료</button>

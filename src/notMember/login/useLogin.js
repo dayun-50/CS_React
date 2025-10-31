@@ -62,7 +62,9 @@ function useLogin() {
       return false;
     }
 
-    // //  1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
+
+    //  1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
+
     // const processLoginResponse = (combinedToken) => {
     //   const cleanToken = combinedToken.trim();
     //   //  토큰을 "|||" 구분자로 분리
@@ -89,18 +91,18 @@ function useLogin() {
       .post("/member/login", { email: id, pw: pw }, { withCredentials: true })
       .then((resp) => {
         // if (resp.data) {
-        // 로그인 성공시 토큰 및 id값 저장
-        // const generalToken = processLoginResponse(resp.data);
+        //   // 로그인 성공시 토큰 및 id값 저장
+        //   const generalToken = processLoginResponse(resp.data);
 
-        // if (generalToken) {
+        //   if (generalToken) {
         // login(generalToken, id);
-        console.log(resp.data);
         const token = resp.data;
         login(token, id);
         navigate("/");
-        // } else {
-        //   alert("토큰 구조 오류로 로그인 실패");
-        // }
+        //   } else {
+        //     alert("토큰 구조 오류로 로그인 실패");
+        //   }
+
         // }
       })
       .catch((err) => {

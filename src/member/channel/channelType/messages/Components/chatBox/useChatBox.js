@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox(seq, setAlertRooms, onFileUploaded) {
+function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
 
     // 채팅방 제목 받을 준비
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -28,6 +28,8 @@ function useChatBox(seq, setAlertRooms, onFileUploaded) {
                     title: resp.data.CHAT_NAME,
                     memberCount: resp.data.MEMBER_COUNT
                 }))
+                setMemberCount(resp.data.MEMBER_COUNT);
+                console.log("카운트~", resp.data.MEMBER_COUNT);
             })
             .catch(err => {
                 console.log(err);
@@ -136,9 +138,20 @@ function useChatBox(seq, setAlertRooms, onFileUploaded) {
     // 최신 메세지로 자동 스크롤
     // js파일에 잇으면 작동을 안하고 jsx 파일에 잇어야 작동이 되서 옮겻습니다..-지원
 
+
+
+    // 검색 아이콘
+    const serchBut = (options) => {
+        caxios.post("/chat/", {},
+            { withCredentials: true })
+            .then(resp => {
+
+            })
+            .catch(err => console.log(err));
+    }
     return {
         id, room, messages, input,
-        setInput, sendMessage, handleKeyDown,
+        setInput, sendMessage, handleKeyDown, serchBut,
         messageListRef
     }
 }

@@ -345,3 +345,7 @@
     max-width: 80%;
   }
 }
+
+.prohibition{
+  cursor: not-allowed;
+}

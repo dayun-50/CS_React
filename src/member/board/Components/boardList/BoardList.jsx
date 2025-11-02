@@ -3,6 +3,7 @@ import styles from "./BoardList.module.css";
 import { useEffect, useState } from "react";
 import file from "./icon/File.svg";
 import dayjs from "dayjs";
+
 import { caxios } from "../../../../config/config";
 
 // 아이콘 import
@@ -10,6 +11,7 @@ import doubleLeftArrow from "./icon/doubleLeftArrow.svg";
 import leftArrow from "./icon/leftArrow.svg";
 import rightArrow from "./icon/rightArrow.svg";
 import doubleRightArrow from "./icon/doubleRightArrow.svg";
+
 
 const BoardList = () => {
   const [allNotices, setAllNotices] = useState([]); // 전체 공지사항
@@ -19,6 +21,7 @@ const BoardList = () => {
   const PAGE_SIZE = 10; // 한 페이지에 10개
 
   const target = null; // 필요 시 필터용
+
 
   const totalPages = Math.ceil(allNotices.length / PAGE_SIZE);
 
@@ -46,6 +49,7 @@ const BoardList = () => {
   useEffect(() => {
     fetchNotices();
   }, []);
+
 
   const handleTitleClick = (id) => {
     navigate(`/board/detail/${id}`);

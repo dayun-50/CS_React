@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./MessagesIndex.module.css";
 import Attendance from "./Components/attendance/Attendance";
 import ChannelName from "./Components/channelName/ChannelName";
@@ -18,16 +18,22 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   const [alertRooms, setAlertRooms] = useState([]);
   const [rooms, setRooms] = useState(false);
   const id = sessionStorage.getItem("id");
+  // 컴플리트
+  const [isOn, setIsOn] = useState(true);
+  // 인원 카운트 
+  const [memberCount, setMemberCount] = useState("");
+  // 채팅방 추가시 제목...
+  const [title, setTitle] = useState("");
+  // 부서 단체 체팅방 seq
+  const [deptSeq, setDeptSeq] = useState("");
 
   const handleChannelClick = (seq) => {
-    console.log("메세지인덱스", selectedSeq);
     setSelectedSeq(seq); // 클릭된 채널 seq 저장
   };
 
   // 채널 추가 버튼
   const handleClick = () => {
     setIsActive(true);
-    // alert("채널 추가 클릭");
   };
 
   // ---------------- 모달 관련 함수 ----------------
@@ -38,20 +44,33 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   const handleSelect = (selectedPeople) => {
     console.log("선택된 참여자:", selectedPeople);
     // 여기서 채널 생성 API 호출하거나 상태 업데이트 로직 작성 가능
-    caxios.post("/chat/newCaht", { owner_email: id, contact_seq: selectedPeople }, { withCredentials: true })
+    caxios.post("/chat/newCaht", { owner_email: id, title: title, contact_seq: selectedPeople },
+      { withCredentials: true })
       .then(resp => {
         setRooms(prev => !prev);
+        setSelectedSeq(resp.data);
+        setTitle("");
       })
       .catch(err => console.log(err))
   };
+
+
+  //--------------------------------------------파일 동기화
+  const [fileTrigger, setFileTrigger] = useState(false);
+  const handleFileUploaded = useCallback(() => {
+    setFileTrigger(prev => !prev); // true ↔ false 반복
+  }, []);
+
+
+
 
   return (
     <div className={styles.container}>
       <div className={styles.leftColumn}>
         <div className={styles.leftContentWrapper}>
           <Attendance selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
-          <ChannelName newRooms={rooms} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
-          <CompletedChannel selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} />
+          <ChannelName setDeptSeq={setDeptSeq} isOn={isOn} newRooms={rooms} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} setAlertRooms={setAlertRooms} />
+          <CompletedChannel isOn={isOn} selectedSeq={selectedSeq} onChannelClick={handleChannelClick} alertRooms={alertRooms} />
 
         </div>
 
@@ -79,16 +98,14 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
 
       <div className={styles.centerColumn}>
         {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        <ChatBox seq={selectedSeq} />
-         {/* {selectedSeq && <ChatBox seq={selectedSeq} setAlertRooms={setAlertRooms}/>} */}
-
+        {selectedSeq && <ChatBox seq={selectedSeq} isOn={isOn} setAlertRooms={setAlertRooms} setMemberCount={setMemberCount} onFileUploaded={handleFileUploaded} />}
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>
-          <FileBox />
+          <FileBox key={selectedSeq} seq={selectedSeq} trigger={fileTrigger} />
         </div>
         <div className={styles.outBox}>
-          <OutBox />
+          <OutBox deptSeq={deptSeq} setSelectedSeq={setSelectedSeq} seq={selectedSeq} isOn={isOn} setIsOn={setIsOn} memberCount={memberCount} />
         </div>
       </div>
 
@@ -97,6 +114,8 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
         <ChatRoomPlus
           onClose={handleClose}
           onSelect={handleSelect}
+          title={title}
+          setTitle={setTitle}
         />
       )}
     </div>

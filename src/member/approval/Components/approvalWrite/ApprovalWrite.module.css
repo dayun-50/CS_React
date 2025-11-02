@@ -1,6 +1,5 @@
-/* ---------------- 최상위 박스 ---------------- */
+/*최상위박스*/
 .writeBox {
-  margin-top: 20px;
   padding: 10px 30px 0 30px;
   width: 100%;
   height: 100%;
@@ -12,21 +11,22 @@
   box-sizing: border-box;
 }
 
-/* ---------------- 내부 부모 박스 ---------------- */
+/*윗부분 보더라인박스영역*/
 .parent {
   border-radius: 22px;
   background-color: #fff;
   border: 1px solid #8c8c8c;
+
   align-self: stretch;
-  height: 88%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   padding: 10px;
-  box-sizing: border-box;
 }
 
-/* ---------------- 설명 영역 ---------------- */
+/*설명*/
 .description {
   height: 7%;
   width: 100%;
@@ -41,11 +41,14 @@
   height: 100%;
   display: flex;
   align-items: center;
+
   font-size: 20px;
   font-weight: 600;
+  /* justify-content: center; */
+
 }
 
-/* ---------------- 제목 ---------------- */
+/*제목*/
 .titlebox {
   display: flex;
   align-items: center;
@@ -62,15 +65,14 @@
   padding: 12px;
   border: 1px solid #8C8C8C;
   border-radius: 30px;
-  box-sizing: border-box;
 }
 
-/* ---------------- 파일 첨부 ---------------- */
-
+/*파일*/
 .fileWrapper {
   padding-top: 10px;
   width: 100%;
   height: 13%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,13 +81,14 @@
 .filebox {
   height: 70%;
   width: 96%;
+
+
   display: block;
-  border: 1px dashed #ccc;
-  border-radius: 15px;
+  border: 1px solid gray;
+
+  border-radius: 10px;
   cursor: pointer;
   padding: 5px;
-  box-sizing: border-box;
-  overflow-y: auto;
 }
 
 .hiddenFileInput {
@@ -93,9 +96,12 @@
 }
 
 .customFileBtn {
-  display: flex;              /* 가로 배치 */
-  align-items: center;        /* 수직 중앙 정렬 */
-  gap: 8px;                   /* 아이콘과 텍스트 간격 */
+  display: flex;
+  /* 가로 배치 */
+  align-items: center;
+  /* 수직 중앙 정렬 */
+  gap: 8px;
+  /* 아이콘과 텍스트 간격 */
   width: 100%;
   height: 100%;
   padding: 5px 10px;
@@ -108,9 +114,12 @@
 
 .chooseFileText {
   display: flex;
-  align-items: center; /* 수직 중앙 정렬 */
-  justify-content: flex-start; /* 왼쪽 정렬 */
-  flex: 1; /* 남은 공간 차지 */
+  align-items: center;
+  /* 수직 중앙 정렬 */
+  justify-content: flex-start;
+  /* 왼쪽 정렬 */
+  flex: 1;
+  /* 남은 공간 차지 */
 }
 
 /* 파일 이름 표시 */
@@ -122,11 +131,12 @@
   color: #333;
 }
 
-/* ---------------- 내용 ---------------- */
+/*글*/
 .contentbox {
   display: flex;
   align-items: center;
   justify-content: center;
+
   height: 68%;
   width: 100%;
 }
@@ -137,33 +147,29 @@
   padding: 12px;
   border: 1px solid #8C8C8C;
   border-radius: 15px;
-  font-size: 16px;
-  font-family: inherit;
-  color: #8c8c8c;
-  resize: none;
-  outline: none;
+
   overflow-y: auto;
-  box-sizing: border-box;
 }
 
 .content[contenteditable]:empty::before {
   content: attr(data-placeholder);
-  color: #aaa; /* 회색 placeholder 색상 */
-  pointer-events: none; /* 클릭 시 텍스트 입력 가능 */
+  color: #aaa;
+  /* 회색 placeholder 색상 */
+  pointer-events: none;
+  /* 클릭 시 텍스트 입력 가능 */
 }
 
-/* ---------------- 버튼 영역 ---------------- */
+/*버튼영역*/
 .btns {
   width: 100%;
   height: 10%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   font-size: 18px;
   font-family: Pretendard;
   gap: 25px;
-  box-sizing: border-box;
-  /* border:1px solid black; */
 }
 
 button {
@@ -175,16 +181,11 @@ button {
   justify-content: center;
   padding: 16px;
   box-sizing: border-box;
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .btn1 {
-  font-size: 18px;
+  /*회색*/
   background-color: #d9d9d9;
-  color: white;
 }
 
 .btn1:hover {
@@ -192,7 +193,7 @@ button {
 }
 
 .btn2 {
-    font-size: 18px;
+  /*파랑*/
   background-color: #0090ff;
 }
 

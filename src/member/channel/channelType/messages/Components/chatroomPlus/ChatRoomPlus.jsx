@@ -3,9 +3,9 @@ import styles from "./ChatRoomPlus.module.css";
 import useChatRoomPlus from "./useChatRoomPlus";
 import { caxios } from "../../../../../../config/config";
 
-const ChatRoomPlus = ({ onClose, onSelect }) => {
+const ChatRoomPlus = ({ onClose, onSelect, title, setTitle }) => {
   const [selected, setSelected] = useState([]);
-  const { recipients, list } = useChatRoomPlus(selected);
+  const { recipients, list, hendleTitle } = useChatRoomPlus(selected, title, setTitle);
 
   const handleAdd = () => {
     if (selected.length === 0) {
@@ -23,7 +23,8 @@ const ChatRoomPlus = ({ onClose, onSelect }) => {
 
         <div className={styles.chatnamebox}>
           <label className={styles.chatname}>채팅방 이름</label>
-          <input type="text" placeholder="채팅방 이름을 입력해주세요."/>
+
+          <input type="text" value={title} onChange={hendleTitle} placeholder="채팅방 이름을 입력(최대 10글자)"/>
         </div>
 
         <div className={styles.peoplemail}>

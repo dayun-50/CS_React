@@ -1,287 +1,356 @@
-/*최상위박스*/
-.detailBox{
-    padding: 30px 30px 0 30px;
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.inProgress {
+  color: gray;
 }
+
+.approved {
+  color: var(--color-primary);
+}
+
+.denied {
+  color: var(--color-delete-hover);
+}
+
+
+
+/*최상위박스*/
+.detailBox {
+  padding: 30px 30px 0 30px;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 /*버튼제외 글불러오는 박스*/
 .parent {
-    border-radius: 22px;
-    background-color: #fff;
-    border: 1px solid #8c8c8c;
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #8c8c8c;
 
-    align-self: stretch;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  align-self: stretch;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 /*타이틀*/
 .div2 {
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    align-content: center;
-    padding: 30px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 30px;
 }
+
 .div3 {
-    position: relative;
-    text-transform: capitalize;
-    font-weight: 600;
-    font-size: 20px;
+  position: relative;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 20px;
 }
+
 /*이메일, 작성일, 상태*/
 .div4 {
-    /* align-self: stretch; */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px 20px;
-    gap: 30px;
-    font-size: 18px;
+  /* align-self: stretch; */
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 20px;
+  gap: 30px;
+  font-size: 18px;
 }
 
 /* 수정된 부분 */
 .div5 {
-    width: 100%;
-    border-bottom: 1px solid #8c8c8c;
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 10px;
-    gap: 10px;
+  width: 100%;
+  border-bottom: 1px solid #8c8c8c;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  gap: 10px;
 
-    min-height: 40px;       /* 부모 최소 높이 확보 */
-    align-items: center;     /* 자식 세로 중앙 정렬 */
+  min-height: 40px;
+  /* 부모 최소 높이 확보 */
+  align-items: center;
+  /* 자식 세로 중앙 정렬 */
 }
 
 .div6 {
-    flex-shrink: 0;
-    /* height: 100%; 삭제 */
-    text-transform: capitalize;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
+  flex-shrink: 0;
+  /* height: 100%; 삭제 */
+  text-transform: capitalize;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
 }
+
 .div6_left {
-    flex: 1;
+  flex: 1;
 }
+
 .div6_center {
-    flex: 1;
+  flex: 1;
 }
+
 .div6_right {
-    flex: 8;
+  flex: 8;
 }
 
 
 .frameChild {
-    height: 47px;
-    width: 0px;
+  height: 47px;
+  width: 0px;
 }
+
 .frameItem {
-    height: 31px;
-    width: 1px;
-    position: relative;
-    border-right: 1px solid #8c8c8c;
-    box-sizing: border-box;
+  height: 31px;
+  width: 1px;
+  position: relative;
+  border-right: 1px solid #8c8c8c;
+  box-sizing: border-box;
 }
+
 .frame {
-    height: 47px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8c8c8c;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8c8c8c;
 }
 
 /*파일영역*/
 .div9 {
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    padding: 0px 20px;
-    font-size: 16px;
-    color: #8c8c8c;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  font-size: 16px;
+  color: #8c8c8c;
 }
+
 .rectangleParent {
-    height: 59px;
-    width: 100%;
-    display: flex;
-    border-radius: 16px;
-    border: 1px solid #8c8c8c;
-    box-sizing: border-box;
+  height: 59px;
+  width: 100%;
+  display: flex;
+  border-radius: 16px;
+  border: 1px solid #8c8c8c;
+  box-sizing: border-box;
 }
-.iconbox{
-    width: 10%;
-    height: 100%;
-    float: left;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.iconbox {
+  width: 10%;
+  height: 100%;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .documentIcon {
-    width: 24px;
-    height: 24px;
-    margin :auto;
+  width: 24px;
+  height: 24px;
+  margin: auto;
 }
+
 .hwp {
-    width: 90%;
-    height: 100%;
-    float: left;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
+  width: auto;
+  height: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
 }
+
+.noFile {
+  width: 100%;
+  height: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*내용영역*/
 .div10 {
-    height: 380px;
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    padding: 0px 20px;
-     
+  height: 70%;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+
 }
+
 .txt {
-    overflow-y: auto;
-    width: 100%;
-    height: 100%;
-    padding: 5px;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
 }
 
 /*버튼*/
-.btns{
-    width: 100%;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; 
-    font-size: 18px;
-    color: #fff;
-    font-family: Pretendard;
-    gap: 25px;
+.btns {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 18px;
+  color: #fff;
+  font-family: Pretendard;
+  gap: 25px;
 }
-button{
-    height: 48px;
-    width: 200px;
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
+
+button {
+  height: 48px;
+  width: 200px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
-.btn1{ /*파랑*/
-    background-color: #0090ff;
+
+.btn1 {
+  /*파랑*/
+  background-color: #0090ff;
 }
-.btn2{/*주황*/
-    color: #ed7833;
-    background-color: #ffceb1;
+
+.btn2 {
+  /*주황*/
+  color: #ed7833;
+  background-color: #ffceb1;
 }
-.btn3{/*회색*/
-    background-color: #d9d9d9;
+
+.btn3 {
+  /*회색*/
+  background-color: #d9d9d9;
 }
 
 /*수정영역*/
 /* ApprovalDetail.module.css */
 .txtActive {
-    border: 2px solid #0090ff;
-    /* background-color: #f0f8ff; */
-    border-radius: 6px;
+  border: 2px solid #0090ff;
+  /* background-color: #f0f8ff; */
+  border-radius: 6px;
 }
 
 .div3Active {
-    border: 2px solid #0090ff;
-    /* background-color: #f3f7fa; */
-    border-radius: 6px;
+  border: 2px solid #0090ff;
+  /* background-color: #f3f7fa; */
+  border-radius: 6px;
 }
 
 @media (max-width: 1350px) {
-    .div6{
-        font-size: 16px;
-    }
-    .div6_left {
-        flex: 1;
-    }
-    .div6_center {
-        flex: 1.2;
-    }
-    .div6_right {
-        flex: 7.8;
-    }
+  .div6 {
+    font-size: 16px;
+  }
+
+  .div6_left {
+    flex: 1;
+  }
+
+  .div6_center {
+    flex: 1.2;
+  }
+
+  .div6_right {
+    flex: 7.8;
+  }
 }
 
 @media (max-width: 1115px) {
-    .div6{
-        font-size: 16px;
-    }
-    .div6_left {
-        flex: 1;
-    }
-    .div6_center {
-        flex: 2;
-    }
-    .div6_right {
-        flex: 7;
-    }
-    .documentIcon {
-        width: 16px;
-        height: 16px;
-        margin :auto;
-    }
+  .div6 {
+    font-size: 16px;
+  }
+
+  .div6_left {
+    flex: 1;
+  }
+
+  .div6_center {
+    flex: 2;
+  }
+
+  .div6_right {
+    flex: 7;
+  }
+
+  .documentIcon {
+    width: 16px;
+    height: 16px;
+    margin: auto;
+  }
 }
 
 @media (max-width: 860px) {
-    #unseen{
-        display: none;
-    }
-    .div6_center {
-        flex: 2.5;
-    }
-    .div6_right {
-        flex: 7.5;
-    }
+  #unseen {
+    display: none;
+  }
+
+  .div6_center {
+    flex: 2.5;
+  }
+
+  .div6_right {
+    flex: 7.5;
+  }
 }
 
 @media (max-width: 768px) {
-    .div6_center {
-        flex: 2;
-    }
-    .div6_right {
-        flex: 8;
-    }
+  .div6_center {
+    display: none;
+  }
+
+  .div6_right {
+    flex: 10;
+  }
 }
 
 @media (max-width: 545px) {
-    .div6_center {
-        flex: 3;
-    }
-    .div6_right {
-        flex: 7;
-    }
-    .documentIcon {
-        width: 10px;
-        height: 10px;
-        margin :auto;
-    }
+  .div6_center {
+    flex: 3;
+  }
+
+  .div6_right {
+    flex: 7;
+  }
+
+  .documentIcon {
+    width: 10px;
+    height: 10px;
+    margin: auto;
+  }
 }
 
 @media (max-width: 415px) {
-    .div6_center {
-        flex: 3.5;
-    }
-    .div6_right {
-        flex: 6.5;
-    }
-    .documentIcon {
-        width: 10px;
-        height: 10px;
-        margin :auto;
-    }
+  .div6_center {
+    flex: 3.5;
+  }
+
+  .div6_right {
+    flex: 6.5;
+  }
+
+  .documentIcon {
+    width: 10px;
+    height: 10px;
+    margin: auto;
+  }
+}
+
+/*------------------------------------------*/
+
+@media (max-height: 740px) {
+  .div10 {
+    height: 50%;
+  }
 }

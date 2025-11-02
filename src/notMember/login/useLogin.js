@@ -95,10 +95,10 @@ function useLogin() {
         //   const generalToken = processLoginResponse(resp.data);
 
         //   if (generalToken) {
-            // login(generalToken, id);
-            const token = resp.data;
-            login(token, id);
-            navigate("/");
+        // login(generalToken, id);
+        const token = resp.data;
+        login(token, id);
+        navigate("/");
         //   } else {
         //     alert("토큰 구조 오류로 로그인 실패");
         //   }

@@ -35,12 +35,30 @@ function Login() {
 
                     <div className={styles.emailbox}>
                         <label htmlFor="email">이메일</label><br />
-                        <input id="email" type="email" placeholder="이메일" value={id} onChange={hendleChangeById}/>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="이메일"
+                            value={id}
+                            onChange={hendleChangeById}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") clickLogin();
+                            }}
+                        />
                     </div>
 
                     <div className={styles.pwbox}>
                         <label htmlFor="pw">비밀번호</label><br />
-                        <input id="pw" type="password" placeholder="비밀번호" value={pw} onChange={hendleChangeByPw}/>
+                        <input
+                            id="pw"
+                            type="password"
+                            placeholder="비밀번호"
+                            value={pw}
+                            onChange={hendleChangeByPw}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") clickLogin();
+                            }}
+                        />
                     </div>
 
                     <button className={styles.loginbutton} onClick={clickLogin}>로그인</button>

@@ -11,6 +11,8 @@ const ToggleBox = ({ seq, selectedEmails, setSelectedEmails }) => {
     members
   } = useToggleBox(seq, selected, setSelected);
 
+  console.log("멤버",members);
+
   const handleClick = (index, member) => {
     const newSelected = [...selected];
     newSelected[index] = !newSelected[index]; // 클릭하면 토글

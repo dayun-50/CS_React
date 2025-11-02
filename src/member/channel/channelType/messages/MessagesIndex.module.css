@@ -117,3 +117,14 @@
   font-weight: 500;
   margin-left: 36px; /* 아이콘 자리에 여백 확보 */
 }
+
+.emptyMessage {
+  display: flex;                 /* Flexbox 사용 */
+  justify-content: center;       /* 가로 중앙 정렬 */
+  align-items: center;           /* 세로 중앙 정렬 */
+  height: 100%;                  /* 부모 컨테이너 높이 꽉 채움 */
+  color: #999999;                /* 연한 회색 */
+  font-size: 1.2rem;             /* 글자 크기 */
+  font-weight: 400;              /* 진하지 않게 */
+  text-align: center;            /* 여러 줄일 때 가운데 정렬 */
+}

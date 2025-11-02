@@ -183,7 +183,7 @@ function useSignin() {
       /*
                 뭐 알림을 띄울건지 팀장님께 여쭤봐야할거 같습니다.
             */
-      alert("a"); // 나중에 제거하셈
+      alert("입력값 조건 불일치"); // 나중에 제거하셈
       return false;
     }
 

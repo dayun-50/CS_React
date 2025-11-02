@@ -84,6 +84,7 @@ const ScheduleBox = ({ seq, selectedEmails, setSelectedEmails }) => {
         sevaEvent, handleSelectEvent
     } = useScheduleBox(events, setEvents, seq, selectedEmails);
 
+    console.log("이벤트목록",events);
 
     // ─── 이벤트 추가
     const handleSelectSlot = ({ start, end }) => {

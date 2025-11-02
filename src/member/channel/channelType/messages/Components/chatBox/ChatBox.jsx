@@ -27,8 +27,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
     setInput, sendMessage, handleKeyDown, serchBut,
     messageListRef
   } = useChatBox(
-    seq, setAlertRooms, setMemberCount, collapseButtonText, serchValue,onFileUploaded,
-    setIsSearching
+    seq, setAlertRooms, setMemberCount, onFileUploaded, collapseButtonText, serchValue, isSearching, setIsSearching, setSerchValue
   );
 
   useEffect(() => setMessages(originalMessages), [originalMessages]);
@@ -60,7 +59,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
     setShowCollapseDropdown(false);
 
     if (option === "날짜") {
-      setSearchPlaceholder("YY-MM-DD");
+      setSearchPlaceholder("YYMMDD");
     } else {
       setSearchPlaceholder("검색할 내용");
     }
@@ -140,7 +139,19 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
                 value={serchValue}
                 onChange={e => setSerchValue(e.target.value)}
               />
-              <span onClick={serchBut} style={{ cursor: "pointer" }}>
+              <span
+                onClick={() => {
+                  if (isSearching) {
+                    // X 아이콘 클릭
+                    setSerchValue("");        // 검색어 초기화
+                    setIsSearching(false);    // 검색 모드 종료
+                  } else {
+                    // 검색 아이콘 클릭
+                    serchBut();               // 실제 검색 함수 호출
+                  }
+                }}
+                style={{ cursor: "pointer" }}
+              >
                 {isSearching ? <IoClose size={20} /> : <img src={search} alt="검색 아이콘" />}
               </span>
 
@@ -195,7 +206,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
                   ) : (
                     // 파일이 있으면 a태그로 다운로드 링크 표시
                     <div>
-                      <a href={`http://10.10.55.103/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
+                      <a href={`http://192.168.45.127/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
                         target="_blank" rel="noopener noreferrer" download>
                         {msg.oriname || msg.message}
                       </a>

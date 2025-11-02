@@ -13,6 +13,7 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
         caxios.post(`/schedule/eventsList?${params.toString()}`, { chat_seq: seq, member_email: id },
             { withCredentials: true })
             .then(resp => {
+                console.log("이벤트데이타",resp.data);
                 setEvents(resp.data.map(e => ({
                     ...e,
                     schedule_seq: e.schedule_seq,
@@ -27,7 +28,7 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
             .catch(err => {
                 console.log(err);
             })
-    }, [changed])
+    }, [changed, selectedEmails])
 
 
 

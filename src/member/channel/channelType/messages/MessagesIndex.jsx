@@ -98,14 +98,26 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
 
       <div className={styles.centerColumn}>
         {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
-        {selectedSeq && <ChatBox seq={selectedSeq} isOn={isOn} setAlertRooms={setAlertRooms} setMemberCount={setMemberCount} onFileUploaded={handleFileUploaded} />}
+        {selectedSeq ? (
+          <ChatBox
+            seq={selectedSeq}
+            isOn={isOn}
+            setAlertRooms={setAlertRooms}
+            setMemberCount={setMemberCount}
+            onFileUploaded={handleFileUploaded}
+          />
+        ) : (
+          <div className={styles.emptyMessage}>
+            채팅방을 선택해주세요.
+          </div>
+        )}
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>
-          <FileBox key={selectedSeq} seq={selectedSeq} trigger={fileTrigger} />
+          {selectedSeq && <FileBox key={selectedSeq} seq={selectedSeq} trigger={fileTrigger} />}
         </div>
         <div className={styles.outBox}>
-          <OutBox deptSeq={deptSeq} setSelectedSeq={setSelectedSeq} seq={selectedSeq} isOn={isOn} setIsOn={setIsOn} memberCount={memberCount} />
+          {selectedSeq && <OutBox deptSeq={deptSeq} setSelectedSeq={setSelectedSeq} seq={selectedSeq} isOn={isOn} setIsOn={setIsOn} memberCount={memberCount} />}
         </div>
       </div>
 

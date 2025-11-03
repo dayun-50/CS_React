@@ -180,7 +180,6 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
                     <span className={styles.chatBox__dateText}>{currentDate}</span>
                   </div>
                 )}
-
                 <div
                   id={`msg-${msg.chat_seq}-${msg.message_seq}`}
                   className={`${styles.chatBox__messageWrapper} ${msg.member_email === id
@@ -190,6 +189,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
                 >
                   {msg.member_email !== id && (
                     <div className={styles.chatBox__sender}>{msg.name}</div>
+
                   )}
                   <div className={styles.chatBox__messageInner}>
                     <div className={styles.chatBox__message}>

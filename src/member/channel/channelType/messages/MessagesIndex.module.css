@@ -7,11 +7,12 @@
 /* 왼쪽 영역 */
 .leftColumn {
   height: 100%;
-  flex: 1;
+  flex: 0.6;
   display: flex;
   flex-direction: column;
   gap: 30px;
   overflow: hidden;
+  /* border:1px solid black; */
 }
 
 .leftContentWrapper {
@@ -28,7 +29,7 @@
 /* 가운데 */
 .centerColumn {
   height: 100%;
-  flex: 2; /* 가운데 영역 더 넓게 */
+  flex: 2.4; /* 가운데 영역 더 넓게 */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -118,13 +119,14 @@
   margin-left: 36px; /* 아이콘 자리에 여백 확보 */
 }
 
-.emptyMessage {
-  display: flex;                 /* Flexbox 사용 */
-  justify-content: center;       /* 가로 중앙 정렬 */
-  align-items: center;           /* 세로 중앙 정렬 */
-  height: 100%;                  /* 부모 컨테이너 높이 꽉 채움 */
-  color: #999999;                /* 연한 회색 */
-  font-size: 1.2rem;             /* 글자 크기 */
-  font-weight: 400;              /* 진하지 않게 */
-  text-align: center;            /* 여러 줄일 때 가운데 정렬 */
+/* 채팅방 선택 X */
+.noChatSelected {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #D9D9D9;
+  font-weight: bold;
 }

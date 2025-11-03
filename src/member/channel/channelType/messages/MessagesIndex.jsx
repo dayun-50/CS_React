@@ -99,18 +99,19 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
       <div className={styles.centerColumn}>
         {/* 채팅방을 클릭해서 seq 반환시에만 랜더링 */}
         {selectedSeq ? (
-          <ChatBox
-            seq={selectedSeq}
-            isOn={isOn}
-            setAlertRooms={setAlertRooms}
-            setMemberCount={setMemberCount}
-            onFileUploaded={handleFileUploaded}
-          />
-        ) : (
-          <div className={styles.emptyMessage}>
-            채팅방을 선택해주세요.
-          </div>
-        )}
+
+    <ChatBox
+      seq={selectedSeq}
+      isOn={isOn}
+      setAlertRooms={setAlertRooms}
+      setMemberCount={setMemberCount}
+      onFileUploaded={handleFileUploaded}
+    />
+  ) : (
+    <div className={styles.noChatSelected}>
+      채팅방을 선택해주세요.
+    </div>
+  )}
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.fileBox}>

@@ -23,6 +23,7 @@ const ChatRoomPlus = ({ onClose, onSelect, title, setTitle }) => {
 
         <div className={styles.chatnamebox}>
           <label className={styles.chatname}>채팅방 이름</label>
+
           <input type="text" value={title} onChange={hendleTitle} placeholder="채팅방 이름을 입력(최대 10글자)"/>
         </div>
 

@@ -113,6 +113,10 @@
   cursor: pointer;
 }
 
+.delebt:hover {
+    background-color: #007ACC;
+}
+
 .maild {
   font-size: 18px;
   position: relative;

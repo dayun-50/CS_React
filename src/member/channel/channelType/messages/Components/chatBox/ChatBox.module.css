@@ -312,19 +312,27 @@
   cursor: not-allowed;
 }
 
-.chatBox__dateLine {
+.chatBox__dateDivider {
   display: flex;
   align-items: center;
+  margin: 10px 0;
+  position: relative;
   text-align: center;
-  margin: 12px 0;
-  font-size: 12px;
-  color: #888;
 }
 
-.chatBox__dateLine::before,
-.chatBox__dateLine::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid #ccc;
-  margin: 0 8px;
+.chatBox__hr {
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 0;
+}
+
+.chatBox__dateText {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #eff3ff;
+  padding: 0 8px;
+  font-size: 12px;
+  color: #999;
 }

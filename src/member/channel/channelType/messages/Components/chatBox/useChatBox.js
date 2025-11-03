@@ -62,7 +62,7 @@ function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded, collapse
                     const file = item.fdata;
                     const name = item.name;
                     if (file) {// 파일이면 링크처리 가능하게 추가정보
-                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, name };
+                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, name};
                     } else {
                         return { ...msg, type: "chat", name };
                     }
@@ -145,42 +145,45 @@ function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded, collapse
 
 
 
-    // 검색 아이콘
-    const serchBut = () => {
-        if (!serchValue) return;
+// 검색 아이콘
+const serchBut = () => {
+    if (!serchValue) return;
 
-        const handleResponse = (data) => {
-            setIsSearching(prev => !prev);
-            console.log(data); // 처리할 내용
+    const handleResponse = (data) => {
+        setIsSearching(prev => !prev);
+        console.log(data); // 처리할 내용
 
-            const converted = data.each.map(item => {
-                const msg = item.data;
-                const file = item.fdata;
-                if (file) {
-                    return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type };
-                } else {
-                    return { ...msg, type: "chat" };
-                }
-            });
-
-            setMessages(converted);
-        };
-
-        if (collapseButtonText === "메시지") {
-            caxios.post("/chatMessage/serchByText", { chat_seq: seq, message: serchValue }, { withCredentials: true })
-                .then(resp => handleResponse(resp.data))
-                .catch(err => console.log(err));
-        } else if (collapseButtonText === "날짜") {
-            if (!phoneRegex.test(serchValue)) {
-                alert("검색 조건 불일치");
-                setSerchValue("");
-                return;
+        const converted = data.each.map(item => {
+            const msg = item.data;
+            const file = item.fdata;
+            if (file) {
+                return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type };
+            } else {
+                return { ...msg, type: "chat" };
             }
-            caxios.post("/chatMessage/serchByDate", { chat_seq: seq, message_at: serchValue }, { withCredentials: true })
-                .then(resp => handleResponse(resp.data))
-                .catch(err => console.log(err));
-        }
+        });
+
+        // 최신순으로 정렬 (message_at 기준)
+        converted.sort((a, b) => new Date(b.message_at) - new Date(a.message_at));
+
+        setMessages(converted);
     };
+
+    if (collapseButtonText === "메시지") {
+        caxios.post("/chatMessage/serchByText", { chat_seq: seq, message: serchValue }, { withCredentials: true })
+            .then(resp => handleResponse(resp.data))
+            .catch(err => console.log(err));
+    } else if (collapseButtonText === "날짜") {
+        if (!phoneRegex.test(serchValue)) { 
+            alert("검색 조건 불일치"); 
+            setSerchValue(""); 
+            return;
+        }
+        caxios.post("/chatMessage/serchByDate", { chat_seq: seq, message_at: serchValue }, { withCredentials: true })
+            .then(resp => handleResponse(resp.data))
+            .catch(err => console.log(err));
+    }
+};
     return {
         id, room, messages, input,
         setInput, sendMessage, handleKeyDown, serchBut,

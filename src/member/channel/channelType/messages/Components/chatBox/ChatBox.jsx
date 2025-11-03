@@ -37,6 +37,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
   const handleRemoveFile = (index) => {
     const newFileList = fileList.filter((_, i) => i !== index);
     setFileList(newFileList);
+
     const fileInput = document.getElementById("fileUpload");
     if (fileInput?.files) {
       const dt = new DataTransfer();
@@ -83,13 +84,15 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
       message_seq: messages.length,
       member_email: id,
       message: input.message,
-      message_at: new Date().toISOString(),
+      message_at: new Date().toISOString(), // ✅ 반드시 넣기
       name: "나",
       level_code: "",
+      type: "chat",
     };
 
     setMessages((prev) => [...prev, newMsg]);
     setInput({ message: "" });
+
     const fileInput = document.getElementById("fileUpload");
     if (fileInput) fileInput.value = "";
   };
@@ -160,18 +163,21 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
           </div>
         </div>
 
-        {/* 메시지 리스트 */}
         <div className={styles.chatBox__messageList} ref={messageListRef}>
           {messages.map((msg, index) => {
-            const msgDate = msg.message_at ? new Date(msg.message_at).toLocaleDateString() : "";
-            const prevMsgDate = index > 0 ? new Date(messages[index - 1].message_at).toLocaleDateString() : null;
-            const showDateLine = msgDate !== prevMsgDate;
+            const currentDate = msg.message_at ? new Date(msg.message_at).toLocaleDateString("ko-KR") : null;
+            const prevDate = index > 0 && messages[index - 1].message_at ?
+              new Date(messages[index - 1].message_at).toLocaleDateString("ko-KR") : null;
+
+            // 날짜 divider는 message_at이 있을 때만
+            const showDateDivider = currentDate && prevDate !== currentDate;
 
             return (
               <div key={`${msg.chat_seq}-${msg.message_seq}`}>
-                {showDateLine && (
-                  <div className={styles.chatBox__dateLine}>
-                    <span>{msgDate}</span>
+                {showDateDivider && (
+                  <div className={styles.chatBox__dateDivider}>
+                    <hr className={styles.chatBox__hr} />
+                    <span className={styles.chatBox__dateText}>{currentDate}</span>
                   </div>
                 )}
 
@@ -210,29 +216,12 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
           })}
         </div>
 
-        {/* 입력영역 */}
         <div className={styles.chatBox__inputArea}>
           <div className={styles.chatBox__attachButton}>
-            <label
-              htmlFor="fileUpload"
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "100%",
-                height: "100%",
-              }}
-            >
+            <label htmlFor="fileUpload" style={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
               <img src={attach} className={styles.chatBox__inputIcon} alt="파일 첨부" />
             </label>
-            <input
-              type="file"
-              id="fileUpload"
-              multiple
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
+            <input type="file" id="fileUpload" multiple onChange={handleFileChange} style={{ display: "none" }} />
           </div>
 
           <div style={{ flexGrow: 1, position: "relative", display: "flex", alignItems: "center" }}>
@@ -241,7 +230,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
               className={`${styles.chatBox__inputText} ${isOn ? '' : styles.prohibition}`}
               value={input.message}
               placeholder={isOn ? "메시지를 입력하세요" : "종료된 프로젝트방 입니다."}
-              onChange={(e) => setInput((prev) => ({ ...prev, message: e.target.value }))}
+              onChange={(e) => setInput(prev => ({ ...prev, message: e.target.value }))}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -255,52 +244,11 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
             />
 
             {fileList.length > 0 && (
-              <div
-                style={{
-                  position: "absolute",
-                  left: "1px",
-                  right: "36px",
-                  display: "flex",
-                  gap: "6px",
-                  overflowX: "auto",
-                  height: "28px",
-                  alignItems: "center",
-                }}
-              >
+              <div style={{ position: "absolute", left: "1px", right: "36px", display: "flex", gap: "6px", overflowX: "auto", height: "28px", alignItems: "center" }}>
                 {fileList.map((file, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      background: "#f0f0f0",
-                      borderRadius: "20px",
-                      fontSize: "12px",
-                      color: "#333",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      flexShrink: 0,
-                      maxWidth: "120px",
-                    }}
-                  >
+                  <div key={i} style={{ display: "flex", alignItems: "center", background: "#f0f0f0", borderRadius: "20px", fontSize: "12px", color: "#333", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", flexShrink: 0, maxWidth: "120px" }}>
                     <span>{file.name}</span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveFile(i)}
-                      style={{
-                        border: "none",
-                        background: "transparent",
-                        color: "#ff4d4f",
-                        cursor: "pointer",
-                        fontWeight: "bold",
-                        fontSize: "18px",
-                        lineHeight: "1",
-                        padding: 0,
-                      }}
-                    >
-                      ×
-                    </button>
+                    <button type="button" onClick={() => handleRemoveFile(i)} style={{ border: "none", background: "transparent", color: "#ff4d4f", cursor: "pointer", fontWeight: "bold", fontSize: "18px", lineHeight: "1", padding: 0 }}>×</button>
                   </div>
                 ))}
               </div>

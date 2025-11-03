@@ -84,7 +84,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
       message_seq: messages.length,
       member_email: id,
       message: input.message,
-      message_at: new Date().toISOString(), // ✅ 반드시 넣기
+      message_at: new Date().toISOString(), 
       name: "나",
       level_code: "",
       type: "chat",

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useChannelName from "../channelName/useChannelName";
-import styles from "./fileBox.module.css";
+import styles from "./FileBox.module.css";
 import arrow from "./icon/Collapse Arrow.svg";
 import search from "./icon/Search.svg";
 import { caxios } from "../../../../../../config/config";

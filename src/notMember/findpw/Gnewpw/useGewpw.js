@@ -31,7 +31,7 @@ function useGewpw() {
 
     // 완료 버튼 클릭시
     const clickByComplete = () => {
-        if (check.pw == false) {
+        if (check == false) {
             return false;
         }
 

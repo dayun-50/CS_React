@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useChatBox( seq, setAlertRooms, setMemberCount, onFileUploaded, collapseButtonText, serchValue, isSearching, setIsSearching, setSerchValue
+function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded, collapseButtonText, serchValue, isSearching, setIsSearching, setSerchValue
 ) {
 
 
@@ -23,7 +23,7 @@ function useChatBox( seq, setAlertRooms, setMemberCount, onFileUploaded, collaps
 
     useEffect(() => {
         setIsSearching(false);
-        setSerchValue(""); 
+        setSerchValue("");
         console.log(seq);
         caxios.post("/chat/chatRoom", { chat_seq: seq, member_email: id },
             { withCredentials: true })
@@ -34,7 +34,6 @@ function useChatBox( seq, setAlertRooms, setMemberCount, onFileUploaded, collaps
                     memberCount: resp.data.MEMBER_COUNT
                 }))
                 setMemberCount(resp.data.MEMBER_COUNT);
-                console.log("카운트~", resp.data.MEMBER_COUNT);
             })
             .catch(err => {
                 console.log(err);
@@ -43,29 +42,29 @@ function useChatBox( seq, setAlertRooms, setMemberCount, onFileUploaded, collaps
 
     // 웹소캣 연결
     useEffect(() => {
-        if(isSearching)return;
+        if (isSearching) return;
         setMessages([]);
         if (!room.title) return;
         setInput(prev => ({ ...prev, chat_seq: seq }));
-        ws.current = new WebSocket(`ws://192.168.45.127/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current = new WebSocket(`ws://10.5.5.9/chatting?token=${token}&chat_seq=${seq}`);
         ws.current.binaryType = "arraybuffer";
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
-
+            console.log("정보요~", data);
             if (data.type === "chat") {// 채팅 타입이라면
-                console.log(data);
-                setMessages((prev) => [...prev, data.data]);
 
+                setMessages((prev) => [...prev, { ...data.data, name: data.name }]);
             } else if (data.type === "history") { // 과거 내용이라면
                 console.log(data);
                 const converted = data.each.map(item => {
                     const msg = item.data;
                     const file = item.fdata;
+                    const name = item.name;
                     if (file) {// 파일이면 링크처리 가능하게 추가정보
-                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, };
+                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, name };
                     } else {
-                        return { ...msg, type: "chat" };
+                        return { ...msg, type: "chat", name };
                     }
                 })
                 setMessages(converted);
@@ -148,44 +147,40 @@ function useChatBox( seq, setAlertRooms, setMemberCount, onFileUploaded, collaps
 
     // 검색 아이콘
     const serchBut = () => {
-        if(!serchValue)return;
+        if (!serchValue) return;
+
+        const handleResponse = (data) => {
+            setIsSearching(prev => !prev);
+            console.log(data); // 처리할 내용
+
+            const converted = data.each.map(item => {
+                const msg = item.data;
+                const file = item.fdata;
+                if (file) {
+                    return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type };
+                } else {
+                    return { ...msg, type: "chat" };
+                }
+            });
+
+            setMessages(converted);
+        };
+
         if (collapseButtonText === "메시지") {
-            caxios.post("/chatMessage/serchByText", {chat_seq: seq, message: serchValue}, { withCredentials: true })
-                .then(resp => {
-                    setIsSearching(prev => !prev);
-                    console.log(resp.data); // 처리할 내용
-                    const converted = resp.data.each.map(item => {
-                    const msg = item.data;
-                    const file = item.fdata;
-                    if (file) {// 파일이면 링크처리 가능하게 추가정보
-                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, };
-                    } else {
-                        return { ...msg, type: "chat" };
-                    }
-                })
-                setMessages(converted);
-                })
+            caxios.post("/chatMessage/serchByText", { chat_seq: seq, message: serchValue }, { withCredentials: true })
+                .then(resp => handleResponse(resp.data))
                 .catch(err => console.log(err));
         } else if (collapseButtonText === "날짜") {
-            if(!phoneRegex.test(serchValue)){alert("검색 조건 불일치"); setSerchValue(""); };
-            caxios.post("/chatMessage/serchByDate", {chat_seq: seq, message_at: serchValue}, { withCredentials: true })
-                .then(resp => {
-                    setIsSearching(prev => !prev);
-                    console.log(resp.data); // 처리할 내용
-                    const converted = resp.data.each.map(item => {
-                    const msg = item.data;
-                    const file = item.fdata;
-                    if (file) {// 파일이면 링크처리 가능하게 추가정보
-                        return { ...msg, type: "file", sysname: file.sysname, oriname: file.oriname, file_type: file.file_type, };
-                    } else {
-                        return { ...msg, type: "chat" };
-                    }
-                })
-                setMessages(converted);
-                })
+            if (!phoneRegex.test(serchValue)) {
+                alert("검색 조건 불일치");
+                setSerchValue("");
+                return;
+            }
+            caxios.post("/chatMessage/serchByDate", { chat_seq: seq, message_at: serchValue }, { withCredentials: true })
+                .then(resp => handleResponse(resp.data))
                 .catch(err => console.log(err));
         }
-    }
+    };
     return {
         id, room, messages, input,
         setInput, sendMessage, handleKeyDown, serchBut,

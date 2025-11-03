@@ -162,6 +162,10 @@
     background-color: #007ACC;;
 }
 
+.requestcheck input.inputError {
+    border: 2px solid #ED7833 !important;
+}
+
 @media (max-width: 425px) {
     .pwfindbox {
         width: 90%;

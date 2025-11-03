@@ -318,6 +318,9 @@
     background-color: #007ACC; 
 }
 
+.inputError {
+    border: 2px solid #ED7833 !important;
+}
 /* 태블릿용 반응형 */
 @media (max-width: 768px) {
     .h1h1{

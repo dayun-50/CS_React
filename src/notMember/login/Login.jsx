@@ -6,7 +6,7 @@ function Login() {
 
     // js 코드들 따로 모아두고 임포트시켜서 사용함
     const {
-        id, pw, hendleChangeById, hendleChangeByPw, clickLogin
+        id, pw, error, hendleChangeById, hendleChangeByPw, clickLogin
     } = useLogin();
 
     return (
@@ -44,6 +44,7 @@ function Login() {
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") clickLogin();
                             }}
+                            className={`${error.id ? styles.inputError : ""}`} //빈값이면 border
                         />
                     </div>
 
@@ -58,6 +59,7 @@ function Login() {
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") clickLogin();
                             }}
+                            className={`${error.pw ? styles.inputError : ""}`} // 빈값이면 border
                         />
                     </div>
 

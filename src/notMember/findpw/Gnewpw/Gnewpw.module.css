@@ -115,6 +115,11 @@
     background-color: #007ACC;;
 }
 
+/* 비밀번호 유효성 오류일 때 빨간 보더 */
+.newpw input.inputError {
+    border: 2px solid #ED7833 !important;
+}
+
 /* 태블릿용 반응형 */
 @media (max-width: 768px) {
     .loginbox {

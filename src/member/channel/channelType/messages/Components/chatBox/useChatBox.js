@@ -1,16 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-<<<<<<< HEAD
-/**
- * useChatBox 훅
- * seq: 채팅방 시퀀스
- * setAlertRooms: 채팅방 알람용 상태 setter (부모 컴포넌트에서 전달)
- */
-function useChatBox(seq, setAlertRooms) {
-=======
+
 function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
->>>>>>> 4f21d30d39f745a8ba55c2b0c735ea976f94432f
 
     // 🔹 채팅방 제목/멤버 수 상태
     const [room, setRoom] = useState({ title: "", memberCount: "" });
@@ -28,17 +20,8 @@ function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
     // WebSocket 참조
     const ws = useRef(null);
 
-<<<<<<< HEAD
-    // 메시지 리스트 DOM 참조 (스크롤용)
     const messageListRef = useRef(null);
 
-    // 🔹 채팅방 정보 가져오기 (채팅방 제목/멤버수)
-=======
-
-    const messageListRef = useRef(null);
-
-
->>>>>>> 4f21d30d39f745a8ba55c2b0c735ea976f94432f
     useEffect(() => {
         console.log(seq);
         caxios.post("/chat/chatRoom", { chat_seq: seq, member_email: id },

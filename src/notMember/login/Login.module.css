@@ -127,7 +127,6 @@
     background-color:#007ACC;
 }
 
-
 /*.loginbutton:hover {
      background-color: #3a8ce0;  조금 더 진한 색 */
     /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); 살짝 그림자 */
@@ -154,7 +153,10 @@
     text-decoration: none;
 }
 
-
+.emailbox input.inputError,
+.pwbox input.inputError {
+    border: 2px solid #ED7833 !important; 
+}
 /* 태블릿용 반응형 */
 @media (max-width: 768px) {
     .loginbox {

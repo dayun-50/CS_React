@@ -114,5 +114,6 @@ button.selected {
 
 /* Attendance.module.css */
 .alert {
+  width:100%;
    background-color: #50b3ff56 !important;
 }

@@ -16,7 +16,7 @@
 /* 내부 컨테이너 */
 .chatBox__container {
   width: 100%;
-  max-width: 985px;
+  /* max-width: 985px; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,7 @@
   flex-wrap: wrap; /* 줄바꿈 가능 */
 }
 
+/* 검색창 */
 .chatBox__searchBar {
   width: 60%;
   height: 40px;
@@ -80,6 +81,11 @@
   margin-left: 8px;
   object-fit: contain;
   cursor: pointer;
+}
+
+/* 필터 버튼 wrapper (드롭다운 기준) */
+.chatBox__collapseBtnWrapper {
+  position: relative; /* 드롭다운 위치 기준 */
 }
 
 /* 필터 버튼 */
@@ -152,7 +158,7 @@
 /* 메시지 wrapper (말풍선 + 시간) */
 .chatBox__messageWrapper {
   display: flex;
-  flex-direction: column; /* 말풍선+시간 위, 이름/직급 아래 */
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 8px;
 }
@@ -166,13 +172,13 @@
 
 /* 왼쪽 메시지 (상대방) */
 .chatBox__messageWrapper--left .chatBox__messageInner {
-  flex-direction: row; /* 말풍선 왼쪽, 시간 오른쪽 */
+  flex-direction: row;
   align-self: flex-start;
 }
 
 /* 오른쪽 메시지 (내쪽) */
 .chatBox__messageWrapper--right .chatBox__messageInner {
-  flex-direction: row-reverse; /* 말풍선 오른쪽, 시간 왼쪽 */
+  flex-direction: row-reverse;
   align-self: flex-end;
 }
 
@@ -186,8 +192,8 @@
 
 /* 말풍선 */
 .chatBox__message {
-  background-color: #bde2ff; /* 내/상대 동일 */
-  border-radius: 16px 0 16px 16px; /* 기본 왼쪽 모양 */
+  background-color: #bde2ff;
+  border-radius: 16px 0 16px 16px;
   padding: 10px 20px;
   max-width: 70%;
   color: #404040;
@@ -203,7 +209,7 @@
 
 /* 말풍선 상하 + 좌우 뒤집기 */
 .chatBox__messageWrapper--left .chatBox__message {
-  background-color: white; /* 상대방 말풍선 색 */
+  background-color: white;
   transform: scaleX(-1) scaleY(-1);
 }
 
@@ -288,63 +294,225 @@
   height: 30px;
 }
 
-/* ------------------ 반응형 ------------------ */
-/* 모바일 <= 600px */
+
+/* 입력창 위 파일 리스트 */
+.chatBox__fileList {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 2px 0;
+}
+
+.chatBox__fileItem {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #333;
+  padding: 0 6px;
+  max-width: 120px;
+  flex-shrink: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chatBox__fileItem span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
+}
+
+.chatBox__fileItem button {
+  border: none;
+  background: transparent;
+  color: #ff4d4f;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+
 @media (max-width: 600px) {
+
+  /* 헤더 */
   .chatBox__headerWrapper {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    padding: 12px;
+    gap: 6px;
+    padding: 10px 12px;
   }
 
+  .chatBox__header {
+    font-size: 18px; /* 조금 작게 */
+    word-break: break-word;
+  }
+
+  /* 상단 검색 + 필터 그룹 */
   .chatBox__topControls {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
     width: 100%;
     gap: 10px;
   }
 
-  .chatBox__searchBar,
-  .chatBox__collapseBtn {
-    width: 100%;
-    min-width: auto;
-    max-width: none;
-  }
-
-  .chatBox__message {
-    max-width: calc(100% - 20px);
-  }
-
-  .chatBox__inputText {
-    width: auto;
-    flex-grow: 1;
-  }
-
-  .chatBox__sendButton {
-    width: auto;
-    flex-shrink: 0;
-  }
-}
-
-/* 태블릿 601px ~ 1024px */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .chatBox__topControls {
-    width: 90%;
-    gap: 20px;
-  }
-
+  /* 검색창 */
   .chatBox__searchBar {
-    width: 65%;
+    flex: 1 1 60%;
+    min-width: 0;
+    max-width: 100%;
+    height: 36px;
+    padding: 0 10px;
   }
 
+  .chatBox__searchInput {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+  }
+
+  /* 검색 아이콘 */
+  .chatBox__searchIcon {
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+  }
+
+  /* 필터 버튼 + 드롭다운 wrapper */
+  .chatBox__collapseBtnWrapper {
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 35%;
+    position: relative;
+  }
+
+  /* 필터 버튼 */
   .chatBox__collapseBtn {
-    width: 30%;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    padding: 0 10px;
+    height: 36px;
   }
 
+  /* 드롭다운 */
+  .chatBox__sortDropdown {
+    width: 100%;         /* 버튼 폭과 동일 */
+    max-width: none;
+    left: 0;
+    top: 36px;           /* 버튼 바로 아래 */
+    padding: 2px 0;
+    box-sizing: border-box;
+  }
+
+  .chatBox__sortOption {
+    padding: 6px 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* 메시지 리스트 */
+  .chatBox__messageList {
+    padding: 12px;
+    min-height: 280px;
+    gap: 6px;
+  }
+
+  /* 말풍선 - 모바일 폭에 맞춤 */
   .chatBox__message {
     max-width: 80%;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  /* 이름/직급 */
+  .chatBox__sender {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  /* 시간 */
+  .chatBox__timestamp {
+    font-size: 11px;
+  }
+
+  /* 입력창 영역 */
+  .chatBox__inputArea {
+    height: 44px;
+    margin: 0 10px 10px;
+    gap: 6px;
+    padding: 4px 6px;
+  }
+
+  /* 첨부 + 전송 버튼 */
+  .chatBox__attachButton,
+  .chatBox__sendButton {
+    width: 12%;
+    min-width: 36px;
+    height: 100%;
+  }
+
+  .chatBox__sendIcon,
+  .chatBox__inputIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* 입력창 */
+  .chatBox__inputText {
+    flex-grow: 1;
+    min-width: 0;
+    font-size: 14px;
+    height: 100%;
+  }
+
+  /* 파일리스트 */
+  .chatBox__fileList {
+    padding: 2px 0;
+    gap: 4px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .chatBox__fileItem {
+    max-width: 90px;      /* 폭 줄임 */
+    font-size: 12px;
+    padding: 0 4px;
+  }
+
+  .chatBox__fileItem span {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 1;
+  }
+
+  .chatBox__fileItem button {
+    font-size: 14px;
+    padding: 0 2px;
+  }
+
+  /* 드롭다운 깨짐 방지 */
+  .chatBox__collapseBtnWrapper,
+  .chatBox__collapseBtn,
+  .chatBox__sortDropdown,
+  .chatBox__sortOption {
+    box-sizing: border-box;
   }
 }
+
 
 .prohibition{
   cursor: not-allowed;

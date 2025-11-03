@@ -81,7 +81,7 @@ const Topbar = ({ onMenuClick }) => {
             )}
           </div>
 
-          {/* 햄버거 아이콘 (모바일용) */}
+          {/* 햄버거 아이콘 (모바일용!!) */}
           <button
             className={styles.hamburger}
             onClick={() => {

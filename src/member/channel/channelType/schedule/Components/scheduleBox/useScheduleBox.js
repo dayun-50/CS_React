@@ -5,7 +5,6 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
     const id = sessionStorage.getItem("id");
     const [changed, setChanged] = useState(false);// 스케줄입력시 확인용  토글상태변수
 
-
     // 이벤트 추가 및 삭제마다 다시 랜더링
     useEffect(() => {
         const params = new URLSearchParams();
@@ -27,7 +26,7 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
             .catch(err => {
                 console.log(err);
             })
-    }, [changed])
+    }, [changed, selectedEmails])
 
 
 

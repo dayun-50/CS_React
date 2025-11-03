@@ -96,6 +96,44 @@
   margin: 0; /* 불필요한 마진 제거 */
 }
 
+
+/* 유저 아이콘 + 드롭다운 전체 감싸는 wrapper */
+.userWrapper {
+  position: relative; /* 드롭다운 위치 기준 */
+  display: flex;
+  align-items: center;
+}
+
+/* 유저 드롭다운 */
+.userDropdown {
+  position: absolute;
+  top: 48px; /* 아이콘 바로 아래 */
+  right: 0;
+  width: 150px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 14px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+}
+
+.userDropdown div {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: 500;
+  color: #333;
+}
+
+.userDropdown div:hover {
+  background-color: #f0f4ff;
+  color: #007aff;
+}
+
 /* 768px 이하일 때만 보이게 */
 @media (max-width: 1400px) {
   .container {

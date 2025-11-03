@@ -17,6 +17,18 @@ function useSignin() {
     checkBox: false,
   });
 
+  // 유효성 검사 표시용
+  const [error, setError] = useState({
+      id: false,
+      idcheck: false,
+      pw: false,
+      name: false,
+      phone1: false,
+      phone2: false,
+      code: false,
+      checkBox: false
+  });
+
   // 정규식
   const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // e-mail 정규식(영서띠가보내줌)
   const pwRegex = /^[a-z0-9!@#$%^&*()]{6,}$/; // 소문자,숫자,특수문자 최소 6글자 이상
@@ -42,90 +54,140 @@ function useSignin() {
 
   // 아이디(이메일) 입력창 핸들러
   const hendleChangeById = (e) => {
-    let value = e.target.value;
-    setId(value);
-    console.log(check.idcheck); // 나중에 제거
-    setCheck((prev) => ({
-      ...prev,
-      id: idRegex.test(value),
-      idcheck: false,
-    }));
-    if (check.id === false) {
-      /*
-                보더 색깔창이요
-            */
-    }
-  };
+  const value = e.target.value;
+  setId(value);
+
+  let isValid = false;
+
+  if (value === "") {
+    // 입력이 없으면 유효성 검사 false, error 표시도 없음
+    isValid = false;
+    setError(prev => ({ ...prev, id: false }));
+  } else {
+    // 입력이 있을 때만 정규식 체크
+    isValid = idRegex.test(value);
+    setError(prev => ({ ...prev, id: !isValid }));
+  }
+
+  setCheck(prev => ({ ...prev, id: isValid, idcheck: false }));
+};
+
+/*-----------------------------------------------------------------*/
+
   // 이메일 인증 핸들러
   const hendleChangeByEmailauth = (e) => {
-    let value = e.target.value;
-    setEmailauth(value);
-    if (value == serverCode) {
-      // 서버에서 전달해준 값과 같다면
-      setCheck((prev) => ({ ...prev, idcheck: true }));
-    } else {
-      setCheck((prev) => ({ ...prev, idcheck: false }));
-      /*
-                보더 색넣는거 해야함
-            */
-    }
-  };
+  const value = e.target.value;
+  setEmailauth(value);
+
+  // 1) 빈값 또는 서버코드 없음 → border 없음
+  if (!value || !serverCode) {
+    setCheck(prev => ({ ...prev, idcheck: false }));
+    setError(prev => ({ ...prev, idcheck: false }));
+    return;
+  }
+
+  // 2) 서버 코드와 비교
+  if (value === String(serverCode)) {
+    // 일치 → 정상
+    setCheck(prev => ({ ...prev, idcheck: true }));
+    setError(prev => ({ ...prev, idcheck: false }));
+  } else {
+    // 불일치 → border 빨강
+    setCheck(prev => ({ ...prev, idcheck: false }));
+    setError(prev => ({ ...prev, idcheck: true }));
+  }
+};
+
+/*-----------------------------------------------------------------*/
+
   // 비밀번호 입력창 핸들러
   const hendleChangeByPw = (e) => {
-    let value = e.target.value;
-    setPw(value);
-    setCheck((prev) => ({
-      ...prev,
-      pw: pwRegex.test(value),
-    }));
-    if (check.pw === false) {
-      /*
-                보더 색깔창이요
-            */
-    }
-  };
+  const value = e.target.value;
+  setPw(value);
+
+  if (!value) {
+    // 빈 입력 → border 없음
+    setCheck(prev => ({ ...prev, pw: false }));
+    setError(prev => ({ ...prev, pw: false }));
+    return;
+  }
+
+  if (pwRegex.test(value)) {
+    // 정규식 통과 → 정상
+    setCheck(prev => ({ ...prev, pw: true }));
+    setError(prev => ({ ...prev, pw: false }));
+  } else {
+    // 정규식 실패 → border 빨강
+    setCheck(prev => ({ ...prev, pw: false }));
+    setError(prev => ({ ...prev, pw: true }));
+  }
+};
+
+/*-----------------------------------------------------------------*/
+
   // 이름 입력창 핸들러
   const hendleChangeByName = (e) => {
-    let value = e.target.value;
-    setName(value);
-    setCheck((prev) => ({
-      ...prev,
-      name: nameRegex.test(value),
-    }));
-    if (check.name === false) {
-      /*
-                보더 색깔창이요
-            */
-    }
-  };
+  const value = e.target.value;
+  setName(value);
+
+  if (!value) {
+    // 입력 없으면 border 없음
+    setCheck(prev => ({ ...prev, name: false }));
+    setError(prev => ({ ...prev, name: false }));
+    return;
+  }
+
+  if (nameRegex.test(value)) {
+    // 정규식 통과 → 정상
+    setCheck(prev => ({ ...prev, name: true }));
+    setError(prev => ({ ...prev, name: false }));
+  } else {
+    // 정규식 실패 → border 빨강
+    setCheck(prev => ({ ...prev, name: false }));
+    setError(prev => ({ ...prev, name: true }));
+  }
+};
+
+/*-----------------------------------------------------------------*/
+
   // 우측 전화번호 입력창 핸들러
   const hendleChangeByPhone1 = (e) => {
-    let value = e.target.value;
-    setPhone1(value);
-    setCheck((prev) => ({
-      ...prev,
-      phone1: phoneRegex.test(value),
-    }));
-    if (check.phone1 === false) {
-      /*
-                보더 색깔창이요
-            */
-    }
-  };
+  const value = e.target.value;
+  setPhone1(value);
+
+  if (!value) {
+    setCheck(prev => ({ ...prev, phone1: false }));
+    setError(prev => ({ ...prev, phone1: false }));
+    return;
+  }
+
+  if (phoneRegex.test(value)) {
+    setCheck(prev => ({ ...prev, phone1: true }));
+    setError(prev => ({ ...prev, phone1: false }));
+  } else {
+    setCheck(prev => ({ ...prev, phone1: false }));
+    setError(prev => ({ ...prev, phone1: true }));
+  }
+};
   // 좌측 전화번호 입력창 핸들러
   const hendleChangeByPhone2 = (e) => {
-    let value = e.target.value;
-    setPhone2(value);
-    setCheck((prev) => ({
-      ...prev,
-      phone2: phoneRegex.test(value),
-    }));
-    if (check.phone2 === false) {
-      /*
-                보더 색깔창이요
-            */
-    }
-  };
+  const value = e.target.value;
+  setPhone2(value);
+
+  if (!value) {
+    setCheck(prev => ({ ...prev, phone2: false }));
+    setError(prev => ({ ...prev, phone2: false }));
+    return;
+  }
+
+  if (phoneRegex.test(value)) {
+    setCheck(prev => ({ ...prev, phone2: true }));
+    setError(prev => ({ ...prev, phone2: false }));
+  } else {
+    setCheck(prev => ({ ...prev, phone2: false }));
+    setError(prev => ({ ...prev, phone2: true }));
+  }
+};
   // 초대코드 입력창 핸들러
   const hendleChangeByCode = (e) => {
     let value = e.target.value;
@@ -183,7 +245,7 @@ function useSignin() {
       /*
                 뭐 알림을 띄울건지 팀장님께 여쭤봐야할거 같습니다.
             */
-      alert("a"); // 나중에 제거하셈
+      alert("입력값 조건 불일치"); // 나중에 제거하셈
       return false;
     }
 
@@ -237,6 +299,7 @@ function useSignin() {
     clickByChacBox,
     clickByComplete,
     clickByEmailauth,
+    error,
   };
 }
 export default useSignin;

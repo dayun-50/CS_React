@@ -216,7 +216,7 @@ input::placeholder {
 }
 
 .adjustment {
-  background-color: #007bff;
+  background-color: #0090FF; 
   color: white;
   border: none;
 }
@@ -227,4 +227,12 @@ input::placeholder {
     font-size: 18px;
     color:#ED7833;
     font-weight: bold;
+}
+
+.bbt:hover {
+  background-color: #B0B0B0;
+}
+
+.adjustment:hover {
+  background-color: #007ACC;
 }

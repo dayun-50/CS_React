@@ -6,6 +6,7 @@
   padding: 30px 0;
 }
 
+
 .tabWrapper {
   display: flex; /* 추가: 탭 버튼들 가로 정렬 */
   gap: 20px; /* 버튼 간격 조절 (필요하면 조절 가능) */

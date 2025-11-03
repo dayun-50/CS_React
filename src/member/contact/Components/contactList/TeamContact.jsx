@@ -4,6 +4,7 @@ import { caxios } from "../../../../config/config";
 import { IoSearch } from "react-icons/io5";
 import ContactDetail from "../contactDetail/ContactDetail";
 import addressBook from "./icon/Address Book.svg";
+import doubleRightArrow from "./icon/doubleRightArrow.svg";
 import doubleLeftArrow from "./icon/doubleLeftArrow.svg";
 import leftArrow from "./icon/leftArrow.svg";
 import rightArrow from "./icon/rightArrow.svg";

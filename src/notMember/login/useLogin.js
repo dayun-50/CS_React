@@ -10,6 +10,9 @@ function useLogin() {
   // 입력창 빈값 확인용
   const [check, setCheck] = useState({ id: false, pw: false });
 
+  // 로그인 버튼 클릭시 error 표시용
+  const [error, setError] = useState({ id: false, pw: false });
+
   // 상태변수 준비
   const [id, setId] = useState(""); // 이메일
   const [pw, setPw] = useState(""); // 비밀번호
@@ -24,6 +27,11 @@ function useLogin() {
         ...prev,
         id: true,
       }));
+      // 입력하면 error 초기화
+      setError((prev) => ({
+        ...prev,
+        id: false,
+      }));
     } else {
       // 빈값일때
       setCheck((prev) => ({
@@ -32,6 +40,7 @@ function useLogin() {
       }));
     }
   };
+
   // 비밀번호 입력창 핸들러
   const hendleChangeByPw = (e) => {
     let value = e.target.value;
@@ -41,6 +50,11 @@ function useLogin() {
       setCheck((prev) => ({
         ...prev,
         pw: true,
+      }));
+      // 입력하면 error 초기화
+      setError((prev) => ({
+        ...prev,
+        pw: false,
       }));
     } else {
       // 빈값일때
@@ -53,15 +67,21 @@ function useLogin() {
 
   // 로그인 버튼 클릭시
   const clickLogin = () => {
+    // check 상태 기반으로 모든 칸이 입력되었는지 확인
     const allvalid = Object.values(check).every((value) => value === true);
+
     // 입력 안한칸이 있다면 false로 중단
     if (!allvalid) {
       /* 
-                입력안한칸에 보더색깔 줄건지 여쭤보는걸로~!
+                입력안한칸에 보더색깔 줄건지 여쭤보는걸로~! 빨간색 
             */
+      // error 상태 업데이트 → 빈칸이면 true
+      setError({
+        id: id === "",
+        pw: pw === "",
+      });
       return false;
     }
-
 
     //  1. 토큰 분리 로직을 처리하는 헬퍼 함수 정의
 
@@ -115,9 +135,12 @@ function useLogin() {
   return {
     id,
     pw,
+    check,
+    error, // 🔴 추가
     hendleChangeById,
     hendleChangeByPw,
     clickLogin,
   };
 }
+
 export default useLogin;

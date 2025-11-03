@@ -63,7 +63,7 @@
   width: 96%;
   height: 55%;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid #8C8C8C;
   border-radius: 30px;
 }
 
@@ -145,7 +145,7 @@
   width: 96%;
   height: 98%;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid #8C8C8C;
   border-radius: 15px;
 
   overflow-y: auto;
@@ -188,7 +188,15 @@ button {
   background-color: #d9d9d9;
 }
 
+.btn1:hover {
+  background-color: #B0B0B0;
+}
+
 .btn2 {
   /*파랑*/
   background-color: #0090ff;
+}
+
+.btn2:hover {
+  background-color: #007ACC;;
 }

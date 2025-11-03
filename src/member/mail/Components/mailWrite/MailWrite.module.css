@@ -65,8 +65,13 @@
 
 .people {
     font-size: 18px;
+    font-weight: bold;
 }
 /*---------------------------------------------------------------------*/
+
+.wrtt {
+  font-weight: bold;
+}
 
 /* 제목 */
 .writetitle {
@@ -186,6 +191,10 @@
     color:white;
     font-size: 18px;
     font-weight: bold;
+}
+
+.sendb:hover {
+  background-color: #007ACC;
 }
 
 /* 주소록 클릭시 나오는 창 */

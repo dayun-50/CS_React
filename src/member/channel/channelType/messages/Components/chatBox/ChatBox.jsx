@@ -191,7 +191,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
                   ) : (
                     // 파일이 있으면 a태그로 다운로드 링크 표시
                     <div>
-                      <a href={`http://10.10.55.103/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
+                      <a href={`http://10.10.55.89/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
                         target="_blank" rel="noopener noreferrer" download>
                         {msg.oriname || msg.message}
                       </a>

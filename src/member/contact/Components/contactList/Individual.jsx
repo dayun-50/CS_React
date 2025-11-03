@@ -14,6 +14,7 @@ const Individual = () => {
   const { id: userEmail } = useAuthStore(); // 로그인 사용자 이메일 가져오기
   const [contacts, setContacts] = useState([]); // 개인용 연락처 리스트
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
+  const [selectedContact, setSelectedContact] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1); // 페이지네이션
   const itemsPerPage = 10; // 한 페이지에 표시할 연락처 수

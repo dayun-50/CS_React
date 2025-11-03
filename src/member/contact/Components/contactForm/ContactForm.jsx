@@ -7,7 +7,7 @@ import useAuthStore from "../../../../store/useAuthStore";
 const ContactForm = () => {
   const [group, setGroup] = useState(""); // 개인용 or 팀용
   const [name, setName] = useState("");
-  const [companyName, setCompanyName] = useState("");
+  const [contact_group, setcontact_group] = useState("");
   const [phone1, setPhone1] = useState("");
   const [phone2, setPhone2] = useState("");
   const [email, setEmail] = useState("");
@@ -29,9 +29,9 @@ const ContactForm = () => {
     const payload = {
       name: name.trim(),
       email: email.trim(),
-      phone: `010${phone1}${phone2}`,
+      phone: `010-${phone1}-${phone2}`,
       share: group === "개인용" ? "n" : "y",
-      contact_group: companyName, // input에서 가져온 회사 이름
+      contact_group: contact_group, // input에서 가져온 회사 이름
       memo: memo ? memo.trim() : null,
       owner_email: ownerEmail,
     };
@@ -101,8 +101,8 @@ const ContactForm = () => {
             <div className={styles.inputLabel}>회사 이름</div>
             <input
               type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
+              value={contact_group}
+              onChange={(e) => setcontact_group(e.target.value)}
               placeholder="회사 이름을 입력하세요"
               className={styles.textInput}
             />

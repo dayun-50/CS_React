@@ -12,24 +12,24 @@ function useChatBox(
   setIsSearching,
   setSerchValue
 ) {
-  // 🔹 채팅방 제목/멤버 수 상태
+  // 채팅방 제목/멤버 수 상태
   const [room, setRoom] = useState({ title: "", memberCount: "" });
 
   // 로그인된 유저 정보 가져오기
   const id = sessionStorage.getItem("id");
   const token = sessionStorage.getItem("token");
 
-  // 🔹 채팅 메시지 상태
+  // 채팅 메시지 상태
   const [messages, setMessages] = useState([]);
 
-  // 🔹 메시지 입력용 상태
+  // 메시지 입력용 상태
   const [input, setInput] = useState({ chat_seq: seq, message: "" });
 
   // WebSocket 참조
   const ws = useRef(null);
   const phoneRegex = /^\d{6}$/;
 
-  // 🔹 메시지 리스트 ref (자동 스크롤용)
+  // 메시지 리스트 ref (자동 스크롤용)
   const messageListRef = useRef(null);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function useChatBox(
       });
   }, [seq]);
 
-  // 🔹 WebSocket 연결 및 메시지 수신
+  // WebSocket 연결 및 메시지 수신
   useEffect(() => {
     if (isSearching) return;
     setMessages([]);
@@ -206,7 +206,7 @@ function useChatBox(
     sendMessage,
     handleKeyDown,
     serchBut,
-    messageListRef, // ✅ 추가
+    messageListRef
   };
 }
 

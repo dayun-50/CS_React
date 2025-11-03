@@ -9,7 +9,6 @@ function useOutBox(seq, isOn, setIsOn) {
     useEffect(() => {
         caxios.post("/chatRoom/manager", { chat_seq: seq }, { withCredentials: true })
             .then(resp => {
-                console.log(resp.data);
                 setManager(resp.data.manager_email);
                 if (resp.data.project_progress == "y") {
                     setIsOn(true);

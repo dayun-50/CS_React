@@ -91,5 +91,6 @@
 
 /* 알람기능 */
 .alert {
+  width:100%;
   background-color: #50b3ff56;
 }

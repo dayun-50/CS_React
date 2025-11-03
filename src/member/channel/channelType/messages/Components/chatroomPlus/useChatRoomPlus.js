@@ -10,7 +10,6 @@ function useChatRoomPlus(selected, title, setTitle ) {
     useEffect(() => {
         caxios.post("/chat/contactList", { member_email: id }, { withCredentials: true })
             .then(resp => {
-                console.log(resp.data);
                 setRecipients(resp.data);
             })
             .catch(err => console.log(err));

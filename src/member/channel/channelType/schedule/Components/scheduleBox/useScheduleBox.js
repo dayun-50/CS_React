@@ -5,7 +5,6 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
     const id = sessionStorage.getItem("id");
     const [changed, setChanged] = useState(false);// 스케줄입력시 확인용  토글상태변수
 
-
     // 이벤트 추가 및 삭제마다 다시 랜더링
     useEffect(() => {
         const params = new URLSearchParams();
@@ -13,7 +12,6 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
         caxios.post(`/schedule/eventsList?${params.toString()}`, { chat_seq: seq, member_email: id },
             { withCredentials: true })
             .then(resp => {
-                console.log("이벤트데이타",resp.data);
                 setEvents(resp.data.map(e => ({
                     ...e,
                     schedule_seq: e.schedule_seq,

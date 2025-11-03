@@ -72,9 +72,6 @@ function useLogin() {
 
     // 입력 안한칸이 있다면 false로 중단
     if (!allvalid) {
-      /* 
-                입력안한칸에 보더색깔 줄건지 여쭤보는걸로~! 빨간색 
-            */
       // error 상태 업데이트 → 빈칸이면 true
       setError({
         id: id === "",

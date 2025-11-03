@@ -42,7 +42,6 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   };
 
   const handleSelect = (selectedPeople) => {
-    console.log("선택된 참여자:", selectedPeople);
     // 여기서 채널 생성 API 호출하거나 상태 업데이트 로직 작성 가능
     caxios.post("/chat/newCaht", { owner_email: id, title: title, contact_seq: selectedPeople },
       { withCredentials: true })

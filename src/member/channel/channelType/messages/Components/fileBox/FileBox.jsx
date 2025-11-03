@@ -10,7 +10,6 @@ import { IoClose } from "react-icons/io5";
 
 
 const FileBox = ({ seq, trigger }) => {
-  console.log(seq, "시퀀스팡리박스")
   const [files, setFiles] = useState([]);
 
   const [serchValue, setSerchValue] = useState("");
@@ -23,7 +22,6 @@ const FileBox = ({ seq, trigger }) => {
     caxios.get(`/chatMessage/${seq}`)
       .then(resp => {
         setFiles(resp.data);
-        console.log(resp.data);
       })
   }, [seq, trigger, isSearching])
 
@@ -33,7 +31,6 @@ const FileBox = ({ seq, trigger }) => {
     caxios.post("/chatMessage/serchByFileText", { chat_seq: seq, oriname: serchValue }, { withCredentials: true })
       .then(resp => {
         setIsSearching(prev => !prev);
-        console.log("제껍니다",resp.data);
         setFiles(resp.data);
       })
       .catch(err=>console.log(err));
@@ -58,11 +55,9 @@ const FileBox = ({ seq, trigger }) => {
           <span
             onClick={() => {
               if (isSearching) {
-                // X 아이콘 클릭
                 setSerchValue("");
                 setIsSearching(false);
               } else {
-                // 검색 아이콘 클릭
                 serchBut();
               }
             }}
@@ -80,7 +75,7 @@ const FileBox = ({ seq, trigger }) => {
     <a
       href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
       download
-      title={file.oriname} // 마우스 오버 시 전체 이름 표시
+      title={file.oriname}
     >
       {file.oriname.length > 30 
         ? file.oriname.slice(0, 15) + "..." + file.oriname.slice(-10)

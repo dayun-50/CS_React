@@ -62,7 +62,6 @@ const Sidebar = () => {
   }, [location.pathname]);
 
   const handleClick = (menu) => {
-    console.log("클릭된 메뉴:", menu.name);
     if (menu.name === "로그아웃") {
       logout();
       navigate("/");

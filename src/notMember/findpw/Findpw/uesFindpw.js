@@ -26,20 +26,18 @@ function useFindpw() {
     }, [serverCode]);
 
     // 아이디(이메일) 입력창 핸들러
-    const hendleChangeById = (e) => {
-        let value = e.target.value;
-        setId(value);
-        setCheck(prev => ({
-            ...prev,
-            id: idRegex.test(value),
-            idcheck: false
-        }));
-        if (check.id === false) {
-            /*
-                보더 색깔창이요
-            */
-        }
-    }
+   const hendleChangeById = (e) => {
+    const value = e.target.value;
+    setId(value);
+
+    const isValid = idRegex.test(value); // 바로 유효성 체크
+    setCheck(prev => ({
+        ...prev,
+        id: isValid,
+        idcheck: false
+    }));
+
+}
     // 이메일 인증 핸들러
     const hendleChangeByEmailauth = (e) => {
         let value = e.target.value;
@@ -50,9 +48,6 @@ function useFindpw() {
         } else {
             setCheck(prev => ({ ...prev, idcheck: false }));
             setError(prev => ({ ...prev, emailauth: true })); // 틀렸으면 border 표시
-            /*
-                보더 색넣는거 해야함
-            */
         }
     }
 
@@ -99,7 +94,7 @@ function useFindpw() {
         id, emailauth,
         hendleChangeById, hendleChangeByEmailauth,
         clickByEmailauth, clickByComplete,
-        error,
+        error,check,
     }
 }
 export default useFindpw;

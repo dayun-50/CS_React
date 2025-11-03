@@ -4,19 +4,20 @@ import styles from "./Contact.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Contact = () => {
+  // 뷰 모드 정의: 전체, 개인용, 팀 공유용
   const btnsType = [
-    { key: "", name: "전체", path: "/contact", label: "전체 리스트" },
+    { key: " ", name: "전체", path: "/contact", label: "전체 리스트" },
     {
       key: "individual",
       name: "개인",
       path: "/contact/individual",
-      label: "개인",
+      label: "개인용 주소록",
     },
     {
       key: "teamContact",
       name: "팀원",
       path: "/contact/teamContact",
-      label: "팀원",
+      label: "팀 공유 주소록",
     },
   ];
 

@@ -75,18 +75,21 @@ const FileBox = ({ seq, trigger }) => {
       <div className={styles.fileList}>
         {files.map((file, index) => (
           <div key={index} className={styles.fileItem}>
-            <div className={styles.fileName}>
-              <a
-                href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
-                download
-              >
-                {file.oriname}
-              </a>
-            </div>
-            <div className={styles.fileDate}>
-              {file.upload_at ? dayjs(file.upload_at).format("YYYY-MM-DD") : ""}
-            </div>
-          </div>
+  <div className={styles.fileName}>
+    <a
+      href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
+      download
+      title={file.oriname} // 마우스 오버 시 전체 이름 표시
+    >
+      {file.oriname.length > 30 
+        ? file.oriname.slice(0, 15) + "..." + file.oriname.slice(-10)
+        : file.oriname}
+    </a>
+  </div>
+  <div className={styles.fileDate}>
+    {file.upload_at ? dayjs(file.upload_at).format("YYYY-MM-DD") : ""}
+  </div>
+</div>
         ))}
       </div>
     </div>

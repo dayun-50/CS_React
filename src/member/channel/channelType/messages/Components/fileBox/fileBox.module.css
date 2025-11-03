@@ -100,35 +100,47 @@
   max-height: 280px;
   overflow-y: auto;
   padding-right: 8px; /* 스크롤 여유 공간 */
+  box-sizing: border-box; /* 이거 없으면 ellipsis 안될 수 있음 */
 }
 
 /* 파일 항목 */
 .fileItem {
-  background-color: #fff;
-  border: 1px solid #c0c0c0;
-  border-radius: 14px;
-  padding: 14px 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #c0c0c0;
+  min-width: 0; /* flex 안에서 ellipsis가 먹히게 */
 }
 
 .fileItem:hover {
   background-color: #e6f0ff;
-  border:2px solid #0090ff;
+  border: 2px solid #0090ff;
 }
 
+/* 파일 이름 */
 .fileName {
   font-size: 17px;
   font-weight: 600;
   color: #202020;
-  white-space: nowrap;
+
+  width: 100%;
+  min-width: 0;           /* flex 안에서 필수 */
+  overflow: hidden;       /* 넘치는 텍스트 숨기기 */
+  text-overflow: ellipsis;/* ... 표시 */
+  white-space: nowrap;    /* 한 줄로 고정 */
+}
+.fileName a {
+  display: inline-block;  /* block이면 flex 부모에서 width 문제 발생 */
+  max-width: 100%;        /* 부모 너비를 넘지 않도록 제한 */
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* 파일 업로드 날짜 */
 .fileDate {
   font-size: 11px;
   color: #909090;

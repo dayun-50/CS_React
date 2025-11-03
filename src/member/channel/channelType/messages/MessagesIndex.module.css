@@ -7,7 +7,7 @@
 /* 왼쪽 영역 */
 .leftColumn {
   height: 100%;
-  flex: 1;
+  flex: 0.6;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -28,7 +28,7 @@
 /* 가운데 */
 .centerColumn {
   height: 100%;
-  flex: 2; /* 가운데 영역 더 넓게 */
+  flex: 2.4; /* 가운데 영역 더 넓게 */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -127,4 +127,64 @@
   font-size: 1.2rem;             /* 글자 크기 */
   font-weight: 400;              /* 진하지 않게 */
   text-align: center;            /* 여러 줄일 때 가운데 정렬 */
+}
+
+/* 태블릿 크기 (1024px 이하) */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column; /* 세로 스크롤 레이아웃 */
+  }
+
+  .leftColumn,
+  .centerColumn,
+  .rightColumn {
+    flex: unset; /* flex 비율 초기화 */
+    width: 100%;
+  }
+
+  .centerColumn {
+    padding: 10px;
+  }
+
+  .rightColumn {
+    padding-top: 10px;
+  }
+}
+
+/* 모바일 크기 (768px 이하) */
+@media (max-width: 768px) {
+  .leftColumn {
+    display: none; /* 왼쪽 메뉴 숨김 */
+  }
+
+  .centerColumn {
+    padding: 5px;
+  }
+
+  .rightColumn {
+    height: auto;
+  }
+
+  .fileBox {
+    height: 60%; /* 모바일에서 더 작게 */
+  }
+}
+
+/* 작은 모바일 (480px 이하) */
+@media (max-width: 480px) {
+  .centerColumn {
+    padding: 2px;
+  }
+
+  .chatBox__inputArea {
+    height: 40px; /* 입력창 높이 축소 */
+  }
+
+  .chatBox__sendButton {
+    width: 20%;
+  }
+
+  .chatBox__inputText {
+    font-size: 14px;
+  }
 }

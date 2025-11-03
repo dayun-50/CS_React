@@ -10,11 +10,25 @@ function VacationDetail({ selectedData, setSelectedData, setClickedDetailBtn }) 
     const seq = selectedData.pto_seq;// 시퀀스 번호 받아오기
     console.log(seq);
 
+    //0. 뒤로가기
+    const handleBack = ()=>{
+        setClickedDetailBtn(false);// 다시 리스트 화면 보이도록
+        navigate("/");
+    }
+
+
     // 1. 오리지날 객체 저장후, 화면에 뿌리기
-    const [oriRequest, setOriRequest] = useState({}); //객체로받음
+    const [oriRequest, setOriRequest] = useState({});
     useEffect(() => {
-        console.log(selectedData);
-        setOriRequest(selectedData);
+    if (!seq) return;
+
+    // 서버에서 detail 정보 새로 불러오기
+    caxios.get(`/ptorequest/${seq}`)
+        .then((resp) => {
+        setOriRequest(resp.data); // 서버에서 이름 덮인 DTO
+        })
+        .catch((err) => {
+        });
     }, [seq]);
 
 
@@ -267,22 +281,25 @@ function VacationDetail({ selectedData, setSelectedData, setClickedDetailBtn }) 
             </div>
 
             <div className={styles.btns}>
-                <button className={styles.btn3} onClick={() => { setClickedDetailBtn(false) }}>뒤로가기</button>
-
-                {oriRequest.pto_status == "대기" && !updating && (
+                {/* 수정 중이 아닐 때 */}
+                {!updating && (
                     <>
-                        <button className={styles.btn2} onClick={handleDel}>삭제하기</button>
+                    <button className={styles.btn3} onClick={handleBack}>뒤로가기</button>
+                    
+                    {oriRequest.pto_status !== "완료" && oriRequest.pto_status !== "반려" && (
                         <button className={styles.btn1} onClick={handleUpdate}>수정하기</button>
+                    )}
                     </>
                 )}
 
-                {oriRequest.pto_status == "대기" && updating && (
+                {/* 수정 중일 때 */}
+                {updating && (
                     <>
-                        <button className={styles.btn2} onClick={handleUpdateDel}>수정취소</button>
-                        <button className={styles.btn1} onClick={handleUpdateCom}>수정완료</button>
+                    <button className={styles.btn2} onClick={handleDel}>삭제하기</button>
+                    <button className={styles.btn1} onClick={handleUpdateCom}>수정완료</button>
                     </>
                 )}
-            </div>
+                </div>
 
         </div>
     );

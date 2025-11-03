@@ -67,7 +67,7 @@ function ApprovalWrite() {
                         onInput={(e) => {
                             const text = e.currentTarget.innerText;
                             if (text.length > 15) {
-                                alert("제목은 15자까지 입력 가능합니다.");
+                                alert("제목은 최대 15자까지 입력 가능합니다.");
                                 // 초과된 텍스트 제거
                                 e.currentTarget.innerText = text.slice(0, 15);
                                 // 커서를 맨 끝으로 이동

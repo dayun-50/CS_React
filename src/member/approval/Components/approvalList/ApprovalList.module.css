@@ -193,7 +193,7 @@
   object-fit: cover;
 }
 
-/* ✅ 반응형 (중간 화면 1200px 이하) */
+/* 반응형 (중간 화면 1200px 이하) */
 @media (max-width: 1200px) {
   .container {
     flex-direction: column; /* 위아래 정렬로 변경 */
@@ -223,7 +223,7 @@
   }
 }
 
-/* ✅ 반응형 (모바일 768px 이하) */
+/* 반응형 (모바일 768px 이하) */
 @media (max-width: 768px) {
   .approvalListBox {
     padding: 16px;
@@ -255,7 +255,7 @@
   }
 }
 
-/* ✅ 반응형 (아주 작은 화면 487px 이하) */
+/* 반응형 (아주 작은 화면 487px 이하) */
 @media (max-width: 487px) {
   .listSecond,
   .listRow {

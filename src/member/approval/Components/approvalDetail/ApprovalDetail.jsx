@@ -239,21 +239,25 @@ function ApprovalDetail() {
 
 
             <div className={styles.btns}>
-                <button className={styles.btn3} onClick={() => { navigate(-1) }}>뒤로가기</button>
+            {/* 수정 중이 아닐 때 */}
+            {!updating && (
+                <>
+                <button className={styles.btn3} onClick={() => navigate(-1)}>뒤로가기</button>
 
-                {oriApproval.approval?.approval_status == "처리중" && !updating && (
-                    <>
-                        <button className={styles.btn2} onClick={handleDel}>삭제하기</button>
-                        <button className={styles.btn1} onClick={handleUpdate}>수정하기</button>
-                    </>
+                {/* 완료나 반려 상태면 수정 버튼 숨기기 */}
+                {oriApproval.approval_status !== "완료" && oriApproval.approval_status !== "반려" && (
+                    <button className={styles.btn1} onClick={handleUpdate}>수정하기</button>
                 )}
+                </>
+            )}
 
-                {oriApproval.approval?.approval_status == "처리중" && updating && (
-                    <>
-                        <button className={styles.btn2} onClick={handleUpdateDel}>수정취소</button>
-                        <button className={styles.btn1} onClick={handleUpdateCom}>수정완료</button>
-                    </>
-                )}
+            {/* 수정 중일 때 */}
+            {updating && (
+                <>
+                <button className={styles.btn2} onClick={handleDel}>삭제하기</button>
+                <button className={styles.btn1} onClick={handleUpdateCom}>수정완료</button>
+                </>
+            )}
             </div>
         </div >
 

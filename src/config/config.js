@@ -10,7 +10,7 @@ export const caxios = axios.create({
 export const mailRequest = async (method, url, data) => {
   // 일반 토큰 (Token A)도 가져옵니다.
   const generalToken = sessionStorage.getItem("token");
-  // 💡 James Access Token (Token B)을 가져옵니다.
+  // James Access Token (Token B)을 가져옵니다.
   const jamesToken = sessionStorage.getItem("jamesAccessToken");
 
   if (!generalToken || !jamesToken) {

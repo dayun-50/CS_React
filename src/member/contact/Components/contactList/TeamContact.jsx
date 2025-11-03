@@ -4,6 +4,7 @@ import { caxios } from "../../../../config/config";
 import { IoSearch } from "react-icons/io5";
 import ContactDetail from "../contactDetail/ContactDetail";
 import addressBook from "./icon/Address Book.svg";
+import doubleRightArrow from "./icon/doubleRightArrow.svg";
 import doubleLeftArrow from "./icon/doubleLeftArrow.svg";
 import leftArrow from "./icon/leftArrow.svg";
 import rightArrow from "./icon/rightArrow.svg";
@@ -14,6 +15,7 @@ const TeamContact = () => {
   const [contacts, setContacts] = useState([]); // 팀용 연락처 상태
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const [selectedContact, setSelectedContact] = useState(null); // 상세보기 연락처 상태
+  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 

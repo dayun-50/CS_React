@@ -219,10 +219,18 @@
   gap: 0.5rem;
 }
 
+.backButton:hover {
+  background-color: #B0B0B0;
+}
+
 .submitButton {
   background-color: var(--color-primary);
   color: var(--color-white);
   font-weight: bold;
+}
+
+.submitButton:hover {
+  background-color: #007ACC;
 }
 
 /* =================== 반응형 =================== */

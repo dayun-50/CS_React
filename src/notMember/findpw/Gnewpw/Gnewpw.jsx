@@ -7,7 +7,7 @@ function Gnewpw() {
     const navigate = useNavigate();
 
     const {
-        pw, hendleChangeByPw, clickByComplete
+        pw, hendleChangeByPw, clickByComplete,error
     } = useGewpw();
 
     return (
@@ -34,7 +34,13 @@ function Gnewpw() {
 
                     <div className={styles.newpw}>
                         <label htmlFor="newpw">새 비밀번호</label>
-                        <input id="newpw" type="password" placeholder="비밀번호" value={pw} onChange={hendleChangeByPw}/>
+                        <input 
+                            id="newpw" 
+                            type="password" 
+                            placeholder="비밀번호" 
+                            value={pw} onChange={hendleChangeByPw} 
+                            className={error.pw ? styles.inputError : ""} // border 적용
+                            />
                     </div>
 
                     <div className={styles.pwcheckbuttons}>

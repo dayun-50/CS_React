@@ -1,22 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
+
 function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
 
-    // 채팅방 제목 받을 준비
+    // 🔹 채팅방 제목/멤버 수 상태
     const [room, setRoom] = useState({ title: "", memberCount: "" });
+
+    // 로그인된 유저 정보 가져오기
     const id = sessionStorage.getItem("id");
     const token = sessionStorage.getItem("token");
 
-    // 메세지 출력용
+    // 🔹 채팅 메시지 상태
     const [messages, setMessages] = useState([]);
-    // 서버에 메세지 보내는 용
+
+    // 🔹 메시지 입력용 상태
     const [input, setInput] = useState({ chat_seq: seq, message: "" });
+
+    // WebSocket 참조
     const ws = useRef(null);
 
-
     const messageListRef = useRef(null);
-
 
     useEffect(() => {
         console.log(seq);
@@ -36,13 +40,15 @@ function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
             });
     }, [seq]);
 
-    // 웹소캣 연결
+    // 🔹 WebSocket 연결 및 메시지 수신
     useEffect(() => {
+
         setMessages([]);
         if (!room.title) return;
         setInput(prev => ({ ...prev, chat_seq: seq }));
-        ws.current = new WebSocket(`ws://10.10.55.103/chatting?token=${token}&chat_seq=${seq}`);
+        ws.current = new WebSocket(`ws://10.10.55.89/chatting?token=${token}&chat_seq=${seq}`);
         ws.current.binaryType = "arraybuffer";
+
 
         ws.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
@@ -125,15 +131,13 @@ function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
     };
 
 
-
-
-
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
         }
     };
+
 
     // 최신 메세지로 자동 스크롤
     // js파일에 잇으면 작동을 안하고 jsx 파일에 잇어야 작동이 되서 옮겻습니다..-지원
@@ -152,7 +156,7 @@ function useChatBox(seq, setAlertRooms, setMemberCount, onFileUploaded) {
     return {
         id, room, messages, input,
         setInput, sendMessage, handleKeyDown, serchBut,
-        messageListRef
     }
 }
+
 export default useChatBox;

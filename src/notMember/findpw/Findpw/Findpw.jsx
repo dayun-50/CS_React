@@ -10,7 +10,7 @@ function Findpw (){
         id, emailauth, 
         hendleChangeById, hendleChangeByEmailauth, 
         clickByEmailauth, clickByComplete,
-        error
+        error,check
     } = useFindpw();
 
     return(
@@ -39,7 +39,13 @@ function Findpw (){
                     <div className={styles.findemail}>
                         <label htmlFor="email">이메일</label>
                         <div className={styles.inputButtonemail}>
-                        <input id="email" type="email" placeholder="이메일" value={id} onChange={hendleChangeById}/>
+                        <input 
+                            id="email" 
+                            type="email" 
+                            placeholder="이메일" 
+                            value={id} onChange={hendleChangeById}
+                            className={`${id !== "" && !check.id ? styles.inputError : ""}`}
+                            />
                         <button className={styles.emailrequest} onClick={clickByEmailauth}>인증 요청</button>
                         </div>
                     </div>

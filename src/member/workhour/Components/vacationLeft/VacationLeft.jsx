@@ -11,12 +11,14 @@ function VacationLeft() {
 
   useEffect(() => {
     caxios.get(`/pto`).then((resp) => {
-      const dto = resp.data.dto;
-      const totalPto = resp.data.totalPto ?? 0;
-      const remainingPto = dto.remaining_pto ?? 0;
-      const usedPto = dto.used_pto ?? 0;
+    const dto = resp.data.dto;
+    console.log("남은휴가", dto);
+    const totalPto = resp.data.totalPto ?? 0;
+    const remainingPto = dto.remaining_pto ?? 0;
 
-      const carriedOver = remainingPto > totalPto ? remainingPto - totalPto : 0;
+    const carriedOver = remainingPto > totalPto ? remainingPto - totalPto : 0;
+    const effectiveTotal = Math.max(totalPto, remainingPto);
+    const usedPto = Math.max(effectiveTotal - remainingPto, 0);
 
       setIssue([
         { label: "잔여 연차", count: remainingPto, carriedOver },
@@ -37,10 +39,10 @@ function VacationLeft() {
             <div className={styles.value}>
               {item.label === "잔여 연차" && item.carriedOver > 0 ? (
                   <>
-                    {item.count}회 <span className={styles.smallText}>(이월 {item.carriedOver}회)</span>
+                    {item.count}일 <span className={styles.smallText}>(이월 {item.carriedOver}일)</span>
                   </>
                 ) : (
-                  `${item.count}회`
+                  `${item.count}일`
                 )}
             </div>
           </div>

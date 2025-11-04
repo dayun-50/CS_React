@@ -5,24 +5,35 @@ import arrow from "./icon/Collapse Arrow.svg";
 import search from "./icon/Search.svg";
 import { caxios } from "../../../../../../config/config";
 import dayjs from "dayjs";
+import { IoClose } from "react-icons/io5";
 
 
 const FileBox = ({ seq, trigger }) => {
-  console.log(seq, "시퀀스팡리박스")
-
-
   const [files, setFiles] = useState([]);
 
+  const [serchValue, setSerchValue] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   //채팅방 시퀀스에 맞는 파일리스트 가져오기
   useEffect(() => {
     if (!seq) return;
-    caxios.get(`/chat/${seq}`)
+    if (isSearching) return;
+    caxios.get(`/chatMessage/${seq}`)
       .then(resp => {
         setFiles(resp.data);
-        console.log(resp.data);
       })
-  }, [seq, trigger])
+  }, [seq, trigger, isSearching])
+
+  // 검색 버튼 클릭 함수
+  const serchBut = () => {
+    if (!serchValue) return;
+    caxios.post("/chatMessage/serchByFileText", { chat_seq: seq, oriname: serchValue }, { withCredentials: true })
+      .then(resp => {
+        setIsSearching(prev => !prev);
+        setFiles(resp.data);
+      })
+      .catch(err=>console.log(err));
+  };
 
   return (
     <div className={styles.fileBox}>
@@ -37,26 +48,43 @@ const FileBox = ({ seq, trigger }) => {
             type="text"
             placeholder="제목을 입력하세요"
             className={styles.searchInputField}
+            value={serchValue}
+            onChange={(e) => setSerchValue(e.target.value)}
           />
-          <img src={search} className={styles.searchIcon} alt="돋보기" />
+          <span
+            onClick={() => {
+              if (isSearching) {
+                setSerchValue("");
+                setIsSearching(false);
+              } else {
+                serchBut();
+              }
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            {isSearching ? <IoClose size={20} /> : <img src={search} alt="검색 아이콘" />}
+          </span>
         </div>
       </div>
 
       <div className={styles.fileList}>
         {files.map((file, index) => (
           <div key={index} className={styles.fileItem}>
-            <div className={styles.fileName}>
-              <a
-                href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
-                download
-              >
-                {file.oriname}
-              </a>
-            </div>
-            <div className={styles.fileDate}>
-              {file.upload_at ? dayjs(file.upload_at).format("YYYY-MM-DD") : ""}
-            </div>
-          </div>
+  <div className={styles.fileName}>
+    <a
+      href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
+      download
+      title={file.oriname}
+    >
+      {file.oriname.length > 30 
+        ? file.oriname.slice(0, 15) + "..." + file.oriname.slice(-10)
+        : file.oriname}
+    </a>
+  </div>
+  <div className={styles.fileDate}>
+    {file.upload_at ? dayjs(file.upload_at).format("YYYY-MM-DD") : ""}
+  </div>
+</div>
         ))}
       </div>
     </div>

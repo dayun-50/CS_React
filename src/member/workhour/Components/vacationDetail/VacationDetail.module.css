@@ -218,7 +218,7 @@ button {
     display: none;
   }
 
-  /* ✅ 스코프 동일하게 */
+  /* 스코프 동일하게 */
   .dateInputBox input[type="date"] {
     width: 120px;
     font-size: 14px;
@@ -242,27 +242,87 @@ button {
   }
 }
 
-/* 📱 모바일 대응 (768px 이하) */
+
+/* --------------------------------------------------------- */
+/* 반응형: 작은 화면 */
+@media (max-width: 880px) {
+  .headerEmail {
+    display: none;
+  }
+
+  /* 스코프 동일하게 */
+  .dateInputBox input[type="date"] {
+    width: 100px;
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .header_start_at {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+  }
+
+  .header_end_at {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+  }
+}
+
+
+
+/* 모바일 대응 (768px 이하) */
 @media (max-width: 768px) {
   .parentHeader {
     padding-bottom: 15px;
   }
 
-  /* ✅ 여기도 동일하게 */
+  /* 스코프 동일하게 */
   .dateInputBox input[type="date"] {
-    width: 80px;
-    font-size: 12px;
-    padding: 4px;
+    width: 140px;
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .header_start_at {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+  }
+
+  .header_end_at {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
   }
 }
 
-/* 📱 더 작은 화면 (435px 이하) */
-@media (max-width: 435px) {
+@media (max-width: 655px) {
+  select{
+    display: none;
+  }
+}
 
-  /* ✅ 여기도 동일하게 */
+
+/* 더 작은 화면 (435px 이하) */
+@media (max-width: 470px) {
+
+  /* 여기도 동일하게 */
   .dateInputBox input[type="date"] {
-    width: 65px;
-    font-size: 11px;
+    width: 90px;
+    font-size: 10px;
     padding: 3px;
+  }
+  .header_status{
+    font-size: 10px;
   }
 }

@@ -19,16 +19,12 @@ const Channellndex = ({ selectedSeq, setSelectedSeq }) => {
   }, []);
 
   const handleTabClick = (tab) => {
-    console.log("채널 클릭, selectedSeq:", selectedSeq);
-
     if (!selectedSeq) {
       alert("먼슬리를 보기 전에 채널을 먼저 선택하세요!");
       return;
     }
     setActiveTab(tab);
-
     if (tab === "schedule") {
-
       navigate("/channel/schedule");
     } else {
       navigate("/channel");

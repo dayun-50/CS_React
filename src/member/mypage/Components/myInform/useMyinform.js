@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function useMyinform() {
     const navigate = useNavigate();
-    const id = sessionStorage.getItem("id");
 
      // 수정 모드 상태
     const [isEditing, setIsEditing] = useState(false);
@@ -14,8 +13,7 @@ function useMyinform() {
     });
 
     useEffect(() => {
-        console.log("ID 확인:", id); // id 값이 정상적으로 들어오는지 확인
-        caxios.post("/member/mypage", { email: id },
+        caxios.post("/member/mypage",
             { withCredentials: true })
             .then(resp => {
                 if (resp.data) {
@@ -35,7 +33,7 @@ function useMyinform() {
                 console.log(err);
                 navigate("/"); alert("토큰 확인 실패 또는 오류 발생");
             })
-    }, [isEditing, id]);
+    }, [isEditing]);
 
     // 입력값 상태
     const [name, setName] = useState(memberData.name);
@@ -55,7 +53,7 @@ function useMyinform() {
             return;
         }
         // TODO: 서버 전송 로직 가능
-        caxios.post("/member/updateMypage", { email: id, name: name, phone: `010${phone1}${phone2}` },
+        caxios.post("/member/updateMypage", {name: name, phone: `010${phone1}${phone2}` },
             { withCredentials: true })
             .then(resp => {
                 alert("수정이 완료되었습니다.");
@@ -69,7 +67,7 @@ function useMyinform() {
     };
 
     return {
-        id, memberData, isEditing, name, phone, phone1, phone2,
+        memberData, isEditing, name, phone, phone1, phone2,
         setName, setPhone1, setPhone2,
         handleSaveClick, handleEditClick, handleCancelClick
     }

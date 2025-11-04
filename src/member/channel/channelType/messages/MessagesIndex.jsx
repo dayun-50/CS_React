@@ -17,7 +17,6 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   // 알람 상태변수
   const [alertRooms, setAlertRooms] = useState([]);
   const [rooms, setRooms] = useState(false);
-  const id = sessionStorage.getItem("id");
   // 컴플리트
   const [isOn, setIsOn] = useState(true);
   // 인원 카운트 
@@ -43,7 +42,7 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
 
   const handleSelect = (selectedPeople) => {
     // 여기서 채널 생성 API 호출하거나 상태 업데이트 로직 작성 가능
-    caxios.post("/chat/newCaht", { owner_email: id, title: title, contact_seq: selectedPeople },
+    caxios.post("/chat/newCaht", { title: title, contact_seq: selectedPeople },
       { withCredentials: true })
       .then(resp => {
         setRooms(prev => !prev);
@@ -58,7 +57,7 @@ const MessagesIndex = ({ selectedSeq, setSelectedSeq }) => {
   const [fileTrigger, setFileTrigger] = useState(false);
   const handleFileUploaded = useCallback(() => {
     setFileTrigger(prev => !prev); // true ↔ false 반복
-  }, []);
+  });
 
 
 

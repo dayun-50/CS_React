@@ -4,16 +4,15 @@ import { caxios } from "../../../../../../config/config";
 
 function useChatRoomPlus(selected, title, setTitle ) {
     const [recipients, setRecipients] = useState([]);
-    const id = sessionStorage.getItem("id");
     const [list, setList] = useState("");
 
     useEffect(() => {
-        caxios.post("/chat/contactList", { member_email: id }, { withCredentials: true })
+        caxios.post("/chat/contactList", { withCredentials: true })
             .then(resp => {
                 setRecipients(resp.data);
             })
             .catch(err => console.log(err));
-    }, [id]);
+    }, []);
 
     useEffect(() => {
         // selected에 저장된 contact_seq를 이용해서 이름 문자열 만들기

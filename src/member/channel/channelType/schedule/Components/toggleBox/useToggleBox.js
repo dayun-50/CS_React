@@ -4,14 +4,12 @@ import { use } from "react";
 
 function useToggleBox(seq, selected, setSelected) {
 
-    const id = sessionStorage.getItem("id");
-
     const [members, setMembers] = useState([]);
 
     // 채팅방 멤버 출력
     useEffect(() => {
         if (!seq) return;
-        caxios.post("/schedule/selectMember", { chat_seq: seq, member_email: id },
+        caxios.post("/schedule/selectMember", { chat_seq: seq },
             { withCredentials: true })
             .then(resp => {
                 setMembers(resp.data);

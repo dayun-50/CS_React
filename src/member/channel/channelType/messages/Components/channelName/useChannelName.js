@@ -7,10 +7,8 @@ function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms, isO
     const [rooms, setRooms] = useState([]);
     const [chatSeq, setChatSeq] = useState("");
 
-    const id = sessionStorage.getItem("id");
-
     useEffect(() => {
-        caxios.post("/chat/chatRoomList", { email: id },
+        caxios.post("/chat/chatRoomList",
             { withCredentials: true })
             .then(resp => {
                 setDeptSeq(resp.data[0].chat_seq);
@@ -20,7 +18,7 @@ function useChannelName(onChannelClick, alertRooms, setAlertRooms, newRooms, isO
             .catch(err => {
                 console.log(err);
             });
-    }, [newRooms, isOn, id]);
+    }, [newRooms, isOn]);
 
     // 클릭이벤트
     const handleClickChat = (chat_seq)=>{

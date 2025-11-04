@@ -8,10 +8,8 @@ function useAttendance(onChannelClick, alertRooms, setAlertRooms) {
     const [members, setMembers] = useState([]);
     const [chatSeq, setChatSeq] = useState("");
 
-    const id = sessionStorage.getItem("id");
-
     useEffect(() => {
-        caxios.post("/chat/private", { email: id },
+        caxios.post("/chat/private", 
             { withCredentials: true })
             .then(resp => {
                 setMembers(resp.data);

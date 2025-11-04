@@ -9,7 +9,7 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
     useEffect(() => {
         const params = new URLSearchParams();
         selectedEmails.forEach(email => params.append("selectedEmails", email));
-        caxios.post(`/schedule/eventsList?${params.toString()}`, { chat_seq: seq, member_email: id },
+        caxios.post(`/schedule/eventsList?${params.toString()}`, { chat_seq: seq },
             { withCredentials: true })
             .then(resp => {
                 setEvents(resp.data.map(e => ({
@@ -37,7 +37,6 @@ function useScheduleBox(events, setEvents, seq, selectedEmails) {
             color: events.color,
             start_at: events.start,
             end_at: events.end,
-            member_email: id,
             chat_seq: seq
         },
             { withCredentials: true })

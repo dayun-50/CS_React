@@ -6,10 +6,8 @@ function useCompletedChannel(onChannelClick, isOn) {
     const [completedList, setCompletedList] = useState([]);
     const [chatSeq, setChatSeq] = useState("");
 
-    const id = sessionStorage.getItem("id");
-
     useEffect(() => {
-        caxios.post("/chat/completedList", { email: id },
+        caxios.post("/chat/completedList",
             { withCredentials: true })
             .then(resp => {
                 setCompletedList(resp.data);

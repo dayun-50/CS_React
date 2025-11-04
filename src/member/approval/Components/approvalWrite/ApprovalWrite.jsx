@@ -22,7 +22,14 @@ function ApprovalWrite() {
     //내용 저장
     const contentRef = useRef(null);
     const titleRef = useRef(null);
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleSave = () => {
+        if (isSubmitting) return;//전송중이면 리턴
+        setIsSubmitting(true);
+
+
+
         const title = titleRef.current?.innerText || "";
         const content = contentRef.current?.innerHTML || "";
 
@@ -51,7 +58,12 @@ function ApprovalWrite() {
             })
             .catch(() => {
                 alert("오류가 발생했습니다");
+                setIsSubmitting(false);
             })
+            .finally(() => {
+            setIsSubmitting(false);
+    });
+
     };
 
 

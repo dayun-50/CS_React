@@ -97,7 +97,7 @@
   flex-direction: column;
   gap: 18px;
   color: #303030;
-  max-height: 280px;
+  max-height: 380px;
   overflow-y: auto;
   padding-right: 8px; /* 스크롤 여유 공간 */
   box-sizing: border-box; /* 이거 없으면 ellipsis 안될 수 있음 */

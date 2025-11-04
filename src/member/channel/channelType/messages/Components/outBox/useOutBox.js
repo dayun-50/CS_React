@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
 import { caxios } from "../../../../../../config/config";
 
-function useOutBox(seq, isOn, setIsOn) {
-    const id = sessionStorage.getItem("id");
-    const [manager, setManager] = useState("");
+function useOutBox(seq, setIsOn, setLoading) {
+  const id = sessionStorage.getItem("id");
+  const [manager, setManager] = useState("");
 
-    // 프로젝트 on/ off 출력
-    useEffect(() => {
-        caxios.post("/chatRoom/manager", { chat_seq: seq }, { withCredentials: true })
-            .then(resp => {
-                setManager(resp.data.manager_email);
-                if (resp.data.project_progress == "y") {
-                    setIsOn(true);
-                } else {
-                    setIsOn(false);
-                }
-            })
-            .catch(err => console.log(err));
-    }, [seq]);
+  useEffect(() => {
+    setLoading(true);
+    caxios.post("/chatRoom/manager", { chat_seq: seq }, { withCredentials: true })
+      .then(resp => {
+        setManager(resp.data.manager_email);
+        setIsOn(resp.data.project_progress === "y");
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false)); // 로딩 완료
+  }, [seq]);
 
-    return {
-        id, manager
-    }
+  return { id, manager };
 }
+
 export default useOutBox;

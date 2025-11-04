@@ -38,7 +38,7 @@ function useChatBox(
     caxios
       .post(
         "/chat/chatRoom",
-        { chat_seq: seq, member_email: id },
+        { chat_seq: seq},
         { withCredentials: true }
       )
       .then((resp) => {

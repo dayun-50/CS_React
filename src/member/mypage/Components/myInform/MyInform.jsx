@@ -5,7 +5,7 @@ import useMyinform from "./useMyinform";
 function MyInform() {
   // 혜빈 언니꺼 나중에 최종적인거 받으면 
   const {
-    id, memberData, isEditing, name, phone, phone1, phone2,
+    memberData, isEditing, name, phone, phone1, phone2,
     setName, setPhone1, setPhone2,
     handleSaveClick, handleEditClick, handleCancelClick
   } = useMyinform();
@@ -21,7 +21,7 @@ function MyInform() {
           <label className={styles.label}>이메일</label>
           <div className={styles.rectangleParent}>
             <div className={styles.groupChild} />
-            <input type="text" className={styles.input} value={id} disabled />
+            <input type="text" className={styles.input} value={memberData.email} disabled />
           </div>
         </div>
 

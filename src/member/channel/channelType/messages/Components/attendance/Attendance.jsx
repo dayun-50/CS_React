@@ -4,7 +4,6 @@ import collapse from "./icon/Collapse Arrow.svg";
 import useAttendance from "./useAttendance";
 
 const Attendance = ({ onChannelClick, alertRooms , setAlertRooms, selectedSeq}) => {
-  console.log(alertRooms);
   const {
     members, chatSeq,
     handleClickChat

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const caxios = axios.create({
-  baseURL: `http://10.5.5.5`,
+  baseURL: ` `, // 채우기
 });
 
 // 이 함수는 MailWrite.jsx에서 호출되며, James Access Token을 수동으로 삽입합니다.

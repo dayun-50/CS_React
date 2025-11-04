@@ -47,12 +47,12 @@ const MailList = ({ tabName = "전체" }) => {
   const navigate = useNavigate();
 
   // ---------------- 상태 변수 ----------------
-  const [mailList, setMailList] = useState([]); // 💡 실제 API 데이터 목록
-  const [isLoading, setIsLoading] = useState(true); // 💡 로딩 상태
+  const [mailList, setMailList] = useState([]); // 실제 API 데이터 목록
+  const [isLoading, setIsLoading] = useState(true); //  로딩 상태
   const [currentPage, setCurrentPage] = useState(1);
   const [headerSelected, setHeaderSelected] = useState(false);
   const [selectedMails, setSelectedMails] = useState([]); //uid 저장
-  const [sortBy, setSortBy] = useState("date"); // 💡 date -> receivedDate
+  const [sortBy, setSortBy] = useState("date"); //  date -> receivedDate
   const [sortAsc, setSortAsc] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -76,17 +76,17 @@ const MailList = ({ tabName = "전체" }) => {
       setIsLoading(true);
 
       try {
-        // 💡 API 호출: INBOX, Sent 구분하여 호출
+        //  API 호출: INBOX, Sent 구분하여 호출
         let folderToFetch = "INBOX";
         if (tabName === "보낸 편지함") folderToFetch = "Sent";
-        // 💡 mailRequest 헬퍼 함수를 사용하여 JWT 인증을 통과하며 데이터 요청
+        //  mailRequest 헬퍼 함수를 사용하여 JWT 인증을 통과하며 데이터 요청
 
         const response = await mailRequest(
           "get",
           `/emails/list?folder=${folderToFetch}`
         );
         if (response.data.status === "SUCCESS" && response.data.emails) {
-          // 💡 [핵심] folder.getMessages()의 결과(EmailDTO 목록)를 상태에 저장
+          //  [핵심] folder.getMessages()의 결과(EmailDTO 목록)를 상태에 저장
           setMailList(response.data.emails);
         } else {
           setMailList([]);
@@ -144,7 +144,7 @@ const MailList = ({ tabName = "전체" }) => {
   const currentMails = sortedMails.slice(indexOfFirstMail, indexOfLastMail);
 
   // ---------------- 클릭 이벤트 ----------------
-  // 💡 상세 페이지 이동 시 mail.uid 로 수정
+  //  상세 페이지 이동 시 mail.uid 로 수정
   const handleMailClick = (mail) => {
     // 상세 페이지에서는 실제 폴더 이름을 전달해야 정확한 메일을 로드할 수 있음
     let folderName = "";
@@ -187,7 +187,7 @@ const MailList = ({ tabName = "전체" }) => {
       return;
     }
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      // 💡 임시: setMailList로 상태 업데이트 (실제로는 API 호출 후 fetchMailList 재호출)
+      //  임시: setMailList로 상태 업데이트 (실제로는 API 호출 후 fetchMailList 재호출)
       setMailList((prev) =>
         prev.filter((mail) => !selectedMails.includes(mail.uid))
       );
@@ -273,7 +273,7 @@ const MailList = ({ tabName = "전체" }) => {
 
         {/* 메일 리스트 */}
         <div className={styles.realmaillist}>
-          {isLoading ? ( // 💡 로딩 상태 표시
+          {isLoading ? ( //  로딩 상태 표시
             <p>메일 목록을 불러오는 중입니다...</p>
           ) : currentMails.length > 0 ? (
             currentMails.map((mail) => (

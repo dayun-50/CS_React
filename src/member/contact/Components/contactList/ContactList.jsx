@@ -11,10 +11,8 @@ import rightArrow from "./icon/rightArrow.svg"; // >
 import doubleRightArrow from "./icon/doubleRightArrow.svg"; // >>
 
 const ContactList = () => {
-  // 로그인 정보 가져오기
-  const { id: userEmail, isLogin } = useAuthStore();
+  const { isLogin } = useAuthStore();
 
-  // 상태값 정의
   const [contacts, setContacts] = useState([]); // 전체 연락처
   const [searchTerm, setSearchTerm] = useState(""); // 검색어
   const [selectedContact, setSelectedContact] = useState(null); // 상세보기
@@ -23,19 +21,12 @@ const ContactList = () => {
 
   // 연락처 가져오기 함수
   const fetchContacts = async () => {
-    console.log("로그인 상태:", isLogin);
-    console.log("현재 사용자 이메일:", userEmail);
-
-    // 로그인 안 되었으면 목록 초기화
-    if (!isLogin || !userEmail) {
-      console.log("API 호출 조건 불만족 (로그인 필요)");
+    if (!isLogin) {
       return setContacts([]);
     }
 
     try {
-      // 전체 주소록 조회 (백엔드: /contact/list/{userEmail})
-      const res = await caxios.get(`/contact/list/${userEmail}`);
-      console.log("API 응답 데이터:", res.data);
+      const res = await caxios.get(`/contact/list`);
       setContacts(res.data || []);
     } catch (err) {
       console.error("연락처 로딩 실패:", err);
@@ -43,18 +34,12 @@ const ContactList = () => {
     }
   };
 
-  // 컴포넌트 로드시 및 로그인 정보 변경 시 데이터 로드
-  useEffect(() => {
-    fetchContacts();
-  }, [isLogin, userEmail]);
-
   // '개인용'으로 변경 핸들러
   const handleIndividual = (contact_seq) => {
     caxios
       .put(`/contact/update`, {
         share: "n",
         contact_seq,
-        owner_email: userEmail,
       })
       .then(() => {
         // share 상태를 즉시 반영
@@ -75,7 +60,6 @@ const ContactList = () => {
       .put(`/contact/update`, {
         share: "y",
         contact_seq,
-        owner_email: userEmail,
       })
       .then(() => {
         // share 상태를 즉시 반영

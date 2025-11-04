@@ -92,12 +92,24 @@
   min-width: 0;
 }
 
-.cell.number { flex: 0.08; }
-.cell.name { flex: 0.12; }
-.cell.company { flex: 0.2; }
-.cell.email { flex: 0.2; }
-.cell.phone { flex: 0.15; }
-.cell.group { flex: 0.25; }
+.cell.number {
+  flex: 0.08;
+}
+.cell.name {
+  flex: 0.12;
+}
+.cell.company {
+  flex: 0.2;
+}
+.cell.email {
+  flex: 0.2;
+}
+.cell.phone {
+  flex: 0.15;
+}
+.cell.group {
+  flex: 0.25;
+}
 
 /* Button Group */
 .buttonGroup {
@@ -141,6 +153,24 @@
 .button.inactive:hover {
   background-color: var(--color-sud-color1);
   color: var(--color-white);
+  opacity: 0.9;
+}
+
+/* 팀원이 공유한 팀용 */
+.team {
+  background-color: var(--color-delete-hover);
+  color: #ffffff;
+  font-weight: bold;
+  border: 1px solid var(--color-sud-color2);
+  opacity: 0.95;
+}
+
+/* 내가 공유한 팀용 */
+.myTeam {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: bold;
+  border: 1px solid var(--color-sud-color2);
   opacity: 0.9;
 }
 
@@ -222,15 +252,30 @@
 
 /* Responsive */
 @media (min-width: 768px) {
-  .pageButton, .pageArrow { width: 36px; height: 36px; font-size: 16px; }
+  .pageButton,
+  .pageArrow {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
-  .pageButton, .pageArrow { width: 32px; height: 32px; font-size: 15px; }
+  .pageButton,
+  .pageArrow {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 480px) {
-  .pageButton, .pageArrow { width: 28px; height: 28px; font-size: 14px; }
+  .pageButton,
+  .pageArrow {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
 }
 
 /* Tablet / Mobile adjustments */
@@ -240,36 +285,96 @@
     align-items: flex-start;
     padding: 1.25rem;
   }
-  .title { width: 100%; margin-bottom: 0.9375rem; }
-  .searchBox { width: 100%; height: 2.25rem; font-size: 0.875rem; }
-  .searchInput { font-size: 0.875rem; }
-  .tableHeader, .tableRow { margin: 0 1.25rem; font-size: 1rem; }
+  .title {
+    width: 100%;
+    margin-bottom: 0.9375rem;
+  }
+  .searchBox {
+    width: 100%;
+    height: 2.25rem;
+    font-size: 0.875rem;
+  }
+  .searchInput {
+    font-size: 0.875rem;
+  }
+  .tableHeader,
+  .tableRow {
+    margin: 0 1.25rem;
+    font-size: 1rem;
+  }
   .tableHeader .cell.number,
   .tableRow .cell.number,
   .tableHeader .cell.email,
-  .tableRow .cell.email { display: none; }
-  .cell.name { flex: 0.2; }
-  .cell.company { flex: 0.25; }
-  .cell.phone { flex: 0.2; }
-  .cell.group { flex: 0.35; }
-  .buttonGroup { max-width: none; height: 2.25rem; }
-  .button { font-size: 0.875rem; height: 2.25rem; }
+  .tableRow .cell.email {
+    display: none;
+  }
+  .cell.name {
+    flex: 0.2;
+  }
+  .cell.company {
+    flex: 0.25;
+  }
+  .cell.phone {
+    flex: 0.2;
+  }
+  .cell.group {
+    flex: 0.35;
+  }
+  .buttonGroup {
+    max-width: none;
+    height: 2.25rem;
+  }
+  .button {
+    font-size: 0.875rem;
+    height: 2.25rem;
+  }
 }
 
 @media (max-width: 487px) {
-  .contactList { padding: 0.875rem; }
-  .header { padding: 0; }
-  .searchBox { width: 100%; height: 2rem; font-size: 0.75rem; padding: 0 0.75rem; }
-  .tableHeader, .tableRow { margin: 0; font-size: 0.875rem; padding: 0; overflow-x: auto; }
+  .contactList {
+    padding: 0.875rem;
+  }
+  .header {
+    padding: 0;
+  }
+  .searchBox {
+    width: 100%;
+    height: 2rem;
+    font-size: 0.75rem;
+    padding: 0 0.75rem;
+  }
+  .tableHeader,
+  .tableRow {
+    margin: 0;
+    font-size: 0.875rem;
+    padding: 0;
+    overflow-x: auto;
+  }
   .tableHeader .cell.number,
   .tableRow .cell.number,
   .tableHeader .cell.company,
   .tableRow .cell.company,
   .tableHeader .cell.email,
-  .tableRow .cell.email { display: none; }
-  .cell.name { flex: 1; font-size: 0.75rem; }
-  .cell.phone { flex: 1.5; font-size: 0.75rem; }
-  .cell.group { flex: 2; }
-  .buttonGroup { height: 2rem; font-size: 0.75rem; }
-  .button { font-size: 0.75rem; height: 2rem; }
+  .tableRow .cell.email {
+    display: none;
+  }
+  .cell.name {
+    flex: 1;
+    font-size: 0.75rem;
+  }
+  .cell.phone {
+    flex: 1.5;
+    font-size: 0.75rem;
+  }
+  .cell.group {
+    flex: 2;
+  }
+  .buttonGroup {
+    height: 2rem;
+    font-size: 0.75rem;
+  }
+  .button {
+    font-size: 0.75rem;
+    height: 2rem;
+  }
 }

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import useChannelName from "../channelName/useChannelName";
 import styles from "./fileBox.module.css";

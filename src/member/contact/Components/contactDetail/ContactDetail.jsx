@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./ContactDetail.module.css";
 import { IoClose } from "react-icons/io5";
-import { caxios } from "../../../../config/config"; // axios 인스턴스
+import { caxios } from "../../../../config/config";
 import useAuthStore from "../../../../store/useAuthStore";
 
 const ContactDetail = ({ contact, onClose, onDeleted, onUpdated }) => {
-  const { id: userEmail } = useAuthStore();
+  const { id: userEmail } = useAuthStore();  // 로그인 토큰 기반 사용자 이메일
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [category, setCategory] = useState(

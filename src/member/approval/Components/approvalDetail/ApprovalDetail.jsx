@@ -81,7 +81,11 @@ function ApprovalDetail() {
         setUpdating(false);
     }
     //수정완료 버튼누르면
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleUpdateCom = () => {
+        if (isSubmitting) return;//전송중이면 리턴
+        setIsSubmitting(true);
+
         const approval_title = titleRef.current?.innerText || "";
         const approval_content = contentRef.current?.innerHTML || "";
 
@@ -117,7 +121,13 @@ function ApprovalDetail() {
                 setUpdating(false);
                 alert("수정이 완료되었습니다!");
             })
-            .catch(() => alert("올바르지 않은 접근입니다!"));
+            .catch(() => {
+                alert("오류가 발생했습니다");
+                setIsSubmitting(false);
+            })
+            .finally(() => {
+            setIsSubmitting(false)
+            });
     };
 
 
@@ -213,7 +223,7 @@ function ApprovalDetail() {
                                                 <img className={styles.documentIcon} alt="" />
                                             </div> */}
                                             <div className={styles.hwp}>
-                                                <a href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`} download >
+                                                <a href={`http://10.5.5.9/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`} download >
                                                     {file.oriname}
                                                 </a>
                                             </div>

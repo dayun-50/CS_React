@@ -8,7 +8,7 @@ function useMySchedule(selectedSeq, setSelectedSeq) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        caxios.post("/schedule/myschedule", { member_email: id }, { withCredentials: true })
+        caxios.post("/schedule/myschedule", { withCredentials: true })
             .then(resp => {
                 const newData = resp.data.map(data => {
                     const startDate = new Date(data.start_at);

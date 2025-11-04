@@ -113,13 +113,13 @@ function useLogin() {
 
           if (generalToken) {
             login(generalToken, id);
-            // const token = resp.data;
-            // login(token, id);
+
+            console.log(resp.data);
+
             navigate("/");
           } else {
             alert("토큰 구조 오류로 로그인 실패");
           }
-
         }
       })
       .catch((err) => {

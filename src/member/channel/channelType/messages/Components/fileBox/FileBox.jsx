@@ -7,7 +7,6 @@ import { caxios } from "../../../../../../config/config";
 import dayjs from "dayjs";
 import { IoClose } from "react-icons/io5";
 
-
 const FileBox = ({ seq, trigger }) => {
   const [files, setFiles] = useState([]);
 
@@ -18,21 +17,25 @@ const FileBox = ({ seq, trigger }) => {
   useEffect(() => {
     if (!seq) return;
     if (isSearching) return;
-    caxios.get(`/chatMessage/${seq}`)
-      .then(resp => {
-        setFiles(resp.data);
-      })
-  }, [seq, trigger, isSearching])
+    caxios.get(`/chatMessage/${seq}`).then((resp) => {
+      setFiles(resp.data);
+    });
+  }, [seq, trigger, isSearching]);
 
   // 검색 버튼 클릭 함수
   const serchBut = () => {
     if (!serchValue) return;
-    caxios.post("/chatMessage/serchByFileText", { chat_seq: seq, oriname: serchValue }, { withCredentials: true })
-      .then(resp => {
-        setIsSearching(prev => !prev);
+    caxios
+      .post(
+        "/chatMessage/serchByFileText",
+        { chat_seq: seq, oriname: serchValue },
+        { withCredentials: true }
+      )
+      .then((resp) => {
+        setIsSearching((prev) => !prev);
         setFiles(resp.data);
       })
-      .catch(err=>console.log(err));
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -62,7 +65,11 @@ const FileBox = ({ seq, trigger }) => {
             }}
             style={{ cursor: "pointer" }}
           >
-            {isSearching ? <IoClose size={20} /> : <img src={search} alt="검색 아이콘" />}
+            {isSearching ? (
+              <IoClose size={20} />
+            ) : (
+              <img src={search} alt="검색 아이콘" />
+            )}
           </span>
         </div>
       </div>
@@ -70,21 +77,23 @@ const FileBox = ({ seq, trigger }) => {
       <div className={styles.fileList}>
         {files.map((file, index) => (
           <div key={index} className={styles.fileItem}>
-  <div className={styles.fileName}>
-    <a
-      href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
-      download
-      title={file.oriname}
-    >
-      {file.oriname.length > 30 
-        ? file.oriname.slice(0, 15) + "..." + file.oriname.slice(-10)
-        : file.oriname}
-    </a>
-  </div>
-  <div className={styles.fileDate}>
-    {file.upload_at ? dayjs(file.upload_at).format("YYYY-MM-DD") : ""}
-  </div>
-</div>
+            <div className={styles.fileName}>
+              <a
+                href={`http://127.0.0.1/file/download?sysname=${encodeURIComponent(
+                  file.sysname
+                )}&file_type=${encodeURIComponent(file.file_type)}`}
+                download
+                title={file.oriname}
+              >
+                {file.oriname.length > 30
+                  ? file.oriname.slice(0, 15) + "..." + file.oriname.slice(-10)
+                  : file.oriname}
+              </a>
+            </div>
+            <div className={styles.fileDate}>
+              {file.upload_at ? dayjs(file.upload_at).format("YYYY-MM-DD") : ""}
+            </div>
+          </div>
         ))}
       </div>
     </div>

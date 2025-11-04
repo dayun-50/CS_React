@@ -8,6 +8,9 @@ function useFindpw() {
     // 입력창 빈값 확인용
     const [check, setCheck] = useState({ id: false, idcheck: false });
 
+    // error 상태 추가 이메일 인증 실패
+    const [error, setError] = useState({ emailauth: false });
+
     // 상태변수 준비
     const [id, setId] = useState(""); // 이메일
     const [emailauth, setEmailauth] = useState(""); // 이메일 인증
@@ -23,31 +26,28 @@ function useFindpw() {
     }, [serverCode]);
 
     // 아이디(이메일) 입력창 핸들러
-    const hendleChangeById = (e) => {
-        let value = e.target.value;
-        setId(value);
-        setCheck(prev => ({
-            ...prev,
-            id: idRegex.test(value),
-            idcheck: false
-        }));
-        if (check.id === false) {
-            /*
-                보더 색깔창이요
-            */
-        }
-    }
+   const hendleChangeById = (e) => {
+    const value = e.target.value;
+    setId(value);
+
+    const isValid = idRegex.test(value); // 바로 유효성 체크
+    setCheck(prev => ({
+        ...prev,
+        id: isValid,
+        idcheck: false
+    }));
+
+}
     // 이메일 인증 핸들러
     const hendleChangeByEmailauth = (e) => {
         let value = e.target.value;
         setEmailauth(value);
         if (value == serverCode) { // 서버에서 전달해준 값과 같다면
             setCheck(prev => ({ ...prev, idcheck: true }));
+            setError(prev => ({ ...prev, emailauth: false })); // 틀렸으면 border 제거
         } else {
             setCheck(prev => ({ ...prev, idcheck: false }));
-            /*
-                보더 색넣는거 해야함
-            */
+            setError(prev => ({ ...prev, emailauth: true })); // 틀렸으면 border 표시
         }
     }
 
@@ -93,7 +93,8 @@ function useFindpw() {
     return {
         id, emailauth,
         hendleChangeById, hendleChangeByEmailauth,
-        clickByEmailauth, clickByComplete
+        clickByEmailauth, clickByComplete,
+        error,check,
     }
 }
 export default useFindpw;

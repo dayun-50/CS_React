@@ -113,7 +113,7 @@
   justify-content: center;
 } */
 
-/* 뒤로가기 버튼 */
+/*수정버튼*/
 .button {
   width: 200px;
   height: 48px;
@@ -127,9 +127,30 @@
   position: sticky;
   align-self: flex-end;
 }
+
+.button:hover {
+  background-color: #007ACC;
+}
+/*취소 버튼*/
+.dbutton {
+  width: 200px;
+  height: 48px;
+  border-radius: 22px;
+  background-color: #D9D9D9;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  transition: background-color 0.2s;
+  position: sticky;
+  align-self: flex-end;
+}
+
+.dbutton:hover {
+  background-color: #B0B0B0;
+}
 .cancelButton {
   background-color: #ccc;
-  color: #333;
   margin-left: 10px;
 }
 

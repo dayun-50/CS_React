@@ -36,8 +36,6 @@ const ContactForm = () => {
       owner_email: ownerEmail,
     };
 
-    console.log("전송 payload:", JSON.stringify(payload, null, 2));
-
     try {
       const res = await caxios.post("/contact/insert", payload);
       if (res.status === 200 && res.data === 1) {

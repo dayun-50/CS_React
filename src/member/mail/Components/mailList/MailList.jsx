@@ -235,7 +235,7 @@ const MailList = ({ tabName = "전체" }) => {
             <div
               className={styles.mailcircle}
               onClick={handleHeaderCircleClick}
-              style={{ backgroundColor: headerSelected ? "#007AFF" : "#ccc" }}
+              style={{ backgroundColor: headerSelected ? "#0090FF" : "#ccc" }}
             />
             <span className={styles.mailtext}>목록</span>
             <button className={styles.delebt} onClick={handleDeleteClick}>

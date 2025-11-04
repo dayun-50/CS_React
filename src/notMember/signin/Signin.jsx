@@ -9,7 +9,7 @@ function Signin() {
 
     // js 코드들 따로 모아두고 임포트시켜서 사용함
     const {
-        id,emailauth, pw, name, phone1, phone2, code, checked,
+        id,emailauth, pw, name, phone1, phone2, code, checked,error,
         hendleChangeById, hendleChangeByPw, hendleChangeByName, hendleChangeByPhone1,
         hendleChangeByPhone2, hendleChangeByCode, hendleChangeByEmailauth,
         clickByChacBox, clickByComplete, clickByEmailauth
@@ -42,7 +42,14 @@ function Signin() {
                     <div className={styles.newemail}>
                         <label htmlFor="email">이메일</label>
                         <div className={styles.inputButtonWrapper}>
-                            <input id="email" type="email" placeholder="이메일" value={id} onChange={hendleChangeById} />
+                            <input 
+                                id="email" 
+                                type="email" 
+                                placeholder="이메일" 
+                                value={id} 
+                                onChange={hendleChangeById} 
+                                className={error.id ? styles.inputError : ""}
+                                />
                             <button className={styles.emailauth} onClick={clickByEmailauth}>이메일 인증</button>
                         </div>
                     </div>
@@ -50,26 +57,60 @@ function Signin() {
                     <div className={styles.newpw}>
 
                     <label htmlFor="emailok">이메일 확인</label>
-                    <input id="emailok" type="password" placeholder="이메일 인증" value={emailauth} onChange={hendleChangeByEmailauth}/> <br/>
+                    <input 
+                        id="emailok" 
+                        type="password" 
+                        placeholder="이메일 인증" 
+                        value={emailauth} onChange={hendleChangeByEmailauth}
+                        className={error.idcheck ? styles.inputError : ""}
+                        /> <br/>
                     </div>
 
                     <div className={styles.newpw}>
                     <label htmlFor="password">비밀번호</label>
-                    <input id="password" type="password" placeholder="비밀번호" value={pw} onChange={hendleChangeByPw}/> <br/>
+                    <input 
+                        id="password" 
+                        type="password" 
+                        placeholder="비밀번호" 
+                        value={pw} 
+                        onChange={hendleChangeByPw}
+                        className={error.pw ? styles.inputError : ""}
+                        /> <br/>
                     </div>
 
                     <div className={styles.name}>
                         <label htmlFor="name">이름</label>
-                        <input id="name" type="text" placeholder="이름" value={name} onChange={hendleChangeByName} /> <br />
+                        <input 
+                            id="name" 
+                            type="text" 
+                            placeholder="이름" 
+                            value={name} 
+                            onChange={hendleChangeByName} 
+                            className={error.name ? styles.inputError : ""}
+                            /> <br />
                     </div>
 
                     <div className={styles.phone}>
                         <label htmlFor="phone">연락처</label>
                         <div className={styles.phoneWrapper}>
                             <span className={styles.prefix}>010 -</span>
-                            <input id="phone1" type="text" placeholder="연락처" value={phone1} onChange={hendleChangeByPhone1}/>
+                            <input 
+                                id="phone1" 
+                                type="text" 
+                                placeholder="연락처" 
+                                value={phone1} 
+                                onChange={hendleChangeByPhone1}
+                                className={error.phone1 ? styles.inputError : ""}
+                                />
                             <span className={styles.dash}>-</span>
-                            <input id="phone2" type="text" placeholder="연락처" value={phone2} onChange={hendleChangeByPhone2}/>
+                            <input 
+                                id="phone2" 
+                                type="text" 
+                                placeholder="연락처" 
+                                value={phone2} 
+                                onChange={hendleChangeByPhone2}
+                                className={error.phone2 ? styles.inputError : ""}
+                                />
                         </div>
                     </div>
 

@@ -22,6 +22,7 @@ const BoardList = () => {
 
   const target = null; // 필요 시 필터용
 
+  const id = sessionStorage.getItem("id"); //토큰 생성시 삭제해야함 - 혜빈 
 
   const totalPages = Math.ceil(allNotices.length / PAGE_SIZE);
 
@@ -30,7 +31,9 @@ const BoardList = () => {
     const url = target ? `/board/notices?type=${target}` : `/board/notices`;
 
     caxios
-      .get(url)
+      .get(url, {
+        params: { "email": id }
+      })
       .then((resp) => {
         const data = resp.data.items || resp.data;
         setAllNotices(data); // 전체 데이터만 저장

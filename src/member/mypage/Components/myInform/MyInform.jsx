@@ -116,7 +116,7 @@ function MyInform() {
         ) : (
           <>
             <button
-              className={`${styles.button} ${styles.cancelButton}`}
+              className={`${styles.dbutton} ${styles.cancelButton}`}
               onClick={handleCancelClick}
             >
               취소

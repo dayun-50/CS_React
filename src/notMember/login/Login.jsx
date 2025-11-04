@@ -4,7 +4,8 @@ import useLogin from "./useLogin";
 
 function Login() {
   // js 코드들 따로 모아두고 임포트시켜서 사용함
-  const { id, pw, hendleChangeById, hendleChangeByPw, clickLogin } = useLogin();
+  const { id, pw, error, hendleChangeById, hendleChangeByPw, clickLogin } =
+    useLogin();
 
   return (
     <div
@@ -50,6 +51,42 @@ function Login() {
               placeholder="비밀번호"
               value={pw}
               onChange={hendleChangeByPw}
+            />
+          </div>
+
+          <button className={styles.loginbutton} onClick={clickLogin}>
+            로그인
+          </button>
+
+          <div className={styles.emailbox}>
+            <label htmlFor="email">이메일</label>
+            <br />
+            <input
+              id="email"
+              type="email"
+              placeholder="이메일"
+              value={id}
+              onChange={hendleChangeById}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") clickLogin();
+              }}
+              className={`${error.id ? styles.inputError : ""}`} //빈값이면 border
+            />
+          </div>
+
+          <div className={styles.pwbox}>
+            <label htmlFor="pw">비밀번호</label>
+            <br />
+            <input
+              id="pw"
+              type="password"
+              placeholder="비밀번호"
+              value={pw}
+              onChange={hendleChangeByPw}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") clickLogin();
+              }}
+              className={`${error.pw ? styles.inputError : ""}`} // 빈값이면 border
             />
           </div>
 

@@ -6,6 +6,7 @@
   padding: 20px 0;
   box-sizing: border-box;
   gap: 12px;
+
 }
 
 .header {
@@ -68,6 +69,7 @@
 
 /* 호버 효과 */
 .list li:hover {
+  width:100%;
   background-color: #f0f8ff;
   border-left: 2px solid #0090ff;
   color: #0090ff;

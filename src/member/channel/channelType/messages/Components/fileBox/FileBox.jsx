@@ -79,7 +79,7 @@ const FileBox = ({ seq, trigger }) => {
           <div key={index} className={styles.fileItem}>
             <div className={styles.fileName}>
               <a
-                href={`http://10.5.5.9/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
+                href={`https://member.cs505.site/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`}
                 download
                 title={file.oriname}
               >

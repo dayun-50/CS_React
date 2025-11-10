@@ -223,7 +223,7 @@ function ApprovalDetail() {
                                                 <img className={styles.documentIcon} alt="" />
                                             </div> */}
                                             <div className={styles.hwp}>
-                                                <a href={`http://10.5.5.9/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`} download >
+                                                <a href={`https://member.cs505.site/file/download?sysname=${encodeURIComponent(file.sysname)}&file_type=${encodeURIComponent(file.file_type)}`} download >
                                                     {file.oriname}
                                                 </a>
                                             </div>

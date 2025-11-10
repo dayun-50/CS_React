@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:80",
+
   "name": "groupware",
   "version": "0.1.0",
   "private": true,

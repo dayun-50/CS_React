@@ -61,7 +61,7 @@ function useChatBox(
     if (!room.title) return;
     setInput((prev) => ({ ...prev, chat_seq: seq }));
     ws.current = new WebSocket(
-      `ws://10.5.5.9/chatting?token=${token}&chat_seq=${seq}`
+      `wss://member.cs505.site/chatting?token=${token}&chat_seq=${seq}`
     );
     ws.current.binaryType = "arraybuffer";
 

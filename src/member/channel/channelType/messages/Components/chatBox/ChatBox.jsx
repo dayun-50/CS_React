@@ -198,7 +198,7 @@ const ChatBox = ({ seq, setAlertRooms, onFileUploaded, setMemberCount, isOn }) =
                       ) : (
                         <div>
                           <a
-                            href={`http://10.5.5.9/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
+                            href={`https://member.cs505.site/file/download?sysname=${encodeURIComponent(msg.sysname)}&file_type=${encodeURIComponent(msg.file_type)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             download
